@@ -1,0 +1,30 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ConnectionType {
+  Discord
+}
+
+model Connection {
+  userId       Int
+  user         User           @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  type         ConnectionType
+  clientId     String
+  accessToken  String
+  refreshToken String
+  expiresAt    DateTime
+
+  @@unique([userId, type])
+}
+
+model User {
+  userId      Int          @id @default(autoincrement())
+  connections Connection[]
+}
