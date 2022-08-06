@@ -10,20 +10,20 @@ type RoutesByPaths = {
 	[Path in InferRoutePath<RoutesByClassNames[keyof RoutesByClassNames]>]: RoutesByClassNames[keyof RoutesByClassNames];
 };
 
-export type ModmailRoutes = {
+export type AuthRoutes = {
 	[Path in keyof RoutesByPaths]: {
 		[Method in InferRouteMethod<RoutesByPaths[Path]>]: Narrow<RoutesByPaths[Path], { info: { method: Method } }>;
 	};
 };
 
-export type InferModmailRouteBody<
-	TPath extends keyof ModmailRoutes,
-	TMethod extends keyof ModmailRoutes[TPath],
-> = InferRouteBody<ModmailRoutes[TPath][TMethod]>;
+export type InferAuthRouteBody<
+	TPath extends keyof AuthRoutes,
+	TMethod extends keyof AuthRoutes[TPath],
+> = InferRouteBody<AuthRoutes[TPath][TMethod]>;
 
-export type InferModmailRouteResult<
-	TPath extends keyof ModmailRoutes,
-	TMethod extends keyof ModmailRoutes[TPath],
-> = InferRouteResult<ModmailRoutes[TPath][TMethod]>;
+export type InferAuthRouteResult<
+	TPath extends keyof AuthRoutes,
+	TMethod extends keyof AuthRoutes[TPath],
+> = InferRouteResult<AuthRoutes[TPath][TMethod]>;
 
 export * from './util/models';

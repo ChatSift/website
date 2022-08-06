@@ -16,7 +16,7 @@ model Connection {
   userId       Int
   user         User           @relation(fields: [userId], references: [userId], onDelete: Cascade)
   type         ConnectionType
-  clientId     String
+  clientId     String         @unique
   accessToken  String
   refreshToken String
   expiresAt    DateTime

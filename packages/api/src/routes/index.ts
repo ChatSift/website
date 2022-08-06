@@ -1,1 +1,1 @@
-export { default as SomethingRoute } from './something';
+export { default as GetDiscordAuthRoute } from './auth/discordAuth';
