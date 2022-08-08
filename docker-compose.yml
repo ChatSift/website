@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: 'backend'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_DB: 'backend'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:${DATABASE_PORT}:5432
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U backend']
+      interval: 10s
+      timeout: 5s
+
+  api:
+    image: chatsift/website_api
+    build:
+      context: ./
+      dockerfile: ./packages/api/Dockerfile
+    env_file:
+      - ./.env
+    environment:
+      DATABASE_URL: 'postgresql://backend:admin@postgres:5432/backend'
+    restart: unless-stopped
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:
+    name: 'website-postgres-data'

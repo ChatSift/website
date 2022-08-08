@@ -1,7 +1,7 @@
 import type { REST } from '@discordjs/rest';
-import ms from '@naval-base/ms';
+import { ms } from '@naval-base/ms';
 import { Connection, ConnectionType, PrismaClient } from '@prisma/client';
-import { Result } from '@sapphire/result';
+import { Option, Result } from '@sapphire/result';
 import {
 	APIUser,
 	PermissionFlagsBits,
@@ -12,7 +12,7 @@ import {
 import jwt from 'jsonwebtoken';
 import type { Response } from 'polka';
 import { inject, singleton } from 'tsyringe';
-import type { Env } from '../util/env';
+import { Env } from '../util/env';
 import { SYMBOLS } from '../util/symbols';
 
 export interface AccessTokenData {
@@ -51,7 +51,7 @@ export class Auth {
 		@inject(SYMBOLS.oauthRest) private readonly oauthRest: REST,
 	) {}
 
-	public populateAuthCookies(credentials: Credentials, res: Response): void {
+	public populateAuthCookies(res: Response, credentials: Credentials): void {
 		res.cookie('access_token', credentials.access.token, {
 			expires: credentials.access.expiration,
 			path: '/',
@@ -132,30 +132,32 @@ export class Auth {
 		return userId;
 	}
 
-	public fetchDiscordUser(token: string): Promise<Result<APIUserWithGuilds, Error>> {
-		return Result.fromAsync(async () => {
-			const userId = await this.verifyToken(token);
-			const user = await this.prisma.user.findFirstOrThrow({
-				where: {
-					userId,
-				},
-				include: {
-					connections: {
-						where: {
-							type: ConnectionType.Discord,
-						},
+	public async fetchDiscordConnection(token: string): Promise<Option<Connection>> {
+		const userId = await this.verifyToken(token);
+		const user = await this.prisma.user.findFirstOrThrow({
+			where: {
+				userId,
+			},
+			include: {
+				connections: {
+					where: {
+						type: ConnectionType.Discord,
 					},
 				},
-			});
+			},
+		});
 
-			const [connection] = user.connections as [Connection?];
-			if (!connection) {
-				throw new Error('no discord connection');
+		const [connection] = user.connections as [Connection?];
+		return Option.from(connection);
+	}
+
+	public fetchDiscordUser(discordAccessToken: string): Promise<Result<APIUserWithGuilds, Error>> {
+		return Result.fromAsync(async () => {
+			if (this.cachedDiscordUser.has(discordAccessToken)) {
+				return this.cachedDiscordUser.get(discordAccessToken)!;
 			}
 
-			if (this.cachedDiscordUser.has(connection.clientId)) {
-				return this.cachedDiscordUser.get(connection.clientId)!;
-			}
+			this.oauthRest.setToken(discordAccessToken);
 
 			const fetched = (await this.oauthRest.get(Routes.user())) as APIUser;
 			const rawGuilds = (await this.oauthRest.get(Routes.userGuilds())) as RESTGetAPICurrentUserGuildsResult;
@@ -164,18 +166,14 @@ export class Auth {
 			);
 
 			const discordUser: APIUserWithGuilds = { ...fetched, guilds };
-			this.cachedDiscordUser.set(connection.clientId, discordUser);
-			setTimeout(() => this.cachedDiscordUser.delete(connection.clientId), ms('5m')).unref();
+			this.cachedDiscordUser.set(discordAccessToken, discordUser);
+			setTimeout(() => this.cachedDiscordUser.delete(discordAccessToken), ms('5m')).unref();
 
 			return discordUser;
 		});
 	}
 
-	public async authWithDiscord(
-		userId: number,
-		discordUserId: string,
-		data: RESTPostOAuth2AccessTokenResult,
-	): Promise<Connection> {
+	public async loginWithDiscord(discordUserId: string, data: RESTPostOAuth2AccessTokenResult): Promise<Connection> {
 		const connectionData = {
 			clientId: discordUserId,
 			accessToken: data.access_token,
@@ -183,15 +181,23 @@ export class Auth {
 			expiresAt: new Date(Date.now() + data.expires_in * 1000),
 		};
 
-		return this.prisma.connection.upsert({
-			create: {
-				userId,
+		const existingConnection = await this.prisma.connection.findFirst({ where: { clientId: discordUserId } });
+		if (existingConnection) {
+			return this.prisma.connection.update({
+				data: connectionData,
+				where: {
+					clientId: discordUserId,
+				},
+			});
+		}
+
+		return this.prisma.connection.create({
+			data: {
+				user: {
+					create: {},
+				},
 				type: ConnectionType.Discord,
 				...connectionData,
-			},
-			update: connectionData,
-			where: {
-				clientId: discordUserId,
 			},
 		});
 	}

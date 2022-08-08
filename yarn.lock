@@ -32,14 +32,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chatsift/pino-rotate-file@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "@chatsift/pino-rotate-file@npm:0.1.1"
+"@chatsift/pino-rotate-file@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "@chatsift/pino-rotate-file@npm:0.1.2"
   dependencies:
     pino: ^8.4.0
     pino-abstract-transport: ^1.0.0
     tslib: ^2.4.0
-  checksum: d823a57409e7c4622c3b97a3a48933bd1321928199e477067e9c6e87a5ed4c660a084ef709c4da0a9dd9b037d20ed07af659a326e073373ebb4a6f495e6a437a
+  checksum: 3e01d5c44ffe6029694e48d8f0721701f6c8d2b95911565d33c74b18fec3fc51a24c743cac1a21ec09f3393295cfaf4cf8214dd2b91600e5da8396383ffa6b01
   languageName: node
   linkType: hard
 
@@ -53,9 +53,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chatsift/rest-utils@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "@chatsift/rest-utils@npm:0.5.0"
+"@chatsift/rest-utils@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@chatsift/rest-utils@npm:0.6.0"
   dependencies:
     "@hapi/boom": ^10.0.0
     "@sapphire/shapeshift": ^3.4.1
@@ -63,7 +63,7 @@ __metadata:
     tslib: ^2.4.0
     tsyringe: ^4.7.0
     undici: ^5.6.0
-  checksum: 490281dd8bea556e3cc020fb7f6b2835cd4cbac89dc199a4271f1951533f25e35a605498d799e5991a0cca7bcf638cb621762434646c479fdacb6990adc3c1e7
+  checksum: 791fdbf62503798dd1774110d8e6685c5a38012185bbe512da3e23a4bbe0670b4ed3b5a07a9ed55b66f2de39306091ca22bbb4f2669fa69a7660a9ed8555b225
   languageName: node
   linkType: hard
 
@@ -71,9 +71,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@chatsift/website-api@workspace:packages/api"
   dependencies:
-    "@chatsift/pino-rotate-file": ^0.1.1
+    "@chatsift/pino-rotate-file": ^0.1.2
     "@chatsift/readdir": ^0.2.0
-    "@chatsift/rest-utils": ^0.5.0
+    "@chatsift/rest-utils": ^0.6.0
     "@discordjs/rest": ^1.0.1
     "@hapi/boom": ^10.0.0
     "@naval-base/ms": ^3.1.0
@@ -99,6 +99,7 @@ __metadata:
     tslib: ^2.4.0
     tsyringe: ^4.7.0
     typescript: ^4.7.4
+    undici: ^5.8.1
   languageName: unknown
   linkType: soft
 
@@ -4417,7 +4418,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^5.8.0":
+"undici@npm:^5.8.0, undici@npm:^5.8.1":
   version: 5.8.1
   resolution: "undici@npm:5.8.1"
   checksum: 0d5d8b9654f031a5490dcd89cd73db452ad51b06def08ce4ac07a1a46564cb6f039be4862bc013ec45b7ca465a468eb5c4caa761a26541958307f8d75878129a

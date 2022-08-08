@@ -3,6 +3,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { readdirRecurse } from '@chatsift/readdir';
 import { attachHttpUtils, Route, sendBoom } from '@chatsift/rest-utils';
+import { REST } from '@discordjs/rest';
 import { Boom, isBoom, notFound } from '@hapi/boom';
 import { PrismaClient } from '@prisma/client';
 import cors from 'cors';
@@ -11,9 +12,11 @@ import polka, { Middleware } from 'polka';
 import { container } from 'tsyringe';
 import { Env } from './util/env';
 import { logger } from './util/logger';
+import { SYMBOLS } from './util/symbols';
 
 const env = container.resolve(Env);
 container.register(PrismaClient, { useValue: new PrismaClient() });
+container.register(SYMBOLS.oauthRest, { useValue: new REST({ authPrefix: 'Bearer' }) });
 
 const app = polka({
 	onError(e, _, res) {
