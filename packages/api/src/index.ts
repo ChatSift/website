@@ -10,6 +10,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import polka, { Middleware } from 'polka';
 import { container } from 'tsyringe';
+import { proxyRequests } from './middleware/proxyRequests';
 import { Env } from './util/env';
 import { logger } from './util/logger';
 import { SYMBOLS } from './util/symbols';
@@ -53,6 +54,12 @@ for await (const file of files) {
 		route.register(app);
 	}
 }
+
+// External api proxying
+app
+	.use('/automoderator/:version/*', proxyRequests(env.automoderatorAPIURL))
+	.use('/ama/:version/*', proxyRequests(env.amaAPIURL))
+	.use('/modmail/:version/*', proxyRequests(env.modmailAPIURL));
 
 app.listen(env.port, () => logger.info(`Listening to requests on port ${env.port}`));
 
