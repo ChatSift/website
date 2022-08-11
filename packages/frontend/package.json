@@ -4,7 +4,8 @@
 	"version": "1.0.0",
 	"scripts": {
 		"lint": "eslint src --ext .ts,.tsx",
-		"build": "next build"
+		"build": "next build",
+		"dev": "next dev"
 	},
 	"engines": {
 		"node": ">=16.9.0"
@@ -15,6 +16,8 @@
 		"typescript": "^4.7.4"
 	},
 	"dependencies": {
+		"@tanstack/react-query": "^4.0.10",
+		"@tanstack/react-query-devtools": "^4.0.10",
 		"next": "^12.2.4",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
