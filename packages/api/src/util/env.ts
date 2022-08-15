@@ -19,6 +19,10 @@ export class Env {
 	public readonly amaAPIURL = process.env.AMA_API_URL!;
 	public readonly modmailAPIURL = process.env.MODMAIL_API_URL!;
 
+	public readonly automoderatorToken = process.env.AUTOMODERATOR_TOKEN!;
+	public readonly amaToken = process.env.AMA_TOKEN!;
+	public readonly modmailToken = process.env.MODMAIL_TOKEN!;
+
 	private readonly KEYS = [
 		'SECRET_KEY',
 		'DISCORD_CLIENT_ID',
@@ -28,6 +32,9 @@ export class Env {
 		'AUTOMODERATOR_API_URL',
 		'AMA_API_URL',
 		'MODMAIL_API_URL',
+		'AUTOMODERATOR_TOKEN',
+		'AMA_TOKEN',
+		'MODMAIL_TOKEN',
 	] as const;
 
 	public constructor() {

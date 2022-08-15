@@ -9,12 +9,12 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/chatsift/template.git"
+		"url": "https://github.com/chatsift/website.git"
 	},
 	"bugs": {
-		"url": "https://github.com/chatsift/template/issues"
+		"url": "https://github.com/chatsift/website/issues"
 	},
-	"homepage": "https://github.com/chatsift/template",
+	"homepage": "https://github.com/chatsift/website",
 	"imports": {},
 	"scripts": {
 		"lint": "turbo run lint && prettier --check --plugin-search-dir=. .",

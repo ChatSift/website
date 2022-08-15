@@ -17,7 +17,11 @@ import { SYMBOLS } from './util/symbols';
 
 const env = container.resolve(Env);
 container.register(PrismaClient, { useValue: new PrismaClient() });
+
 container.register(SYMBOLS.oauthRest, { useValue: new REST({ authPrefix: 'Bearer' }) });
+container.register(SYMBOLS.automoderatorRest, { useValue: new REST().setToken(env.automoderatorToken) });
+container.register(SYMBOLS.amaRest, { useValue: new REST().setToken(env.amaToken) });
+container.register(SYMBOLS.modmailRest, { useValue: new REST().setToken(env.modmailToken) });
 
 const app = polka({
 	onError(e, _, res) {
