@@ -18,17 +18,27 @@ services:
       timeout: 5s
 
   api:
-    image: chatsift/website_api
+    image: chatsift/website
     build:
       context: ./
-      dockerfile: ./packages/api/Dockerfile
+      dockerfile: ./Dockerfile
     env_file:
       - ./.env
     environment:
       DATABASE_URL: 'postgresql://backend:admin@postgres:5432/backend'
     restart: unless-stopped
+    volumes:
+      - ./logs:/usr/website/logs
     depends_on:
       - postgres
+    command:
+      [
+        'node',
+        '--es-module-specifier-resolution=node',
+        '--enable-source-maps',
+        '--no-warnings',
+        './packages/api/dist/index.js',
+      ]
 
 volumes:
   postgres-data:
