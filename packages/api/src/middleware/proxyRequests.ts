@@ -1,4 +1,5 @@
 import { pipeline } from 'stream/promises';
+import { badGateway } from '@hapi/boom';
 import type { Request, Response } from 'polka';
 import { Dispatcher, request } from 'undici';
 
@@ -8,6 +9,8 @@ export function proxyRequests(baseUrl: string) {
 			method: req.method as Dispatcher.HttpMethod,
 			body: req,
 			headers: req.headers,
+		}).catch(() => {
+			throw badGateway();
 		});
 
 		res.statusCode = data.statusCode;
