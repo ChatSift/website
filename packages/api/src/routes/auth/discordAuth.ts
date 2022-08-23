@@ -36,7 +36,7 @@ export default class extends Route<never, never> {
 			client_id: this.env.discordClientId,
 			redirect_uri: `${this.env.domain}/auth/v1/discord/callback`,
 			response_type: 'code',
-			scope: this.env.discordScopes.join(' '),
+			scope: this.env.scopesString,
 			state,
 		});
 

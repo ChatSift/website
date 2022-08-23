@@ -6,7 +6,7 @@ export class Env {
 
 	public readonly discordClientId = process.env.DISCORD_CLIENT_ID!;
 	public readonly discordClientSecret = process.env.DISCORD_CLIENT_SECRET!;
-	public readonly discordScopes = process.env.DISCORD_SCOPES!.split(',');
+	public readonly discordScopes = new Set(process.env.DISCORD_SCOPES!.split(','));
 
 	public readonly domain = process.env.DOMAIN!;
 	public readonly allowedRedirects = process.env.ALLOWED_REDIRECTS?.split(',') ?? [];
@@ -22,6 +22,10 @@ export class Env {
 	public readonly automoderatorToken = process.env.AUTOMODERATOR_TOKEN!;
 	public readonly amaToken = process.env.AMA_TOKEN!;
 	public readonly modmailToken = process.env.MODMAIL_TOKEN!;
+
+	public get scopesString(): string {
+		return [...this.discordScopes].join(' ');
+	}
 
 	private readonly KEYS = [
 		'SECRET_KEY',

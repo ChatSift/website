@@ -10,6 +10,7 @@ import { discordAuth } from '../../middleware/discordAuth';
 import { Auth } from '../../struct/Auth';
 import { Env } from '../../util/env';
 import { logger } from '../../util/logger';
+import { setEquals } from '../../util/setEquals';
 
 @singleton()
 export default class extends Route<never, never> {
@@ -49,7 +50,7 @@ export default class extends Route<never, never> {
 			client_id: this.env.discordClientId,
 			client_secret: this.env.discordClientSecret,
 			redirect_uri: `${this.env.domain}/auth/v1/discord/callback`,
-			scope: this.env.discordScopes.join(' '),
+			scope: this.env.scopesString,
 			grant_type: 'authorization_code',
 			code,
 		});
@@ -69,12 +70,12 @@ export default class extends Route<never, never> {
 			return next(internal('discord oauth error'));
 		}
 
-		const { scope: returnedScope } = oauthData;
-		if (returnedScope !== this.env.discordScopes.join(' ')) {
-			logger.warn({ returnedScope, expectedScope: this.env.discordScopes.join(' ') }, 'miss matched scopes');
-			return next(
-				forbidden(`Expected scope "${this.env.discordScopes.join(' ')}" but received scope "${returnedScope}"`),
-			);
+		const { scope: returnedScopesRaw } = oauthData;
+		const returnedScopes = new Set(returnedScopesRaw.split(' '));
+
+		if (!setEquals(returnedScopes, this.env.discordScopes)) {
+			logger.warn({ returnedScopes, expectedScopes: this.env.discordScopes }, 'miss matched scopes');
+			return next(forbidden(`Expected scope "${this.env.scopesString}" but received scope "${returnedScopesRaw}"`));
 		}
 
 		const user = await this.auth.fetchDiscordUser(oauthData.access_token);
