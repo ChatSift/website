@@ -53,7 +53,6 @@ export class Auth {
 
 	public populateAuthCookies(res: Response, credentials: Credentials): void {
 		res.cookie('access_token', credentials.access.token, {
-			expires: credentials.access.expiration,
 			path: '/',
 			sameSite: 'strict',
 		});
@@ -132,23 +131,25 @@ export class Auth {
 		return userId;
 	}
 
-	public async fetchDiscordConnection(token: string): Promise<Option<Connection>> {
-		const userId = await this.verifyToken(token);
-		const user = await this.prisma.user.findFirstOrThrow({
-			where: {
-				userId,
-			},
-			include: {
-				connections: {
-					where: {
-						type: ConnectionType.Discord,
+	public fetchDiscordConnection(accessToken: string): Promise<Result<Option<Connection>, Error>> {
+		return Result.fromAsync(async () => {
+			const userId = await this.verifyToken(accessToken);
+			const user = await this.prisma.user.findFirstOrThrow({
+				where: {
+					userId,
+				},
+				include: {
+					connections: {
+						where: {
+							type: ConnectionType.Discord,
+						},
 					},
 				},
-			},
-		});
+			});
 
-		const [connection] = user.connections as [Connection?];
-		return Option.from(connection);
+			const [connection] = user.connections as [Connection?];
+			return Option.from(connection);
+		});
 	}
 
 	public fetchDiscordUser(discordAccessToken: string): Promise<Result<APIUserWithGuilds, Error>> {

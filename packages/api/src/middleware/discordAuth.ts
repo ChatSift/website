@@ -1,5 +1,6 @@
 import { forbidden, unauthorized } from '@hapi/boom';
 import cookie from 'cookie';
+import { TokenExpiredError } from 'jsonwebtoken';
 import type { NextHandler, Request, Response } from 'polka';
 import { container } from 'tsyringe';
 import { APIUserWithGuilds, Auth } from '../struct/Auth';
@@ -15,13 +16,26 @@ export function discordAuth(fallthrough = false) {
 	const auth = container.resolve(Auth);
 	return async (req: Request, res: Response, next: NextHandler) => {
 		const cookies = cookie.parse(req.headers.cookie ?? '');
-		const token = cookies.access_token ?? req.headers.authorization;
+		let token = cookies.access_token ?? req.headers.authorization;
 
 		if (!token) {
 			return next(fallthrough ? undefined : unauthorized('missing authorization header', 'Bearer'));
 		}
 
-		const discordConnection = await auth.fetchDiscordConnection(token);
+		const discordConnectionResult = await auth.fetchDiscordConnection(token);
+		if (discordConnectionResult.isErrAnd((error) => error instanceof TokenExpiredError)) {
+			if (!cookies.refresh_token) {
+				return next(fallthrough ? undefined : unauthorized('expired access token and missing refresh token', 'Bearer'));
+			}
+
+			const newTokens = auth.refreshTokens(token, cookies.refresh_token);
+			auth.populateAuthCookies(res, newTokens);
+			token = newTokens.access.token;
+		} else if (discordConnectionResult.isErr()) {
+			throw discordConnectionResult.unwrapErr();
+		}
+
+		const discordConnection = discordConnectionResult.unwrap();
 		if (discordConnection.isNone()) {
 			return next(fallthrough ? undefined : forbidden('no discord connection'));
 		}
