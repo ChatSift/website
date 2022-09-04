@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-
 import type React from 'react';
 import Desktop from './Desktop';
 import Mobile from './Mobile';

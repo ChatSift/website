@@ -26,7 +26,7 @@ export async function fetchApi<TPath extends keyof AuthRoutes, TMethod extends k
 	});
 
 	if (res.status >= 200 && res.status < 300) {
-		return res.json() as Promise<InferAuthRouteResult<TPath, TMethod>>;
+		return (await res.json()) as InferAuthRouteResult<TPath, TMethod>;
 	}
 
 	throw new APIError((await res.json()) as Payload);
