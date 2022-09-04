@@ -1,3 +1,5 @@
-export default function IndexRoute() {
-	return <div>Hello world</div>;
+function Home() {
+	return <></>;
 }
+
+export default Home;

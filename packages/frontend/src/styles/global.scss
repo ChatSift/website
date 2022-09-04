@@ -1,0 +1,15 @@
+@import url('author.css');
+
+body {
+  margin: 0;
+  font-family: 'Author-Variable', sans-serif;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+main {
+  overflow: auto;
+}

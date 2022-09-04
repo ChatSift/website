@@ -8,4 +8,18 @@ module.exports = {
 		ignoreDuringBuilds: true,
 	},
 	cleanDistDir: true,
+	redirects() {
+		return [
+			{
+				source: '/github',
+				destination: 'https://github.com/ChatSift/AutoModerator',
+				permanent: true,
+			},
+			{
+				source: '/support',
+				destination: 'https://discord.gg/tgZ2pSgXXv',
+				permanent: true,
+			},
+		];
+	},
 };

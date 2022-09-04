@@ -6,7 +6,7 @@ import { inject, singleton } from 'tsyringe';
 import { discordAuth } from '../../middleware/discordAuth';
 import { SYMBOLS } from '../../util/symbols';
 
-interface Result {
+export interface GetDiscordAuthMeResult {
 	id: string;
 	username: string;
 	discriminator: string;
@@ -22,7 +22,7 @@ interface Result {
 }
 
 @singleton()
-export default class extends Route<Result, never> {
+export default class extends Route<GetDiscordAuthMeResult, never> {
 	public info = {
 		method: RouteMethod.get,
 		path: '/auth/v1/discord/@me',
@@ -49,7 +49,7 @@ export default class extends Route<Result, never> {
 		const user = req.discordUser!;
 		const { id, username, discriminator, avatar, guilds } = user;
 
-		const data: Result = {
+		const data: GetDiscordAuthMeResult = {
 			id,
 			username,
 			discriminator,

@@ -55,6 +55,7 @@ export class Auth {
 		res.cookie('access_token', credentials.access.token, {
 			path: '/',
 			sameSite: 'strict',
+			expires: new Date(2030, 1),
 		});
 
 		res.cookie('refresh_token', credentials.refresh.token, {
