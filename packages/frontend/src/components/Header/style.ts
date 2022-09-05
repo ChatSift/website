@@ -2,7 +2,6 @@ import { keyframes, css } from '@emotion/css';
 import styled from '@emotion/styled';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import type { ThemeProps } from '../../themes/theme';
-import LinkElement from '../Link';
 import mediaQueries from '~/styles/breakpoints';
 
 export const MobileNavAnimDuration = 0.3;
@@ -31,6 +30,10 @@ export const HorizontalList = styled(NavigationMenu.List)`
 	padding: 0;
 	display: flex;
 	margin: 0;
+
+	& > * {
+		margin-right: 24px;
+	}
 `;
 
 export const MobileUser = styled.div`
@@ -198,15 +201,17 @@ export const MobileLink = styled.a`
 	}
 
 	animation-fill-mode: forwards !important;
+	@media (prefers-reduced-motion) {
+		& {
+			transform: none !important;
+			opacity: 1 !important;
+		}
+	}
 `;
 
 export const ItemNoMobile = styled(NavigationMenu.Item)`
 	align-items: center;
 	display: none;
-
-	&:not(:last-child) {
-		margin-right: 24px;
-	}
 
 	${mediaQueries.small} {
 		display: flex;
@@ -226,12 +231,6 @@ export const HamburgerIcon = styled.li`
 export const AuthDesktop = styled(ItemNoMobile)`
 	margin-left: auto;
 	gap: 24px;
-`;
-
-export const LogIn = styled(LinkElement)`
-	font-size: 18px;
-	text-underline: none;
-	color: ${(props) => props.theme.colors.text.secondary};
 `;
 
 export const LogoText = styled.span`

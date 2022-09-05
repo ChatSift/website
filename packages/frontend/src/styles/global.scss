@@ -13,3 +13,10 @@ body {
 main {
   overflow: auto;
 }
+
+@media (prefers-reduced-motion) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
