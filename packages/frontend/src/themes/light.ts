@@ -11,6 +11,7 @@ const light: Theme = {
 		text: {
 			primary: '#1d274e',
 			secondary: 'rgba(29, 39, 78, 0.75)',
+			disabled: '#1E284F80',
 		},
 		background: {
 			default: '#F1F2F5',

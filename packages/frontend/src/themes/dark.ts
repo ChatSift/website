@@ -11,6 +11,7 @@ const dark: Theme = {
 		text: {
 			primary: '#F6F6FB',
 			secondary: '#F6F6FBB2',
+			disabled: '#F5F5FC66',
 		},
 		background: {
 			default: '#151519',

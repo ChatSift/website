@@ -6,6 +6,7 @@ declare module '@emotion/react' {
 			text: {
 				primary: string;
 				secondary: string;
+				disabled: string;
 			};
 			onBackground: {
 				primary: string;

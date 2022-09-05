@@ -21,6 +21,7 @@ const Base = styled(ButtonBase)`
 	font-family: 'Author-Variable', sans-serif;
 	padding: 12px 16px;
 	border-radius: 6px;
+	display: flex;
 `;
 
 export const Ghost = styled(Base)`
