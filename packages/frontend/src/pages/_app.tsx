@@ -16,10 +16,10 @@ function App({ Component, pageProps }: AppProps) {
 	const theme = dark;
 
 	injectGlobal`
-		body {
-			background-color: ${theme.colors.background.default};
-		}
-	`;
+    body {
+      background-color: ${theme.colors.background.default};
+    }
+  `;
 
 	return (
 		<ThemeProvider theme={theme}>

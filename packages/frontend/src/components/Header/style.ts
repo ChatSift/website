@@ -58,33 +58,33 @@ export const MobileUser = styled.div`
 `;
 
 const mobileNavOpenAnimation = keyframes`
-	from {
-		max-height: 0;
-	}
-	
-	to {
-		max-height: 100vh;
-	}
+  from {
+    max-height: 0;
+  }
+
+  to {
+    max-height: 100vh;
+  }
 `;
 
 const mobileNavCloseAnimation = keyframes`
-	from {
-		max-height: 220px;
-	}
-	
-	to {
-		max-height: 0;
-	}
+  from {
+    max-height: 220px;
+  }
+
+  to {
+    max-height: 0;
+  }
 `;
 
 const mobileNavRootCloseAnimation = keyframes`
-	from {
-		padding: 16px 0;
-	}
-	
-	to {
-		padding: 0;
-	}
+  from {
+    padding: 16px 0;
+  }
+
+  to {
+    padding: 0;
+  }
 `;
 
 export const MobileNav = styled(NavigationMenu.Root)`
@@ -128,6 +128,7 @@ export const MobileNavClosed = css`
 	&[data-open='false'] {
 		max-height: 0;
 	}
+
 	&[data-open='false'] {
 		animation: ${mobileNavCloseAnimation} ease-out;
 	}
@@ -147,27 +148,27 @@ export const Item = styled.li`
 `;
 
 const MobileNavItemShow = keyframes`
-	from {
-		transform: scale(0.95) translateY(-100%);
-		opacity: 0;
-	}
-	
-	to {
-		transform: scale(1);
-		opacity: 1;
-	}
+  from {
+    transform: scale(0.95) translateY(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 `;
 
 const MobileNavItemHide = keyframes`
-	from {
-		transform: scale(1);
-		opacity: 1;
-	}
-	
-	to {
-		transform: scale(0.95) translateY(-100%);
-		opacity: 0;
-	}
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(0.95) translateY(-100%);
+    opacity: 0;
+  }
 `;
 
 export const MobileNavItem = styled(NavigationMenu.Item)`

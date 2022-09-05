@@ -1,34 +1,21 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "noEmit": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
-    "skipLibCheck": true,
-    "baseUrl": ".",
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "jsxImportSource": "@emotion/react",
-    "paths": {
-      "~/styles/*": [
-        "./src/styles/*"
-      ],
-      "~/svg/*": [
-        "./src/svg/*"
-      ]
-    },
-    "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "next-env.d.ts"
-  ],
-  "exclude": [
-    "./**/__tests__"
-  ]
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"noEmit": true,
+		"lib": ["ESNext", "DOM"],
+		"skipLibCheck": true,
+		"baseUrl": ".",
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"jsxImportSource": "@emotion/react",
+		"paths": {
+			"~/styles/*": ["./src/styles/*"],
+			"~/svg/*": ["./src/svg/*"]
+		},
+		"allowJs": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true
+	},
+	"include": ["src/**/*.ts", "src/**/*.tsx", "next-env.d.ts"],
+	"exclude": ["./**/__tests__"]
 }

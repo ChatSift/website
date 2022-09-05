@@ -1,22 +1,22 @@
 @import url('author.css');
 
 body {
-  margin: 0;
-  font-family: 'Author-Variable', sans-serif;
-  font-feature-settings: 'pnum' on, 'lnum' on;
+	margin: 0;
+	font-family: 'Author-Variable', sans-serif;
+	font-feature-settings: 'pnum' on, 'lnum' on;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 main {
-  overflow: auto;
+	overflow: auto;
 }
 
 @media (prefers-reduced-motion) {
-  * {
-    transition: none !important;
-    animation: none !important;
-  }
+	* {
+		transition: none !important;
+		animation: none !important;
+	}
 }
