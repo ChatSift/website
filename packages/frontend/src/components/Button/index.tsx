@@ -1,14 +1,20 @@
 import styled from '@emotion/styled';
-import { ButtonHTMLAttributes, useRef } from 'react';
+import { CSSProperties, useRef } from 'react';
 import { AriaButtonProps, useButton } from 'react-aria';
 
-function ButtonBase(props: ButtonHTMLAttributes<HTMLButtonElement>) {
+interface ButtonProps {
+	style?: CSSProperties;
+	title?: string;
+	className?: string;
+}
+
+function ButtonBase({ style, title, className, ...props }: ButtonProps & AriaButtonProps) {
 	const ref = useRef<HTMLButtonElement | null>(null);
-	const { buttonProps } = useButton(props as AriaButtonProps, ref);
+	const { buttonProps } = useButton(props, ref);
 	const { children } = props;
 
 	return (
-		<button {...props} {...buttonProps} ref={ref}>
+		<button {...buttonProps} style={style} title={title} className={className} ref={ref}>
 			{children}
 		</button>
 	);

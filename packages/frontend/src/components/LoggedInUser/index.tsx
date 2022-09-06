@@ -13,7 +13,7 @@ function ErrorHandler({ error }: { error: APIError }) {
 	const router = useRouter();
 
 	if (error.payload?.statusCode === 401) {
-		return <Button.Ghost onClick={() => void router.push(Urls.LogIn)}>Log in</Button.Ghost>;
+		return <Button.Ghost onPress={() => void router.push(Urls.LogIn)}>Log in</Button.Ghost>;
 	}
 
 	return <>Error</>;
@@ -52,7 +52,7 @@ export function Desktop() {
 
 	return (
 		<>
-			<Button.Ghost onClick={logOut}>Log out</Button.Ghost>
+			<Button.Ghost onPress={logOut}>Log out</Button.Ghost>
 			<UserAvatar user={user} isLoading={isLoading} className={AvatarStyleDesktop} />
 		</>
 	);
@@ -74,7 +74,7 @@ export function Mobile() {
 					<Discriminator>#{isLoading ? <Skeleton width={40} inline /> : user.discriminator}</Discriminator>
 				</div>
 			</MobileUser>
-			<Button.Ghost onClick={logOut}>Log out</Button.Ghost>
+			<Button.Ghost onPress={logOut}>Log out</Button.Ghost>
 		</>
 	);
 }

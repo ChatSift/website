@@ -14,7 +14,7 @@ export const Base = styled.header`
 	height: 100%;
 	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
 
-	${mediaQueries.small} {
+	${mediaQueries.smallMin} {
 		border-bottom: 1px solid ${(props: ThemeProps) => props.theme.colors.onBackground.secondary};
 		padding: 16px 32px 16px 24px;
 	}
@@ -41,18 +41,20 @@ export const MobileUser = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	padding: 12px 16px 0;
-	transition: transform ${MobileNavAnimDuration}s ease-in-out, opacity ${MobileNavAnimDuration}s ease-in-out;
-	transform: translateY(-100%);
-	opacity: 0;
+	transition: transform ${MobileNavAnimDuration}s ease-in-out;
+	transform: translateY(-100%) scale(0.95);
 	pointer-events: none;
+	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
+	position: absolute;
+	width: 100%;
+	z-index: -1;
 
 	&[data-mobile-open='true'] {
 		transform: translateY(0);
-		opacity: 1;
 		pointer-events: all;
 	}
 
-	${mediaQueries.small} {
+	${mediaQueries.smallMin} {
 		display: none;
 	}
 `;
@@ -89,15 +91,29 @@ const mobileNavRootCloseAnimation = keyframes`
 
 export const MobileNav = styled(NavigationMenu.Root)`
 	display: unset;
-	padding: 16px 0 24px;
-	margin: 0 16px;
-	border-bottom: 1px solid ${(props: ThemeProps) => props.theme.colors.onBackground.secondary};
 	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
-	z-index: 3;
+	position: relative;
 
-	${mediaQueries.small} {
+	${mediaQueries.smallMin} {
 		display: none;
 	}
+`;
+
+export const LogoBase = css`
+	display: flex;
+	align-items: center;
+	margin-right: 24px;
+`;
+
+export const VerticalList = styled(NavigationMenu.List)`
+	list-style-type: none;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	padding: 16px 0 24px;
+	margin: 0 16px;
+	transition: padding 0.3s ease-in-out;
+	z-index: 3;
 
 	&:not([data-open]),
 	&[data-open='false'] {
@@ -105,18 +121,12 @@ export const MobileNav = styled(NavigationMenu.Root)`
 	}
 
 	&[data-open='false'] {
-		padding: 0;
-		animation: ${mobileNavRootCloseAnimation} 0.5s ease-out;
+		animation: ${mobileNavRootCloseAnimation} 0.5s ease-in-out;
 	}
-`;
 
-export const VerticalList = styled(NavigationMenu.List)`
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
+	&[data-open='true'] {
+		border-bottom: 1px solid ${(props: ThemeProps) => props.theme.colors.onBackground.secondary};
+	}
 `;
 
 export const MobileNavOpen = css`
@@ -139,6 +149,10 @@ export const List = styled.ul`
 	padding: 8px;
 	display: flex;
 	margin: 0;
+
+	${mediaQueries.smallMax} {
+		display: none;
+	}
 `;
 
 export const Item = styled.li`
@@ -214,17 +228,20 @@ export const ItemNoMobile = styled(NavigationMenu.Item)`
 	align-items: center;
 	display: none;
 
-	${mediaQueries.small} {
+	${mediaQueries.smallMin} {
 		display: flex;
 	}
 `;
 
-export const HamburgerIcon = styled.li`
+export const HamburgerIcon = styled.div`
 	align-items: center;
 	display: flex;
+	justify-content: space-between;
 	margin-left: auto;
+	padding: 8px;
+	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
 
-	${mediaQueries.small} {
+	${mediaQueries.smallMin} {
 		display: none;
 	}
 `;
@@ -234,18 +251,19 @@ export const AuthDesktop = styled(ItemNoMobile)`
 	gap: 24px;
 `;
 
-export const LogoText = styled.span`
+export const LogoText = styled.h1`
 	font-weight: 550;
 	font-size: 22px;
-	margin-left: 8px;
+	margin: 0 0 0 8px;
 	color: ${(props) => props.theme.colors.text.primary};
 `;
 
-export const Link = styled(NavigationMenu.Link)`
+export const Link = styled.a`
 	color: ${(props: ThemeProps) => props.theme.colors.text.secondary};
 	text-decoration: none;
 	font-weight: 450;
 	font-size: 18px;
+	cursor: pointer;
 
 	&:hover {
 		color: ${(props: ThemeProps) => props.theme.colors.text.primary};

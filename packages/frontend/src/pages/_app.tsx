@@ -8,6 +8,7 @@ import { useRef } from 'react';
 import '~/styles/global.scss';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { SkeletonTheme } from 'react-loading-skeleton';
+import SkipLink from '../components/A11y/SkipLink';
 import Header from '../components/Header';
 import dark from '../themes/dark';
 
@@ -16,10 +17,14 @@ function App({ Component, pageProps }: AppProps) {
 	const theme = dark;
 
 	injectGlobal`
-    body {
-      background-color: ${theme.colors.background.default};
-    }
-  `;
+		body {
+			background-color: ${theme.colors.background.default};
+		}
+
+		*:focus {
+			outline: ${theme.colors.accent} solid 3px;
+		}
+	`;
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -31,8 +36,9 @@ function App({ Component, pageProps }: AppProps) {
 					<Head>
 						<meta name="viewport" content="width=device-width, initial-scale=1" />
 					</Head>
+					<SkipLink />
 					<Header />
-					<main>
+					<main id="#content">
 						<Component {...pageProps} />
 					</main>
 				</SkeletonTheme>
