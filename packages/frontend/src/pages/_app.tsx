@@ -9,6 +9,7 @@ import '~/styles/global.scss';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { SSRProvider } from 'react-aria';
 import { SkeletonTheme } from 'react-loading-skeleton';
+import SkipLink from '../components/A11y/SkipLink';
 import Header from '../components/Header';
 import dark from '../themes/dark';
 import { dashboardPadding, skeletonDuration } from '../utils/constants';
