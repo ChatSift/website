@@ -8,7 +8,7 @@ interface ButtonProps {
 	className?: string;
 }
 
-function ButtonBase({ style, title, className, ...props }: ButtonProps & AriaButtonProps) {
+export function ButtonBase({ style, title, className, ...props }: ButtonProps & AriaButtonProps) {
 	const ref = useRef<HTMLButtonElement | null>(null);
 	const { buttonProps } = useButton(props, ref);
 	const { children } = props;

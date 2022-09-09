@@ -6,7 +6,7 @@ import * as HeaderStyles from './style';
 import { MobileNavAnimDuration } from './style';
 import * as Button from '../Button';
 import * as LoggedInUser from '../LoggedInUser';
-import SvgHamburger from '~/svg/hamburger';
+import SvgHamburger from '~/svg/SvgHamburger';
 
 interface MobileLinkProps {
 	item: HeaderLink;

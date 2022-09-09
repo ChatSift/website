@@ -10,7 +10,11 @@ function useLoggedInUser() {
 				method: 'get',
 			}),
 		{
-			retry: (retries, error: APIError) => retries < 5 && error.payload?.statusCode !== 401,
+			retry: (retries, error: APIError) => {
+				console.log(error);
+
+				return retries < 5 && error.payload?.statusCode !== 401;
+			},
 		},
 	);
 }

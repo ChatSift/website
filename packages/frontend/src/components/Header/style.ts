@@ -11,12 +11,16 @@ export const Base = styled.header`
 	top: 0;
 	display: flex;
 	flex-direction: column;
-	height: 100%;
 	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
+	width: 100%;
 
 	${mediaQueries.smallMin} {
 		border-bottom: 1px solid ${(props: ThemeProps) => props.theme.colors.onBackground.secondary};
 		padding: 16px 32px 16px 24px;
+	}
+
+	${mediaQueries.smallMax} {
+		height: 64px;
 	}
 `;
 
@@ -40,7 +44,7 @@ export const MobileUser = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 12px 16px 0;
+	padding: 12px 16px;
 	transition: transform ${MobileNavAnimDuration}s ease-in-out;
 	transform: translateY(-100%) scale(0.95);
 	pointer-events: none;
@@ -114,6 +118,7 @@ export const VerticalList = styled(NavigationMenu.List)`
 	margin: 0 16px;
 	transition: padding 0.3s ease-in-out;
 	z-index: 3;
+	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
 
 	&:not([data-open]),
 	&[data-open='false'] {
@@ -146,7 +151,7 @@ export const MobileNavClosed = css`
 
 export const List = styled.ul`
 	list-style-type: none;
-	padding: 8px;
+	padding: 0;
 	display: flex;
 	margin: 0;
 

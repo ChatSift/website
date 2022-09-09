@@ -8,9 +8,10 @@ import { useRef } from 'react';
 import '~/styles/global.scss';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { SkeletonTheme } from 'react-loading-skeleton';
-import SkipLink from '../components/A11y/SkipLink';
 import Header from '../components/Header';
 import dark from '../themes/dark';
+
+export const skeletonDuration = 1.5;
 
 function App({ Component, pageProps }: AppProps) {
 	const queryClient = useRef(new QueryClient());
@@ -20,10 +21,6 @@ function App({ Component, pageProps }: AppProps) {
 		body {
 			background-color: ${theme.colors.background.default};
 		}
-
-		*:focus {
-			outline: ${theme.colors.accent} solid 3px;
-		}
 	`;
 
 	return (
@@ -32,11 +29,12 @@ function App({ Component, pageProps }: AppProps) {
 				<SkeletonTheme
 					baseColor={theme.colors.onBackground.tertiary}
 					highlightColor={theme.colors.onBackground.secondary}
+					duration={skeletonDuration}
 				>
 					<Head>
 						<meta name="viewport" content="width=device-width, initial-scale=1" />
 					</Head>
-					<SkipLink />
+					{/* <SkipLink /> */}
 					<Header />
 					<main id="#content">
 						<Component {...pageProps} />

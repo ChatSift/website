@@ -174,7 +174,7 @@ __metadata:
     "@types/node": ^16.11.47
     "@types/react-dom": ^18.0.6
     facepaint: ^1.2.1
-    next: ^12.2.4
+    next: 12.2.4
     react: ^18.2.0
     react-aria: ^3.18.0
     react-dom: ^18.2.0
@@ -5750,7 +5750,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:^12.2.4":
+"next@npm:12.2.4":
   version: 12.2.4
   resolution: "next@npm:12.2.4"
   dependencies:
