@@ -1,4 +1,5 @@
-const mediaQueriesRaw = {
+export const mediaQueriesRaw = {
+	extraSmall: 320,
 	small: 650,
 	medium: 800,
 } as const;

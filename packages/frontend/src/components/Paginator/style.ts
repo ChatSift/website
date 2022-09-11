@@ -1,7 +1,8 @@
 import { keyframes } from '@emotion/css';
 import styled from '@emotion/styled';
-import { skeletonDuration } from '../../pages/_app';
+import { dashboardMaxWidth, skeletonDuration, smallestDashboardWidth } from '../../utils/constants';
 import { ButtonBase } from '../Button';
+import mediaQueries from '~/styles/breakpoints';
 
 export const PaginatorBase = styled.div``;
 
@@ -10,10 +11,28 @@ interface PaginatorListProps {
 }
 
 export const PaginatorList = styled.ul<PaginatorListProps>`
-	display: flex;
+	display: grid;
+	grid-template-columns: auto;
 	gap: 16px;
-	justify-content: center;
 	flex-wrap: wrap;
+	justify-content: start;
+
+	@media (max-width: ${smallestDashboardWidth}px) {
+		display: flex;
+		width: 100%;
+
+		& > * {
+			width: 100%;
+		}
+	}
+
+	${mediaQueries.smallMin} {
+		grid-template-columns: repeat(${(props) => props.itemsPerPage}, 1fr);
+	}
+
+	@media (min-width: ${smallestDashboardWidth}px) and (max-width: ${dashboardMaxWidth}px) {
+		grid-template-columns: auto auto;
+	}
 `;
 
 export const PaginationButtons = styled.ul`

@@ -28,21 +28,39 @@ const Base = styled(ButtonBase)`
 	padding: 12px 16px;
 	border-radius: 6px;
 	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	height: fit-content;
+
+	&[disabled] {
+		opacity: 0.5;
+	}
+
+	&[data-loading='true'] {
+		cursor: wait;
+	}
 `;
 
-export const Ghost = styled(Base)`
+interface GhostProps extends ButtonProps {
+	hasBorder?: boolean;
+}
+
+export const Ghost = styled(Base)<GhostProps>`
 	background-color: transparent;
 	cursor: pointer;
 	font-size: 18px;
 	font-family: 'Author-Variable', sans-serif;
 	color: ${(props) => props.theme.colors.text.secondary};
-	border: none;
+	border: ${(props) => (props.hasBorder ? `1px solid ${props.theme.colors.onBackground.primary};` : 'none')};
 
-	&:hover {
-		background-color: ${(props) => props.theme.colors.onBackground.tertiary};
-	}
+	&:not([disabled]):hover {
+		&:hover {
+			background-color: ${(props) => props.theme.colors.onBackground.tertiary};
+		}
 
-	&:active {
-		background-color: ${(props) => props.theme.colors.onBackground.secondary};
+		&:active {
+			background-color: ${(props) => props.theme.colors.onBackground.secondary};
+		}
 	}
 `;

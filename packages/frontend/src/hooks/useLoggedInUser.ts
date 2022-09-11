@@ -10,6 +10,7 @@ function useLoggedInUser() {
 				method: 'get',
 			}),
 		{
+			refetchOnWindowFocus: false,
 			retry: (retries, error: APIError) => {
 				console.log(error);
 

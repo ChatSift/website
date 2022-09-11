@@ -10,8 +10,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import Header from '../components/Header';
 import dark from '../themes/dark';
-
-export const skeletonDuration = 1.5;
+import { skeletonDuration } from '../utils/constants';
 
 function App({ Component, pageProps }: AppProps) {
 	const queryClient = useRef(new QueryClient());
