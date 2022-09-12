@@ -1,6 +1,7 @@
 import type { Theme } from '@emotion/react';
 
 const light: Theme = {
+	name: 'light',
 	colors: {
 		accent: '#2f8fee',
 		onBackground: {
@@ -12,6 +13,7 @@ const light: Theme = {
 			primary: '#1d274e',
 			secondary: 'rgba(29, 39, 78, 0.75)',
 			disabled: '#1E284F80',
+			onAccent: '#ffffff',
 		},
 		background: {
 			default: '#F1F2F5',

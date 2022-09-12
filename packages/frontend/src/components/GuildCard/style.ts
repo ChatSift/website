@@ -1,21 +1,15 @@
 import styled from '@emotion/styled';
-import {
-	guildCardGap,
-	guildCardWidthDesktop,
-	guildCardWidthMobile,
-	smallestDashboardWidth,
-} from '../../utils/constants';
+import { guildCardGap, guildCardWidthMobile, smallestDashboardWidth } from '../../utils/constants';
 
 export const GuildCardBase = styled.a`
 	display: flex;
 	flex-direction: column;
 	padding: ${guildCardGap}px;
 	gap: 12px;
-	// max-width: ${guildCardWidthDesktop}px;
 	border-radius: 8px;
 	border: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
 	min-width: ${guildCardWidthMobile}px;
-	width: 100%;
+	width: 216px;
 	height: 144px;
 
 	&[data-is-invited='true'] {
@@ -26,8 +20,8 @@ export const GuildCardBase = styled.a`
 		cursor: pointer;
 	}
 
-	@media (min-width: ${smallestDashboardWidth}px) {
-		width: 216px;
+	@media (max-width: ${smallestDashboardWidth}px) {
+		width: 100%;
 	}
 `;
 

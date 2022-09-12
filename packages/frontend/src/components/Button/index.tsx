@@ -6,6 +6,7 @@ interface ButtonProps {
 	style?: CSSProperties;
 	title?: string;
 	className?: string;
+	paddingOverride?: { x?: number; y?: number };
 }
 
 export function ButtonBase({ style, title, className, ...props }: ButtonProps & AriaButtonProps) {
@@ -25,7 +26,7 @@ const Base = styled(ButtonBase)`
 	cursor: pointer;
 	font-size: 18px;
 	font-family: 'Author-Variable', sans-serif;
-	padding: 12px 16px;
+	${({ paddingOverride }) => `padding: ${paddingOverride?.y ?? 12}px ${paddingOverride?.x ?? 16}px;`}
 	border-radius: 6px;
 	display: flex;
 	align-items: center;
@@ -47,10 +48,6 @@ interface GhostProps extends ButtonProps {
 }
 
 export const Ghost = styled(Base)<GhostProps>`
-	background-color: transparent;
-	cursor: pointer;
-	font-size: 18px;
-	font-family: 'Author-Variable', sans-serif;
 	color: ${(props) => props.theme.colors.text.secondary};
 	border: ${(props) => (props.hasBorder ? `1px solid ${props.theme.colors.onBackground.primary};` : 'none')};
 
@@ -63,4 +60,10 @@ export const Ghost = styled(Base)<GhostProps>`
 			background-color: ${(props) => props.theme.colors.onBackground.secondary};
 		}
 	}
+`;
+
+export const Cta = styled(Base)`
+	background-color: ${(props) => props.theme.colors.accent};
+	color: ${(props) => props.theme.colors.text.onAccent};
+	font-weight: 500;
 `;

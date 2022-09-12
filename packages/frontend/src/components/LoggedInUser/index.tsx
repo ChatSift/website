@@ -13,7 +13,7 @@ function ErrorHandler({ error }: { error: APIError }) {
 	const router = useRouter();
 
 	if (error.payload?.statusCode === 401) {
-		return <Button.Ghost onPress={() => void router.push(Urls.LogIn)}>Log in</Button.Ghost>;
+		return <Button.Ghost onPress={() => void router.replace(Urls.LogIn)}>Log in</Button.Ghost>;
 	}
 
 	return <>Error</>;

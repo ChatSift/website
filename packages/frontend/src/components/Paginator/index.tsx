@@ -30,6 +30,11 @@ function Paginator<TItem>(props: PaginatorProps<TItem>) {
 							.map((item, index) => (
 								<li key={`${Math.floor(index / props.itemsPerPage)}-${index}`}>{props.children[0](item)}</li>
 							))}
+				{props.items?.length === 0 && (
+					<li>
+						<img src="/assets/flushed.svg" alt="Flushed emoji" width={64} />
+					</li>
+				)}
 			</PaginatorList>
 			<PaginationButtons>
 				{[...(Array(Math.ceil((props.items?.length ?? 0) / props.itemsPerPage)) as unknown[])].map((_, index) => (

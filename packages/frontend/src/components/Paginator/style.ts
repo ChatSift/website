@@ -1,6 +1,11 @@
 import { keyframes } from '@emotion/css';
 import styled from '@emotion/styled';
-import { dashboardMaxWidth, skeletonDuration, smallestDashboardWidth } from '../../utils/constants';
+import {
+	dashboardMaxWidth,
+	guildCardWidthDesktop,
+	skeletonDuration,
+	smallestDashboardWidth,
+} from '../../utils/constants';
 import { ButtonBase } from '../Button';
 import mediaQueries from '~/styles/breakpoints';
 
@@ -27,7 +32,7 @@ export const PaginatorList = styled.ul<PaginatorListProps>`
 	}
 
 	${mediaQueries.smallMin} {
-		grid-template-columns: repeat(${(props) => props.itemsPerPage}, 1fr);
+		grid-template-columns: repeat(${(props) => props.itemsPerPage}, ${guildCardWidthDesktop}px);
 	}
 
 	@media (min-width: ${smallestDashboardWidth}px) and (max-width: ${dashboardMaxWidth}px) {
@@ -107,9 +112,10 @@ const LoadingAnimation = keyframes`
 `;
 
 export const LoadingAnimationItem = styled.li`
-	margin: 2px;
+	margin: 4px;
 	width: 12px;
 	height: 12px;
+	padding: 4px;
 	border-radius: 100%;
 	background-color: ${(props) => props.theme.colors.onBackground.primary};
 	animation: ${LoadingAnimation} ${skeletonDuration}s ease-in-out infinite;
