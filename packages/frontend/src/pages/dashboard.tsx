@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
+import { useState } from 'react';
 import * as Button from '../components/Button';
 import GuildCard from '../components/GuildCard';
 import Heading from '../components/Heading';
 import Paginator from '../components/Paginator';
+import SearchBar from '../components/SearchBar';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { dashboardMaxWidth, dashboardPadding, guildCardsPerPage, smallestDashboardWidth } from '../utils/constants';
 import mediaQueries from '~/styles/breakpoints';
@@ -23,18 +25,26 @@ const MainHeadingContainer = styled.div`
 `;
 
 const Container = styled.div`
+	display: flex;
+	flex-direction: column;
 	max-width: ${dashboardMaxWidth}px;
 	padding: ${dashboardPadding}px;
 
 	min-width: min(90vw, ${smallestDashboardWidth}px);
 `;
 
+const SearchBarModified = styled(SearchBar)`
+	margin-bottom: 16px;
+`;
+
 function Dashboard() {
 	const { data, refetch, isRefetching, isFetching } = useLoggedInUser();
+	const [search, setSearch] = useState('');
 
 	const dataToUse = isRefetching ? undefined : data;
 
-	const items = dataToUse?.guilds.sort((g1, g2) =>
+	const filtered = dataToUse?.guilds.filter((g) => g.name.toLowerCase().includes(search.toLowerCase()));
+	const items = filtered?.sort((g1, g2) =>
 		Number(g1.hasAma) + Number(g1.hasModmail) + Number(g1.hasAutomoderator) <
 		Number(g2.hasAma) + Number(g2.hasModmail) + Number(g2.hasAutomoderator)
 			? 1
@@ -50,6 +60,7 @@ function Dashboard() {
 					Refresh
 				</Button.Ghost>
 			</MainHeadingContainer>
+			<SearchBarModified state={[search, setSearch]} placeholder="Search for a server" />
 			<Paginator itemsPerPage={guildCardsPerPage} items={items}>
 				{(guild) => <GuildCard guild={guild} />}
 				{() => <GuildCard guild={undefined} />}

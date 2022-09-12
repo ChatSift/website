@@ -12,13 +12,14 @@ interface PaginatorProps<TItem> {
 	itemsPerPage: number;
 	items: TItem[] | undefined;
 	children: [(item: TItem) => ReactNode, () => ReactNode];
+	className?: string;
 }
 
 function Paginator<TItem>(props: PaginatorProps<TItem>) {
 	const [currentPage, setCurrentPage] = useState(0);
 
 	return (
-		<PaginatorBase>
+		<PaginatorBase className={props.className}>
 			<PaginatorList itemsPerPage={props.itemsPerPage}>
 				{props.items === undefined
 					? [...(Array(props.itemsPerPage) as unknown[])].map((_, index) => (
