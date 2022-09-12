@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import {
 	LoadingAnimationItem,
 	PaginationButton,
@@ -17,6 +17,10 @@ interface PaginatorProps<TItem> {
 
 function Paginator<TItem>(props: PaginatorProps<TItem>) {
 	const [currentPage, setCurrentPage] = useState(0);
+
+	useEffect(() => {
+		setCurrentPage(0);
+	}, [props.items]);
 
 	return (
 		<PaginatorBase className={props.className}>

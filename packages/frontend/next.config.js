@@ -12,7 +12,7 @@ module.exports = {
 		return [
 			{
 				source: '/github',
-				destination: 'https://github.com/ChatSift/AutoModerator',
+				destination: 'https://github.com/ChatSift',
 				permanent: true,
 			},
 			{
