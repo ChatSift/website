@@ -6,61 +6,61 @@ https://github.com/Stualyttle/LyttleTools/blob/main/CSS/defaults.css
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
-    content: "";
-    content: none;
-    margin: 0;
-    padding: 0;
-    /* word-wrap: break-word; */
+	box-sizing: border-box;
+	content: '';
+	content: none;
+	margin: 0;
+	padding: 0;
+	/* word-wrap: break-word; */
 }
 
 html:focus-within {
-    scroll-behavior: smooth;
+	scroll-behavior: smooth;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-    }
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+		transition-duration: 0.01ms !important;
+	}
 
-    html:focus-within {
-        scroll-behavior: auto;
-    }
+	html:focus-within {
+		scroll-behavior: auto;
+	}
 }
 
 body {
-    line-height: 1;
-    min-height: 100vh;
-    text-rendering: optimizeSpeed;
+	line-height: 1;
+	min-height: 100vh;
+	text-rendering: optimizeSpeed;
 }
 
 b,
 strong {
-    font-weight: bolder;
+	font-weight: bolder;
 }
 
 blockquote,
 q {
-    quotes: none;
+	quotes: none;
 }
 
 button,
-[type="button"],
-[type="submit"] {
-    -webkit-appearance: button;
+[type='button'],
+[type='submit'] {
+	-webkit-appearance: button;
 }
 
 img,
 picture {
-    border-style: none;
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
+	border-style: none;
+	display: block;
+	max-width: 100%;
+	max-height: 100%;
 }
 
 button,
@@ -69,14 +69,14 @@ optgroup,
 select,
 textarea,
 ::placeholder {
-    background: none;
-    border: none;
-    color: inherit;
-    font: inherit;
-    opacity: 1;
-    outline: none;
-    overflow: visible;
-    text-transform: inherit;
+	background: none;
+	border: none;
+	color: inherit;
+	font: inherit;
+	opacity: 1;
+	outline: none;
+	overflow: visible;
+	text-transform: inherit;
 }
 
 article,
@@ -91,12 +91,12 @@ main,
 menu,
 nav,
 section {
-    display: block;
+	display: block;
 }
 
 ol,
 ul {
-    list-style: none;
+	list-style: none;
 }
 
 a,
@@ -180,12 +180,12 @@ u,
 ul,
 var,
 video {
-    border: 0;
-    color: inherit;
-    font: inherit;
-    font-size: 100%;
-    margin: 0;
-    padding: 0;
-    text-decoration: inherit;
-    vertical-align: baseline;
+	border: 0;
+	color: inherit;
+	font: inherit;
+	font-size: 100%;
+	margin: 0;
+	padding: 0;
+	text-decoration: inherit;
+	vertical-align: baseline;
 }
