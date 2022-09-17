@@ -54,15 +54,17 @@ export class Auth {
 	public populateAuthCookies(res: Response, credentials: Credentials): void {
 		res.cookie('access_token', credentials.access.token, {
 			path: '/',
-			sameSite: 'strict',
+			sameSite: 'none',
 			expires: new Date(2030, 1),
+			secure: this.env.isProd,
 		});
 
 		res.cookie('refresh_token', credentials.refresh.token, {
 			expires: credentials.refresh.expiration,
 			path: '/',
-			sameSite: 'strict',
+			sameSite: 'none',
 			httpOnly: true,
+			secure: this.env.isProd,
 		});
 	}
 
