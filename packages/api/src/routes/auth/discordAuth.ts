@@ -8,7 +8,7 @@ import { Env } from '../../util/env';
 @singleton()
 export default class extends Route<never, never> {
 	private readonly schema = s.object({
-		redirect_uri: s.enum(...this.env.allowedRedirects),
+		redirect_uri: s.string.regex(this.env.allowedRedirects),
 	}).strict;
 
 	public info = {
