@@ -13,7 +13,7 @@ export class Env {
 
 	public readonly port: number = parseInt(process.env.PORT ?? '8080', 10);
 	public readonly isProd = process.env.NODE_ENV === 'prod';
-	public readonly cors = process.env.CORS?.split(',') ?? [];
+	public readonly cors: RegExp | null = process.env.CORS ? new RegExp(process.env.CORS) : null;
 
 	public readonly automoderatorAPIURL = process.env.AUTOMODERATOR_API_URL!;
 	public readonly amaAPIURL = process.env.AMA_API_URL!;
