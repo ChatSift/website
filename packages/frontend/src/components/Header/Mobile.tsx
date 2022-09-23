@@ -58,7 +58,7 @@ function Mobile({ navigate }: { navigate: (href: string) => void }) {
 	return (
 		<HeaderStyles.MobileNav data-open={mobileNavOpen} orientation="vertical">
 			<HeaderStyles.HamburgerIcon>
-				<Logo as="div" />
+				<Logo />
 				<Button.Ghost
 					style={{ padding: 0 }}
 					onPress={() => setMobileNavOpen(!(mobileNavOpen ?? false))}
