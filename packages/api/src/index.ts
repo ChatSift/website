@@ -40,7 +40,7 @@ const app = polka({
 	},
 }).use(
 	cors({
-		origin: env.cors,
+		origin: env.cors ?? '*',
 		credentials: true,
 	}),
 	helmet({ contentSecurityPolicy: env.isProd ? undefined : false }) as Middleware,

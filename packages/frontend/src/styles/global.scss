@@ -1,0 +1,51 @@
+@import url('reset.css');
+@import url('author.css');
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: 'Author-Variable', sans-serif;
+	font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+#__next {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+main {
+	overflow: auto;
+}
+
+@media (prefers-reduced-motion) {
+	* {
+		transition: none !important;
+		animation: none !important;
+	}
+}
+
+main {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 1000px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* clears the ‘X’ from Chrome */
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+	display: none;
+}

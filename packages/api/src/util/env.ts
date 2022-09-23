@@ -9,11 +9,11 @@ export class Env {
 	public readonly discordScopes = new Set(process.env.DISCORD_SCOPES!.split(','));
 
 	public readonly domain = process.env.DOMAIN!;
-	public readonly allowedRedirects = process.env.ALLOWED_REDIRECTS?.split(',') ?? [];
+	public readonly allowedRedirects: RegExp = new RegExp(process.env.ALLOWED_REDIRECTS ?? '$^');
 
 	public readonly port: number = parseInt(process.env.PORT ?? '8080', 10);
 	public readonly isProd = process.env.NODE_ENV === 'prod';
-	public readonly cors = process.env.CORS?.split(',') ?? [];
+	public readonly cors: RegExp | null = process.env.CORS ? new RegExp(process.env.CORS) : null;
 
 	public readonly automoderatorAPIURL = process.env.AUTOMODERATOR_API_URL!;
 	public readonly amaAPIURL = process.env.AMA_API_URL!;

@@ -7,8 +7,10 @@
 		"baseUrl": ".",
 		"isolatedModules": true,
 		"jsx": "preserve",
+		"jsxImportSource": "@emotion/react",
 		"paths": {
-			"~/*": ["./src/*"]
+			"~/styles/*": ["./src/styles/*"],
+			"~/svg/*": ["./src/svg/*"]
 		},
 		"allowJs": true,
 		"forceConsistentCasingInFileNames": true,
