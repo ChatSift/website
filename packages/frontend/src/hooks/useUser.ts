@@ -20,7 +20,7 @@ function useUser() {
 					return retries < 5;
 				}
 
-				return retries < 5 && error.payload?.statusCode !== 401;
+				return retries < 5 && error.payload.statusCode !== 401;
 			},
 		},
 	);
