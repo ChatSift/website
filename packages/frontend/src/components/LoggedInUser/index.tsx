@@ -12,7 +12,7 @@ import * as Button from '../Button';
 function ErrorHandler({ error }: { error: UserFetchError }) {
 	const router = useRouter();
 
-	if (error instanceof APIError && error.payload?.statusCode === 401) {
+	if (error instanceof APIError && error.payload.statusCode === 401) {
 		return <Button.Ghost onPress={() => void router.replace(Urls.LogIn)}>Log in</Button.Ghost>;
 	}
 
