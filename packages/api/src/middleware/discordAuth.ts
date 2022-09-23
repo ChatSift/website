@@ -22,7 +22,7 @@ export function discordAuth(fallthrough = false) {
 			return next(fallthrough ? undefined : unauthorized('missing authorization header', 'Bearer'));
 		}
 
-		const discordConnectionResult = await auth.fetchDiscordConnection(token);
+		let discordConnectionResult = await auth.fetchDiscordConnection(token);
 		if (discordConnectionResult.isErrAnd((error) => error instanceof jwt.TokenExpiredError)) {
 			if (!cookies.refresh_token) {
 				return next(fallthrough ? undefined : unauthorized('expired access token and missing refresh token', 'Bearer'));
@@ -30,6 +30,7 @@ export function discordAuth(fallthrough = false) {
 
 			const newTokens = auth.refreshTokens(token, cookies.refresh_token);
 			auth.populateAuthCookies(res, newTokens);
+			discordConnectionResult = await auth.fetchDiscordConnection(newTokens.access.token);
 		} else if (discordConnectionResult.isErrAnd((error) => error instanceof jwt.JsonWebTokenError)) {
 			return next(fallthrough ? undefined : unauthorized('malformed token', 'Bearer'));
 		} else if (discordConnectionResult.isErr()) {

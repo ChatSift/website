@@ -55,7 +55,7 @@ export class Auth {
 		res.cookie('access_token', credentials.access.token, {
 			path: '/',
 			sameSite: 'none',
-			expires: new Date(2030, 1),
+			expires: credentials.refresh.expiration,
 			secure: this.env.isProd,
 		});
 

@@ -1,23 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
-import { APIError, fetchApi } from '../utils/fetch';
+import { useRouter } from 'next/router';
+import useUser from './useUser';
 
 function useLoggedInUser() {
-	return useQuery(
-		['currentUser'],
-		() =>
-			fetchApi({
-				path: '/auth/v1/discord/@me',
-				method: 'get',
-			}),
-		{
-			refetchOnWindowFocus: false,
-			retry: (retries, error: APIError) => {
-				console.log(error);
+	const user = useUser();
+	const { data: loggedInUser, isLoading } = user;
+	const router = useRouter();
 
-				return retries < 5 && error.payload?.statusCode !== 401;
-			},
-		},
-	);
+	if (!isLoading && loggedInUser === undefined) {
+		void router.push('/');
+		return { ...user, isLoading: true };
+	}
+
+	return user;
 }
 
 export default useLoggedInUser;

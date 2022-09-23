@@ -1,19 +1,14 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import type { Bot } from '../components/BotCard';
-import BotCard from '../components/BotCard';
 import * as Button from '../components/Button';
 import Footer from '../components/Footer';
 import GuildCard from '../components/GuildCard';
 import Heading from '../components/Heading';
-import Paginator from '../components/Paginator';
+import PageMeta from '../components/PageMeta';
 import SearchBar from '../components/SearchBar';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { dashboardMaxWidth, dashboardPadding, guildCardsPerPage, smallestDashboardWidth } from '../utils/constants';
 import mediaQueries from '~/styles/breakpoints';
-import SvgAma from '~/svg/SvgAma';
-import SvgAutoModerator from '~/svg/SvgAutoModerator';
-import SvgModmail from '~/svg/SvgModmail';
 import SvgRefresh from '~/svg/SvgRefresh';
 
 const MainHeadingContainer = styled.div`
@@ -33,16 +28,17 @@ const SectionContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 
-	& > *:first-child {
+	& > *:first-of-type {
 		margin-bottom: 24px;
 	}
 
-	&:not(:first-child) {
+	&:not(:first-of-type) {
 		margin-top: 32px;
 	}
 `;
 
 const Container = styled.main`
+	padding-top: 16px;
 	flex: 1 0 auto;
 	display: flex;
 	flex-direction: column;
@@ -58,33 +54,21 @@ const SearchBarModified = styled(SearchBar)`
 	margin-bottom: 16px;
 `;
 
-const Bots = styled.ul`
+const Guilds = styled.ul`
 	display: grid;
+	grid-template-columns: repeat(${guildCardsPerPage}, 1fr);
 	gap: 16px;
-	grid-template-columns: 1fr 1fr 1fr;
 
-	${mediaQueries.dashboardMaxWidthMax} {
+	@media (max-width: ${dashboardMaxWidth}px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media (max-width: ${smallestDashboardWidth}px) {
 		grid-template-columns: 1fr;
 	}
 `;
 
-const bots: Bot[] = [
-	{
-		name: 'Automoderator',
-		description: 'A powerful solution for your day-to-day moderation bot needs.',
-		icon: <SvgAutoModerator />,
-	},
-	{
-		name: 'AMA',
-		description: 'Manage and coordinate your Ask-Me-Anything events with ease.',
-		icon: <SvgAma />,
-	},
-	{
-		name: 'Modmail',
-		description: 'A powerful solution for your day-to-day moderation bot needs.',
-		icon: <SvgModmail />,
-	},
-];
+const numberOfSkeletonGuilds = 16;
 
 function Dashboard() {
 	const { data, refetch, isRefetching, isFetching } = useLoggedInUser();
@@ -102,6 +86,7 @@ function Dashboard() {
 
 	return (
 		<>
+			<PageMeta title="Dashboard" />
 			<Container>
 				<SectionContainer>
 					<MainHeadingContainer>
@@ -116,23 +101,19 @@ function Dashboard() {
 						placeholder="Search for a server"
 						aria-label="Search for a server"
 					/>
-					<Paginator itemsPerPage={guildCardsPerPage} items={items}>
-						{(guild) => <GuildCard guild={guild} />}
-						{() => <GuildCard guild={undefined} />}
-					</Paginator>
-				</SectionContainer>
-				<SectionContainer>
-					<Heading
-						title="Server not listed?"
-						subtitle="Click the buttons below to add a bot to your server or learn more."
-					/>
-					<Bots>
-						{bots.map((bot) => (
-							<li key={bot.name}>
-								<BotCard bot={bot} />
-							</li>
-						))}
-					</Bots>
+					<Guilds>
+						{items?.length
+							? items.map((guild) => (
+									<li key={guild.id}>
+										<GuildCard guild={guild} key={guild.id} />
+									</li>
+							  ))
+							: [...(Array(numberOfSkeletonGuilds) as unknown[])].map((_, i) => (
+									<li key={i}>
+										<GuildCard guild={undefined} />
+									</li>
+							  ))}
+					</Guilds>
 				</SectionContainer>
 			</Container>
 			<Footer />

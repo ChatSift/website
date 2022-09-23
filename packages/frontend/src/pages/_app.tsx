@@ -7,6 +7,7 @@ import Head from 'next/head';
 import { createContext, useRef, useState } from 'react';
 import '~/styles/global.scss';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { SSRProvider } from 'react-aria';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import Header from '../components/Header';
 import dark from '../themes/dark';
@@ -52,12 +53,15 @@ function App({ Component, pageProps }: AppProps) {
 					>
 						<Head>
 							<meta name="viewport" content="width=device-width, initial-scale=1" />
+							<link rel="icon" href="/assets/favicon.ico" />
 						</Head>
 						{/* <SkipLink /> */}
 						<Header />
-						<Container>
-							<Component {...pageProps} />
-						</Container>
+						<SSRProvider>
+							<Container>
+								<Component {...pageProps} />
+							</Container>
+						</SSRProvider>
 					</SkeletonTheme>
 					<ReactQueryDevtools initialIsOpen={false} />
 				</QueryClientProvider>

@@ -4,15 +4,15 @@ import { useRouter } from 'next/router';
 import Skeleton from 'react-loading-skeleton';
 import Cookies from 'universal-cookie';
 import { AvatarImage, AvatarStyleDesktop, AvatarStyleMobile, Discriminator, MobileUser, Username } from './style';
-import useLoggedInUser from '../../hooks/useLoggedInUser';
-import type { APIError } from '../../utils/fetch';
+import useUser, { UserFetchError } from '../../hooks/useUser';
+import { APIError } from '../../utils/fetch';
 import * as Urls from '../../utils/urls';
 import * as Button from '../Button';
 
-function ErrorHandler({ error }: { error: APIError }) {
+function ErrorHandler({ error }: { error: UserFetchError }) {
 	const router = useRouter();
 
-	if (error.payload?.statusCode === 401) {
+	if (error instanceof APIError && error.payload?.statusCode === 401) {
 		return <Button.Ghost onPress={() => void router.replace(Urls.LogIn)}>Log in</Button.Ghost>;
 	}
 
@@ -44,7 +44,7 @@ function logOut() {
 }
 
 export function Desktop() {
-	const { isLoading, data: user, error } = useLoggedInUser();
+	const { isLoading, data: user, error } = useUser();
 
 	if (error) {
 		return <ErrorHandler error={error} />;
@@ -59,7 +59,7 @@ export function Desktop() {
 }
 
 export function Mobile() {
-	const { isLoading, data: user, error } = useLoggedInUser();
+	const { isLoading, data: user, error } = useUser();
 
 	if (error) {
 		return <ErrorHandler error={error} />;
