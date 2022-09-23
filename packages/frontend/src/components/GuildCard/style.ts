@@ -128,7 +128,7 @@ export const GuildCardBase = styled.a`
 	}
 
 	@media (max-width: ${smallestDashboardWidth}px) {
-		width: 100%;
+		width: 80vw;
 	}
 `;
 

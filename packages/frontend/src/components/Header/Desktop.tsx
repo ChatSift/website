@@ -1,3 +1,4 @@
+import { default as NextLink } from 'next/link';
 import type React from 'react';
 import { useRef } from 'react';
 import { AriaLinkOptions, useLink } from 'react-aria';
@@ -11,16 +12,20 @@ function DesktopLink({ item, ...props }: { item: HeaderLink } & AriaLinkOptions)
 	const { linkProps } = useLink(props, ref);
 
 	return (
-		<HeaderStyles.Link {...linkProps} tabIndex={0} data-href={item.href}>
-			{item.name}
-		</HeaderStyles.Link>
+		<NextLink href={item.href}>
+			<HeaderStyles.Link {...linkProps} tabIndex={0} href={item.href}>
+				{item.name}
+			</HeaderStyles.Link>
+		</NextLink>
 	);
 }
 
 function Desktop({ navigate }: { navigate: (href: string) => void }) {
 	return (
 		<HeaderStyles.List>
-			<Logo as="li" />
+			<li>
+				<Logo />
+			</li>
 			<HeaderStyles.Item>
 				<HeaderStyles.DesktopNav>
 					<HeaderStyles.HorizontalList>
