@@ -42,7 +42,7 @@ const Container = styled.main`
 	flex: 1 0 auto;
 	display: flex;
 	flex-direction: column;
-	max-width: ${dashboardMaxWidth - dashboardPadding * 2}px;
+	max-width: ${dashboardMaxWidth}px;
 	align-items: stretch;
 
 	@media (max-width: ${dashboardMaxWidth}px) {

@@ -1,6 +1,11 @@
 import styled from '@emotion/styled';
 import Skeleton from 'react-loading-skeleton';
-import { guildCardGap, guildCardWidthMobile, smallestDashboardWidth } from '../../utils/constants';
+import {
+	guildCardGap,
+	guildCardWidthDesktop,
+	guildCardWidthMobile,
+	smallestDashboardWidth,
+} from '../../utils/constants';
 
 const guildCardInnerGap = 12;
 
@@ -76,7 +81,7 @@ export const GuildCardBase = styled.a`
 	border-radius: 8px;
 	border: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
 	min-width: ${guildCardWidthMobile}px;
-	width: 216px;
+	width: ${guildCardWidthDesktop}px;
 	height: 144px;
 	color: ${(props) => props.theme.colors.text.secondary};
 
