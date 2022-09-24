@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 
-export const HeadingBase = styled.div`
+export const HeadingBase = styled.div<{ gap?: number }>`
 	display: flex;
 	flex-direction: column;
-	gap: 4px;
+	gap: ${(props) => props.gap ?? 4}px;
 `;
 
 export const Title = styled.h1`
