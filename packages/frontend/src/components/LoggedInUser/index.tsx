@@ -2,7 +2,6 @@ import type { GetDiscordAuthMeResult } from '@chatsift/website-api/dist/routes/a
 import * as Avatar from '@radix-ui/react-avatar';
 import { useRouter } from 'next/router';
 import Skeleton from 'react-loading-skeleton';
-import Cookies from 'universal-cookie';
 import { AvatarImage, AvatarStyleDesktop, AvatarStyleMobile, Discriminator, MobileUser, Username } from './style';
 import useUser, { UserFetchError } from '../../hooks/useUser';
 import { APIError } from '../../utils/fetch';
@@ -37,14 +36,9 @@ function UserAvatar({ isLoading, user, className }: UserAvatarProps) {
 	);
 }
 
-function logOut() {
-	const cookies = new Cookies(document.cookie);
-	cookies.remove('access_token');
-	location.reload();
-}
-
 export function Desktop() {
 	const { isLoading, data: user, error } = useUser();
+	const router = useRouter();
 
 	if (error) {
 		return <ErrorHandler error={error} />;
@@ -52,7 +46,7 @@ export function Desktop() {
 
 	return (
 		<>
-			<Button.Ghost onPress={logOut}>Log out</Button.Ghost>
+			<Button.Ghost onPress={() => void router.replace(Urls.LogOut)}>Log out</Button.Ghost>
 			<UserAvatar user={user} isLoading={isLoading} className={AvatarStyleDesktop} />
 		</>
 	);
@@ -60,6 +54,7 @@ export function Desktop() {
 
 export function Mobile() {
 	const { isLoading, data: user, error } = useUser();
+	const router = useRouter();
 
 	if (error) {
 		return <ErrorHandler error={error} />;
@@ -74,7 +69,7 @@ export function Mobile() {
 					<Discriminator>#{isLoading ? <Skeleton width={40} inline /> : user.discriminator}</Discriminator>
 				</div>
 			</MobileUser>
-			<Button.Ghost onPress={logOut}>Log out</Button.Ghost>
+			<Button.Ghost onPress={() => void router.replace(Urls.LogOut)}>Log out</Button.Ghost>
 		</>
 	);
 }

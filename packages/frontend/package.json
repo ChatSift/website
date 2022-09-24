@@ -35,7 +35,6 @@
 		"react-aria": "^3.18.0",
 		"react-dom": "^18.2.0",
 		"react-loading-skeleton": "^3.1.0",
-		"remove": "^0.1.5",
-		"universal-cookie": "^4.0.4"
+		"remove": "^0.1.5"
 	}
 }
