@@ -43,6 +43,11 @@ module.exports = {
 					'https://discord.com/api/oauth2/authorize?client_id=981971797480210523&permissions=326686075904&scope=bot%20applications.commands',
 				permanent: true,
 			},
+			{
+				source: '/kofi',
+				destination: 'https://ko-fi.com/chatsift',
+				permanent: true,
+			},
 		];
 	},
 };

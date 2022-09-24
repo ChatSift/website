@@ -205,7 +205,7 @@ function Home() {
 						subtitle="Support us on Kofi to help maintain these tools and live happily ever after"
 						gap={12}
 					/>
-					<CtaLink href="https://www.youtube.com/watch?v=KdftbYqA_VQ">Donate</CtaLink>
+					<CtaLink href="/kofi">Donate</CtaLink>
 				</DonateHeading>
 			</Container>
 			<Footer />
