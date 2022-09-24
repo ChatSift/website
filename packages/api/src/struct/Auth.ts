@@ -53,14 +53,33 @@ export class Auth {
 
 	public populateAuthCookies(res: Response, credentials: Credentials): void {
 		res.cookie('access_token', credentials.access.token, {
-			path: '/',
 			expires: credentials.refresh.expiration,
+			path: '/',
 			sameSite: this.env.isProd ? 'none' : 'strict',
+			httpOnly: true,
 			secure: this.env.isProd,
 		});
 
 		res.cookie('refresh_token', credentials.refresh.token, {
 			expires: credentials.refresh.expiration,
+			path: '/',
+			sameSite: this.env.isProd ? 'none' : 'strict',
+			httpOnly: true,
+			secure: this.env.isProd,
+		});
+	}
+
+	public noopAuthCookies(res: Response): void {
+		res.cookie('access_token', 'noop', {
+			expires: new Date(1970),
+			path: '/',
+			sameSite: this.env.isProd ? 'none' : 'strict',
+			httpOnly: true,
+			secure: this.env.isProd,
+		});
+
+		res.cookie('refresh_token', 'noop', {
+			expires: new Date(1970),
 			path: '/',
 			sameSite: this.env.isProd ? 'none' : 'strict',
 			httpOnly: true,
