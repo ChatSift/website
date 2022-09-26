@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import * as Button from '../components/Button';
-import Footer from '../components/Footer';
-import GuildCard from '../components/GuildCard';
-import Heading from '../components/Heading';
-import PageMeta from '../components/PageMeta';
-import SearchBar from '../components/SearchBar';
-import useLoggedInUser from '../hooks/useLoggedInUser';
-import { dashboardMaxWidth, dashboardPadding, guildCardsPerPage, smallestDashboardWidth } from '../utils/constants';
+import * as Button from '~/components/Button';
+import Footer from '~/components/Footer';
+import GuildCard from '~/components/GuildCard';
+import Heading from '~/components/Heading';
+import PageMeta from '~/components/PageMeta';
+import SearchBar from '~/components/SearchBar';
+import useLoggedInUser from '~/hooks/useLoggedInUser';
 import mediaQueries from '~/styles/breakpoints';
 import SvgRefresh from '~/svg/SvgRefresh';
+import { dashboardMaxWidth, dashboardPadding, guildCardsPerPage, smallestDashboardWidth } from '~/utils/constants';
 
 const MainHeadingContainer = styled.div`
 	display: flex;

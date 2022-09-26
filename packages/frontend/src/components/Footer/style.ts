@@ -10,7 +10,7 @@ export const FooterBase = styled.footer`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	padding: 16px 0;
+	padding: 16px;
 	gap: 16px;
 	border-top: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
 	color: ${(props) => props.theme.colors.text.secondary};
@@ -20,7 +20,7 @@ export const FooterBase = styled.footer`
 	${mediaQueries.smallMin} {
 		flex-direction: row;
 		align-items: center;
-		padding: ${16 - buttonPadding}px 0;
+		padding: ${24 - buttonPadding}px 24px;
 	}
 `;
 
