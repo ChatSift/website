@@ -23,6 +23,19 @@ const Container = styled.main`
 
 	${mediaQueries.dashboardMaxWidthMax} {
 		max-width: ${smallestDashboardWidth - dashboardPadding * 2}px;
+
+		& *[data-hide-on-mobile] {
+			display: none;
+		}
+	}
+	& *[data-hide-on-desktop] {
+		display: initial;
+	}
+
+	${mediaQueries.dashboardMaxWidthMin} {
+		& *[data-hide-on-desktop] {
+			display: none;
+		}
 	}
 `;
 
@@ -176,7 +189,7 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 						<Title>{bot.featureList.title}</Title>
 						<Text>{bot.featureList.text}</Text>
 					</SectionHeader>
-					<Features>
+					<Features data-hide-on-mobile>
 						{bot.featureList.features.map(({ name, description }) => (
 							<Feature key={name}>
 								<FeatureName>{name}</FeatureName>
@@ -184,6 +197,21 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 							</Feature>
 						))}
 					</Features>
+					<div data-hide-on-desktop="">
+						{/* @ts-expect-error TS2745 */}
+						<SingleItemPaginator>
+							{[...(Array(Math.ceil(bot.featureList.features.length / 3)) as unknown[])].map((_, i) => (
+								<Features key={`page-${i}`}>
+									{bot.featureList.features.slice(i * 3, i * 3 + 3).map(({ name, description }) => (
+										<Feature key={name}>
+											<FeatureName>{name}</FeatureName>
+											<span>{description}</span>
+										</Feature>
+									))}
+								</Features>
+							))}
+						</SingleItemPaginator>
+					</div>
 				</section>
 				<section>
 					<SectionHeader>
