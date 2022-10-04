@@ -1,7 +1,8 @@
 import type { Theme } from '@emotion/react';
 
 declare module '@emotion/react' {
-	export type Theme = {
+	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+	export interface Theme {
 		colors: {
 			accent: string;
 			background: {
@@ -26,4 +27,4 @@ declare module '@emotion/react' {
 
 export type ThemeProps<T = {}> = T & {
 	theme: Theme;
-}
+};
