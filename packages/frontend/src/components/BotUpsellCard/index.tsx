@@ -5,7 +5,7 @@ import { botIcons } from '~/data/bots';
 import SvgLinkExternal from '~/svg/SvgLinkExternal';
 import { botPage } from '~/utils/urls';
 
-function BotUpsellCard({ bot, pathName }: { bot: Bot; pathName: string }) {
+function BotUpsellCard({ bot, pathName }: { bot: Bot; pathName: keyof typeof botIcons }) {
 	const Icon = botIcons[pathName]!;
 
 	return (

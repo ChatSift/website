@@ -38,12 +38,16 @@ const SectionContainer = styled.div`
 `;
 
 const Container = styled.main`
-	padding-top: 16px;
 	flex: 1 0 auto;
 	display: flex;
 	flex-direction: column;
 	max-width: ${dashboardMaxWidth}px;
 	align-items: stretch;
+	justify-content: space-between;
+	width: fit-content;
+	height: 100%;
+	margin: 0 auto;
+	padding: ${dashboardPadding}px;
 
 	@media (max-width: ${dashboardMaxWidth}px) {
 		max-width: ${smallestDashboardWidth - dashboardPadding * 2}px;
