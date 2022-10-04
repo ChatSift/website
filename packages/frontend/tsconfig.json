@@ -9,8 +9,7 @@
 		"jsx": "preserve",
 		"jsxImportSource": "@emotion/react",
 		"paths": {
-			"~/styles/*": ["./src/styles/*"],
-			"~/svg/*": ["./src/svg/*"]
+			"~/*": ["./src/*"]
 		},
 		"allowJs": true,
 		"forceConsistentCasingInFileNames": true,

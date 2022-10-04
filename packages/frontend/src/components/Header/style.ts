@@ -1,8 +1,8 @@
 import { keyframes, css } from '@emotion/css';
 import styled from '@emotion/styled';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import type { ThemeProps } from '../../themes/theme';
 import mediaQueries from '~/styles/breakpoints';
+import type { ThemeProps } from '~/themes/theme';
 
 export const MobileNavAnimDuration = 0.3;
 
@@ -13,6 +13,7 @@ export const Base = styled.header`
 	flex-direction: column;
 	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
 	width: 100%;
+	z-index: 10000;
 
 	${mediaQueries.smallMin} {
 		border-bottom: 1px solid ${(props: ThemeProps) => props.theme.colors.onBackground.secondary};

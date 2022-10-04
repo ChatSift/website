@@ -1,31 +1,13 @@
 import styled from '@emotion/styled';
+import { default as NextLink } from 'next/link';
 import * as Button from '../components/Button';
 import Footer from '../components/Footer';
 import Heading from '../components/Heading';
-import Link from '../components/Link';
-import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '../utils/constants';
+import Link from '~/components/Link';
+import bots, { botIcons } from '~/data/bots';
 import mediaQueries from '~/styles/breakpoints';
-import SvgAma from '~/svg/SvgAma';
-import SvgAutoModerator from '~/svg/SvgAutoModerator';
-import SvgModmail from '~/svg/SvgModmail';
-
-const bots = [
-	{
-		name: 'AutoModerator',
-		description: 'A powerful solution for your day-to-day moderation bot needs.',
-		logo: SvgAutoModerator,
-	},
-	{
-		name: 'AMA',
-		description: 'Manage and coordinate your Ask-Me-Anything events with ease.',
-		logo: SvgAma,
-	},
-	{
-		name: 'Modmail',
-		description: 'Rena forgor to write this one smhmhmhhmhmhmhmh :^)',
-		logo: SvgModmail,
-	},
-];
+import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
+import { botPage } from '~/utils/urls';
 
 const Container = styled.main`
 	padding-top: 16px;
@@ -78,15 +60,15 @@ const BotsList = styled.ul`
 	display: grid;
 	gap: 24px;
 	grid-template-columns: 1fr;
-	grid-template-rows: repeat(${bots.length + 1}, 1fr);
+	grid-template-rows: repeat(${Object.entries(bots).length + 1}, 1fr);
 
 	${mediaQueries.smallMin} {
 		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: repeat(${Math.ceil(bots.length / 2)}, 1fr);
+		grid-template-rows: repeat(${Math.ceil(Object.entries(bots).length / 2)}, 1fr);
 	}
 `;
 
-const BotCard = styled.li`
+const BotCard = styled.a`
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
@@ -94,6 +76,7 @@ const BotCard = styled.li`
 	background-color: ${({ theme }) => theme.colors.background.card};
 	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
 	border-radius: 8px;
+	cursor: pointer;
 `;
 
 const BotCardHeader = styled.div`
@@ -179,17 +162,33 @@ function Home() {
 				<BotSection>
 					<SubTitle>Our bots</SubTitle>
 					<BotsList>
-						{bots.map(({ name, description, logo: Logo }) => (
-							<BotCard key={name}>
-								<BotCardHeader>
-									<BotLogo>
-										<Logo width={32} height={32} />
-									</BotLogo>
-									{name}
-								</BotCardHeader>
-								<BotDescription>{description}</BotDescription>
-							</BotCard>
-						))}
+						{Object.entries(bots).map(
+							([
+								pathName,
+								{
+									name,
+									description: { card: cardDescription },
+								},
+							]) => {
+								const Icon = botIcons[pathName]!;
+
+								return (
+									<li key={name}>
+										<NextLink href={botPage(pathName)}>
+											<BotCard>
+												<BotCardHeader>
+													<BotLogo>
+														<Icon width={32} height={32} />
+													</BotLogo>
+													{name}
+												</BotCardHeader>
+												<BotDescription>{cardDescription}</BotDescription>
+											</BotCard>
+										</NextLink>
+									</li>
+								);
+							},
+						)}
 						<CustomSolutionUpsell>
 							<UpsellTitle>Need a custom solution?</UpsellTitle>
 							<span>
