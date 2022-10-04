@@ -7,6 +7,15 @@ type Slideshow =
 	| [SlideshowImage, SlideshowImage, ...SlideshowImage[]]
 	| [...SlideshowImage[], SlideshowImage, SlideshowImage];
 
+interface Review {
+	content: string;
+	author: {
+		name: string;
+		role: string;
+		avatarUrl: string;
+	};
+}
+
 interface Bot {
 	// min two, otherwise why are you using a slideshow??
 	slideshowImages: Slideshow;
@@ -27,13 +36,6 @@ interface Bot {
 	};
 	reviews: {
 		title: string;
-		reviews: {
-			content: string;
-			author: {
-				name: string;
-				role: string;
-				avatarUrl: string;
-			};
-		}[];
+		reviews: [Review, Review, ...Review[]];
 	};
 }

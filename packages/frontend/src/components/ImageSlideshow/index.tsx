@@ -12,16 +12,12 @@ function ImageSlideshow({ images }: { images: Bot['slideshowImages'] }) {
 	);
 
 	useEffect(() => {
-		console.log('creating');
 		const interval = setInterval(
 			() => setCurrentIndex((currentIndex) => (currentIndex + 1) % images.length),
 			slideshowInterval,
 		);
 
-		return () => {
-			console.log('clearing');
-			clearInterval(interval);
-		};
+		return () => clearInterval(interval);
 	}, [images.length]);
 
 	const animatedProps = useSpring({

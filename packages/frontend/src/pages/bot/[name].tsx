@@ -4,6 +4,8 @@ import * as Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import ImageSlideshow from '~/components/ImageSlideshow';
 import PageMeta from '~/components/PageMeta';
+import Review from '~/components/Review';
+import SingleItemPaginator from '~/components/SingleItemPaginator';
 import bots from '~/data/bots';
 import mediaQueries from '~/styles/breakpoints';
 import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
@@ -57,13 +59,20 @@ const Features = styled.ul`
 	}
 `;
 
-const FeaturesTitle = styled.h2`
-	font-size: 26px;
-	font-weight: 550;
-	margin-bottom: 8px;
+const SectionHeader = styled.div`
+	margin-bottom: 16px;
 `;
 
-const FeaturesText = styled.span`
+const Title = styled.h2`
+	font-size: 26px;
+	font-weight: 550;
+
+	&:not(:last-child) {
+		margin-bottom: 8px;
+	}
+`;
+
+const Text = styled.span`
 	font-size: 18px;
 
 	color: ${({ theme }) => theme.colors.text.secondary};
@@ -145,7 +154,7 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 		<>
 			<PageMeta title="Bot" />
 			<Container>
-				<div>
+				<section>
 					<ImageSlideshow images={bot.slideshowImages} />
 					<Cta>
 						<CtaTitle>{bot.pageTitle}</CtaTitle>
@@ -161,10 +170,12 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 							</GhostLink>
 						</CtaButtons>
 					</Cta>
-				</div>
-				<div>
-					<FeaturesTitle>{bot.featureList.title}</FeaturesTitle>
-					<FeaturesText>{bot.featureList.text}</FeaturesText>
+				</section>
+				<section>
+					<SectionHeader>
+						<Title>{bot.featureList.title}</Title>
+						<Text>{bot.featureList.text}</Text>
+					</SectionHeader>
 					<Features>
 						{bot.featureList.features.map(({ name, description }) => (
 							<Feature key={name}>
@@ -173,7 +184,18 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 							</Feature>
 						))}
 					</Features>
-				</div>
+				</section>
+				<section>
+					<SectionHeader>
+						<Title>{bot.reviews.title}</Title>
+					</SectionHeader>
+					{/* @ts-expect-error TS2745 */}
+					<SingleItemPaginator>
+						{bot.reviews.reviews.map(({ content, author }) => (
+							<Review content={content} author={author} key={author.name} />
+						))}
+					</SingleItemPaginator>
+				</section>
 			</Container>
 			<Footer />
 		</>

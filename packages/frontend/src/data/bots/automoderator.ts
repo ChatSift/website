@@ -61,27 +61,25 @@ const autoModerator: Bot = {
 				content:
 					'We love Automoderator! It’s made moderating our Discord server a total breeze. I can’t imagine going back to another bot again.',
 				author: {
+					name: 'Eviljt',
+					role: 'CEO, Getting things done on time LLC',
+					avatarUrl: '/assets/reviewers/rjt.png',
+				},
+			},
+			{
+				content: 'Ok I pull up',
+				author: {
 					name: 'Gort',
-					role: 'Serial killer',
+					role: 'Part time serial killer, full-time capybara',
 					avatarUrl: '/assets/reviewers/gort.jpg',
 				},
 			},
 			{
-				content:
-					'We love Automoderator! It’s made moderating our Discord server a total breeze. I can’t imagine going back to another bot again.',
+				content: 'Ooo ye boogie ye shk oh yeah boogie oh yeah',
 				author: {
-					name: 'Gort',
-					role: 'Serial killer',
-					avatarUrl: '/assets/reviewers/gort.jpg',
-				},
-			},
-			{
-				content:
-					'We love Automoderator! It’s made moderating our Discord server a total breeze. I can’t imagine going back to another bot again.',
-				author: {
-					name: 'Gort',
-					role: 'Serial killer',
-					avatarUrl: '/assets/reviewers/gort.jpg',
+					name: 'Bert',
+					role: 'Dancer',
+					avatarUrl: 'https://media.discordapp.net/stickers/871832109482917929.png?size=240',
 				},
 			},
 		],
