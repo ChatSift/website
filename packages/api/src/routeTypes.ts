@@ -19,13 +19,13 @@ type RoutesByPaths = {
 	>;
 };
 
-interface RouteMethodMap {
+type RouteMethodMap = {
 	[RouteMethod.get]: 'get';
 	[RouteMethod.post]: 'post';
 	[RouteMethod.put]: 'put';
 	[RouteMethod.delete]: 'delete';
 	[RouteMethod.patch]: 'patch';
-}
+};
 
 export type AuthRoutes = {
 	[Path in keyof RoutesByPaths]: {

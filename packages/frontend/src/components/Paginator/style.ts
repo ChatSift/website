@@ -11,7 +11,7 @@ import mediaQueries from '~/styles/breakpoints';
 
 export const PaginatorBase = styled.div``;
 
-interface PaginatorListProps {
+type PaginatorListProps = {
 	itemsPerPage: number;
 }
 

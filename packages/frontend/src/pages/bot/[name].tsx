@@ -199,8 +199,8 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 					<Cta>
 						<CtaTitle>{bot.pageTitle}</CtaTitle>
 						<CtaTextContainer>
-							{bot.description.page.map((line, i) => (
-								<CtaText key={i}>{line}</CtaText>
+							{bot.description.page.map((line, index) => (
+								<CtaText key={index}>{line}</CtaText>
 							))}
 						</CtaTextContainer>
 						<CtaButtons>
@@ -217,8 +217,8 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 						<Text>{bot.featureList.text}</Text>
 					</SectionHeader>
 					<Features data-hide-on-mobile>
-						{bot.featureList.features.map(({ name, description }, i) => (
-							<Feature key={`${name}-${i}`}>
+						{bot.featureList.features.map(({ name, description }, index) => (
+							<Feature key={`${name}-${index}`}>
 								<FeatureName>{name}</FeatureName>
 								<span>{description}</span>
 							</Feature>
@@ -227,16 +227,18 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 					<div data-hide-on-desktop="">
 						{/* @ts-expect-error TS2745 */}
 						<SingleItemPaginator>
-							{[...(Array(Math.ceil(bot.featureList.features.length / 3)) as unknown[])].map((_, i) => (
-								<Features key={`page-${i}`}>
-									{bot.featureList.features.slice(i * 3, i * 3 + 3).map(({ name, description }, j) => (
-										<Feature key={`feat-${name}-${i}-${j}`}>
-											<FeatureName>{name}</FeatureName>
-											<span>{description}</span>
-										</Feature>
-									))}
-								</Features>
-							))}
+							{[...(Array.from({ length: Math.ceil(bot.featureList.features.length / 3) }) as unknown[])].map(
+								(_, index) => (
+									<Features key={`page-${index}`}>
+										{bot.featureList.features.slice(index * 3, index * 3 + 3).map(({ name, description }, jIndex) => (
+											<Feature key={`feat-${name}-${index}-${jIndex}`}>
+												<FeatureName>{name}</FeatureName>
+												<span>{description}</span>
+											</Feature>
+										))}
+									</Features>
+								),
+							)}
 						</SingleItemPaginator>
 					</div>
 				</section>

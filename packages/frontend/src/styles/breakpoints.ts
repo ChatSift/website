@@ -4,8 +4,8 @@ export const mediaQueriesRaw = {
 	extraSmall: 320,
 	small: 650,
 	medium: 800,
-	smallestDashboardWidth: smallestDashboardWidth,
-	dashboardMaxWidth: dashboardMaxWidth,
+	smallestDashboardWidth,
+	dashboardMaxWidth,
 } as const;
 
 type MediaQueries = {
@@ -13,7 +13,10 @@ type MediaQueries = {
 } & { [key in keyof typeof mediaQueriesRaw as `${key}Max`]: string };
 
 const mediaQueries = Object.entries(mediaQueriesRaw)
-	.map(([k, v]) => ({ [`${k}Min`]: `@media (min-width: ${v}px)`, [`${k}Max`]: `@media (max-width: ${v}px)` }))
+	.map(([key, value]) => ({
+		[`${key}Min`]: `@media (min-width: ${value}px)`,
+		[`${key}Max`]: `@media (max-width: ${value}px)`,
+	}))
 	.reduce((acc, next) => ({ ...acc, ...next }), {}) as MediaQueries;
 
 export default mediaQueries;

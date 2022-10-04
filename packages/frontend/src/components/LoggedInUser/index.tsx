@@ -2,11 +2,12 @@ import type { GetDiscordAuthMeResult } from '@chatsift/website-api/dist/routes/a
 import * as Avatar from '@radix-ui/react-avatar';
 import { useRouter } from 'next/router';
 import Skeleton from 'react-loading-skeleton';
-import { AvatarImage, AvatarStyleDesktop, AvatarStyleMobile, Discriminator, MobileUser, Username } from './style';
-import useUser, { UserFetchError } from '../../hooks/useUser';
+import type { UserFetchError } from '../../hooks/useUser';
+import useUser from '../../hooks/useUser';
 import { APIError } from '../../utils/fetch';
 import * as Urls from '../../utils/urls';
 import * as Button from '../Button';
+import { AvatarImage, AvatarStyleDesktop, AvatarStyleMobile, Discriminator, MobileUser, Username } from './style';
 
 function ErrorHandler({ error }: { error: UserFetchError }) {
 	const router = useRouter();
@@ -18,10 +19,10 @@ function ErrorHandler({ error }: { error: UserFetchError }) {
 	return <>Error</>;
 }
 
-interface UserAvatarProps {
+type UserAvatarProps = {
+	className: string;
 	isLoading: boolean;
 	user: GetDiscordAuthMeResult | undefined;
-	className: string;
 }
 
 function UserAvatar({ isLoading, user, className }: UserAvatarProps) {

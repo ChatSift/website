@@ -1,29 +1,29 @@
-import { Theme } from '@emotion/react';
+import type { Theme } from '@emotion/react';
 
 declare module '@emotion/react' {
-	export interface Theme {
-		name: string;
+	export type Theme = {
 		colors: {
-			text: {
-				primary: string;
-				secondary: string;
-				disabled: string;
-				onAccent: string;
+			accent: string;
+			background: {
+				card: string;
+				default: string;
 			};
 			onBackground: {
 				primary: string;
 				secondary: string;
 				tertiary: string;
 			};
-			accent: string;
-			background: {
-				default: string;
-				card: string;
+			text: {
+				disabled: string;
+				onAccent: string;
+				primary: string;
+				secondary: string;
 			};
 		};
+		name: string;
 	}
 }
 
-export interface ThemeProps<T = {}> extends T {
+export type ThemeProps<T = {}> = T & {
 	theme: Theme;
 }

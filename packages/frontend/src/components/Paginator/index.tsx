@@ -1,4 +1,6 @@
-import { ReactNode, useEffect, useState } from 'react';
+import Image from 'next/image';
+import type { ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	LoadingAnimationItem,
 	PaginationButton,
@@ -8,12 +10,12 @@ import {
 	PaginatorList,
 } from './style';
 
-interface PaginatorProps<TItem> {
-	itemsPerPage: number;
-	items: TItem[] | undefined;
+type PaginatorProps<TItem> = {
 	children: [(item: TItem) => ReactNode, () => ReactNode];
 	className?: string;
-}
+	items: TItem[] | undefined;
+	itemsPerPage: number;
+};
 
 function Paginator<TItem>(props: PaginatorProps<TItem>) {
 	const [currentPage, setCurrentPage] = useState(0);
@@ -26,7 +28,7 @@ function Paginator<TItem>(props: PaginatorProps<TItem>) {
 		<PaginatorBase className={props.className}>
 			<PaginatorList itemsPerPage={props.itemsPerPage}>
 				{props.items === undefined
-					? [...(Array(props.itemsPerPage) as unknown[])].map((_, index) => (
+					? [...Array.from({ length: props.itemsPerPage })].map((_, index) => (
 							<li key={`${Math.floor(index / props.itemsPerPage)}-${index}`}>{props.children[1]()}</li>
 					  ))
 					: props.items
@@ -36,21 +38,23 @@ function Paginator<TItem>(props: PaginatorProps<TItem>) {
 							))}
 				{props.items?.length === 0 && (
 					<li>
-						<img src="/assets/flushed.svg" alt="Flushed emoji" width={64} />
+						<Image src="/assets/flushed.svg" alt="Flushed emoji" width={64} />
 					</li>
 				)}
 			</PaginatorList>
 			<PaginationButtons>
-				{[...(Array(Math.ceil((props.items?.length ?? 0) / props.itemsPerPage)) as unknown[])].map((_, index) => (
-					<PaginationButtonListItem key={index}>
-						<PaginationButton
-							onPress={() => setCurrentPage(index)}
-							data-active={index === currentPage}
-							aria-label={`goto page ${index + 1}`}
-							style={{ animationDelay: `${index * 0.05}s` }}
-						/>
-					</PaginationButtonListItem>
-				))}
+				{[...(Array.from({ length: Math.ceil((props.items?.length ?? 0) / props.itemsPerPage) }) as unknown[])].map(
+					(_, index) => (
+						<PaginationButtonListItem key={index}>
+							<PaginationButton
+								onPress={() => setCurrentPage(index)}
+								data-active={index === currentPage}
+								aria-label={`goto page ${index + 1}`}
+								style={{ animationDelay: `${index * 0.05}s` }}
+							/>
+						</PaginationButtonListItem>
+					),
+				)}
 				{props.items === undefined && (
 					<>
 						<LoadingAnimationItem />

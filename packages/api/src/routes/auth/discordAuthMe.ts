@@ -1,25 +1,25 @@
 import { Route, RouteMethod } from '@chatsift/rest-utils';
-import type { REST } from '@discordjs/rest';
+import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v10';
 import type { Middleware, Request, Response } from 'polka';
 import { inject, singleton } from 'tsyringe';
 import { discordAuth } from '../../middleware/discordAuth';
 import { SYMBOLS } from '../../util/symbols';
 
-export interface GetDiscordAuthMeResult {
-	id: string;
-	username: string;
-	discriminator: string;
+export type GetDiscordAuthMeResult = {
 	avatar: string | null;
+	discriminator: string;
 	guilds: {
+		hasAma: boolean;
+		hasAutomoderator: boolean;
+		hasModmail: boolean;
+		icon: string | null;
 		id: string;
 		name: string;
-		icon: string | null;
-		hasAutomoderator: boolean;
-		hasAma: boolean;
-		hasModmail: boolean;
 	}[];
-}
+	id: string;
+	username: string;
+};
 
 @singleton()
 export default class extends Route<GetDiscordAuthMeResult, never> {
@@ -38,11 +38,13 @@ export default class extends Route<GetDiscordAuthMeResult, never> {
 		super();
 	}
 
-	private has(guild: string, rest: REST) {
-		return rest
-			.get(Routes.guild(guild))
-			.then(() => true)
-			.catch(() => false);
+	private async has(guild: string, rest: REST): Promise<boolean> {
+		try {
+			await rest.get(Routes.guild(guild));
+			return true;
+		} catch {
+			return false;
+		}
 	}
 
 	public async handle(req: Request, res: Response) {

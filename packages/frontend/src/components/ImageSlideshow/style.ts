@@ -3,7 +3,7 @@ import { animated } from 'react-spring';
 import mediaQueries from '~/styles/breakpoints';
 
 export const gap = 24;
-export const slideshowInterval = 3000;
+export const slideshowInterval = 3_000;
 
 export const SlideshowContainer = styled.div`
 	overflow: hidden;
@@ -13,7 +13,7 @@ export const SlideshowContainer = styled.div`
 	}
 `;
 
-interface SlideshowProps {
+type SlideshowProps = {
 	nImages: number;
 }
 

@@ -80,7 +80,7 @@ function Dashboard() {
 
 	const dataToUse = isRefetching ? undefined : data;
 
-	const filtered = dataToUse?.guilds.filter((g) => g.name.toLowerCase().includes(search.toLowerCase()));
+	const filtered = dataToUse?.guilds.filter((guild) => guild.name.toLowerCase().includes(search.toLowerCase()));
 	const items = filtered?.sort((g1, g2) =>
 		Number(g1.hasAma) + Number(g1.hasModmail) + Number(g1.hasAutomoderator) <
 		Number(g2.hasAma) + Number(g2.hasModmail) + Number(g2.hasAutomoderator)
@@ -112,8 +112,8 @@ function Dashboard() {
 										<GuildCard guild={guild} key={guild.id} />
 									</li>
 							  ))
-							: [...(Array(numberOfSkeletonGuilds) as unknown[])].map((_, i) => (
-									<li key={i}>
+							: [...(Array.from({ length: numberOfSkeletonGuilds }) as unknown[])].map((_, index) => (
+									<li key={index}>
 										<GuildCard guild={undefined} />
 									</li>
 							  ))}

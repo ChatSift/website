@@ -1,12 +1,14 @@
-import { Dispatch, SetStateAction, useRef } from 'react';
-import { AriaSearchFieldProps, useSearchField } from 'react-aria';
+import type { Dispatch, SetStateAction} from 'react';
+import { useRef } from 'react';
+import type { AriaSearchFieldProps} from 'react-aria';
+import { useSearchField } from 'react-aria';
 import { SearchField } from './style';
 
 function SearchBar({
 	className,
 	state,
 	...props
-}: { className?: string; state: [string, Dispatch<SetStateAction<string>>] } & AriaSearchFieldProps) {
+}: AriaSearchFieldProps & { className?: string; state: [string, Dispatch<SetStateAction<string>>] }) {
 	const ref = useRef(null);
 	const [value, setValue] = state;
 	const { inputProps } = useSearchField(props, { value, setValue }, ref);

@@ -1,5 +1,6 @@
 import { Route, RouteMethod, validate } from '@chatsift/rest-utils';
-import { InferType, s } from '@sapphire/shapeshift';
+import type { InferType } from '@sapphire/shapeshift';
+import { s } from '@sapphire/shapeshift';
 import type { Middleware, Request, Response } from 'polka';
 import { singleton } from 'tsyringe';
 import { discordAuth } from '../../middleware/discordAuth';

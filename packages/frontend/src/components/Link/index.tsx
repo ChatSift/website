@@ -1,4 +1,5 @@
-import { HTMLProps, useRef } from 'react';
+import type { HTMLProps} from 'react';
+import { useRef } from 'react';
 import { useLink } from 'react-aria';
 
 function Link(props: HTMLProps<Element>) {

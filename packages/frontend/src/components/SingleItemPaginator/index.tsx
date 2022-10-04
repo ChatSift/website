@@ -6,7 +6,7 @@ import { buttonPadding, Controls, CurrentPage } from '~/components/SingleItemPag
 import SvgNext from '~/svg/SvgNext';
 import SvgPrev from '~/svg/SvgPrev';
 
-interface SingleItemPaginatorProps {
+type SingleItemPaginatorProps = {
 	children: [ReactNode, ReactNode, ...ReactNode[]];
 }
 

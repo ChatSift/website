@@ -7,7 +7,9 @@ function ImageSlideshow({ images }: { images: Bot['slideshowImages'] }) {
 
 	const internalImages = useMemo(
 		() =>
-			[...(Array(images.length) as unknown[])].map((_, i) => images.length - 1 - ((currentIndex + i) % images.length)),
+			[...(Array.from({ length: images.length }) as unknown[])].map(
+				(_, index) => images.length - 1 - ((currentIndex + index) % images.length),
+			),
 		[currentIndex, images],
 	);
 

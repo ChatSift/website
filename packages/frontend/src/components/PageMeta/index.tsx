@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-interface PageMetaProps {
+type PageMetaProps = {
 	title: string;
 }
 

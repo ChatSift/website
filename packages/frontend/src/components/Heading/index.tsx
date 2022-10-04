@@ -1,9 +1,9 @@
 import { HeadingBase, Subtitle, Title } from './HeadingBase';
 
-interface HeadingProps {
-	title: string;
-	subtitle?: string | undefined;
+type HeadingProps = {
 	gap?: number;
+	subtitle?: string | undefined;
+	title: string;
 }
 
 function Heading({ title, subtitle, gap }: HeadingProps) {

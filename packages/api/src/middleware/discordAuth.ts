@@ -3,10 +3,12 @@ import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
 import type { NextHandler, Request, Response } from 'polka';
 import { container } from 'tsyringe';
-import { APIUserWithGuilds, Auth } from '../struct/Auth';
+import type { APIUserWithGuilds } from '../struct/Auth';
+import { Auth } from '../struct/Auth';
 import { logger } from '../util/logger';
 
 declare module 'polka' {
+	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 	export interface Request {
 		discordUser?: APIUserWithGuilds;
 	}
@@ -23,6 +25,7 @@ export function discordAuth(fallthrough = false) {
 		}
 
 		let discordConnectionResult = await auth.fetchDiscordConnection(token);
+		// eslint-disable-next-line promise/prefer-await-to-callbacks
 		if (discordConnectionResult.isErrAnd((error) => error instanceof jwt.TokenExpiredError)) {
 			if (!cookies.refresh_token) {
 				return next(fallthrough ? undefined : unauthorized('expired access token and missing refresh token', 'Bearer'));
@@ -31,6 +34,7 @@ export function discordAuth(fallthrough = false) {
 			const newTokens = auth.refreshTokens(token, cookies.refresh_token);
 			auth.populateAuthCookies(res, newTokens);
 			discordConnectionResult = await auth.fetchDiscordConnection(newTokens.access.token);
+			// eslint-disable-next-line promise/prefer-await-to-callbacks
 		} else if (discordConnectionResult.isErrAnd((error) => error instanceof jwt.JsonWebTokenError)) {
 			return next(fallthrough ? undefined : unauthorized('malformed token', 'Bearer'));
 		} else if (discordConnectionResult.isErr()) {
@@ -44,9 +48,10 @@ export function discordAuth(fallthrough = false) {
 
 		const user = await auth.fetchDiscordUser(discordConnection.unwrap().accessToken);
 		if (user.isOk()) {
+			// eslint-disable-next-line require-atomic-updates
 			req.discordUser = user.unwrap();
 			if (req.params.guildId) {
-				const guild = req.discordUser.guilds.find((g) => g.id === req.params.guildId);
+				const guild = req.discordUser.guilds.find((guild) => guild.id === req.params.guildId);
 				if (!guild) {
 					return next(forbidden('cannot perform actions on this guild'));
 				}
