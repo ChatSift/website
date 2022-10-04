@@ -3,6 +3,7 @@ import type { GetStaticPaths, GetStaticProps } from 'next';
 import BotUpsellCard from '~/components/BotUpsellCard';
 import * as Button from '~/components/Button';
 import Footer from '~/components/Footer';
+import Heading from '~/components/Heading';
 import ImageSlideshow from '~/components/ImageSlideshow';
 import PageMeta from '~/components/PageMeta';
 import Review from '~/components/Review';
@@ -130,6 +131,19 @@ const CtaTextContainer = styled.div`
 	flex-direction: column;
 `;
 
+const DonationUpsellSection = styled.section`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 24px;
+	align-items: flex-start;
+
+	${mediaQueries.dashboardMaxWidthMin} {
+		flex-direction: row;
+		align-items: center;
+	}
+`;
+
 export const getStaticPaths: GetStaticPaths = () => {
 	const paths = Object.keys(bots).map((bot) => ({
 		params: {
@@ -253,6 +267,14 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 						</BotList>
 					</section>
 				)}
+				<DonationUpsellSection>
+					<Heading
+						title="Help keep the project alive"
+						subtitle="Support us on Kofi to help maintain these tools and live happily ever after"
+						gap={12}
+					/>
+					<CtaLink href="/kofi">Donate</CtaLink>
+				</DonationUpsellSection>
 			</Container>
 			<Footer />
 		</>
