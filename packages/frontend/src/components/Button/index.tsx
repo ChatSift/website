@@ -1,20 +1,23 @@
 import styled from '@emotion/styled';
-import { CSSProperties, useRef } from 'react';
-import { AriaButtonProps, useButton } from 'react-aria';
+import type { CSSProperties } from 'react';
+import { useRef } from 'react';
+import type { AriaButtonProps } from 'react-aria';
+import { useButton } from 'react-aria';
 
-interface ButtonProps {
-	style?: CSSProperties;
-	title?: string;
+type ButtonProps = {
 	className?: string;
 	paddingOverride?: { x?: number; y?: number };
-}
+	style?: CSSProperties;
+	title?: string;
+};
 
-export function ButtonBase({ style, title, className, ...props }: ButtonProps & AriaButtonProps) {
+export function ButtonBase({ style, title, className, ...props }: AriaButtonProps & ButtonProps) {
 	const ref = useRef<HTMLButtonElement | null>(null);
 	const { buttonProps } = useButton(props, ref);
 	const { children } = props;
 
 	return (
+		// eslint-disable-next-line react/button-has-type
 		<button {...buttonProps} style={style} title={title} className={className} ref={ref}>
 			{children}
 		</button>
@@ -43,9 +46,9 @@ const Base = styled(ButtonBase)`
 	}
 `;
 
-interface GhostProps extends ButtonProps {
+type GhostProps = ButtonProps & {
 	hasBorder?: boolean;
-}
+};
 
 export const Ghost = styled(Base)<GhostProps>`
 	color: ${(props) => props.theme.colors.text.secondary};

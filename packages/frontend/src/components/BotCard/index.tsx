@@ -1,16 +1,16 @@
 import type { ReactNode } from 'react';
-import { BotCardBase, Buttons, Description, Title } from './style';
 import * as Button from '../Button';
+import { BotCardBase, Buttons, Description, Title } from './style';
 
-export interface Bot {
-	name: string;
+export type Bot = {
 	description: string;
 	icon: ReactNode;
-}
+	name: string;
+};
 
-interface BotCardProps {
+type BotCardProps = {
 	bot: Bot;
-}
+};
 
 function BotCard({ bot }: BotCardProps) {
 	return (

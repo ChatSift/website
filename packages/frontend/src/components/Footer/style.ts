@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import mediaQueries from '~/styles/breakpoints';
+
 export const buttonPadding = 6;
 
 export const CopyrightNotice = styled.span`

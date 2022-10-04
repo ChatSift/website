@@ -1,45 +1,46 @@
-import type { REST } from '@discordjs/rest';
+import { setTimeout } from 'node:timers';
+import { REST } from '@discordjs/rest';
 import { ms } from '@naval-base/ms';
-import { Connection, ConnectionType, PrismaClient } from '@prisma/client';
+import type { Connection } from '@prisma/client';
+import { ConnectionType, PrismaClient } from '@prisma/client';
 import { Option, Result } from '@sapphire/result';
-import {
+import type {
 	APIUser,
-	PermissionFlagsBits,
 	RESTGetAPICurrentUserGuildsResult,
 	RESTPostOAuth2AccessTokenResult,
-	Routes,
 } from 'discord-api-types/v10';
+import { PermissionFlagsBits, Routes } from 'discord-api-types/v10';
 import jwt from 'jsonwebtoken';
 import type { Response } from 'polka';
 import { inject, singleton } from 'tsyringe';
 import { Env } from '../util/env';
 import { SYMBOLS } from '../util/symbols';
 
-export interface AccessTokenData {
-	sub: string;
+export type AccessTokenData = {
 	iat: number;
 	refresh: false;
-}
-
-export interface RefreshTokenData {
 	sub: string;
+};
+
+export type RefreshTokenData = {
 	iat: number;
 	refresh: true;
-}
+	sub: string;
+};
 
-export interface Token {
-	token: string;
+export type Token = {
 	expiration: Date;
-}
+	token: string;
+};
 
-export interface Credentials {
+export type Credentials = {
 	access: Token;
 	refresh: Token;
-}
+};
 
-export interface APIUserWithGuilds extends APIUser {
+export type APIUserWithGuilds = APIUser & {
 	guilds: RESTGetAPICurrentUserGuildsResult;
-}
+};
 
 @singleton()
 export class Auth {
@@ -71,7 +72,7 @@ export class Auth {
 
 	public noopAuthCookies(res: Response): void {
 		res.cookie('access_token', 'noop', {
-			expires: new Date(1970),
+			expires: new Date(1_970),
 			path: '/',
 			sameSite: this.env.isProd ? 'none' : 'strict',
 			httpOnly: true,
@@ -79,7 +80,7 @@ export class Auth {
 		});
 
 		res.cookie('refresh_token', 'noop', {
-			expires: new Date(1970),
+			expires: new Date(1_970),
 			path: '/',
 			sameSite: this.env.isProd ? 'none' : 'strict',
 			httpOnly: true,
@@ -88,7 +89,7 @@ export class Auth {
 	}
 
 	public createTokens(userId: number): Credentials {
-		const iat = Math.floor(Date.now() / 1000);
+		const iat = Math.floor(Date.now() / 1_000);
 
 		const data = {
 			sub: userId.toString(),
@@ -110,11 +111,11 @@ export class Auth {
 
 		return {
 			access: {
-				token: jwt.sign(accessToken, this.env.secretKey, { expiresIn: Math.floor(accessExpiresIn / 1000) }),
+				token: jwt.sign(accessToken, this.env.secretKey, { expiresIn: Math.floor(accessExpiresIn / 1_000) }),
 				expiration: new Date(Date.now() + accessExpiresIn),
 			},
 			refresh: {
-				token: jwt.sign(refreshToken, this.env.secretKey, { expiresIn: Math.floor(refreshExpiresIn / 1000) }),
+				token: jwt.sign(refreshToken, this.env.secretKey, { expiresIn: Math.floor(refreshExpiresIn / 1_000) }),
 				expiration: new Date(Date.now() + refreshExpiresIn),
 			},
 		};
@@ -133,13 +134,13 @@ export class Auth {
 			throw new Error('unmatched token(s)');
 		}
 
-		return this.createTokens(parseInt(accessData.sub, 10));
+		return this.createTokens(Number.parseInt(accessData.sub, 10));
 	}
 
 	public async verifyToken(token: string, ignoreExpiration = false): Promise<number> {
 		const data = jwt.verify(token, this.env.secretKey, { ignoreExpiration }) as AccessTokenData;
 
-		const userId = parseInt(data.sub, 10);
+		const userId = Number.parseInt(data.sub, 10);
 		const user = await this.prisma.user.findFirst({
 			where: {
 				userId,
@@ -153,7 +154,7 @@ export class Auth {
 		return userId;
 	}
 
-	public fetchDiscordConnection(accessToken: string): Promise<Result<Option<Connection>, Error>> {
+	public async fetchDiscordConnection(accessToken: string): Promise<Result<Option<Connection>, Error>> {
 		return Result.fromAsync(async () => {
 			const userId = await this.verifyToken(accessToken);
 			const user = await this.prisma.user.findFirstOrThrow({
@@ -174,7 +175,7 @@ export class Auth {
 		});
 	}
 
-	public fetchDiscordUser(discordAccessToken: string): Promise<Result<APIUserWithGuilds, Error>> {
+	public async fetchDiscordUser(discordAccessToken: string): Promise<Result<APIUserWithGuilds, Error>> {
 		return Result.fromAsync(async () => {
 			if (this.cachedDiscordUser.has(discordAccessToken)) {
 				return this.cachedDiscordUser.get(discordAccessToken)!;
@@ -201,7 +202,7 @@ export class Auth {
 			clientId: discordUserId,
 			accessToken: data.access_token,
 			refreshToken: data.refresh_token,
-			expiresAt: new Date(Date.now() + data.expires_in * 1000),
+			expiresAt: new Date(Date.now() + data.expires_in * 1_000),
 		};
 
 		const existingConnection = await this.prisma.connection.findFirst({ where: { clientId: discordUserId } });

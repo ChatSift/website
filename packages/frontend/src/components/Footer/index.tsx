@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import { buttonPadding, ButtonsAndLinks, CopyrightNotice, FooterBase, IconLink, List, SecondGroup } from './style';
 import { ThemeContext } from '../../pages/_app';
 import dark from '../../themes/dark';
 import light from '../../themes/light';
 import * as Button from '../Button';
+import { buttonPadding, ButtonsAndLinks, CopyrightNotice, FooterBase, IconLink, List, SecondGroup } from './style';
 import SvgDarkTheme from '~/svg/SvgDarkTheme';
 import SvgDiscord from '~/svg/SvgDiscord';
 import SvgGitHub from '~/svg/SvgGitHub';

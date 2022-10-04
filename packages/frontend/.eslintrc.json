@@ -1,11 +1,25 @@
 {
-	"extends": ["marine/prettier/react", "../../.eslintrc.json"],
-	"settings": {
-		"react": {
-			"version": "detect"
-		}
+	"root": true,
+	"extends": ["neon/common", "neon/typescript", "neon/prettier", "neon/module", "neon/react", "neon/next"],
+	"parserOptions": {
+		"project": "./tsconfig.eslint.json"
+	},
+	"env": {
+		"jest": true
+	},
+	"globals": {
+		"NodeJS": "readonly"
 	},
 	"rules": {
+		"@typescript-eslint/ban-types": "off",
+		"@typescript-eslint/no-extraneous-class": "off",
+		"curly": ["error", "all"],
+		"eqeqeq": ["error", "always", { "null": "ignore" }],
+		"no-eq-null": "off",
+		"no-unused-vars": "off",
+		"import/extensions": "off",
+		"no-useless-constructor": "off",
+		"unicorn/require-post-message-target-origin": "off",
 		"react/react-in-jsx-scope": 0,
 		"react/jsx-filename-extension": [1, { "extensions": [".tsx"] }]
 	}

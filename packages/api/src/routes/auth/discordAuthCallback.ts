@@ -1,6 +1,8 @@
+import { URLSearchParams } from 'node:url';
 import { Route, RouteMethod, State, validate } from '@chatsift/rest-utils';
 import { badRequest, forbidden, internal } from '@hapi/boom';
-import { InferType, s } from '@sapphire/shapeshift';
+import type { InferType } from '@sapphire/shapeshift';
+import { s } from '@sapphire/shapeshift';
 import cookie from 'cookie';
 import type { RESTPostOAuth2AccessTokenResult } from 'discord-api-types/v10';
 import type { Middleware, NextHandler, Request, Response } from 'polka';

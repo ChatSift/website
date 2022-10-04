@@ -6,7 +6,7 @@ export type UserFetchError = APIError | Record<string, unknown>;
 function useUser() {
 	return useQuery(
 		['currentUser'],
-		() =>
+		async () =>
 			fetchApi({
 				path: '/auth/v1/discord/@me',
 				method: 'get',

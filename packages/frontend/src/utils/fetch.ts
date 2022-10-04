@@ -15,9 +15,9 @@ export async function fetchApi<TPath extends keyof AuthRoutes, TMethod extends k
 	method,
 	body,
 }: {
-	path: TPath;
-	method: TMethod;
 	body?: InferAuthRouteBody<TPath, TMethod>;
+	method: TMethod;
+	path: TPath;
 }): Promise<InferAuthRouteResult<TPath, TMethod>> {
 	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL!}${path}`, {
 		method: method as string,

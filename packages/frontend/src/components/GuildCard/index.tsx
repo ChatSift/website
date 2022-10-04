@@ -68,7 +68,7 @@ function GuildCard({ guild }: { guild: GetDiscordAuthMeResult['guilds'][number] 
 				{isInvited || showInvitedBotsSkeleton ? (
 					<BotList>
 						{guild === undefined ? (
-							[...(Array(Math.ceil(randomBotListCount)) as unknown[])].map((_, index) => (
+							[...(Array.from({ length: Math.ceil(randomBotListCount) }) as unknown[])].map((_, index) => (
 								<Skeleton key={index} width={24} height={24} />
 							))
 						) : (

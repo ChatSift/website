@@ -1,13 +1,14 @@
 import { default as NextLink } from 'next/link';
-import type React from 'react';
-import { useRef } from 'react';
-import { AriaLinkOptions, useLink } from 'react-aria';
-import { headerItems, HeaderLink } from './index';
+import React, { useRef } from 'react';
+import type { AriaLinkOptions } from 'react-aria';
+import { useLink } from 'react-aria';
+import * as LoggedInUser from '../LoggedInUser';
 import Logo from './Logo';
 import * as HeaderStyles from './style';
-import * as LoggedInUser from '../LoggedInUser';
+import type { HeaderLink } from './index';
+import { headerItems } from './index';
 
-function DesktopLink({ item, ...props }: { item: HeaderLink } & AriaLinkOptions) {
+function DesktopLink({ item, ...props }: AriaLinkOptions & { item: HeaderLink }) {
 	const ref = useRef(null);
 	const { linkProps } = useLink(props, ref);
 
@@ -20,7 +21,7 @@ function DesktopLink({ item, ...props }: { item: HeaderLink } & AriaLinkOptions)
 	);
 }
 
-function Desktop({ navigate }: { navigate: (href: string) => void }) {
+function Desktop({ navigate }: { navigate(href: string): void }) {
 	return (
 		<HeaderStyles.List>
 			<li>

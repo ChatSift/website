@@ -1,4 +1,5 @@
-import { Global, ThemeProvider, css, Theme } from '@emotion/react';
+import type { Theme } from '@emotion/react';
+import { Global, ThemeProvider, css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -25,7 +26,7 @@ const Container = styled.div`
 	flex: 1 0 auto;
 `;
 
-export const ThemeContext = createContext<{ current: Theme; update: (newTheme: Theme) => void }>({
+export const ThemeContext = createContext<{ current: Theme; update(newTheme: Theme): void }>({
 	current: dark,
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	update: () => {},

@@ -1,42 +1,42 @@
-interface SlideshowImage {
-	url: string;
+type SlideshowImage = {
 	alt: string;
-}
+	url: string;
+};
 
 type Slideshow =
-	| [SlideshowImage, SlideshowImage, ...SlideshowImage[]]
-	| [...SlideshowImage[], SlideshowImage, SlideshowImage];
+	| [...SlideshowImage[], SlideshowImage, SlideshowImage]
+	| [SlideshowImage, SlideshowImage, ...SlideshowImage[]];
 
-interface Review {
-	content: string;
+type Review = {
 	author: {
+		avatarUrl: string;
 		name: string;
 		role: string;
-		avatarUrl: string;
 	};
-}
+	content: string;
+};
 
-interface Bot {
-	// min two, otherwise why are you using a slideshow??
-	slideshowImages: Slideshow;
-	name: string;
-	pageTitle: string;
-	inviteLink: string;
+type Bot = {
 	description: {
 		card: string;
-		page: string[];
 		otherBotUpsell?: string;
+		page: string[];
 	};
 	featureList: {
-		title: string;
-		text: string;
 		features: {
-			name: string;
 			description: string;
+			name: string;
 		}[];
-	};
-	reviews?: {
+		text: string;
 		title: string;
-		reviews: [Review, Review, ...Review[]];
 	};
-}
+	inviteLink: string;
+	name: string;
+	pageTitle: string;
+	reviews?: {
+		reviews: [Review, Review, ...Review[]];
+		title: string;
+	};
+	// min two, otherwise why are you using a slideshow??
+	slideshowImages: Slideshow;
+};

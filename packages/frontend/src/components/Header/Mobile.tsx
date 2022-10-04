@@ -1,23 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { AriaLinkOptions, useLink } from 'react-aria';
-import { headerItems, HeaderLink } from './index';
-import Logo from './Logo';
-import * as HeaderStyles from './style';
-import { MobileNavAnimDuration } from './style';
+import type { AriaLinkOptions } from 'react-aria';
+import { useLink } from 'react-aria';
 import * as Button from '../Button';
 import * as LoggedInUser from '../LoggedInUser';
+import Logo from './Logo';
+import { MobileNavAnimDuration } from './style';
+import * as HeaderStyles from './style';
+import { headerItems } from './index';
+import type { HeaderLink } from './index';
 import SvgHamburger from '~/svg/SvgHamburger';
 
-interface MobileLinkProps {
+type MobileLinkProps = {
+	index: number;
 	item: HeaderLink;
 	mobileNavOpen: boolean | undefined;
-	index: number;
-	onClick: (item: HeaderLink) => void;
-}
+	onClick(item: HeaderLink): void;
+};
 
 const linkDelay = 0.1;
 
-function MobileLink({ item, mobileNavOpen, index, onClick, ...props }: MobileLinkProps & AriaLinkOptions) {
+function MobileLink({ item, mobileNavOpen, index, onClick, ...props }: AriaLinkOptions & MobileLinkProps) {
 	const ref = useRef<HTMLAnchorElement>(null);
 	const { linkProps } = useLink({ ...props, onPress: () => onClick(item) }, ref);
 
@@ -35,7 +37,7 @@ function MobileLink({ item, mobileNavOpen, index, onClick, ...props }: MobileLin
 	);
 }
 
-function Mobile({ navigate }: { navigate: (href: string) => void }) {
+function Mobile({ navigate }: { navigate(href: string): void }) {
 	const animationDuration = headerItems.length * linkDelay + MobileNavAnimDuration;
 	const [mobileNavOpen, setMobileNavOpen] = useState<boolean | undefined>(undefined);
 	const [hideList, setHideList] = useState(false);
@@ -47,7 +49,7 @@ function Mobile({ navigate }: { navigate: (href: string) => void }) {
 
 	useEffect(() => {
 		if (mobileNavOpen !== true) {
-			const timeOut = setTimeout(() => setHideList(true), animationDuration * 1000);
+			const timeOut = setTimeout(() => setHideList(true), animationDuration * 1_000);
 
 			return () => clearTimeout(timeOut);
 		}
@@ -76,11 +78,11 @@ function Mobile({ navigate }: { navigate: (href: string) => void }) {
 				data-open={mobileNavOpen}
 				id="menu"
 			>
-				{headerItems.map((item, i) => (
+				{headerItems.map((item, index) => (
 					<HeaderStyles.MobileNavItem key={item.href}>
 						<MobileLink
 							item={item}
-							index={i}
+							index={index}
 							mobileNavOpen={mobileNavOpen}
 							data-href={item.href}
 							onClick={(item) => navigateInner(item)}
