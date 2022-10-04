@@ -25,6 +25,7 @@ interface Bot {
 	description: {
 		card: string;
 		page: string[];
+		otherBotUpsell?: string;
 	};
 	featureList: {
 		title: string;
@@ -34,7 +35,7 @@ interface Bot {
 			description: string;
 		}[];
 	};
-	reviews: {
+	reviews?: {
 		title: string;
 		reviews: [Review, Review, ...Review[]];
 	};

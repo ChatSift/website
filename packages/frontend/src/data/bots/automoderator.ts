@@ -22,6 +22,7 @@ const autoModerator: Bot = {
 			'Focus on what matters most and automate the rest.',
 			'Automoderator works 24x7 across multiple timezones to keep your community safe at all times.',
 		],
+		otherBotUpsell: 'insert here',
 	},
 	featureList: {
 		title: 'Unmatched moderation potential',

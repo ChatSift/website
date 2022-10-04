@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import type { GetStaticPaths, GetStaticProps } from 'next';
+import BotUpsellCard from '~/components/BotUpsellCard';
 import * as Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import ImageSlideshow from '~/components/ImageSlideshow';
@@ -69,6 +70,16 @@ const Features = styled.ul`
 
 	${mediaQueries.dashboardMaxWidthMin} {
 		grid-template-columns: 1fr 1fr;
+	}
+`;
+
+const BotList = styled.ul`
+	display: flex;
+	gap: 16px;
+	flex-direction: column;
+
+	${mediaQueries.dashboardMaxWidthMin} {
+		flex-direction: row;
 	}
 `;
 
@@ -163,6 +174,8 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 		);
 	}
 
+	const otherBots = Object.entries(bots).filter(([, b]) => b.name !== bot.name);
+
 	return (
 		<>
 			<PageMeta title="Bot" />
@@ -190,8 +203,8 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 						<Text>{bot.featureList.text}</Text>
 					</SectionHeader>
 					<Features data-hide-on-mobile>
-						{bot.featureList.features.map(({ name, description }) => (
-							<Feature key={name}>
+						{bot.featureList.features.map(({ name, description }, i) => (
+							<Feature key={`${name}-${i}`}>
 								<FeatureName>{name}</FeatureName>
 								<span>{description}</span>
 							</Feature>
@@ -202,8 +215,8 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 						<SingleItemPaginator>
 							{[...(Array(Math.ceil(bot.featureList.features.length / 3)) as unknown[])].map((_, i) => (
 								<Features key={`page-${i}`}>
-									{bot.featureList.features.slice(i * 3, i * 3 + 3).map(({ name, description }) => (
-										<Feature key={name}>
+									{bot.featureList.features.slice(i * 3, i * 3 + 3).map(({ name, description }, j) => (
+										<Feature key={`feat-${name}-${i}-${j}`}>
 											<FeatureName>{name}</FeatureName>
 											<span>{description}</span>
 										</Feature>
@@ -213,17 +226,33 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 						</SingleItemPaginator>
 					</div>
 				</section>
-				<section>
-					<SectionHeader>
-						<Title>{bot.reviews.title}</Title>
-					</SectionHeader>
-					{/* @ts-expect-error TS2745 */}
-					<SingleItemPaginator>
-						{bot.reviews.reviews.map(({ content, author }) => (
-							<Review content={content} author={author} key={author.name} />
-						))}
-					</SingleItemPaginator>
-				</section>
+				{bot.reviews && (
+					<section>
+						<SectionHeader>
+							<Title>{bot.reviews.title}</Title>
+						</SectionHeader>
+						{/* @ts-expect-error TS2745 */}
+						<SingleItemPaginator>
+							{bot.reviews.reviews.map(({ content, author }) => (
+								<Review content={content} author={author} key={author.name} />
+							))}
+						</SingleItemPaginator>
+					</section>
+				)}
+				{otherBots.length > 0 && (
+					<section>
+						<SectionHeader>
+							<Title>Check out our other bots</Title>
+						</SectionHeader>
+						<BotList>
+							{otherBots.map(([pathName, bot]) => (
+								<li key={pathName}>
+									<BotUpsellCard bot={bot} pathName={pathName} />
+								</li>
+							))}
+						</BotList>
+					</section>
+				)}
 			</Container>
 			<Footer />
 		</>
