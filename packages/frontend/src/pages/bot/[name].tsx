@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import type { GetStaticProps } from 'next';
+import type { GetStaticPaths, GetStaticProps } from 'next';
 import * as Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import ImageSlideshow from '~/components/ImageSlideshow';
@@ -106,7 +106,7 @@ const CtaTextContainer = styled.div`
 	flex-direction: column;
 `;
 
-export function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = () => {
 	const paths = Object.keys(bots).map((bot) => ({
 		params: {
 			name: bot,
@@ -117,12 +117,12 @@ export function getStaticPaths() {
 		paths,
 		fallback: false,
 	};
-}
+};
 
 export const getStaticProps: GetStaticProps = ({ params }) => {
 	const id = params?.name as string | undefined;
 
-	if (id === undefined || !Object.keys(bots).includes(id)) {
+	if (id === undefined || !(id in bots)) {
 		return {
 			props: { bot: undefined },
 		};
