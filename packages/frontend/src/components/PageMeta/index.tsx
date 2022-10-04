@@ -2,7 +2,7 @@ import Head from 'next/head';
 
 type PageMetaProps = {
 	title: string;
-}
+};
 
 function PageMeta(props: PageMetaProps) {
 	const title = props.title;

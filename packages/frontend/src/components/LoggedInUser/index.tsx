@@ -23,7 +23,7 @@ type UserAvatarProps = {
 	className: string;
 	isLoading: boolean;
 	user: GetDiscordAuthMeResult | undefined;
-}
+};
 
 function UserAvatar({ isLoading, user, className }: UserAvatarProps) {
 	const avatarUrl = user?.avatar

@@ -1,4 +1,4 @@
-import type { HTMLProps} from 'react';
+import type { HTMLProps } from 'react';
 import { useRef } from 'react';
 import { useLink } from 'react-aria';
 

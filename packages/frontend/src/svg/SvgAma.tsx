@@ -1,6 +1,6 @@
 import { useTheme } from '@emotion/react';
 
-function SvgAma({ width, height }: { height?: number, width?: number; }) {
+function SvgAma({ width, height }: { height?: number; width?: number }) {
 	const theme = useTheme();
 
 	return (

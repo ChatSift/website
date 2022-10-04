@@ -15,7 +15,7 @@ export const SlideshowContainer = styled.div`
 
 type SlideshowProps = {
 	nImages: number;
-}
+};
 
 export const Slideshow = styled.ul<SlideshowProps>`
 	display: flex;

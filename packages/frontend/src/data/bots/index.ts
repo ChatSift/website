@@ -11,7 +11,7 @@ const bots: Record<string, Bot> = {
 	ama,
 } as const;
 
-export const botIcons: Record<keyof typeof bots, (props: { height: number, width?: number; }) => EmotionJSX.Element> = {
+export const botIcons: Record<keyof typeof bots, (props: { height: number; width?: number }) => EmotionJSX.Element> = {
 	automoderator: SvgAutoModerator,
 	ama: SvgAma,
 };

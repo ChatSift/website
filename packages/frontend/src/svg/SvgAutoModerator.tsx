@@ -1,6 +1,6 @@
 import { useTheme } from '@emotion/react';
 
-function SvgAutoModerator({ width, height }: { height?: number, width?: number; }) {
+function SvgAutoModerator({ width, height }: { height?: number; width?: number }) {
 	const theme = useTheme();
 
 	return (

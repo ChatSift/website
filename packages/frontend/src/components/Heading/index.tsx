@@ -4,7 +4,7 @@ type HeadingProps = {
 	gap?: number;
 	subtitle?: string | undefined;
 	title: string;
-}
+};
 
 function Heading({ title, subtitle, gap }: HeadingProps) {
 	return (

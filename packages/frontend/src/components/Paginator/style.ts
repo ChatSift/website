@@ -13,7 +13,7 @@ export const PaginatorBase = styled.div``;
 
 type PaginatorListProps = {
 	itemsPerPage: number;
-}
+};
 
 export const PaginatorList = styled.ul<PaginatorListProps>`
 	display: grid;

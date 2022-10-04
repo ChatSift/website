@@ -1,6 +1,6 @@
 import { useTheme } from '@emotion/react';
 
-function SvgModmail({ width, height }: { height?: number, width?: number; }) {
+function SvgModmail({ width, height }: { height?: number; width?: number }) {
 	const theme = useTheme();
 
 	return (

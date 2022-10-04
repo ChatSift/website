@@ -1,6 +1,6 @@
 import { default as NextLink } from 'next/link';
 import React, { useRef } from 'react';
-import type { AriaLinkOptions} from 'react-aria';
+import type { AriaLinkOptions } from 'react-aria';
 import { useLink } from 'react-aria';
 import * as LoggedInUser from '../LoggedInUser';
 import Logo from './Logo';

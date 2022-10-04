@@ -8,7 +8,7 @@ export type HeaderLink = {
 	external: boolean;
 	href: string;
 	name: string;
-}
+};
 
 // NOTE: ADJUST mobileNavCloseAnimation's max-height GUESSTIMATE IF YOU ADD OR REMOVE LINKS
 // Also, if possible, the above is scuffed, fix it if possible..

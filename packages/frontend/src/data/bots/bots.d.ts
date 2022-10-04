@@ -1,10 +1,11 @@
 type SlideshowImage = {
 	alt: string;
 	url: string;
-}
+};
 
 type Slideshow =
-	[...SlideshowImage[], SlideshowImage, SlideshowImage] | [SlideshowImage, SlideshowImage, ...SlideshowImage[]];
+	| [...SlideshowImage[], SlideshowImage, SlideshowImage]
+	| [SlideshowImage, SlideshowImage, ...SlideshowImage[]];
 
 type Review = {
 	author: {
@@ -13,7 +14,7 @@ type Review = {
 		role: string;
 	};
 	content: string;
-}
+};
 
 type Bot = {
 	description: {
@@ -38,4 +39,4 @@ type Bot = {
 	};
 	// min two, otherwise why are you using a slideshow??
 	slideshowImages: Slideshow;
-}
+};

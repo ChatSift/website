@@ -1,6 +1,6 @@
-import type { Dispatch, SetStateAction} from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { useRef } from 'react';
-import type { AriaSearchFieldProps} from 'react-aria';
+import type { AriaSearchFieldProps } from 'react-aria';
 import { useSearchField } from 'react-aria';
 import { SearchField } from './style';
 

@@ -8,7 +8,7 @@ import SvgPrev from '~/svg/SvgPrev';
 
 type SingleItemPaginatorProps = {
 	children: [ReactNode, ReactNode, ...ReactNode[]];
-}
+};
 
 function SingleItemPaginator(props: SingleItemPaginatorProps) {
 	const maxPage = Children.count(props.children) - 1;
