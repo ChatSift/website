@@ -64,7 +64,8 @@ const BotsList = styled.ul`
 
 	${mediaQueries.smallMin} {
 		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: repeat(${Math.ceil(Object.entries(bots).length / 2)}, 1fr);
+		// we do + 1 to the length because we have a custom solution upsell
+		grid-template-rows: repeat(${Math.ceil((Object.entries(bots).length + 1) / 2)}, 1fr);
 	}
 `;
 
