@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import type { GetStaticPaths, GetStaticProps } from 'next';
+import { Fragment } from 'react';
 import BotUpsellCard from '~/components/BotUpsellCard';
 import * as Button from '~/components/Button';
 import Footer from '~/components/Footer';
@@ -191,7 +192,7 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 	const otherBots = Object.entries(bots).filter(([, b]) => b.name !== bot.name);
 
 	return (
-		<>
+		<Fragment key={bot.name /* diff key for each bot forces reset of state, etc */}>
 			<PageMeta title="Bot" />
 			<Container>
 				<section>
@@ -279,7 +280,7 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 				</DonationUpsellSection>
 			</Container>
 			<Footer />
-		</>
+		</Fragment>
 	);
 }
 
