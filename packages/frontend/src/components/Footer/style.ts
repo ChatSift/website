@@ -7,7 +7,11 @@ export const CopyrightNotice = styled.span`
 	white-space: nowrap;
 `;
 
-export const FooterBase = styled.footer`
+type FooterProps = {
+	hasMargin?: boolean;
+};
+
+export const Footer = styled.footer<FooterProps>`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -16,7 +20,12 @@ export const FooterBase = styled.footer`
 	border-top: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
 	color: ${(props) => props.theme.colors.text.secondary};
 	font-weight: 450;
-	margin-top: 32px;
+
+	${(props) =>
+		props.hasMargin &&
+		`
+		margin-top: 32px;
+	`}
 
 	${mediaQueries.smallMin} {
 		flex-direction: row;

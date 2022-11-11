@@ -358,6 +358,7 @@ __metadata:
     "@types/facepaint": ^1.2.2
     "@types/node": ^16.11.47
     "@types/react-dom": ^18.0.6
+    "@use-gesture/react": ^10.2.22
     facepaint: ^1.2.1
     next: 12.2.4
     react: ^18.2.0
@@ -3508,6 +3509,24 @@ __metadata:
     "@typescript-eslint/types": 5.39.0
     eslint-visitor-keys: ^3.3.0
   checksum: 941e49fd1f4d2e42cd15a52a50f6f1102e2a83b173d182b5dd43ba3d7b7f0f1457d74fcaac710da4a19c28f804c78bc265d900802f4e2c7c46a608fff3204e7c
+  languageName: node
+  linkType: hard
+
+"@use-gesture/core@npm:10.2.22":
+  version: 10.2.22
+  resolution: "@use-gesture/core@npm:10.2.22"
+  checksum: e4615a581b632c0fefa92c62ccf889ef3d195669870afd34696b985668c5bfb9a37d08791570bb592363ed8be41c419e7f2c1afdf3b6bd0574c7876eca12db29
+  languageName: node
+  linkType: hard
+
+"@use-gesture/react@npm:^10.2.22":
+  version: 10.2.22
+  resolution: "@use-gesture/react@npm:10.2.22"
+  dependencies:
+    "@use-gesture/core": 10.2.22
+  peerDependencies:
+    react: ">= 16.8.0"
+  checksum: 1d05fd8630f3e2f74b931ebefb07d7f76494c133486c7828b6162cd8c0a020a69ef5ded014c7b51aa97bdc7368efc3283d208e3ff27952bbeff6f988ea0a3a98
   languageName: node
   linkType: hard
 

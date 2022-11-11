@@ -12,18 +12,13 @@ import { SSRProvider } from 'react-aria';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import Header from '../components/Header';
 import dark from '../themes/dark';
-import { dashboardPadding, skeletonDuration } from '~/utils/constants';
+import { skeletonDuration } from '~/utils/constants';
 
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
-	// align-items: stretch;
-	// justify-content: space-between;
-	// width: fit-content;
-	// height: 100%;
-	// margin: 0 auto;
-	// padding: ${dashboardPadding}px;
-	flex: 1 0 auto;
+	flex: 1 1 auto;
+	min-height: 0;
 `;
 
 export const ThemeContext = createContext<{ current: Theme; update(newTheme: Theme): void }>({

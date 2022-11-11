@@ -1,4 +1,4 @@
-import { dashboardMaxWidth, smallestDashboardWidth } from '../utils/constants';
+import { dashboardMaxWidth, smallestDashboardWidth } from '~/utils/constants';
 
 export const mediaQueriesRaw = {
 	extraSmall: 320,

@@ -29,6 +29,7 @@
 		"@radix-ui/react-navigation-menu": "^1.0.0",
 		"@tanstack/react-query": "^4.0.10",
 		"@tanstack/react-query-devtools": "^4.0.10",
+		"@use-gesture/react": "^10.2.22",
 		"facepaint": "^1.2.1",
 		"next": "12.2.4",
 		"react": "^18.2.0",
