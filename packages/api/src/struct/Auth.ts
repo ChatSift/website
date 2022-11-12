@@ -184,7 +184,9 @@ export class Auth {
 			this.oauthRest.setToken(discordAccessToken);
 
 			const fetched = (await this.oauthRest.get(Routes.user())) as APIUser;
-			const rawGuilds = (await this.oauthRest.get(Routes.userGuilds())) as RESTGetAPICurrentUserGuildsResult;
+			const rawGuilds = (await this.oauthRest.get(
+				`${Routes.userGuilds()}?with_counts=true`,
+			)) as RESTGetAPICurrentUserGuildsResult;
 			const guilds = rawGuilds.filter(
 				(guild) => (BigInt(guild.permissions) & PermissionFlagsBits.Administrator) !== 0n,
 			);

@@ -57,7 +57,8 @@ export default class extends Route<GetDiscordAuthMeResult, never> {
 			discriminator,
 			avatar,
 			guilds: await Promise.all(
-				guilds.map(async ({ id, name, icon }) => {
+				// @ts-expect-error TS2339
+				guilds.map(async ({ id, name, icon, approximate_member_count, approximate_presence_count }) => {
 					const [hasAutomoderator, hasAma, hasModmail] = await Promise.all([
 						this.has(id, this.automoderatorRest),
 						this.has(id, this.amaRest),
@@ -68,6 +69,8 @@ export default class extends Route<GetDiscordAuthMeResult, never> {
 						id,
 						name,
 						icon,
+						approximate_member_count,
+						approximate_presence_count,
 						hasAutomoderator,
 						hasAma,
 						hasModmail,

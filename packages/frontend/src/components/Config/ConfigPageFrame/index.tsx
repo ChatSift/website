@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import * as Styles from './style';
-import ConfigSidebar from '~/components/ConfigSidebar';
+import ConfigSidebar from '~/components/Config/ConfigSidebar';
 import Footer from '~/components/Footer';
 
 type ConfigPageFrameProps = {

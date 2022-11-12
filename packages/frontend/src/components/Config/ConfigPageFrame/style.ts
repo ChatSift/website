@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import breakpoints from '~/styles/breakpoints';
 
 export const Frame = styled.div`
 	display: flex;
@@ -10,6 +11,13 @@ export const Frame = styled.div`
 export const Content = styled.div`
 	display: flex;
 	flex-direction: column;
-	padding: 24px;
+	gap: 24px;
 	flex: 1 1 auto;
+	padding: 16px;
+	max-width: 100vw;
+	overflow-y: auto;
+
+	${breakpoints.smallMin} {
+		padding: 24px;
+	}
 `;

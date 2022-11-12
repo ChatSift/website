@@ -100,17 +100,17 @@ function GuildCard({ guild }: { guild: GetDiscordAuthMeResult['guilds'][number] 
 									<span>Invite a bot:</span>
 									<BotListNotInvited>
 										<li>
-											<Bot href="/inv-auto-moderator">
+											<Bot href={Urls.botInvite('automoderator')}>
 												<SvgAutoModerator width={32} height={32} />
 											</Bot>
 										</li>
 										<li>
-											<Bot href="/inv-ama">
+											<Bot href={Urls.botInvite('ama')}>
 												<SvgAma width={32} height={32} />
 											</Bot>
 										</li>
 										<li>
-											<Bot href="/inv-modmail">
+											<Bot href={Urls.botInvite('modmail')}>
 												<SvgModmail width={32} height={32} />
 											</Bot>
 										</li>

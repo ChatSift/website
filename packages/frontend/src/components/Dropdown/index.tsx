@@ -32,9 +32,7 @@ function Dropdown<THasIcons extends boolean>(props: DropdownProps<THasIcons>) {
 		props.setSelectedIndex(index);
 	}
 
-	const valueWithIcon = value as DropdownOption<true> | undefined;
-
-	console.log(value?.value);
+	// const valueWithIcon = value as DropdownOption<true> | undefined;
 
 	return (
 		<Styles.Container>

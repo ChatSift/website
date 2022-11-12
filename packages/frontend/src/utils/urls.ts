@@ -10,4 +10,7 @@ export const LogOut = `${process.env.NEXT_PUBLIC_API_URL!}/auth/v1/logout?redire
 export const botPage = (bot: string): string => `${Host}/bot/${bot}`;
 export const dashboard = {
 	index: (guildId: string) => `${Host}/dashboard/${guildId}`,
+	bot: (guildId: string, bot: string) => `${Host}/dashboard/${guildId}/${bot}`,
 };
+
+export const botInvite = (bot: string): string => `/invites/${bot}`;

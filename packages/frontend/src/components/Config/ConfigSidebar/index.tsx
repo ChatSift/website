@@ -1,9 +1,11 @@
 import { useMemo, useState } from 'react';
-import SidebarGuildCard from './components/SidebarGuildCard';
+import ConfigGuildCard from '../ConfigGuildCard';
 import * as Styles from './style';
-import BackLink from '~/components/ConfigSidebar/components/BackLink';
+import BackLink from '~/components/Config/ConfigSidebar/components/BackLink';
 import Dropdown from '~/components/Dropdown';
+import { RouterLink } from '~/components/Link';
 import configurableBots from '~/data/bots/config/configurableBots';
+import useConfigGuild from '~/hooks/useConfigGuild';
 
 function ConfigSidebar() {
 	const botDropdownOptions = useMemo(
@@ -18,10 +20,14 @@ function ConfigSidebar() {
 
 	const [selectedBotIndex, setSelectedBotIndex] = useState<number | undefined>(0);
 
+	const { guild, isLoading, isError } = useConfigGuild();
+
 	return (
 		<Styles.ConfigSidebar open={false} setOpen={() => {}}>
 			<BackLink />
-			<SidebarGuildCard />
+			<RouterLink href={`/dashboard/${guild?.id}`} style={isLoading || isError ? { pointerEvents: 'none' } : {}}>
+				<ConfigGuildCard />
+			</RouterLink>
 			<Dropdown
 				options={botDropdownOptions}
 				hasIcons={true}

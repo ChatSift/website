@@ -40,10 +40,13 @@ export const Item = styled(Select.Item)`
   border-radius: 4px;
   cursor: pointer;
   outline: none;
+  font-size: 18px;
 
   &[data-state='checked'] {
 		background-color: ${({ theme }) => theme.colors.accent};
-	}
+    color: ${({ theme }) => theme.colors.text.onAccent};
+    font-weight: 450;
+  }
 
 	&[data-highlighted]:not([data-state='checked']) {{
 		background-color: ${({ theme }) => theme.colors.onBackground.secondary};
