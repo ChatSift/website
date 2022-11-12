@@ -26,7 +26,7 @@
 	"dependencies": {
 		"@chatsift/pino-rotate-file": "^0.1.2",
 		"@chatsift/readdir": "^0.2.0",
-		"@chatsift/rest-utils": "^0.6.0",
+		"@chatsift/rest-utils": "^0.6.2",
 		"@discordjs/rest": "^1.0.1",
 		"@hapi/boom": "^10.0.0",
 		"@naval-base/ms": "^3.1.0",
