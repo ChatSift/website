@@ -9,11 +9,14 @@ import { logger } from '../util/logger';
 export function proxyRequests(baseUrl: string) {
 	return async (req: Request, res: Response) => {
 		const params = new URLSearchParams(req.query);
-		const data = await request(`${baseUrl}/${req.path}${[...params.keys()].length ? `?${params.toString()}` : ''}`, {
-			method: req.method as Dispatcher.HttpMethod,
-			body: req,
-			headers: req.headers,
-		}).catch((error) => {
+		const data = await request(
+			`${baseUrl}${req.originalUrl}${[...params.keys()].length ? `?${params.toString()}` : ''}`,
+			{
+				method: req.method as Dispatcher.HttpMethod,
+				body: req,
+				headers: req.headers,
+			},
+		).catch((error) => {
 			logger.error(error, 'failed to proxy req');
 			throw badGateway();
 		});
