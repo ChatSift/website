@@ -1,3 +1,1 @@
-import breakpoints from '~/styles/breakpoints';
-
-export const desktopThreshold = breakpoints.mediumMin;
+export { mobileThreshold as desktopThreshold } from '~/components/Header/style';

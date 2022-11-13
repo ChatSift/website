@@ -5,6 +5,7 @@ import mediaQueries from '~/styles/breakpoints';
 import type { ThemeProps } from '~/themes/theme';
 
 export const MobileNavAnimDuration = 0.3;
+export const mobileThreshold = mediaQueries.mediumMin;
 
 export const Base = styled.header`
 	position: sticky;
@@ -14,14 +15,25 @@ export const Base = styled.header`
 	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
 	width: 100%;
 	z-index: 10000;
+	height: 64px;
 
-	${mediaQueries.smallMin} {
+	${mobileThreshold} {
 		border-bottom: 1px solid ${(props: ThemeProps) => props.theme.colors.onBackground.secondary};
 		padding: 16px 32px 16px 24px;
+		height: auto;
+	}
+`;
+
+// to override later, it's okay that it's empty
+export const activeMobileOverride = css`
+	& > *:nth-child(1) {
+		display: none;
 	}
 
-	${mediaQueries.smallMax} {
-		height: 64px;
+	${mobileThreshold} {
+		& > * {
+			display: none;
+		}
 	}
 `;
 
@@ -59,7 +71,7 @@ export const MobileUser = styled.div`
 		pointer-events: all;
 	}
 
-	${mediaQueries.smallMin} {
+	${mobileThreshold} {
 		display: none;
 	}
 `;
@@ -99,7 +111,7 @@ export const MobileNav = styled(NavigationMenu.Root)`
 	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
 	position: relative;
 
-	${mediaQueries.smallMin} {
+	${mobileThreshold} {
 		display: none;
 	}
 `;
@@ -153,11 +165,11 @@ export const MobileNavClosed = css`
 export const List = styled.ul`
 	list-style-type: none;
 	padding: 0;
-	display: flex;
+	display: none;
 	margin: 0;
 
-	${mediaQueries.smallMax} {
-		display: none;
+	${mobileThreshold} {
+		display: flex;
 	}
 `;
 
@@ -234,12 +246,12 @@ export const ItemNoMobile = styled(NavigationMenu.Item)`
 	align-items: center;
 	display: none;
 
-	${mediaQueries.smallMin} {
+	${mobileThreshold} {
 		display: flex;
 	}
 `;
 
-export const HamburgerIcon = styled.div`
+export const HeaderContent = styled.div`
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
@@ -247,7 +259,7 @@ export const HamburgerIcon = styled.div`
 	padding: 8px;
 	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
 
-	${mediaQueries.smallMin} {
+	${mobileThreshold} {
 		display: none;
 	}
 `;

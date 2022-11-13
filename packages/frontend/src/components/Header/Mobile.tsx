@@ -59,7 +59,7 @@ function Mobile({ navigate }: { navigate(href: string): void }) {
 
 	return (
 		<HeaderStyles.MobileNav data-open={mobileNavOpen} orientation="vertical">
-			<HeaderStyles.HamburgerIcon>
+			<HeaderStyles.HeaderContent>
 				<Logo />
 				<Button.Ghost
 					style={{ padding: 0 }}
@@ -71,7 +71,7 @@ function Mobile({ navigate }: { navigate(href: string): void }) {
 				>
 					<SvgHamburger />
 				</Button.Ghost>
-			</HeaderStyles.HamburgerIcon>
+			</HeaderStyles.HeaderContent>
 			<HeaderStyles.VerticalList
 				className={mobileNavOpen ? HeaderStyles.MobileNavOpen : HeaderStyles.MobileNavClosed}
 				style={{ animationDuration: `${animationDuration}s`, ...(hideList ? { display: 'none' } : {}) }}

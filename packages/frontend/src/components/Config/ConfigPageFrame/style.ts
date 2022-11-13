@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import breakpoints from '~/styles/breakpoints';
+import mediaQueries from '~/styles/breakpoints';
 
 export const Frame = styled.div`
 	display: flex;
@@ -17,7 +17,7 @@ export const Content = styled.div`
 	max-width: 100vw;
 	overflow-y: auto;
 
-	${breakpoints.smallMin} {
+	${mediaQueries.smallMin} {
 		padding: 24px;
 	}
 `;

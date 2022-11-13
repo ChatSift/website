@@ -26,6 +26,7 @@ export function ButtonBase({ style, title, disabled, className, ...props }: Aria
 }
 
 const Base = styled(ButtonBase)`
+	white-space: nowrap;
 	background-color: transparent;
 	cursor: pointer;
 	font-size: 18px;

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Skeleton from 'react-loading-skeleton';
 import { Body, Caption, Heading3 } from '~/components/Text';
-import breakpoints from '~/styles/breakpoints';
+import mediaQueries from '~/styles/breakpoints';
 
 type CardProps = {
 	wide: boolean;
@@ -14,7 +14,7 @@ export const Card = styled.article<CardProps>`
 	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
 	padding: 8px;
 
-	${breakpoints.smallMin} {
+	${mediaQueries.smallMin} {
 		padding: 16px;
 	}
 

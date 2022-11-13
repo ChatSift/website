@@ -23,7 +23,7 @@ function ConfigSidebar() {
 	const { guild, isLoading, isError } = useConfigGuild();
 
 	return (
-		<Styles.ConfigSidebar open={false} setOpen={() => {}}>
+		<Styles.ConfigSidebar>
 			<BackLink />
 			<RouterLink href={`/dashboard/${guild?.id}`} style={isLoading || isError ? { pointerEvents: 'none' } : {}}>
 				<ConfigGuildCard />

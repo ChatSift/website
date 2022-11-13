@@ -1,16 +1,21 @@
 import { useDrag } from '@use-gesture/react';
 import React, { useCallback, useEffect } from 'react';
 import { config, useSpring } from 'react-spring';
-import { Backdrop, Menu } from './style';
+import * as Styles from './style';
+import * as Button from '~/components/Button';
+import Logo from '~/components/Header/Logo';
+import * as HeaderStyles from '~/components/Header/style';
+import * as LoggedInUser from '~/components/LoggedInUser';
+import SvgHamburger from '~/svg/SvgHamburger';
 
 type SidebarMobileProps = {
 	children: React.ReactNode;
 	className?: string;
-	open: boolean;
-	setOpen(open: boolean): void;
 };
 
 function SidebarMobile(props: SidebarMobileProps) {
+	const [isOpen, setIsOpen] = React.useState(false);
+
 	const restPosition = -300;
 
 	const [{ menuX }, api] = useSpring(() => ({
@@ -18,7 +23,7 @@ function SidebarMobile(props: SidebarMobileProps) {
 		config: { clamp: true },
 		onRest: ({ value: { menuX } }) => {
 			if (menuX === restPosition) {
-				props.setOpen(false);
+				setIsOpen(false);
 			}
 		},
 	}));
@@ -35,10 +40,10 @@ function SidebarMobile(props: SidebarMobileProps) {
 	);
 
 	useEffect(() => {
-		if (props.open) {
+		if (isOpen) {
 			open({ cancelled: false });
 		}
-	}, [props.open, open]);
+	}, [isOpen, open]);
 
 	function close() {
 		api.start({
@@ -78,15 +83,30 @@ function SidebarMobile(props: SidebarMobileProps) {
 
 	return (
 		<>
-			<Backdrop
-				onClick={props.open ? onClick : () => {}}
+			<HeaderStyles.MobileNav>
+				<HeaderStyles.HeaderContent>
+					<Logo />
+					<Button.Ghost
+						style={{ padding: 0 }}
+						onPress={() => setIsOpen(!isOpen)}
+						title="open menu"
+						aria-expanded={isOpen}
+						aria-controls="menu"
+						aria-haspopup="true"
+					>
+						<SvgHamburger />
+					</Button.Ghost>
+				</HeaderStyles.HeaderContent>
+			</HeaderStyles.MobileNav>
+			<Styles.Backdrop
+				onClick={isOpen ? onClick : () => {}}
 				style={{
 					opacity: menuX.to([0, restPosition], [0.5, 0]),
 					display,
-					pointerEvents: props.open ? undefined : 'none',
+					pointerEvents: isOpen ? undefined : 'none',
 				}}
 			/>
-			<Menu
+			<Styles.Menu
 				{...bind()}
 				style={{
 					transform: menuX.to((vStfu) => `translateX(${vStfu}px)`),
@@ -94,8 +114,11 @@ function SidebarMobile(props: SidebarMobileProps) {
 				}}
 				className={props.className}
 			>
-				{props.children}
-			</Menu>
+				<Styles.MainContent>{props.children}</Styles.MainContent>
+				<Styles.MobileUser data-mobile-open={isOpen}>
+					<LoggedInUser.Mobile hasDiscriminator={false} />
+				</Styles.MobileUser>
+			</Styles.Menu>
 		</>
 	);
 }

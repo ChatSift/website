@@ -1,21 +1,20 @@
 import type { ReactNode } from 'react';
+import { MobileHeaderOverride } from '~/components/Header';
 import SidebarDesktop from '~/components/Sidebar/Desktop/desktop';
 import SidebarMobile from '~/components/Sidebar/Mobile/mobile';
 
 type SidebarProps = {
 	children: ReactNode;
 	className?: string;
-	open: boolean;
-	setOpen(open: boolean): void;
 };
 
-function Sidebar({ children, className, open, setOpen }: SidebarProps) {
+function Sidebar({ children, className }: SidebarProps) {
 	return (
 		<>
 			<SidebarDesktop className={className}>{children}</SidebarDesktop>
-			<SidebarMobile className={className} open={open} setOpen={setOpen}>
-				{children}
-			</SidebarMobile>
+			<MobileHeaderOverride>
+				<SidebarMobile className={className}>{children}</SidebarMobile>
+			</MobileHeaderOverride>
 		</>
 	);
 }
