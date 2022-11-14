@@ -1,4 +1,4 @@
-import type { GetDiscordAuthMeResult } from '@chatsift/website-api/dist/routes/auth/discordAuthMe';
+import type { GetDiscordAuthMeResult } from '@chatsift/website-api';
 import * as Avatar from '@radix-ui/react-avatar';
 import { useRouter } from 'next/router';
 import Skeleton from 'react-loading-skeleton';

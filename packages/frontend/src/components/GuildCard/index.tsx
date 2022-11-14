@@ -1,4 +1,4 @@
-import type { GetDiscordAuthMeResult } from '@chatsift/website-api/dist/routes/auth/discordAuthMe';
+import type { GetDiscordAuthMeResult } from '@chatsift/website-api';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { Fragment } from 'react';
