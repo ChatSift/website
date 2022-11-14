@@ -1,12 +1,11 @@
-import { useRouter } from 'next/router';
+import useConfigGuildId from '~/hooks/useConfigGuildId';
 import useLoggedInUser from '~/hooks/useLoggedInUser';
 
 function useConfigGuild() {
 	const userInfo = useLoggedInUser();
 
 	// get next url parameters
-	const router = useRouter();
-	const { guildId } = router.query;
+	const guildId = useConfigGuildId();
 
 	if (!userInfo.data) {
 		return {

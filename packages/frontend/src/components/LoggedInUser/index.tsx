@@ -13,7 +13,7 @@ function ErrorHandler({ error }: { error: UserFetchError }) {
 	const router = useRouter();
 
 	if (error instanceof APIError && error.payload.statusCode === 401) {
-		return <Button.Ghost onPress={() => void router.replace(Urls.LogIn)}>Log in</Button.Ghost>;
+		return <Button.Ghost onPress={() => void router.replace(Urls.logIn)}>Log in</Button.Ghost>;
 	}
 
 	return <>Error</>;
@@ -51,7 +51,7 @@ export function Desktop() {
 
 	return (
 		<>
-			<Button.Ghost onPress={() => void router.replace(Urls.LogOut)}>Log out</Button.Ghost>
+			<Button.Ghost onPress={() => void router.replace(Urls.logOut)}>Log out</Button.Ghost>
 			<UserAvatar user={user} isLoading={isLoading} className={Styles.AvatarStyleDesktop} />
 		</>
 	);
@@ -82,7 +82,7 @@ export function Mobile({ hasDiscriminator = true }: MobileProps) {
 					)}
 				</Styles.TextOverflowEllipsis>
 			</Styles.MobileUser>
-			<Button.Ghost onPress={() => void router.replace(Urls.LogOut)}>Log out</Button.Ghost>
+			<Button.Ghost onPress={() => void router.replace(Urls.logOut)}>Log out</Button.Ghost>
 		</>
 	);
 }

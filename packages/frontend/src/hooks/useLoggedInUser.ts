@@ -8,7 +8,7 @@ function useLoggedInUser() {
 	const router = useRouter();
 
 	if (!isLoading && loggedInUser === undefined) {
-		void router.push(Urls.LogIn);
+		void router.push(Urls.logIn);
 		return { ...user, isLoading: true };
 	}
 

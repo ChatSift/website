@@ -1,4 +1,3 @@
-import { Global, css } from '@emotion/react';
 import Link from 'next/link';
 import * as Button from '~/components/Button';
 import ConfigGuildCard from '~/components/Config/ConfigGuildCard';
@@ -54,14 +53,6 @@ function GuildDashboard() {
 
 	return (
 		<>
-			<Global
-				styles={css`
-					#__next {
-						height: 100vh;
-						overflow-y: hidden;
-					}
-				`}
-			/>
 			<PageMeta title="Server Settings" />
 			<ConfigPageFrame>
 				<Text.Heading3>Server Settings</Text.Heading3>
