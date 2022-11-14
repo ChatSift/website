@@ -12,6 +12,7 @@ import helmet from 'helmet';
 import type { Middleware } from 'polka';
 import polka from 'polka';
 import { container } from 'tsyringe';
+import { discordAuth } from './middleware/discordAuth';
 import { proxyRequests } from './middleware/proxyRequests';
 import { Env } from './util/env';
 import { logger } from './util/logger';
@@ -63,9 +64,9 @@ for await (const file of files) {
 
 // External api proxying
 app
-	.use('/automoderator/:version/*', proxyRequests(env.automoderatorAPIURL))
-	.use('/ama/:version/*', proxyRequests(env.amaAPIURL))
-	.use('/modmail/:version/*', proxyRequests(env.modmailAPIURL));
+	.use('/automoderator/:version/*', discordAuth(), proxyRequests(env.automoderatorAPIURL))
+	.use('/ama/:version/*', discordAuth(), proxyRequests(env.amaAPIURL))
+	.use('/modmail/:version/*', discordAuth(), proxyRequests(env.modmailAPIURL));
 
 app.listen(env.port, () => logger.info(`Listening to requests on port ${env.port}`));
 
