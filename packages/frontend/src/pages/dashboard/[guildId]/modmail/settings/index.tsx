@@ -17,6 +17,11 @@ const Code = styled.code`
 	color: ${(props) => props.theme.colors.text.primary};
 `;
 
+const allowedChannelTypes = [
+	0, // GUILD_TEXT
+	15, // GUILD_FORUM
+];
+
 const withIcons = false;
 type WithIcons = typeof withIcons;
 type ApplicableChannel = Exclude<APIChannel, APIDMChannel | APIGroupDMChannel>;
@@ -27,7 +32,7 @@ function addToCategoryIfExists(
 	channel: ApplicableChannel,
 	channels: ApplicableChannel[],
 ): GroupedChannels {
-	if (!acc.some(({ id }) => id === channel.parent_id)) {
+	if (!acc.some(({ id }) => id === (channel.parent_id ?? '0'))) {
 		const category = channels.find(({ id }) => id === channel.parent_id);
 
 		return [
@@ -47,7 +52,7 @@ function addToCategoryIfExists(
 	}
 
 	acc
-		.find(({ id }) => id === channel.parent_id)!
+		.find(({ id }) => id === (channel.parent_id ?? '0'))!
 		.options.push({
 			value: channel.id,
 			label: channel.name ?? 'Unknown Channel',
@@ -59,8 +64,6 @@ function ModMailSettings() {
 	const { data: modmailSettings, isLoading: areSettingsLoading } = useModmailSettings();
 	const { data: guildInfo, isLoading: isGuildDataLoading } = useGuildInfo();
 	const [newSettings, setNewSettings] = useState<GuildSettings | null>(null);
-
-	console.log(newSettings);
 
 	useEffect(() => {
 		if (!areSettingsLoading && modmailSettings && !newSettings) {
@@ -81,7 +84,7 @@ function ModMailSettings() {
 			channels
 				// @ts-expect-error TS2339: docs: "may be missing for some channel objects received over gateway guild dispatches", not applicable to us
 				?.sort((a, b) => a.position - b.position)
-				.filter((channel) => channel.type !== 4)
+				.filter((channel) => allowedChannelTypes.includes(channel.type))
 				.reduce<(DropdownGroupedOptions<false> & { position: number })[]>((acc, channel) => {
 					return addToCategoryIfExists(acc, channel, channels);
 				}, [])
