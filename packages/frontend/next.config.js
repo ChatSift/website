@@ -48,6 +48,11 @@ module.exports = {
 				destination: 'https://ko-fi.com/chatsift',
 				permanent: true,
 			},
+			{
+				source: '/dashboard/:guildId/modmail',
+				destination: '/dashboard/:guildId/modmail/settings',
+				permanent: true,
+			},
 		];
 	},
 };
