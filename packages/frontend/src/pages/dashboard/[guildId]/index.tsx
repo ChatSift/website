@@ -23,10 +23,11 @@ type ManageButtonProps = {
 	guildId: string | undefined;
 	isInvited: boolean;
 	isLoading: boolean;
+	page: string;
 };
 
-function BotButton({ isLoading, isInvited, guildId, botId }: ManageButtonProps) {
-	const url = guildId ? Urls.dashboard.bot(guildId, botId) : 'loading';
+function BotButton({ isLoading, isInvited, guildId, botId, page }: ManageButtonProps) {
+	const url = guildId ? Urls.dashboard.botPage(guildId, botId, page) : 'loading';
 
 	if (!isInvited) {
 		return (
@@ -70,6 +71,7 @@ function GuildDashboard() {
 									isInvited={guild?.hasAutomoderator ?? false}
 									guildId={guild?.id}
 									botId="automoderator"
+									page="settings"
 								/>
 							}
 						/>
@@ -79,7 +81,13 @@ function GuildDashboard() {
 							name="AMA"
 							caption={guild?.hasAma ? 'Invited' : 'Not invited'}
 							input={
-								<BotButton isLoading={isLoading} isInvited={guild?.hasAma ?? false} guildId={guild?.id} botId="ama" />
+								<BotButton
+									isLoading={isLoading}
+									isInvited={guild?.hasAma ?? false}
+									guildId={guild?.id}
+									botId="ama"
+									page="settings"
+								/>
 							}
 						/>
 						<ConfigOption
@@ -93,6 +101,7 @@ function GuildDashboard() {
 									isInvited={guild?.hasModmail ?? false}
 									guildId={guild?.id}
 									botId="modmail"
+									page="settings"
 								/>
 							}
 						/>
