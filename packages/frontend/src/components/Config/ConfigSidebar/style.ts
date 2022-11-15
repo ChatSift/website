@@ -19,6 +19,10 @@ export const SidebarLink = styled(RouterLink)`
 	&[data-active='true'] {
 		background-color: ${({ theme }) => theme.colors.onBackground.tertiary};
 	}
+
+	&[data-loading='true'] {
+		pointer-events: none;
+	}
 `;
 
 export const LinkTextActive = styled(Text.Body.Bold)`

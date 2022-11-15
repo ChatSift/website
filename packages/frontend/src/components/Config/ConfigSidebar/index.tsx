@@ -24,33 +24,34 @@ function ConfigSidebar() {
 	);
 
 	const router = useRouter();
-	const [selectedBotIndex, setSelectedBotIndex] = useState<number | undefined>(0);
+	const [selectedBotId, setSelectedBotId] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
-		const currentBot = configurableBots.find((bot) => router.pathname === `${dashboardRoot}/${bot.id}`);
+		const currentBot = configurableBots.find((bot) =>
+			new RegExp(`^\\/dashboard\\/\\[guildId]\\/${bot.id}.*`).test(router.pathname),
+		);
+
 		if (!currentBot) {
 			return;
 		}
 
-		const index = configurableBots.findIndex((bot) => bot.id === currentBot.id);
-		setSelectedBotIndex(index);
+		setSelectedBotId(currentBot.id);
 	}, [router.pathname]);
 
 	const { guild, isLoading, isError } = useConfigGuild();
-	console.log(router);
 
 	const cardHref = Urls.dashboard.index(guild?.id ?? 'loading');
 	const isOnDashboardRoot = router.pathname === dashboardRoot;
 
-	function changeBot(index: number) {
+	function changeBot(newSelectedBot: string) {
 		if (!guild) {
 			return;
 		}
 
-		const bot = configurableBots[index ?? 0];
+		const bot = configurableBots.find(({ id }) => id === newSelectedBot);
 
 		void router.push(Urls.dashboard.bot(guild.id, bot!.id));
-		setSelectedBotIndex(index);
+		setSelectedBotId(newSelectedBot);
 	}
 
 	return (
@@ -66,27 +67,29 @@ function ConfigSidebar() {
 					<Dropdown
 						options={botDropdownOptions}
 						hasIcons={true}
-						selectedIndex={selectedBotIndex}
-						setSelectedIndex={changeBot}
+						selectedValue={selectedBotId}
+						setSelectedValue={changeBot}
 						label="Select bot"
 					/>
 					<Links>
-						{configurableBots[selectedBotIndex ?? 0]!.sidebarLinks.map((link) => {
-							const linkHref = link.linkUrlPattern(guild?.id ?? 'loading');
-							const active = router.asPath === linkHref;
-							const TextComponent = active ? Styles.LinkTextActive : Styles.LinkText;
+						{configurableBots
+							.find(({ id }) => id === selectedBotId)
+							?.sidebarLinks.map((link) => {
+								const linkHref = link.linkUrlPattern(guild?.id ?? 'loading');
+								const active = router.asPath === linkHref;
+								const TextComponent = active ? Styles.LinkTextActive : Styles.LinkText;
 
-							return (
-								<Styles.SidebarLink
-									key={linkHref}
-									href={linkHref}
-									data-active={active}
-									data-loading={guild?.id === undefined}
-								>
-									<TextComponent>{link.linkText}</TextComponent>
-								</Styles.SidebarLink>
-							);
-						})}
+								return (
+									<Styles.SidebarLink
+										key={linkHref}
+										href={linkHref}
+										data-active={active}
+										data-loading={guild?.id === undefined}
+									>
+										<TextComponent>{link.linkText}</TextComponent>
+									</Styles.SidebarLink>
+								);
+							})}
 					</Links>
 				</>
 			)}

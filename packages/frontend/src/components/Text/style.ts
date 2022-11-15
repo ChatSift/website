@@ -7,6 +7,13 @@ export const Heading3 = styled.h3`
 	color: ${({ theme }) => theme.colors.text.primary};
 `;
 
+export const Heading4 = styled.h4`
+	font-weight: 550;
+	font-size: 22px;
+	line-height: 24px;
+	color: ${({ theme }) => theme.colors.text.primary};
+`;
+
 const BodyRegular = styled.span`
 	font-weight: 450;
 	font-size: 18px;

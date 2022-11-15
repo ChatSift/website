@@ -292,9 +292,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chatsift/modmail-api@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@chatsift/modmail-api@npm:0.2.1"
+"@chatsift/modmail-api@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@chatsift/modmail-api@npm:0.2.2"
   dependencies:
     "@chatsift/pino-rotate-file": ^0.1.2
     "@chatsift/readdir": ^0.2.0
@@ -313,7 +313,7 @@ __metadata:
     reflect-metadata: ^0.1.13
     tslib: ^2.4.0
     tsyringe: ^4.7.0
-  checksum: d5ea673dc7a2556f8298ed2cfffb2a052ea60c5663164ec77c44cf6f6536d9ad5d5bfd1cb8c2a90d1e8e22d822a11ba2ba43d07fcfa9ffa524013c41a21ca141
+  checksum: 0a9bdc2a0ca486d39b786cf3464c82b0c5ee289479ab33a1c47b4af4435199c482cd39cc12cf52daea2dce8a4ac70da23d31c054515eace2e22ae9a9d7307eec
   languageName: node
   linkType: hard
 
@@ -393,7 +393,7 @@ __metadata:
   resolution: "@chatsift/website-frontend@workspace:packages/frontend"
   dependencies:
     "@chatsift/ama-api": ^0.1.1
-    "@chatsift/modmail-api": ^0.2.1
+    "@chatsift/modmail-api": ^0.2.2
     "@chatsift/rest-utils": ^0.6.2
     "@chatsift/website-api": "workspace:^"
     "@emotion/babel-plugin": ^11.10.2
@@ -413,6 +413,7 @@ __metadata:
     "@types/node": ^16.11.47
     "@types/react-dom": ^18.0.6
     "@use-gesture/react": ^10.2.22
+    discord-api-types: ^0.37.1
     facepaint: ^1.2.1
     next: 12.2.4
     react: ^18.2.0

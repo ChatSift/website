@@ -10,32 +10,46 @@ type DropdownOption<THasIcon extends boolean> = (THasIcon extends true ? { icon:
 	value: string;
 };
 
-type DropdownProps<THasIcons extends boolean> = {
-	hasIcons: THasIcons;
-	label?: string;
+export type DropdownGroupedOptions<THasIcons extends boolean> = {
+	id: string;
+	label: string;
 	options: DropdownOption<THasIcons>[];
-	selectedIndex?: number;
-	setSelectedIndex(index: number): void;
 };
 
-function Dropdown<THasIcons extends boolean>(props: DropdownProps<THasIcons>) {
+type DropdownProps<THasIcons extends boolean> = {
+	disabled?: boolean;
+	hasIcons: THasIcons;
+	label?: string;
+	options: DropdownGroupedOptions<THasIcons>[] | DropdownOption<THasIcons>[];
+	selectedValue?: string;
+	setSelectedValue(value: string): void;
+};
+
+function Dropdown<THasIcons extends boolean>({ disabled = false, ...props }: DropdownProps<THasIcons>) {
+	const isGrouped = 'options' in (props.options[0] ?? {});
+
 	const value = useMemo(() => {
-		if (props.selectedIndex === undefined) {
+		if (props.selectedValue === undefined) {
 			return undefined;
 		}
 
-		return props.options[props.selectedIndex];
-	}, [props.selectedIndex, props.options]);
+		if (isGrouped) {
+			return (props.options as DropdownGroupedOptions<THasIcons>[])
+				.flatMap(({ options }) => options)
+				.find((option) => option.value === props.selectedValue);
+		}
+
+		return (props.options as DropdownOption<THasIcons>[]).find((option) => option.value === props.selectedValue);
+	}, [props.selectedValue, props.options, isGrouped]);
 
 	function handleValueChange(value: string) {
-		const index = props.options.findIndex((option) => option.value === value);
-		props.setSelectedIndex(index);
+		props.setSelectedValue(value);
 	}
 
 	// const valueWithIcon = value as DropdownOption<true> | undefined;
 
 	return (
-		<Styles.Container>
+		<Styles.Container disabled={disabled}>
 			{props.label && <DropdownLabel htmlFor={props.label}>{props.label}</DropdownLabel>}
 			<Styles.DropdownMenuContainer>
 				<Select.Root value={value?.value} onValueChange={handleValueChange}>
@@ -48,12 +62,24 @@ function Dropdown<THasIcons extends boolean>(props: DropdownProps<THasIcons>) {
 					</Styles.Trigger>
 					<Styles.Content>
 						<Styles.Viewport>
-							{props.options.map((option) => (
-								<Styles.Item value={option.value} key={option.value}>
-									<Select.ItemText>{option.label}</Select.ItemText>
-									{/* <Select.ItemIndicator /> */}
-								</Styles.Item>
-							))}
+							{isGrouped
+								? (props.options as DropdownGroupedOptions<THasIcons>[]).map(({ label, id, options }) => (
+										<Styles.Group key={`group-${id}`}>
+											<Styles.GroupLabel>{label}</Styles.GroupLabel>
+											{options.map((option) => (
+												<Styles.Item value={option.value} key={option.value}>
+													<Select.ItemText>{option.label}</Select.ItemText>
+													{/* <Select.ItemIndicator /> */}
+												</Styles.Item>
+											))}
+										</Styles.Group>
+								  ))
+								: (props.options as DropdownOption<THasIcons>[]).map((option) => (
+										<Styles.Item value={option.value} key={option.value}>
+											<Select.ItemText>{option.label}</Select.ItemText>
+											{/* <Select.ItemIndicator /> */}
+										</Styles.Item>
+								  ))}
 						</Styles.Viewport>
 					</Styles.Content>
 				</Select.Root>

@@ -2,10 +2,21 @@ import styled from '@emotion/styled';
 import { Root as Label } from '@radix-ui/react-label';
 import * as Select from '@radix-ui/react-select';
 
-export const Container = styled.div`
+type ContainerProps = {
+	disabled: boolean;
+};
+
+export const Container = styled.div<ContainerProps>`
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
+
+	${({ disabled }) =>
+		disabled &&
+		`
+    opacity: 0.5;
+    pointer-events: none;
+  `}
 `;
 
 export const DropdownMenuContainer = styled.div`
@@ -26,12 +37,27 @@ export const Content = styled(Select.Content)`
 	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
 	background-color: ${({ theme }) => theme.colors.background.card};
 	border-radius: 4px;
+	z-index: 90000;
 `;
 
 export const Viewport = styled(Select.Viewport)`
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
+`;
+
+export const Group = styled(Select.Group)`
+	&:not(:first-of-type) {
+		margin-top: 16px;
+	}
+`;
+
+export const GroupLabel = styled(Select.Label)`
+	color: ${({ theme }) => theme.colors.text.secondary};
+	border-bottom: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
+	margin-bottom: 8px;
+	padding: 4px 8px;
+	font-size: 14px;
 `;
 
 export const Item = styled(Select.Item)`
@@ -62,10 +88,10 @@ export const ValueAndIcon = styled.span`
 	color: ${({ theme }) => theme.colors.text.primary};
 `;
 
-export const Icon = styled(Select.Icon)`
-	display: flex;
-	align-items: center;
-`;
+// export const Icon = styled(Select.Icon)`
+// 	display: flex;
+// 	align-items: center;
+// `;
 
 export const Trigger = styled(Select.Trigger)`
 	background-color: ${({ theme }) => theme.colors.onBackground.tertiary};

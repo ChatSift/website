@@ -1,17 +1,19 @@
 import type { ReactNode } from 'react';
+import { Children } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import * as Styles from '~/components/Config/ConfigOption/style';
 import useRand from '~/hooks/useRand';
 
 type ConfigOptionProps = {
 	caption: string;
+	children?: ReactNode;
 	icon?: ReactNode;
-	input: ReactNode;
+	input?: ReactNode;
 	isLoading?: boolean;
 	name: string;
 };
 
-function ConfigOption({ input, icon, name, caption, isLoading = false }: ConfigOptionProps) {
+function ConfigOption({ input, icon, name, caption, children, isLoading = false }: ConfigOptionProps) {
 	const randCaptionWidth = useRand(40, 200);
 
 	return (
@@ -28,6 +30,7 @@ function ConfigOption({ input, icon, name, caption, isLoading = false }: ConfigO
 				</Styles.IconAndTag>
 				{input}
 			</Styles.OptionHeader>
+			{Children.count(children) > 0 && <Styles.Content>{children}</Styles.Content>}
 		</Styles.Option>
 	);
 }
