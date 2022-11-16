@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -60,17 +59,11 @@ export function MobileHeaderOverride({ children }: { children: ReactNode }) {
 }
 
 function Header() {
-	const router = useRouter();
-
-	function navigate(href: string) {
-		void router.push(href);
-	}
-
 	return (
 		<HeaderStyles.Base>
-			<Desktop navigate={navigate} />
+			<Desktop />
 			<div id="mobile-override-container">
-				<Mobile navigate={navigate} />
+				<Mobile />
 			</div>
 		</HeaderStyles.Base>
 	);

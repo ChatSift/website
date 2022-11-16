@@ -16,6 +16,7 @@ export const Content = styled.div`
 	padding: 16px;
 	max-width: 100vw;
 	overflow-y: auto;
+	position: relative;
 
 	${mediaQueries.smallMin} {
 		padding: 24px;

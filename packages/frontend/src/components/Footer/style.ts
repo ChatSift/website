@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { RouterLink } from '~/components/Link';
 import mediaQueries from '~/styles/breakpoints';
 
 export const buttonPadding = 6;
@@ -51,6 +52,6 @@ export const SecondGroup = styled.div`
 	align-items: center;
 `;
 
-export const IconLink = styled.a`
+export const IconLink = styled(RouterLink)`
 	display: flex;
 `;

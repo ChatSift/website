@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router';
 import Skeleton from 'react-loading-skeleton';
 import * as Styles from './style';
+import useCheckedRouter from '~/hooks/useCheckedRouter';
 import useConfigGuild from '~/hooks/useConfigGuild';
 import useRand from '~/hooks/useRand';
 
@@ -9,13 +9,12 @@ type ConfigGuildCardProps = {
 };
 
 function ConfigGuildCard({ wide = false }: ConfigGuildCardProps) {
-	const router = useRouter();
+	const router = useCheckedRouter();
 	const { guild, isLoading } = useConfigGuild();
 
 	const skeletonWidth = useRand(100, 210);
 
 	if (!guild && !isLoading) {
-		// TODO: better handling of this
 		void router.push('/dashboard');
 
 		return null;
@@ -34,7 +33,7 @@ function ConfigGuildCard({ wide = false }: ConfigGuildCardProps) {
 			<Styles.CardHeader>
 				<GuildNameComponent>{guild?.name ?? <Skeleton width={`min(100%, ${skeletonWidth}px)`} />}</GuildNameComponent>
 				<GuildMemberCountComponent>
-					{/* TODO: when we fixed the types, this ts-expect-error can be removed */}
+					{/* TODO: when we fix the types, this ts-expect-error can be removed */}
 					{/* @ts-expect-error TS2339 */}
 					{guild?.approximate_member_count?.toLocaleString()?.concat(' members') ?? <Skeleton width={100} />}
 				</GuildMemberCountComponent>

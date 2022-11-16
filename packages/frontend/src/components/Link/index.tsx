@@ -1,7 +1,7 @@
-import { default as NextLink } from 'next/link';
 import type { HTMLProps } from 'react';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { useLink } from 'react-aria';
+import useCheckedRouter from '~/hooks/useCheckedRouter';
 
 function Link(props: HTMLProps<Element>) {
 	const ref = useRef<HTMLAnchorElement | null>(null);
@@ -12,13 +12,21 @@ function Link(props: HTMLProps<Element>) {
 
 export function RouterLink(props: HTMLProps<Element> & { href: string }) {
 	const ref = useRef<HTMLAnchorElement | null>(null);
-	const { linkProps } = useLink(props, ref);
+	const router = useCheckedRouter();
 
-	return (
-		<NextLink href={props.href}>
-			<a {...props} {...linkProps} ref={ref} />
-		</NextLink>
-	);
+	const effectiveProps = {
+		...props,
+		onClick: (event: React.MouseEvent) => {
+			event.preventDefault();
+			console.log('href', props.href);
+			void router.push(props.href);
+			return props.onClick?.(event);
+		},
+	};
+
+	const { linkProps } = useLink(effectiveProps, ref);
+
+	return <a {...props} {...linkProps} ref={ref} />;
 }
 
 export default Link;

@@ -1,16 +1,16 @@
 import type { GetDiscordAuthMeResult } from '@chatsift/website-api';
 import * as Avatar from '@radix-ui/react-avatar';
-import { useRouter } from 'next/router';
 import Skeleton from 'react-loading-skeleton';
 import useUser from '../../hooks/useUser';
 import * as Urls from '../../utils/urls';
 import * as Button from '../Button';
 import * as Styles from './style';
+import useCheckedRouter from '~/hooks/useCheckedRouter';
 import type { UserFetchError } from '~/hooks/useUser';
 import { APIError } from '~/utils/fetch';
 
 function ErrorHandler({ error }: { error: UserFetchError }) {
-	const router = useRouter();
+	const router = useCheckedRouter();
 
 	if (error instanceof APIError && error.payload.statusCode === 401) {
 		return <Button.Ghost onPress={() => void router.replace(Urls.logIn)}>Log in</Button.Ghost>;
@@ -43,7 +43,7 @@ function UserAvatar({ isLoading, user, className }: UserAvatarProps) {
 
 export function Desktop() {
 	const { isLoading, data: user, error } = useUser();
-	const router = useRouter();
+	const router = useCheckedRouter();
 
 	if (error) {
 		return <ErrorHandler error={error} />;
@@ -63,7 +63,7 @@ type MobileProps = {
 
 export function Mobile({ hasDiscriminator = true }: MobileProps) {
 	const { isLoading, data: user, error } = useUser();
-	const router = useRouter();
+	const router = useCheckedRouter();
 
 	if (error) {
 		return <ErrorHandler error={error} />;

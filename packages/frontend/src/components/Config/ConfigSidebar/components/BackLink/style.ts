@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { RouterLink } from '~/components/Link';
 
 export const BackLink = styled.span`
 	color: ${({ theme }) => theme.colors.text.primary};
@@ -12,7 +13,7 @@ export const BackLink = styled.span`
 	}
 `;
 
-export const Anchor = styled.a`
+export const Anchor = styled(RouterLink)`
 	display: flex;
 	gap: 8px;
 	align-items: center;

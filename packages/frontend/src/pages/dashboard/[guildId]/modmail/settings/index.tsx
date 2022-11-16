@@ -1,7 +1,6 @@
-import type { GuildSettings } from '@chatsift/modmail-api';
-import styled from '@emotion/styled';
 import type { APIChannel, APIDMChannel, APIGroupDMChannel } from 'discord-api-types/v10';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import ConfigForm from '~/components/Config/ConfigForm';
 import ConfigOption from '~/components/Config/ConfigOption';
 import { ConfigOptionCollection } from '~/components/Config/ConfigOptionCollection';
 import ConfigPageFrame from '~/components/Config/ConfigPageFrame';
@@ -12,10 +11,6 @@ import PageMeta from '~/components/PageMeta';
 import * as Text from '~/components/Text';
 import useGuildInfo from '~/hooks/useGuildInfo';
 import useModmailSettings from '~/hooks/useModmailSettings';
-
-const Code = styled.code`
-	color: ${(props) => props.theme.colors.text.primary};
-`;
 
 const allowedChannelTypes = [
 	0, // GUILD_TEXT
@@ -61,21 +56,7 @@ function addToCategoryIfExists(
 }
 
 function ModMailSettings() {
-	const { data: modmailSettings, isLoading: areSettingsLoading } = useModmailSettings();
 	const { data: guildInfo, isLoading: isGuildDataLoading } = useGuildInfo();
-	const [newSettings, setNewSettings] = useState<GuildSettings | null>(null);
-
-	useEffect(() => {
-		if (!areSettingsLoading && modmailSettings && !newSettings) {
-			setNewSettings(modmailSettings);
-		}
-	}, [areSettingsLoading, modmailSettings, newSettings]);
-
-	function changeModmailChannel(channelId: string) {
-		console.log(channelId);
-
-		setNewSettings((prev) => ({ ...prev!, modmailChannelId: channelId }));
-	}
 
 	const channelOptions = useMemo(() => {
 		const channels = (guildInfo?.channels as ApplicableChannel[]) ?? [];
@@ -96,28 +77,47 @@ function ModMailSettings() {
 		<>
 			<PageMeta title="ModMail ― Server Settings" />
 			<ConfigPageFrame>
-				<Text.Heading3>ModMail Settings</Text.Heading3>
-				<ConfigOptionCollection>
-					<ConfigOption name="Greeting message" caption="The message new tickets are greeted with.">
-						<TextArea style={{ width: '100%' }} />
-					</ConfigOption>
-					<ConfigOption name="Farewell message" caption="The message tickets are closed with.">
-						<TextArea style={{ width: '100%' }} />
-					</ConfigOption>
-					<ConfigOption name="Modmail channel" caption="The channel new modmails go into? I think?">
-						<Dropdown
-							hasIcons={false}
-							options={channelOptions ?? [{ value: 'loading', label: 'Loading...' }]}
-							setSelectedValue={changeModmailChannel}
-							selectedValue={newSettings?.modmailChannelId ?? 'loading'}
-							disabled={isGuildDataLoading}
-						/>
-					</ConfigOption>
-					<ConfigOption name="Simple mode" caption="No embeds." input={<input type="checkbox" />} />
-				</ConfigOptionCollection>
-				<Code>
-					<pre>{JSON.stringify(modmailSettings, null, 2)}</pre>
-				</Code>
+				<ConfigForm settingsApiHook={useModmailSettings} onSaveRequested={() => {}}>
+					{({ currentValue, setFields }) => (
+						<>
+							<Text.Heading3>ModMail Settings</Text.Heading3>
+							<ConfigOptionCollection>
+								<ConfigOption name="Greeting message" caption="The message new tickets are greeted with.">
+									<TextArea
+										style={{ width: '100%' }}
+										value={currentValue?.greetingMessage ?? ''}
+										onChange={(event) =>
+											setFields({
+												greetingMessage: event.target.value,
+											})
+										}
+									/>
+								</ConfigOption>
+								<ConfigOption name="Farewell message" caption="The message tickets are closed with.">
+									<TextArea
+										style={{ width: '100%' }}
+										value={currentValue?.farewellMessage ?? ''}
+										onChange={(event) =>
+											setFields({
+												farewellMessage: event.target.value,
+											})
+										}
+									/>
+								</ConfigOption>
+								<ConfigOption name="Modmail channel" caption="The channel new modmails go into? I think?">
+									<Dropdown
+										hasIcons={false}
+										options={channelOptions ?? [{ value: 'loading', label: 'Loading...' }]}
+										setSelectedValue={(newModmailChannelId) => setFields({ modmailChannelId: newModmailChannelId })}
+										selectedValue={currentValue?.modmailChannelId ?? 'loading'}
+										disabled={isGuildDataLoading}
+									/>
+								</ConfigOption>
+								<ConfigOption name="Simple mode" caption="No embeds." input={<input type="checkbox" />} />
+							</ConfigOptionCollection>
+						</>
+					)}
+				</ConfigForm>
 			</ConfigPageFrame>
 		</>
 	);

@@ -1,6 +1,7 @@
 import { keyframes, css } from '@emotion/css';
 import styled from '@emotion/styled';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
+import { RouterLink } from '~/components/Link';
 import mediaQueries from '~/styles/breakpoints';
 import type { ThemeProps } from '~/themes/theme';
 
@@ -209,7 +210,7 @@ export const MobileNavItem = styled(NavigationMenu.Item)`
 	}
 `;
 
-export const MobileLink = styled.a`
+export const MobileLink = styled(RouterLink)`
 	padding: 12px 16px;
 	color: ${(props) => props.theme.colors.text.primary};
 	background-color: ${(props) => props.theme.colors.onBackground.tertiary};
@@ -276,7 +277,7 @@ export const LogoText = styled.h1`
 	color: ${(props) => props.theme.colors.text.primary};
 `;
 
-export const Link = styled.a`
+export const Link = styled(RouterLink)`
 	color: ${(props: ThemeProps) => props.theme.colors.text.secondary};
 	text-decoration: none;
 	font-weight: 450;

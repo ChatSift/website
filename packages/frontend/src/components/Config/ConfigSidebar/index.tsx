@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import ConfigGuildCard from '../ConfigGuildCard';
 import * as Styles from './style';
@@ -7,6 +6,7 @@ import BackLink from '~/components/Config/ConfigSidebar/components/BackLink';
 import Dropdown from '~/components/Dropdown';
 import { RouterLink } from '~/components/Link';
 import configurableBots from '~/data/bots/config/configurableBots';
+import useCheckedRouter from '~/hooks/useCheckedRouter';
 import useConfigGuild from '~/hooks/useConfigGuild';
 import * as Urls from '~/utils/urls';
 
@@ -23,7 +23,7 @@ function ConfigSidebar() {
 		[],
 	);
 
-	const router = useRouter();
+	const router = useCheckedRouter();
 	const [selectedBotId, setSelectedBotId] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
@@ -48,9 +48,14 @@ function ConfigSidebar() {
 			return;
 		}
 
-		const bot = configurableBots.find(({ id }) => id === newSelectedBot);
+		const bot = configurableBots.find(({ id }) => id === newSelectedBot)!;
 
-		void router.push(Urls.dashboard.bot(guild.id, bot!.id));
+		if (!bot.sidebarLinks[0]) {
+			console.warn('No sidebar links for bot', bot);
+			return;
+		}
+
+		void router.push(bot.sidebarLinks[0].linkUrlPattern(guild.id));
 		setSelectedBotId(newSelectedBot);
 	}
 
