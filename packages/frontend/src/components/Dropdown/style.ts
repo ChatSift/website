@@ -98,6 +98,7 @@ export const Trigger = styled(Select.Trigger)`
 	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
 	border-radius: 4px;
 	padding: 12px;
+	gap: 12px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
