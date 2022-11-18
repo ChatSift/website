@@ -185,7 +185,7 @@ export class Auth {
 
 			const fetched = (await this.oauthRest.get(Routes.user())) as APIUser;
 			const rawGuilds = (await this.oauthRest.get(
-				`${Routes.userGuilds()}?with_counts=true`,
+				Routes.userGuilds(), { query: makeURLSearchParams({ with_counts: true }) }
 			)) as RESTGetAPICurrentUserGuildsResult;
 			const guilds = rawGuilds.filter(
 				(guild) => (BigInt(guild.permissions) & PermissionFlagsBits.Administrator) !== 0n,
