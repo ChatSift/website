@@ -19,7 +19,7 @@ function Footer({ hasMargin = true }: FooterProps) {
 	const theme = useContext(ThemeContext);
 
 	return (
-		<Styles.Footer hasMargin={hasMargin}>
+		<Styles.Footer data-has-margin={hasMargin}>
 			<Styles.CopyrightNotice>© Chatsift, 2022 - Present</Styles.CopyrightNotice>
 			<Styles.ButtonsAndLinks>
 				<Styles.List>

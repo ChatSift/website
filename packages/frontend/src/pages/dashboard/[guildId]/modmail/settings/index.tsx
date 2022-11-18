@@ -1,4 +1,5 @@
-import type { APIChannel, APIDMChannel, APIGroupDMChannel } from 'discord-api-types/v10';
+import type { APIGuildTextChannel, GuildTextChannelType } from 'discord-api-types/v10';
+import { ChannelType } from 'discord-api-types/v10';
 import { useMemo } from 'react';
 import ConfigForm from '~/components/Config/ConfigForm';
 import ConfigOption from '~/components/Config/ConfigOption';
@@ -12,14 +13,11 @@ import * as Text from '~/components/Text';
 import useGuildInfo from '~/hooks/useGuildInfo';
 import useModmailSettings from '~/hooks/useModmailSettings';
 
-const allowedChannelTypes = [
-	0, // GUILD_TEXT
-	15, // GUILD_FORUM
-];
+const allowedChannelTypes: GuildTextChannelType[] = [ChannelType.GuildText, ChannelType.GuildForum];
 
 const withIcons = false;
 type WithIcons = typeof withIcons;
-type ApplicableChannel = Exclude<APIChannel, APIDMChannel | APIGroupDMChannel>;
+type ApplicableChannel = APIGuildTextChannel<ChannelType.GuildForum> | APIGuildTextChannel<ChannelType.GuildText>;
 type GroupedChannels = (DropdownGroupedOptions<WithIcons> & { position: number })[];
 
 function addToCategoryIfExists(
@@ -61,16 +59,13 @@ function ModMailSettings() {
 	const channelOptions = useMemo(() => {
 		const channels = (guildInfo?.channels as ApplicableChannel[]) ?? [];
 
-		return (
-			channels
-				// @ts-expect-error TS2339: docs: "may be missing for some channel objects received over gateway guild dispatches", not applicable to us
-				?.sort((a, b) => a.position - b.position)
-				.filter((channel) => allowedChannelTypes.includes(channel.type))
-				.reduce<(DropdownGroupedOptions<false> & { position: number })[]>((acc, channel) => {
-					return addToCategoryIfExists(acc, channel, channels);
-				}, [])
-				.sort((a, b) => a.position - b.position)
-		);
+		return channels
+			?.sort((a, b) => a.position! - b.position!)
+			.filter((channel) => allowedChannelTypes.includes(channel.type))
+			.reduce<(DropdownGroupedOptions<false> & { position: number })[]>((acc, channel) => {
+				return addToCategoryIfExists(acc, channel, channels);
+			}, [])
+			.sort((a, b) => a.position - b.position);
 	}, [guildInfo?.channels]);
 
 	return (

@@ -25,7 +25,6 @@ export const Base = styled.header`
 	}
 `;
 
-// to override later, it's okay that it's empty
 export const activeMobileOverride = css`
 	& > *:nth-child(1) {
 		display: none;

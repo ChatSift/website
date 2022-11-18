@@ -2,21 +2,15 @@ import styled from '@emotion/styled';
 import { Root as Label } from '@radix-ui/react-label';
 import * as Select from '@radix-ui/react-select';
 
-type ContainerProps = {
-	disabled: boolean;
-};
-
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
 
-	${({ disabled }) =>
-		disabled &&
-		`
-    opacity: 0.5;
-    pointer-events: none;
-  `}
+	&[data-disabled='true'] {
+		opacity: 0.5;
+		pointer-events: none;
+	}
 `;
 
 export const DropdownMenuContainer = styled.div`
@@ -63,20 +57,20 @@ export const GroupLabel = styled(Select.Label)`
 export const Item = styled(Select.Item)`
 	padding: 8px;
 	color: ${({ theme }) => theme.colors.text.primary};
-  border-radius: 4px;
-  cursor: pointer;
-  outline: none;
-  font-size: 18px;
+	border-radius: 4px;
+	cursor: pointer;
+	outline: none;
+	font-size: 18px;
 
-  &[data-state='checked'] {
+	&[data-state='checked'] {
 		background-color: ${({ theme }) => theme.colors.accent};
-    color: ${({ theme }) => theme.colors.text.onAccent};
-    font-weight: 450;
-  }
+		color: ${({ theme }) => theme.colors.text.onAccent};
+		font-weight: 450;
+	}
 
 	&[data-highlighted]:not([data-state='checked']) {{
 		background-color: ${({ theme }) => theme.colors.onBackground.secondary};
-  }
+	}
 `;
 
 export const ValueAndIcon = styled.span`

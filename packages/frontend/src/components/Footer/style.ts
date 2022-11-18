@@ -8,11 +8,7 @@ export const CopyrightNotice = styled.span`
 	white-space: nowrap;
 `;
 
-type FooterProps = {
-	hasMargin?: boolean;
-};
-
-export const Footer = styled.footer<FooterProps>`
+export const Footer = styled.footer`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -22,11 +18,9 @@ export const Footer = styled.footer<FooterProps>`
 	color: ${(props) => props.theme.colors.text.secondary};
 	font-weight: 450;
 
-	${(props) =>
-		props.hasMargin &&
-		`
+	&[data-has-margin='true'] {
 		margin-top: 32px;
-	`}
+	}
 
 	${mediaQueries.smallMin} {
 		flex-direction: row;

@@ -5,9 +5,9 @@ export const ConfigOptionCollection = styled.ul`
 	flex-direction: column;
 	border-radius: 8px;
 	background-color: ${({ theme }) => theme.colors.onBackground.tertiary};
-  border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
+	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
 
-  > *:not(:last-child) { {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-  }
+	> *:not(:last-child) { {
+		border-bottom: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
+	}
 `;

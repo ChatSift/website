@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router';
 import useRouterLinkController from '~/RouterLinkControllerContext';
 
+// A replacement for useRouter that allows for canceling navigation.
+// I.e. if routerLinkController.onNavigate() returns false, the navigation is canceled.
+// routerLinkController.onNavigate is a context value that is modifiable throughout the site.
 function useCheckedRouter() {
 	const router = useRouter();
 	const routerLinkController = useRouterLinkController();

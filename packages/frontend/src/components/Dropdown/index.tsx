@@ -49,7 +49,7 @@ function Dropdown<THasIcons extends boolean>({ disabled = false, ...props }: Dro
 	// const valueWithIcon = value as DropdownOption<true> | undefined;
 
 	return (
-		<Styles.Container disabled={disabled}>
+		<Styles.Container data-disabled={disabled}>
 			{props.label && <DropdownLabel htmlFor={props.label}>{props.label}</DropdownLabel>}
 			<Styles.DropdownMenuContainer>
 				<Select.Root value={value?.value} onValueChange={handleValueChange}>
