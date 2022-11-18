@@ -6,6 +6,7 @@ import type { Dispatcher } from 'undici';
 import { request } from 'undici';
 import { logger } from '../util/logger';
 
+// copy pasted from undici internals; they don't allow passing in those headers yourself
 const forbiddenHeaderNames = [
 	'accept-charset',
 	'accept-encoding',
