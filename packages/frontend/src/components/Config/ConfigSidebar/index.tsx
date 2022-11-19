@@ -25,16 +25,18 @@ function ConfigSidebar() {
 
 	const router = useCheckedRouter();
 	const [selectedBotId, setSelectedBotId] = useState<string | undefined>(undefined);
+	const currentBot = useMemo(
+		() => configurableBots.find((bot) => router.pathname.split('/')[3] === bot.id),
+		[router.pathname],
+	);
 
 	useEffect(() => {
-		const currentBot = configurableBots.find((bot) => router.pathname.split('/')[3] === bot.id);
-
 		if (!currentBot) {
 			return;
 		}
 
 		setSelectedBotId(currentBot.id);
-	}, [router.pathname]);
+	}, [currentBot]);
 
 	const { guild, isLoading, isError } = useConfigGuild();
 
