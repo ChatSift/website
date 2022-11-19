@@ -13,6 +13,7 @@ import { SkeletonTheme } from 'react-loading-skeleton';
 import Header from '../components/Header';
 import dark from '../themes/dark';
 import { RouterLinkControllerProvider } from '~/RouterLinkControllerContext';
+import ScrollArea from '~/components/ScrollArea';
 import { skeletonDuration } from '~/utils/constants';
 
 const Container = styled.div`
@@ -20,6 +21,16 @@ const Container = styled.div`
 	flex-direction: column;
 	flex: 1 1 auto;
 	min-height: 0;
+`;
+
+const Content = styled.div`
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+`;
+
+const AppScrollViewPort = styled(ScrollArea)`
+	max-height: 100vh; ;
 `;
 
 export const ThemeContext = createContext<{ current: Theme; update(newTheme: Theme): void }>({
@@ -53,13 +64,16 @@ function App({ Component, pageProps }: AppProps) {
 								<meta name="viewport" content="width=device-width, initial-scale=1" />
 								<link rel="icon" href="/assets/favicon.ico" />
 							</Head>
-							{/* <SkipLink /> */}
-							<Header />
-							<SSRProvider>
-								<Container>
-									<Component {...pageProps} />
-								</Container>
-							</SSRProvider>
+							<AppScrollViewPort>
+								<Content>
+									<Header />
+									<SSRProvider>
+										<Container>
+											<Component {...pageProps} />
+										</Container>
+									</SSRProvider>
+								</Content>
+							</AppScrollViewPort>
 						</SkeletonTheme>
 						<ReactQueryDevtools initialIsOpen={false} />
 					</QueryClientProvider>
