@@ -27,9 +27,7 @@ function ConfigSidebar() {
 	const [selectedBotId, setSelectedBotId] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
-		const currentBot = configurableBots.find((bot) =>
-			new RegExp(`^\\/dashboard\\/\\[guildId]\\/${bot.id}.*`).test(router.pathname),
-		);
+		const currentBot = configurableBots.find((bot) => router.pathname.split('/')[3] === bot.id);
 
 		if (!currentBot) {
 			return;
