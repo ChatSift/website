@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { RouterLink } from '~/components/Link';
 import mediaQueries from '~/styles/breakpoints';
 
 export const buttonPadding = 6;
@@ -7,7 +8,7 @@ export const CopyrightNotice = styled.span`
 	white-space: nowrap;
 `;
 
-export const FooterBase = styled.footer`
+export const Footer = styled.footer`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -16,7 +17,10 @@ export const FooterBase = styled.footer`
 	border-top: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
 	color: ${(props) => props.theme.colors.text.secondary};
 	font-weight: 450;
-	margin-top: 32px;
+
+	&[data-has-margin='true'] {
+		margin-top: 32px;
+	}
 
 	${mediaQueries.smallMin} {
 		flex-direction: row;
@@ -42,6 +46,6 @@ export const SecondGroup = styled.div`
 	align-items: center;
 `;
 
-export const IconLink = styled.a`
+export const IconLink = styled(RouterLink)`
 	display: flex;
 `;

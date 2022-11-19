@@ -1,3 +1,5 @@
+import * as Urls from '~/utils/urls';
+
 const ama: Bot = {
 	slideshowImages: [
 		{
@@ -31,7 +33,7 @@ const ama: Bot = {
 	],
 	name: 'AMA',
 	pageTitle: 'Ok I pull up',
-	inviteLink: '/inv-ama',
+	inviteLink: Urls.botInvite('ama'),
 	description: {
 		card: 'Manage and coordinate your Ask-Me-Anything events with ease.',
 		page: ['Ok I pull up'],

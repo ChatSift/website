@@ -1,7 +1,5 @@
-import { default as NextLink } from 'next/link';
-import React, { useRef } from 'react';
+import React from 'react';
 import type { AriaLinkOptions } from 'react-aria';
-import { useLink } from 'react-aria';
 import * as LoggedInUser from '../LoggedInUser';
 import Logo from './Logo';
 import * as HeaderStyles from './style';
@@ -9,19 +7,14 @@ import type { HeaderLink } from './index';
 import { headerItems } from './index';
 
 function DesktopLink({ item, ...props }: AriaLinkOptions & { item: HeaderLink }) {
-	const ref = useRef(null);
-	const { linkProps } = useLink(props, ref);
-
 	return (
-		<NextLink href={item.href}>
-			<HeaderStyles.Link {...linkProps} tabIndex={0} href={item.href}>
-				{item.name}
-			</HeaderStyles.Link>
-		</NextLink>
+		<HeaderStyles.Link {...props} href={item.href}>
+			{item.name}
+		</HeaderStyles.Link>
 	);
 }
 
-function Desktop({ navigate }: { navigate(href: string): void }) {
+function Desktop() {
 	return (
 		<HeaderStyles.List>
 			<li>
@@ -32,7 +25,7 @@ function Desktop({ navigate }: { navigate(href: string): void }) {
 					<HeaderStyles.HorizontalList>
 						{headerItems.map((item) => (
 							<HeaderStyles.ItemNoMobile key={item.href}>
-								<DesktopLink onPress={() => navigate(item.href)} item={item} />
+								<DesktopLink item={item} />
 							</HeaderStyles.ItemNoMobile>
 						))}
 					</HeaderStyles.HorizontalList>

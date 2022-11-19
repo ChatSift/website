@@ -1,31 +1,36 @@
 import { useContext } from 'react';
-import { ThemeContext } from '../../pages/_app';
-import dark from '../../themes/dark';
-import light from '../../themes/light';
 import * as Button from '../Button';
-import { buttonPadding, ButtonsAndLinks, CopyrightNotice, FooterBase, IconLink, List, SecondGroup } from './style';
+import * as Styles from './style';
+import { buttonPadding } from './style';
+import { ThemeContext } from '~/pages/_app';
 import SvgDarkTheme from '~/svg/SvgDarkTheme';
 import SvgDiscord from '~/svg/SvgDiscord';
 import SvgGitHub from '~/svg/SvgGitHub';
 import SvgLightTheme from '~/svg/SvgLightTheme';
 import SvgThemeSeparator from '~/svg/SvgThemeSeparator';
+import dark from '~/themes/dark';
+import light from '~/themes/light';
 
-function Footer() {
+type FooterProps = {
+	hasMargin?: boolean;
+};
+
+function Footer({ hasMargin = true }: FooterProps) {
 	const theme = useContext(ThemeContext);
 
 	return (
-		<FooterBase>
-			<CopyrightNotice>© Chatsift, 2022 - Present</CopyrightNotice>
-			<ButtonsAndLinks>
-				<List>
-					<IconLink href="/github">
+		<Styles.Footer data-has-margin={hasMargin}>
+			<Styles.CopyrightNotice>© Chatsift, 2022 - Present</Styles.CopyrightNotice>
+			<Styles.ButtonsAndLinks>
+				<Styles.List>
+					<Styles.IconLink href="/github">
 						<SvgGitHub />
-					</IconLink>
-					<IconLink href="/support">
+					</Styles.IconLink>
+					<Styles.IconLink href="/support">
 						<SvgDiscord />
-					</IconLink>
-				</List>
-				<SecondGroup>
+					</Styles.IconLink>
+				</Styles.List>
+				<Styles.SecondGroup>
 					<Button.Ghost paddingOverride={{ x: buttonPadding, y: buttonPadding }} onPress={() => theme.update(light)}>
 						<SvgLightTheme />
 					</Button.Ghost>
@@ -33,9 +38,9 @@ function Footer() {
 					<Button.Ghost paddingOverride={{ x: buttonPadding, y: buttonPadding }} onPress={() => theme.update(dark)}>
 						<SvgDarkTheme />
 					</Button.Ghost>
-				</SecondGroup>
-			</ButtonsAndLinks>
-		</FooterBase>
+				</Styles.SecondGroup>
+			</Styles.ButtonsAndLinks>
+		</Styles.Footer>
 	);
 }
 

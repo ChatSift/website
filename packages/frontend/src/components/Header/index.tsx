@@ -1,8 +1,10 @@
-import { useRouter } from 'next/router';
-import React from 'react';
+import type { ReactNode } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Desktop from './Desktop';
 import Mobile from './Mobile';
 import * as HeaderStyles from './style';
+import { activeMobileOverride } from './style';
 
 export type HeaderLink = {
 	external: boolean;
@@ -30,17 +32,39 @@ export const headerItems: HeaderLink[] = [
 	},
 ];
 
-function Header() {
-	const router = useRouter();
+export function MobileHeaderOverride({ children }: { children: ReactNode }) {
+	const [container, setContainer] = useState<Element | null>(null);
 
-	function navigate(href: string) {
-		void router.push(href);
+	useEffect(() => {
+		if (!container) {
+			setContainer(document.querySelector('#mobile-override-container'));
+		}
+	}, [container]);
+
+	useEffect(() => {
+		if (!container) {
+			return;
+		}
+
+		container.classList.add(activeMobileOverride);
+
+		return () => container.classList.remove(activeMobileOverride);
+	}, [container]);
+
+	if (!container) {
+		return null;
 	}
 
+	return createPortal(children, container);
+}
+
+function Header() {
 	return (
 		<HeaderStyles.Base>
-			<Desktop navigate={navigate} />
-			<Mobile navigate={navigate} />
+			<Desktop />
+			<div id="mobile-override-container">
+				<Mobile />
+			</div>
 		</HeaderStyles.Base>
 	);
 }

@@ -47,3 +47,4 @@ export type InferAuthRouteResult<
 > = InferRouteResult<AuthRoutes[TPath][TMethod]>;
 
 export * from './util/models';
+export * from './routes';

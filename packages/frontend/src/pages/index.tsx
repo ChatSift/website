@@ -7,7 +7,7 @@ import Link from '~/components/Link';
 import bots, { botIcons } from '~/data/bots';
 import mediaQueries from '~/styles/breakpoints';
 import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
-import { botPage } from '~/utils/urls';
+import * as Urls from '~/utils/urls';
 
 const Container = styled.main`
 	padding-top: 16px;
@@ -175,8 +175,8 @@ function Home() {
 
 								return (
 									<li key={name}>
-										<NextLink href={botPage(pathName)}>
-											<BotCard>
+										<NextLink href={Urls.botPage(pathName)}>
+											<BotCard href={Urls.botPage(pathName)}>
 												<BotCardHeader>
 													<BotLogo>
 														<Icon width={32} height={32} />

@@ -1,24 +1,26 @@
-import type { AuthRoutes, InferAuthRouteResult, InferAuthRouteBody } from '@chatsift/website-api';
+import type { AMARoutes } from '@chatsift/ama-api';
+import type { ModmailRoutes } from '@chatsift/modmail-api';
+import type { Route, InferRouteResult, InferRouteBody } from '@chatsift/rest-utils';
+import type { AuthRoutes } from '@chatsift/website-api';
 import type { Payload } from '@hapi/boom';
 
-export class APIError extends Error {
-	public readonly payload: Payload;
+type Routes = AMARoutes & AuthRoutes & ModmailRoutes;
 
-	public constructor(payload: Payload) {
+export class APIError extends Error {
+	public constructor(public readonly payload: Payload) {
 		super(payload.message);
-		this.payload = payload;
 	}
 }
 
-export async function fetchApi<TPath extends keyof AuthRoutes, TMethod extends keyof AuthRoutes[TPath]>({
+export async function fetchApi<TPath extends keyof Routes, TMethod extends keyof Routes[TPath]>({
 	path,
 	method,
 	body,
 }: {
-	body?: InferAuthRouteBody<TPath, TMethod>;
+	body?: Routes[TPath][TMethod] extends Route<any, any> ? InferRouteBody<Routes[TPath][TMethod]> : never;
 	method: TMethod;
 	path: TPath;
-}): Promise<InferAuthRouteResult<TPath, TMethod>> {
+}): Promise<InferRouteResult<Routes[TPath][TMethod]>> {
 	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL!}${path}`, {
 		method: method as string,
 		body: body as BodyInit,
@@ -26,7 +28,7 @@ export async function fetchApi<TPath extends keyof AuthRoutes, TMethod extends k
 	});
 
 	if (res.status >= 200 && res.status < 300) {
-		return res.json() as Promise<InferAuthRouteResult<TPath, TMethod>>;
+		return res.json() as Promise<InferRouteResult<Routes[TPath][TMethod]>>;
 	}
 
 	throw new APIError((await res.json()) as Payload);

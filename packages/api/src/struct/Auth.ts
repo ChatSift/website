@@ -1,5 +1,5 @@
 import { setTimeout } from 'node:timers';
-import { REST } from '@discordjs/rest';
+import { makeURLSearchParams, REST } from '@discordjs/rest';
 import { ms } from '@naval-base/ms';
 import type { Connection } from '@prisma/client';
 import { ConnectionType, PrismaClient } from '@prisma/client';
@@ -184,7 +184,9 @@ export class Auth {
 			this.oauthRest.setToken(discordAccessToken);
 
 			const fetched = (await this.oauthRest.get(Routes.user())) as APIUser;
-			const rawGuilds = (await this.oauthRest.get(Routes.userGuilds())) as RESTGetAPICurrentUserGuildsResult;
+			const rawGuilds = (await this.oauthRest.get(Routes.userGuilds(), {
+				query: makeURLSearchParams({ with_counts: true }),
+			})) as RESTGetAPICurrentUserGuildsResult;
 			const guilds = rawGuilds.filter(
 				(guild) => (BigInt(guild.permissions) & PermissionFlagsBits.Administrator) !== 0n,
 			);

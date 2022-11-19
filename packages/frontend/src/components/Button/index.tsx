@@ -6,25 +6,27 @@ import { useButton } from 'react-aria';
 
 type ButtonProps = {
 	className?: string;
+	disabled?: boolean;
 	paddingOverride?: { x?: number; y?: number };
 	style?: CSSProperties;
 	title?: string;
 };
 
-export function ButtonBase({ style, title, className, ...props }: AriaButtonProps & ButtonProps) {
+export function ButtonBase({ style, title, disabled, className, ...props }: AriaButtonProps & ButtonProps) {
 	const ref = useRef<HTMLButtonElement | null>(null);
 	const { buttonProps } = useButton(props, ref);
 	const { children } = props;
 
 	return (
 		// eslint-disable-next-line react/button-has-type
-		<button {...buttonProps} style={style} title={title} className={className} ref={ref}>
+		<button disabled={disabled} {...buttonProps} style={style} title={title} className={className} ref={ref}>
 			{children}
 		</button>
 	);
 }
 
 const Base = styled(ButtonBase)`
+	white-space: nowrap;
 	background-color: transparent;
 	cursor: pointer;
 	font-size: 18px;

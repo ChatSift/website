@@ -50,8 +50,9 @@ export function discordAuth(fallthrough = false) {
 		if (user.isOk()) {
 			// eslint-disable-next-line require-atomic-updates
 			req.discordUser = user.unwrap();
-			if (req.params.guildId) {
-				const guild = req.discordUser.guilds.find((guild) => guild.id === req.params.guildId);
+			const match = /guilds\/(?<guildId>\d{17,19})/.exec(req.originalUrl);
+			if (match?.groups?.guildId) {
+				const guild = req.discordUser.guilds.find((guild) => guild.id === match?.groups?.guildId);
 				if (!guild) {
 					return next(forbidden('cannot perform actions on this guild'));
 				}

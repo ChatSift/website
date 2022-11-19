@@ -1,3 +1,5 @@
+import * as Urls from '~/utils/urls';
+
 const autoModerator: Bot = {
 	slideshowImages: [
 		{
@@ -15,7 +17,7 @@ const autoModerator: Bot = {
 	],
 	name: 'AutoModerator',
 	pageTitle: 'Automate your moderation needs',
-	inviteLink: '/inv-auto-moderator',
+	inviteLink: Urls.botInvite('automoderator'),
 	description: {
 		card: 'A powerful solution for your day-to-day moderation bot needs.',
 		page: [
