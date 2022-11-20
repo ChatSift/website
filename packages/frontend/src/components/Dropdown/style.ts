@@ -1,6 +1,9 @@
+import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import { Root as Label } from '@radix-ui/react-label';
 import * as Select from '@radix-ui/react-select';
+
+const iconAndValueGap = 8;
 
 export const Container = styled.div`
 	display: flex;
@@ -61,6 +64,9 @@ export const Item = styled(Select.Item)`
 	cursor: pointer;
 	outline: none;
 	font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: ${iconAndValueGap}px;
 
 	&[data-state='checked'] {
 		background-color: ${({ theme }) => theme.colors.accent};
@@ -73,10 +79,20 @@ export const Item = styled(Select.Item)`
 	}
 `;
 
+export const itemIcon = css`
+	width: 18px;
+	height: 18px;
+`;
+
+export const DropdownArrowIcon = styled(Select.Icon)`
+	display: flex;
+	align-items: center;
+`;
+
 export const ValueAndIcon = styled.span`
 	display: flex;
 	align-items: center;
-	gap: 12px;
+	gap: ${iconAndValueGap}px;
 	font-size: 18px;
 	font-weight: 550;
 	color: ${({ theme }) => theme.colors.text.primary};

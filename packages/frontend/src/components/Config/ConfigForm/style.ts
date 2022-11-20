@@ -20,6 +20,7 @@ export const DirtyBar = styled.div`
 	&[data-hidden='true'] {
 		transform: translateY(10px);
 		opacity: 0;
+		display: none;
 	}
 `;
 

@@ -10,6 +10,7 @@ const light: Theme = {
 			tertiary: '#1E284F0D',
 		},
 		text: {
+			currentColor: 'currentColor',
 			primary: '#1d274e',
 			secondary: 'rgba(29, 39, 78, 0.75)',
 			disabled: '#1E284F80',
