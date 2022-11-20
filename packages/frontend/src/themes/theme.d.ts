@@ -15,6 +15,7 @@ declare module '@emotion/react' {
 				tertiary: string;
 			};
 			text: {
+				currentColor: string;
 				disabled: string;
 				onAccent: string;
 				primary: string;
