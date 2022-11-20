@@ -72,7 +72,8 @@ function Dropdown<THasIcons extends boolean>({
 				<Select.Root value={value?.value} onValueChange={handleValueChange}>
 					<Styles.Trigger id={props.label}>
 						<Styles.ValueAndIcon>
-							{(props.hasIcons || value?.value === noneOption.value) && (value as DropdownOption<true>).icon}
+							{(props.hasIcons || value?.value === noneOption.value) &&
+								(value as DropdownOption<true> | undefined)?.icon}
 							<Select.Value placeholder="No item selected.">{value?.label}</Select.Value>
 						</Styles.ValueAndIcon>
 						<Styles.DropdownArrowIcon>
