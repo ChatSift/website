@@ -1,7 +1,8 @@
+import type { GuildSettings } from '@chatsift/modmail-api';
 import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import type { APIGuildTextChannel } from 'discord-api-types/v10';
 import { ChannelType } from 'discord-api-types/v10';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import ConfigForm from '~/components/Config/ConfigForm';
 import ConfigOption from '~/components/Config/ConfigOption';
 import { ConfigOptionCollection } from '~/components/Config/ConfigOptionCollection';
@@ -13,10 +14,12 @@ import { itemIcon } from '~/components/Dropdown/style';
 import PageMeta from '~/components/PageMeta';
 import * as Text from '~/components/Text';
 import ToggleSwitch from '~/components/ToggleSwitch';
+import useConfigGuildId from '~/hooks/useConfigGuildId';
 import useGuildInfo from '~/hooks/useGuildInfo';
 import useModmailSettings from '~/hooks/useModmailSettings';
 import SvgForumChannel from '~/svg/SvgForumChannel';
 import SvgTextChannel from '~/svg/SvgTextChannel';
+import { fetchApi } from '~/utils/fetch';
 
 const allowedChannelTypes = [ChannelType.GuildText, ChannelType.GuildForum] as const;
 
@@ -73,6 +76,8 @@ function addToCategoryIfExists(
 
 function ModMailSettings() {
 	const { data: guildInfo, isLoading: isGuildDataLoading } = useGuildInfo();
+	const [isMutating, setIsMutating] = useState<boolean>(false);
+	const guildId = useConfigGuildId();
 
 	const roleOptions = useMemo(
 		() =>
@@ -101,7 +106,15 @@ function ModMailSettings() {
 		<>
 			<PageMeta title="ModMail ― Server Settings" />
 			<ConfigPageFrame>
-				<ConfigForm settingsApiHook={useModmailSettings} onSaveRequested={() => {}}>
+				<ConfigForm<GuildSettings, Omit<GuildSettings, 'guildId'>>
+					settingsApiHook={useModmailSettings}
+					handleMutationEnd={() => setIsMutating(false)}
+					handleMutationStart={() => setIsMutating(true)}
+					mutationFn={async (variables) => {
+						return fetchApi({ path: `/modmail/v1/guilds/${guildId}/settings/`, method: 'patch', body: variables });
+					}}
+					transformDataToParams={({ guildId, ...data }) => data}
+				>
 					{({ currentValue, setFields }) => (
 						<>
 							<Text.Heading3>ModMail Settings</Text.Heading3>
@@ -110,6 +123,7 @@ function ModMailSettings() {
 									<TextArea
 										style={{ width: '100%' }}
 										value={currentValue?.greetingMessage ?? ''}
+										disabled={isMutating}
 										onChange={(event) =>
 											setFields({
 												greetingMessage: event.target.value,
@@ -121,6 +135,7 @@ function ModMailSettings() {
 									<TextArea
 										style={{ width: '100%' }}
 										value={currentValue?.farewellMessage ?? ''}
+										disabled={isMutating}
 										onChange={(event) =>
 											setFields({
 												farewellMessage: event.target.value,
@@ -135,7 +150,7 @@ function ModMailSettings() {
 										options={channelOptions}
 										setSelectedValue={(modmailChannelId) => setFields({ modmailChannelId })}
 										selectedValue={currentValue?.modmailChannelId ?? undefined}
-										disabled={isGuildDataLoading}
+										disabled={isGuildDataLoading || isMutating}
 									/>
 								</ConfigOption>
 								<ConfigOption
@@ -148,7 +163,7 @@ function ModMailSettings() {
 										options={roleOptions}
 										setSelectedValue={(alertRoleId) => setFields({ alertRoleId })}
 										selectedValue={currentValue?.alertRoleId ?? undefined}
-										disabled={isGuildDataLoading}
+										disabled={isGuildDataLoading || isMutating}
 									/>
 								</ConfigOption>
 								<ConfigOption
@@ -158,7 +173,7 @@ function ModMailSettings() {
 										<ToggleSwitch
 											checked={currentValue?.simpleMode}
 											onCheckedChange={(checked) => setFields({ simpleMode: checked })}
-											disabled={isGuildDataLoading}
+											disabled={isGuildDataLoading || isMutating}
 										/>
 									}
 								/>

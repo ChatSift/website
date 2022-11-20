@@ -1,13 +1,13 @@
-import type { UseQueryResult } from '@tanstack/react-query';
+import type { MutationFunction, UseQueryResult } from '@tanstack/react-query';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import * as Styles from './style';
 import useRouterLinkController from '~/RouterLinkControllerContext';
 import * as Button from '~/components/Button';
+import useConfigGuildId from '~/hooks/useConfigGuildId';
 
-type ConfigBase = Record<string, unknown> | null | undefined;
-
-type ConfigFormProps<TConfig extends ConfigBase> = {
+type ConfigFormProps<TConfig extends Record<string, unknown>, TParams extends Record<string, unknown> = TConfig> = {
 	children({
 		currentValue,
 		setFields,
@@ -17,16 +17,24 @@ type ConfigFormProps<TConfig extends ConfigBase> = {
 		isLoading: boolean;
 		setFields(newValue: Partial<TConfig>): void;
 	}): ReactNode;
-	onSaveRequested(): void;
-	settingsApiHook(): UseQueryResult<TConfig>;
+	handleMutationEnd(): void;
+	handleMutationStart(): void;
+	mutationFn: MutationFunction<TConfig, TParams>;
+	settingsApiHook(): UseQueryResult<TConfig | null>;
+	transformDataToParams?(data: TConfig): TParams;
 };
-function ConfigForm<TConfig extends ConfigBase>({
+function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Record<string, unknown> = TConfig>({
 	children,
-	onSaveRequested,
+	handleMutationEnd,
+	handleMutationStart,
+	mutationFn,
 	settingsApiHook,
-}: ConfigFormProps<TConfig>) {
+	transformDataToParams,
+}: ConfigFormProps<TConfig, TParams>) {
 	const [changes, setChanges] = useState<Partial<TConfig>>({});
 	const { data, isLoading } = settingsApiHook();
+	const queryClient = useQueryClient();
+	const guildId = useConfigGuildId();
 
 	const isDirty = Object.keys(changes).length > 0;
 
@@ -73,19 +81,35 @@ function ConfigForm<TConfig extends ConfigBase>({
 		});
 	}
 
-	const effectiveConfig = { ...data, ...changes };
+	const effectiveConfig = { ...data, ...changes } as TConfig;
+	const params = transformDataToParams?.(effectiveConfig) ?? (effectiveConfig as TParams);
 
-	console.log(effectiveConfig);
+	const { mutate, isLoading: mutationIsLoading } = useMutation({
+		mutationFn,
+		onMutate: () => {
+			handleMutationStart();
+		},
+		onSuccess: (data) => {
+			queryClient.setQueryData(['modmailSettings', guildId], data);
+			resetConfig();
+			handleMutationEnd();
+		},
+		onError: (error) => {
+			// TODO(Johny): Handle error
+			console.error(error);
+		},
+	});
+
 	return (
 		<>
 			{children({ currentValue: effectiveConfig, setFields, isLoading })}
 			<Styles.DirtyBar data-hidden={!isDirty}>
 				<Styles.DirtyBarText>Unsaved changes</Styles.DirtyBarText>
 				<Styles.DirtyBarButtons>
-					<Button.Ghost paddingOverride={{ x: 12, y: 8 }} onPress={resetConfig}>
+					<Button.Ghost paddingOverride={{ x: 12, y: 8 }} onPress={resetConfig} isDisabled={mutationIsLoading}>
 						Reset
 					</Button.Ghost>
-					<Button.Cta paddingOverride={{ x: 12, y: 8 }} onPress={onSaveRequested}>
+					<Button.Cta paddingOverride={{ x: 12, y: 8 }} onPress={() => mutate(params)} isDisabled={mutationIsLoading}>
 						Save
 					</Button.Cta>
 				</Styles.DirtyBarButtons>
