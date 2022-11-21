@@ -87,7 +87,7 @@ function ModMailSettings() {
 
 		return (
 			channels
-				?.sort((a, b) => a.position! - b.position!)
+				?.sort((a, b) => a.position - b.position)
 				.filter((channel) => allowedChannelTypes.includes(channel.type))
 				.reduce<(DropdownGroupedOptions<WithIcons> & { position: number })[]>((acc, channel) => {
 					return addToCategoryIfExists(acc, channel, channels);
