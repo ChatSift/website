@@ -19,9 +19,9 @@ type ConfigFormProps<TConfig extends Record<string, unknown>, TParams extends Re
 	}): ReactNode;
 	handleMutationEnd(): void;
 	handleMutationStart(): void;
-	mutationFn: MutationFunction<TConfig, TParams>;
+	mutationFn: MutationFunction<TConfig, Partial<TParams>>;
 	settingsApiHook(): UseQueryResult<TConfig | null>;
-	transformDataToParams?(data: TConfig): TParams;
+	transformDataToParams?(data: Partial<TConfig>): Partial<TParams>;
 };
 function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Record<string, unknown> = TConfig>({
 	children,
@@ -82,7 +82,7 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 	}
 
 	const effectiveConfig = { ...data, ...changes } as TConfig;
-	const params = transformDataToParams?.(effectiveConfig) ?? (effectiveConfig as TParams);
+	const params = transformDataToParams?.(changes) ?? (changes as TParams);
 
 	const { mutate, isLoading: mutationIsLoading } = useMutation({
 		mutationFn,
