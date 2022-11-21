@@ -12,6 +12,7 @@ import Dropdown from '~/components/Dropdown';
 import { itemIcon } from '~/components/Dropdown/style';
 import PageMeta from '~/components/PageMeta';
 import * as Text from '~/components/Text';
+import ToggleSwitch from '~/components/ToggleSwitch';
 import useGuildInfo from '~/hooks/useGuildInfo';
 import useModmailSettings from '~/hooks/useModmailSettings';
 import SvgForumChannel from '~/svg/SvgForumChannel';
@@ -150,7 +151,17 @@ function ModMailSettings() {
 										disabled={isGuildDataLoading}
 									/>
 								</ConfigOption>
-								<ConfigOption name="Simple mode" caption="No embeds." input={<input type="checkbox" />} />
+								<ConfigOption
+									name="Simple mode"
+									caption="No embeds."
+									input={
+										<ToggleSwitch
+											checked={currentValue?.simpleMode}
+											onCheckedChange={(checked) => setFields({ simpleMode: checked })}
+											disabled={isGuildDataLoading}
+										/>
+									}
+								/>
 							</ConfigOptionCollection>
 						</>
 					)}
