@@ -7,6 +7,7 @@ export const Root = styled(Switch.Root)`
 	background-color: ${(props) => props.theme.colors.onBackground.primary};
 	border-radius: 222px;
 	position: relative;
+	cursor: pointer;
 
 	&[data-state='checked'] {
 		background-color: ${(props) => props.theme.colors.accent};

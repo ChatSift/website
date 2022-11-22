@@ -8,17 +8,30 @@ export const Frame = styled.div`
 	min-height: 0;
 `;
 
+export const Container = styled.div`
+	flex: 1 1 auto;
+	--container-padding: 16px;
+	max-width: 100vw;
+	position: relative;
+
+	${mediaQueries.smallMin} {
+		--container-padding: 24px;
+	}
+	padding: var(--container-padding);
+`;
+
 export const Content = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
-	flex: 1 1 auto;
-	padding: 16px;
-	max-width: 100vw;
+	height: 100%;
 	overflow-y: auto;
-	position: relative;
+	padding-bottom: 64px;
+`;
 
-	${mediaQueries.smallMin} {
-		padding: 24px;
-	}
+export const DirtyBarSlot = styled.div`
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
 `;
