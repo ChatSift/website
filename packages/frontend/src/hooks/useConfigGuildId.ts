@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 
-function useConfigGuildId() {
+function useConfigGuildId(): string {
 	// get next url parameters
 	const router = useRouter();
 	const { guildId } = router.query;
 
-	return guildId;
+	return guildId as string;
 }
 
 export default useConfigGuildId;

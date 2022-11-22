@@ -21,10 +21,18 @@ export async function fetchApi<TPath extends keyof Routes, TMethod extends keyof
 	method: TMethod;
 	path: TPath;
 }): Promise<InferRouteResult<Routes[TPath][TMethod]>> {
+	const parsedMethod = (method as string).toUpperCase();
+	const headers: HeadersInit = {};
+
+	if (['POST', 'PUT', 'PATCH'].includes(parsedMethod)) {
+		headers['Content-Type'] = 'application/json';
+	}
+
 	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL!}${path}`, {
-		method: method as string,
-		body: body as BodyInit,
+		method: parsedMethod,
+		body: body ? JSON.stringify(body) : (body as BodyInit),
 		credentials: 'include',
+		headers,
 	});
 
 	if (res.status >= 200 && res.status < 300) {
