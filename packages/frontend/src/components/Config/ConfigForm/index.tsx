@@ -1,7 +1,8 @@
 import type { MutationFunction, UseQueryResult } from '@tanstack/react-query';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
-import type { ReactNode } from 'react';
+import type { ReactNode, ReactPortal } from 'react';
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import * as Styles from './style';
 import useRouterLinkController from '~/RouterLinkControllerContext';
 import * as Button from '~/components/Button';
@@ -23,6 +24,7 @@ type ConfigFormProps<TConfig extends Record<string, unknown>, TParams extends Re
 	settingsApiHook(): UseQueryResult<TConfig | null>;
 	transformDataToParams?(data: Partial<TConfig>): Partial<TParams>;
 };
+
 function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Record<string, unknown> = TConfig>({
 	children,
 	handleMutationEnd,
@@ -100,9 +102,16 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 		},
 	});
 
-	return (
-		<>
-			{children({ currentValue: effectiveConfig, setFields, isLoading })}
+	const [dirtyBarPortal, setDirtyBarPortal] = useState<ReactPortal | null>(null);
+
+	useEffect(() => {
+		const domNode = document.querySelector('#dirty-bar');
+
+		if (!domNode) {
+			return;
+		}
+
+		const portal = createPortal(
 			<Styles.DirtyBar data-hidden={!isDirty}>
 				<Styles.DirtyBarText>Unsaved changes</Styles.DirtyBarText>
 				<Styles.DirtyBarButtons>
@@ -113,7 +122,17 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 						Save
 					</Button.Cta>
 				</Styles.DirtyBarButtons>
-			</Styles.DirtyBar>
+			</Styles.DirtyBar>,
+			domNode,
+		);
+
+		setDirtyBarPortal(portal);
+	}, [isDirty, mutate, mutationIsLoading, params]);
+
+	return (
+		<>
+			{children({ currentValue: effectiveConfig, setFields, isLoading })}
+			{dirtyBarPortal}
 		</>
 	);
 }
