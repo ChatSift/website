@@ -408,13 +408,14 @@ __metadata:
     "@radix-ui/react-primitive": ^1.0.1
     "@radix-ui/react-scroll-area": ^1.0.2
     "@radix-ui/react-select": ^1.1.1
+    "@radix-ui/react-switch": ^1.0.1
     "@tanstack/react-query": ^4.0.10
     "@tanstack/react-query-devtools": ^4.0.10
     "@types/facepaint": ^1.2.2
     "@types/node": ^16.11.47
     "@types/react-dom": ^18.0.6
     "@use-gesture/react": ^10.2.22
-    discord-api-types: ^0.37.1
+    discord-api-types: ^0.37.19
     facepaint: ^1.2.1
     next: 12.2.4
     react: ^18.2.0
@@ -1734,6 +1735,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@radix-ui/react-switch@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@radix-ui/react-switch@npm:1.0.1"
+  dependencies:
+    "@babel/runtime": ^7.13.10
+    "@radix-ui/primitive": 1.0.0
+    "@radix-ui/react-compose-refs": 1.0.0
+    "@radix-ui/react-context": 1.0.0
+    "@radix-ui/react-primitive": 1.0.1
+    "@radix-ui/react-use-controllable-state": 1.0.0
+    "@radix-ui/react-use-previous": 1.0.0
+    "@radix-ui/react-use-size": 1.0.0
+  peerDependencies:
+    react: ^16.8 || ^17.0 || ^18.0
+    react-dom: ^16.8 || ^17.0 || ^18.0
+  checksum: daaa44c90a05e4828211cd8db37a6036151b51a35783a3c8d138630d4d69a4b337ca9e3b719b13a0520f6067c384ee995b4ed9a357018ab2e888f0c3dcdacb75
+  languageName: node
+  linkType: hard
+
 "@radix-ui/react-use-callback-ref@npm:1.0.0":
   version: 1.0.0
   resolution: "@radix-ui/react-use-callback-ref@npm:1.0.0"
@@ -1800,6 +1820,18 @@ __metadata:
   peerDependencies:
     react: ^16.8 || ^17.0 || ^18.0
   checksum: b45bbc8a7e7dbe29f4c11922e807666ec98979ec7a2696618ceb2c60ade44f695892216a90e1f5d7a457b458b3c95f0a4ce971d5143a6a80646b6b00fda16fb5
+  languageName: node
+  linkType: hard
+
+"@radix-ui/react-use-size@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@radix-ui/react-use-size@npm:1.0.0"
+  dependencies:
+    "@babel/runtime": ^7.13.10
+    "@radix-ui/react-use-layout-effect": 1.0.0
+  peerDependencies:
+    react: ^16.8 || ^17.0 || ^18.0
+  checksum: b319564668512bb5c8c64530e3c12810c4b7c75c19a00d5ef758c246e8d85cd5015df19688e174db1cc44b0584c8d7f22411eb00af5f8ac6c2e789aa5c8e34f5
   languageName: node
   linkType: hard
 
@@ -4851,6 +4883,13 @@ __metadata:
   version: 0.37.17
   resolution: "discord-api-types@npm:0.37.17"
   checksum: 784344f70d66f4926829450f42addeabbf895786419b0d8b5596a395352eea313d64bb057d69f352fd613b88b5b0567205189a95386ce5ed48a5b46c03f69a70
+  languageName: node
+  linkType: hard
+
+"discord-api-types@npm:^0.37.19":
+  version: 0.37.19
+  resolution: "discord-api-types@npm:0.37.19"
+  checksum: 532263d9bda3daf1855978e16bf44333876439f17070e966dd46f4cc931cc12d546d7ac5013618b66d9cb0f6a7f8751b604c01b88f948aa053a9a0154a0b47d6
   languageName: node
   linkType: hard
 

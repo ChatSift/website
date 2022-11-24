@@ -2,8 +2,10 @@ import styled from '@emotion/styled';
 import { Body } from '~/components/Text';
 
 export const DirtyBar = styled.div`
-	position: sticky;
-	bottom: 0;
+	position: absolute;
+	bottom: var(--container-padding);
+	left: var(--container-padding);
+	right: var(--container-padding);
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -20,6 +22,7 @@ export const DirtyBar = styled.div`
 	&[data-hidden='true'] {
 		transform: translateY(10px);
 		opacity: 0;
+		display: none;
 	}
 `;
 

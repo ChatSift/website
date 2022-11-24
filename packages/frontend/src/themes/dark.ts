@@ -10,6 +10,7 @@ const dark: Theme = {
 			tertiary: '#F4F4FD0D',
 		},
 		text: {
+			currentColor: 'currentColor',
 			primary: '#F6F6FB',
 			secondary: '#F6F6FBB2',
 			disabled: '#F5F5FC66',

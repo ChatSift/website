@@ -21,7 +21,10 @@ function ConfigPageFrame({ children }: ConfigPageFrameProps) {
 			/>
 			<Styles.Frame>
 				<ConfigSidebar />
-				<Styles.Content>{children}</Styles.Content>
+				<Styles.Container>
+					<Styles.Content>{children}</Styles.Content>
+					<Styles.DirtyBarSlot id="dirty-bar" />
+				</Styles.Container>
 			</Styles.Frame>
 			<Footer hasMargin={false} />
 		</>
