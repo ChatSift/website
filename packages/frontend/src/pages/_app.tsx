@@ -45,8 +45,6 @@ function App({ Component, pageProps }: AppProps) {
 	const [theme, setTheme] = useState(dark);
 	const router = useRouter();
 
-	console.log('_app current Component', Component.name);
-
 	return (
 		<ThemeContext.Provider value={{ current: theme, update: setTheme }}>
 			<ThemeProvider theme={theme}>
