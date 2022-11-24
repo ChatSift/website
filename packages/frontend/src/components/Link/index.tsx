@@ -18,7 +18,6 @@ export function RouterLink(props: HTMLProps<Element> & { href: string }) {
 		...props,
 		onClick: (event: React.MouseEvent) => {
 			event.preventDefault();
-			console.log('href', props.href);
 			void router.push(props.href);
 			return props.onClick?.(event);
 		},

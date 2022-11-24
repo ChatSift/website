@@ -4,11 +4,12 @@ import * as Styles from '~/components/ScrollArea/style';
 type ScrollAreaProps = {
 	children: ReactNode;
 	className?: string;
+	rootClassName?: string;
 };
 
-function ScrollArea({ children, className }: ScrollAreaProps) {
+function ScrollArea({ children, className, rootClassName }: ScrollAreaProps) {
 	return (
-		<Styles.Root>
+		<Styles.Root className={rootClassName}>
 			<Styles.ViewPort className={className}>{children}</Styles.ViewPort>
 			<Styles.Scrollbar orientation="vertical">
 				<Styles.Thumb />

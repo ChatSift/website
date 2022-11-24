@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import useRouterLinkController from '~/RouterLinkControllerContext';
+import useRouterLinkController from '~/context/RouterLinkControllerContext';
 
 // A replacement for useRouter that allows for canceling navigation.
 // I.e. if routerLinkController.onNavigate() returns false, the navigation is canceled.
