@@ -1,7 +1,7 @@
 import type { MutationFunction, UseQueryResult } from '@tanstack/react-query';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import type { ReactNode, ReactPortal } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import * as Styles from './style';
 import useRouterLinkController from '~/RouterLinkControllerContext';
@@ -84,7 +84,10 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 	}
 
 	const effectiveConfig = { ...data, ...changes } as TConfig;
-	const params = transformDataToParams?.(changes) ?? (changes as TParams);
+	const params = useMemo(
+		() => transformDataToParams?.(changes) ?? (changes as TParams),
+		[changes, transformDataToParams],
+	);
 
 	const { mutate, isLoading: mutationIsLoading } = useMutation({
 		mutationFn,
