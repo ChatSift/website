@@ -24,19 +24,23 @@ function Footer({ hasMargin = true }: FooterProps) {
 			<Styles.ButtonsAndLinks>
 				<Styles.List>
 					<Styles.IconLink href="/github">
-						<SvgGitHub />
+						<SvgGitHub themeColor={(theme) => theme.colors.text.disabled} />
 					</Styles.IconLink>
 					<Styles.IconLink href="/support">
-						<SvgDiscord />
+						<SvgDiscord themeColor={(theme) => theme.colors.text.disabled} />
 					</Styles.IconLink>
 				</Styles.List>
 				<Styles.SecondGroup>
 					<Button.Ghost paddingOverride={{ x: buttonPadding, y: buttonPadding }} onPress={() => theme.update(light)}>
-						<SvgLightTheme />
+						<SvgLightTheme
+							themeColor={(theme) => (theme.name === 'light' ? theme.colors.text.primary : theme.colors.text.disabled)}
+						/>
 					</Button.Ghost>
 					<SvgThemeSeparator />
 					<Button.Ghost paddingOverride={{ x: buttonPadding, y: buttonPadding }} onPress={() => theme.update(dark)}>
-						<SvgDarkTheme />
+						<SvgDarkTheme
+							themeColor={(theme) => (theme.name === 'dark' ? theme.colors.text.primary : theme.colors.text.disabled)}
+						/>
 					</Button.Ghost>
 				</Styles.SecondGroup>
 			</Styles.ButtonsAndLinks>

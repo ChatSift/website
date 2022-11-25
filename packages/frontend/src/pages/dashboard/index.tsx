@@ -96,7 +96,7 @@ function Dashboard() {
 					<MainHeadingContainer>
 						<Heading title="Configure bots" subtitle="Pick a server to configure bots in." />
 						<Button.Ghost onPress={() => void refetch()} isDisabled={isFetching} data-loading={isFetching} hasBorder>
-							<SvgRefresh />
+							<SvgRefresh themeColor={(theme) => theme.colors.text.secondary} />
 							Refresh
 						</Button.Ghost>
 					</MainHeadingContainer>

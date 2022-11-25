@@ -37,13 +37,13 @@ function SingleItemPaginator(props: SingleItemPaginatorProps) {
 			<Styles.Content>{Children.toArray(props.children)[page]}</Styles.Content>
 			<Controls>
 				<Button.Ghost paddingOverride={{ x: buttonPadding, y: buttonPadding }} onPress={prev}>
-					<SvgPrev />
+					<SvgPrev themeColor={(theme) => theme.colors.text.disabled} />
 				</Button.Ghost>
 				<CurrentPage>
 					{page + 1} of {maxPage + 1}
 				</CurrentPage>
 				<Button.Ghost paddingOverride={{ x: buttonPadding, y: buttonPadding }} onPress={next}>
-					<SvgNext />
+					<SvgNext themeColor={(theme) => theme.colors.text.disabled} />
 				</Button.Ghost>
 			</Controls>
 		</Styles.Base>
