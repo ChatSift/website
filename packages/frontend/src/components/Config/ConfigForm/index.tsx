@@ -7,6 +7,7 @@ import * as Styles from './style';
 import * as Button from '~/components/Button';
 import useRouterLinkController from '~/context/RouterLinkControllerContext';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
+import useThrowError from '~/hooks/useThrowError';
 
 type ConfigFormProps<TConfig extends Record<string, unknown>, TParams extends Record<string, unknown> = TConfig> = {
 	children({
@@ -37,6 +38,7 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 	const { data, isLoading } = settingsApiHook();
 	const queryClient = useQueryClient();
 	const guildId = useConfigGuildId();
+	const throwError = useThrowError();
 
 	const isDirty = Object.keys(changes).length > 0;
 
@@ -99,9 +101,9 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 			resetConfig();
 			handleMutationEnd();
 		},
-		onError: (error) => {
-			// TODO(Johny): Handle error
-			console.error(error);
+		onError: (error: Error) => {
+			throwError(error);
+			handleMutationEnd();
 		},
 	});
 

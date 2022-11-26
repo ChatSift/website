@@ -13,6 +13,7 @@ import { SSRProvider } from 'react-aria';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import Header from '../components/Header';
 import dark from '../themes/dark';
+import ErrorBoundary from '~/components/ErrorBoundary';
 import ScrollArea from '~/components/ScrollArea';
 import { RouterLinkControllerProvider } from '~/context/RouterLinkControllerContext';
 import { skeletonDuration } from '~/utils/constants';
@@ -67,14 +68,16 @@ function App({ Component, pageProps }: AppProps) {
 						</Head>
 						<SSRProvider>
 							<RouterLinkControllerProvider>
-								<AppScrollViewPort>
-									<Content id="content">
-										<Header />
-										<Container>
-											<Component {...pageProps} key={router.asPath} />
-										</Container>
-									</Content>
-								</AppScrollViewPort>
+								<ErrorBoundary>
+									<AppScrollViewPort>
+										<Content id="content">
+											<Header />
+											<Container>
+												<Component {...pageProps} key={router.asPath} />
+											</Container>
+										</Content>
+									</AppScrollViewPort>
+								</ErrorBoundary>
 							</RouterLinkControllerProvider>
 						</SSRProvider>
 					</SkeletonTheme>

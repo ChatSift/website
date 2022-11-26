@@ -21,6 +21,11 @@ module.exports = {
 				permanent: true,
 			},
 			{
+				source: '/github/issues',
+				destination: 'https://github.com/ChatSift/website/issues',
+				permanent: true,
+			},
+			{
 				source: '/support',
 				destination: 'https://discord.gg/tgZ2pSgXXv',
 				permanent: true,
