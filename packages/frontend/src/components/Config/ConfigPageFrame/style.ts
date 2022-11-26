@@ -1,3 +1,4 @@
+import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import mediaQueries from '~/styles/breakpoints';
 
@@ -18,15 +19,22 @@ export const Container = styled.div`
 		--container-padding: 24px;
 	}
 	padding: var(--container-padding);
+	padding-right: 0;
 `;
 
-export const Content = styled.div`
+export const Content = css`
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow-y: auto;
+	padding-right: 24px;
+`;
+
+export const ContentContainer = styled.div`
+	padding-bottom: 64px;
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
-	height: 100%;
-	overflow-y: auto;
-	padding-bottom: 64px;
 `;
 
 export const DirtyBarSlot = styled.div`

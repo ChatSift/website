@@ -4,8 +4,8 @@ import type { ReactNode, ReactPortal } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import * as Styles from './style';
-import useRouterLinkController from '~/RouterLinkControllerContext';
 import * as Button from '~/components/Button';
+import useRouterLinkController from '~/context/RouterLinkControllerContext';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
 
 type ConfigFormProps<TConfig extends Record<string, unknown>, TParams extends Record<string, unknown> = TConfig> = {
