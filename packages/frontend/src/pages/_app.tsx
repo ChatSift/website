@@ -31,7 +31,7 @@ const Content = styled.div`
 `;
 
 const AppScrollViewPort = styled(ScrollArea)`
-	max-height: 100vh; ;
+	max-height: 100vh;
 `;
 
 export const ThemeContext = createContext<{ current: Theme; update(newTheme: Theme): void }>({
