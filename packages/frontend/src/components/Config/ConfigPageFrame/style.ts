@@ -19,6 +19,7 @@ export const Container = styled.div`
 		--container-padding: 24px;
 	}
 	padding: var(--container-padding);
+	padding-left: 24px;
 	padding-right: 0;
 `;
 
