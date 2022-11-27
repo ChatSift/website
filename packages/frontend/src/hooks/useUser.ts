@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import useThrowError from '~/hooks/useThrowError';
-import { APIFetchError, fetchApi } from '~/utils/fetch';
+import { useErrorHandler } from 'react-error-boundary';
+import { APIError, fetchApi } from '~/utils/fetch';
 
-export type UserFetchError = APIFetchError | Error;
+export type UserFetchError = APIError | Error;
 
 function useUser() {
-	const throwError = useThrowError();
+	const handleError = useErrorHandler();
 
 	return useQuery(
 		['currentUser'],
@@ -17,16 +17,16 @@ function useUser() {
 		{
 			refetchOnWindowFocus: false,
 			onError: (error: UserFetchError) => {
-				if (!(error instanceof APIFetchError) || error.payload.statusCode === 401) {
+				if (!(error instanceof APIError) || error.payload.statusCode === 401) {
 					return;
 				}
 
-				throwError(error);
+				handleError(error);
 			},
 			retry: (retries, error: UserFetchError) => {
 				console.log(error);
 
-				if (!(error instanceof APIFetchError)) {
+				if (!(error instanceof APIError)) {
 					return retries < 2;
 				}
 

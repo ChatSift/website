@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import type { FallbackProps } from 'react-error-boundary';
 import * as Styles from './style';
 import * as Button from '~/components/Button';
-import { APIFetchError, APIMutateError } from '~/utils/fetch';
+import { APIError } from '~/utils/fetch';
 
 const GhostLink = Button.Ghost.withComponent('a');
 
@@ -29,21 +29,21 @@ function BaseFallback({ title, description, resetErrorBoundary }: BaseFallbackPr
 }
 
 function FrameErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
-	if (error instanceof APIFetchError) {
-		const {
-			payload: { statusCode },
-		} = error;
+	if (error instanceof APIError) {
+		if (error.method === 'GET') {
+			const {
+				payload: { statusCode },
+			} = error;
 
-		return (
-			<BaseFallback
-				description="We've run into an error whilst trying to fetch your server's config."
-				resetErrorBoundary={resetErrorBoundary}
-				title={<>Error fetching config (HTTP {statusCode})</>}
-			/>
-		);
-	}
+			return (
+				<BaseFallback
+					description="We've run into an error whilst trying to fetch your server's config."
+					resetErrorBoundary={resetErrorBoundary}
+					title={<>Error fetching config (HTTP {statusCode})</>}
+				/>
+			);
+		}
 
-	if (error instanceof APIMutateError) {
 		const {
 			payload: { statusCode },
 		} = error;

@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
+import { useErrorHandler } from 'react-error-boundary';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
-import useThrowError from '~/hooks/useThrowError';
 import { fetchApi } from '~/utils/fetch';
 
 function useGuildInfo() {
 	const guildId = useConfigGuildId();
-	const throwError = useThrowError();
+	const handleError = useErrorHandler();
 
 	return useQuery(
 		['getGuild', guildId],
@@ -23,7 +23,7 @@ function useGuildInfo() {
 			enabled: guildId !== undefined,
 			refetchOnWindowFocus: false,
 			retry: false,
-			onError: (error: Error) => throwError(error),
+			onError: (error: Error) => handleError(error),
 		},
 	);
 }

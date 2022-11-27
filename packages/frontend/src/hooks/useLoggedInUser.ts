@@ -1,17 +1,17 @@
+import { useErrorHandler } from 'react-error-boundary';
 import useUser from './useUser';
 import useCheckedRouter from '~/hooks/useCheckedRouter';
-import useThrowError from '~/hooks/useThrowError';
-import { APIFetchError } from '~/utils/fetch';
+import { APIError } from '~/utils/fetch';
 import * as Urls from '~/utils/urls';
 
 function useLoggedInUser() {
 	const user = useUser();
 	const { data: loggedInUser, error, isLoading } = user;
 	const router = useCheckedRouter();
-	const throwError = useThrowError();
+	const handleError = useErrorHandler();
 
-	if (error !== null && !(error instanceof APIFetchError && error.payload.statusCode === 401)) {
-		throwError(error);
+	if (error !== null && !(error instanceof APIError && error.payload.statusCode === 401)) {
+		handleError(error);
 		return user;
 	}
 

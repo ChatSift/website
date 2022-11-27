@@ -6,15 +6,10 @@ import type { Payload } from '@hapi/boom';
 
 type Routes = AMARoutes & AuthRoutes & ModmailRoutes;
 
-export class APIFetchError extends Error {
-	public constructor(public readonly payload: Payload) {
+export class APIError extends Error {
+	public constructor(public readonly payload: Payload, public readonly method: string) {
 		super(payload.message);
-	}
-}
-
-export class APIMutateError extends Error {
-	public constructor(public readonly payload: Payload) {
-		super(payload.message);
+		this.method = method;
 	}
 }
 
@@ -45,9 +40,5 @@ export async function fetchApi<TPath extends keyof Routes, TMethod extends keyof
 		return res.json() as Promise<InferRouteResult<Routes[TPath][TMethod]>>;
 	}
 
-	if (parsedMethod.toUpperCase() !== 'GET') {
-		throw new APIMutateError(await res.json());
-	}
-
-	throw new APIFetchError((await res.json()) as Payload);
+	throw new APIError((await res.json()) as Payload, parsedMethod.toUpperCase());
 }

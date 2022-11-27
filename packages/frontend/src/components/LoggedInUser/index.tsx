@@ -7,12 +7,12 @@ import * as Button from '../Button';
 import * as Styles from './style';
 import useCheckedRouter from '~/hooks/useCheckedRouter';
 import type { UserFetchError } from '~/hooks/useUser';
-import { APIFetchError } from '~/utils/fetch';
+import { APIError } from '~/utils/fetch';
 
 function ErrorHandler({ error }: { error: UserFetchError }) {
 	const router = useCheckedRouter();
 
-	if (error instanceof APIFetchError && error.payload.statusCode === 401) {
+	if (error instanceof APIError && error.payload.statusCode === 401) {
 		return <Button.Ghost onPress={() => void router.replace(Urls.logIn)}>Log in</Button.Ghost>;
 	}
 
