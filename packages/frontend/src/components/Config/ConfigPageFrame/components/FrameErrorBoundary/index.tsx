@@ -30,29 +30,15 @@ function BaseFallback({ title, description, resetErrorBoundary }: BaseFallbackPr
 
 function FrameErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 	if (error instanceof APIError) {
-		if (error.method === 'GET') {
-			const {
-				payload: { statusCode },
-			} = error;
-
-			return (
-				<BaseFallback
-					description="We've run into an error whilst trying to fetch your server's config."
-					resetErrorBoundary={resetErrorBoundary}
-					title={<>Error fetching config (HTTP {statusCode})</>}
-				/>
-			);
-		}
-
 		const {
 			payload: { statusCode },
 		} = error;
 
 		return (
 			<BaseFallback
-				description="We couldn't save your config due to an error; if this persists, please contact support."
+				description="We've run into an error whilst trying to fetch your server's config."
 				resetErrorBoundary={resetErrorBoundary}
-				title={<>Couldn't save config (HTTP {statusCode})</>}
+				title={<>Error fetching config (HTTP {statusCode})</>}
 			/>
 		);
 	}

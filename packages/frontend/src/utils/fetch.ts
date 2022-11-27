@@ -40,5 +40,5 @@ export async function fetchApi<TPath extends keyof Routes, TMethod extends keyof
 		return res.json() as Promise<InferRouteResult<Routes[TPath][TMethod]>>;
 	}
 
-	throw new APIError((await res.json()) as Payload, parsedMethod.toUpperCase());
+	throw new APIError((await res.json()) as Payload, parsedMethod);
 }

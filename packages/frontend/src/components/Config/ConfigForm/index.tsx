@@ -3,11 +3,12 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 import type { ReactNode, ReactPortal } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useErrorHandler } from 'react-error-boundary';
 import * as Styles from './style';
+import AlertDialog from '~/components/AlertDialog';
 import * as Button from '~/components/Button';
 import useRouterLinkController from '~/context/RouterLinkControllerContext';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
+import { APIError } from '~/utils/fetch';
 
 type ConfigFormProps<TConfig extends Record<string, unknown>, TParams extends Record<string, unknown> = TConfig> = {
 	children({
@@ -38,7 +39,8 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 	const { data, isLoading } = settingsApiHook();
 	const queryClient = useQueryClient();
 	const guildId = useConfigGuildId();
-	const handleError = useErrorHandler();
+	const [saveError, setSaveError] = useState<APIError | Error | null>(null);
+	const [retryInProgress, setRetryInProgress] = useState(false);
 
 	const isDirty = Object.keys(changes).length > 0;
 
@@ -102,10 +104,25 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 			handleMutationEnd();
 		},
 		onError: (error: Error) => {
-			handleError(error);
+			setSaveError(error);
 			handleMutationEnd();
 		},
 	});
+
+	function saveConfig() {
+		mutate(params);
+	}
+
+	function attemptRetry() {
+		setRetryInProgress(true);
+
+		// we set a timeout so the user can't spam the button
+		setTimeout(() => {
+			setRetryInProgress(false);
+			setSaveError(null);
+			saveConfig();
+		}, 1_000);
+	}
 
 	const [dirtyBarPortal, setDirtyBarPortal] = useState<ReactPortal | null>(null);
 
@@ -123,7 +140,7 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 					<Button.Ghost paddingOverride={{ x: 12, y: 8 }} onPress={resetConfig} isDisabled={mutationIsLoading}>
 						Reset
 					</Button.Ghost>
-					<Button.Cta paddingOverride={{ x: 12, y: 8 }} onPress={() => mutate(params)} isDisabled={mutationIsLoading}>
+					<Button.Cta paddingOverride={{ x: 12, y: 8 }} onPress={saveConfig} isDisabled={mutationIsLoading}>
 						Save
 					</Button.Cta>
 				</Styles.DirtyBarButtons>
@@ -132,12 +149,34 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 		);
 
 		setDirtyBarPortal(portal);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isDirty, mutate, mutationIsLoading, params]);
 
 	return (
 		<>
 			{children({ currentValue: effectiveConfig, setFields, isLoading })}
 			{dirtyBarPortal}
+			<AlertDialog
+				open={saveError instanceof APIError}
+				isLoading={retryInProgress}
+				actionButton={
+					<Button.Cta isDisabled={retryInProgress} onPress={attemptRetry}>
+						Retry
+					</Button.Cta>
+				}
+				cancelButton={
+					<Button.Ghost isDisabled={retryInProgress} onPress={() => setSaveError(null)}>
+						Cancel
+					</Button.Ghost>
+				}
+				title={`HTTP Error ${saveError instanceof APIError ? saveError.payload.statusCode : ''}`}
+			>
+				We couldn't save your config due to an error; if this persists, please{' '}
+				<Styles.SupportLink href="/support" target="_blank">
+					contact support
+				</Styles.SupportLink>
+				.
+			</AlertDialog>
 		</>
 	);
 }
