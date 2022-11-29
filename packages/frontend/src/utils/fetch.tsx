@@ -3,13 +3,47 @@ import type { ModmailRoutes } from '@chatsift/modmail-api';
 import type { Route, InferRouteResult, InferRouteBody } from '@chatsift/rest-utils';
 import type { AuthRoutes } from '@chatsift/website-api';
 import type { Payload } from '@hapi/boom';
+import type { NextRouter } from 'next/router';
+import type { useErrorHandler } from 'react-error-boundary';
+import type { DialogController } from '~/context/DialogControllerContext';
 
 type Routes = AMARoutes & AuthRoutes & ModmailRoutes;
 
 export class APIError extends Error {
-	public constructor(public readonly payload: Payload) {
+	public constructor(public readonly payload: Payload, public readonly method: string) {
 		super(payload.message);
 	}
+}
+
+export function handleError(
+	router: NextRouter,
+	error: Error,
+	dialogController: DialogController,
+	errorHandler: ReturnType<typeof useErrorHandler>,
+) {
+	console.log('error', error);
+
+	if (error instanceof APIError) {
+		switch (error.payload.statusCode) {
+			case 401:
+				void router.push('/login');
+				return;
+			case 403:
+				dialogController.openAlertDialog?.({
+					title: 'Forbidden',
+					description: "You don't have permission to view or edit this config.",
+					actionButton: {
+						text: 'Go back',
+						onClick: () => {
+							void router.push('/dashboard');
+						},
+					},
+				});
+				return;
+		}
+	}
+
+	errorHandler(error);
 }
 
 export async function fetchApi<TPath extends keyof Routes, TMethod extends keyof Routes[TPath]>({
@@ -39,5 +73,5 @@ export async function fetchApi<TPath extends keyof Routes, TMethod extends keyof
 		return res.json() as Promise<InferRouteResult<Routes[TPath][TMethod]>>;
 	}
 
-	throw new APIError((await res.json()) as Payload);
+	throw new APIError((await res.json()) as Payload, parsedMethod);
 }

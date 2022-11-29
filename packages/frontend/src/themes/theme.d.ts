@@ -9,6 +9,7 @@ declare module '@emotion/react' {
 				card: string;
 				default: string;
 			};
+			danger: string;
 			onBackground: {
 				primary: string;
 				secondary: string;

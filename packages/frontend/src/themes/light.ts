@@ -9,6 +9,7 @@ const light: Theme = {
 			secondary: 'rgba(29, 39, 78, 0.15)',
 			tertiary: '#1E284F0D',
 		},
+		danger: '#ff5052',
 		text: {
 			currentColor: 'currentColor',
 			primary: '#1d274e',

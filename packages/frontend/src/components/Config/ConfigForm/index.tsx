@@ -1,12 +1,15 @@
 import type { MutationFunction, UseQueryResult } from '@tanstack/react-query';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import type { ReactNode, ReactPortal } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import * as Styles from './style';
+import AlertDialog from '~/components/AlertDialog';
 import * as Button from '~/components/Button';
 import useRouterLinkController from '~/context/RouterLinkControllerContext';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
+import { APIError } from '~/utils/fetch';
 
 type ConfigFormProps<TConfig extends Record<string, unknown>, TParams extends Record<string, unknown> = TConfig> = {
 	children({
@@ -37,16 +40,21 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 	const { data, isLoading } = settingsApiHook();
 	const queryClient = useQueryClient();
 	const guildId = useConfigGuildId();
+	const router = useRouter();
+	const [saveError, setSaveError] = useState<APIError | Error | null>(null);
+	const [retryInProgress, setRetryInProgress] = useState(false);
+	const [dirtyNavigationUrl, setDirtyNavigationUrl] = useState<string | null>(null);
 
 	const isDirty = Object.keys(changes).length > 0;
 
 	const routerLinkController = useRouterLinkController();
 
 	useEffect(() => {
-		routerLinkController.setOnNavigate?.(() => {
+		routerLinkController.setOnNavigate?.((toUrl) => {
 			if (isDirty) {
-				// eslint-disable-next-line no-alert
-				return confirm('You have unsaved changes. Are you sure you want to leave this page?');
+				setDirtyNavigationUrl(toUrl);
+
+				return false;
 			}
 
 			return true;
@@ -99,11 +107,26 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 			resetConfig();
 			handleMutationEnd();
 		},
-		onError: (error) => {
-			// TODO(Johny): Handle error
-			console.error(error);
+		onError: (error: Error) => {
+			setSaveError(error);
+			handleMutationEnd();
 		},
 	});
+
+	function saveConfig() {
+		mutate(params);
+	}
+
+	function attemptRetry() {
+		setRetryInProgress(true);
+
+		// we set a timeout so the user can't spam the button
+		setTimeout(() => {
+			setRetryInProgress(false);
+			setSaveError(null);
+			saveConfig();
+		}, 1_000);
+	}
 
 	const [dirtyBarPortal, setDirtyBarPortal] = useState<ReactPortal | null>(null);
 
@@ -121,7 +144,7 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 					<Button.Ghost paddingOverride={{ x: 12, y: 8 }} onPress={resetConfig} isDisabled={mutationIsLoading}>
 						Reset
 					</Button.Ghost>
-					<Button.Cta paddingOverride={{ x: 12, y: 8 }} onPress={() => mutate(params)} isDisabled={mutationIsLoading}>
+					<Button.Cta paddingOverride={{ x: 12, y: 8 }} onPress={saveConfig} isDisabled={mutationIsLoading}>
 						Save
 					</Button.Cta>
 				</Styles.DirtyBarButtons>
@@ -130,12 +153,46 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 		);
 
 		setDirtyBarPortal(portal);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isDirty, mutate, mutationIsLoading, params]);
 
 	return (
 		<>
 			{children({ currentValue: effectiveConfig, setFields, isLoading })}
 			{dirtyBarPortal}
+			<AlertDialog
+				open={saveError instanceof APIError}
+				isLoading={retryInProgress}
+				actionButton={
+					<Button.Cta isDisabled={retryInProgress} onPress={attemptRetry}>
+						Retry
+					</Button.Cta>
+				}
+				cancelButton={
+					<Button.Ghost isDisabled={retryInProgress} onPress={() => setSaveError(null)}>
+						Cancel
+					</Button.Ghost>
+				}
+				title={`HTTP Error ${saveError instanceof APIError ? saveError.payload.statusCode : ''}`}
+			>
+				We couldn't save your config due to an error; if this persists, please{' '}
+				<Styles.SupportLink href="/support" target="_blank">
+					contact support
+				</Styles.SupportLink>
+				.
+			</AlertDialog>
+			<AlertDialog
+				open={dirtyNavigationUrl !== null}
+				actionButton={
+					<Button.Cta data-type="danger" onPress={() => void router.push(dirtyNavigationUrl!)}>
+						Leave
+					</Button.Cta>
+				}
+				cancelButton={<Button.Ghost onPress={() => setDirtyNavigationUrl(null)}>Cancel</Button.Ghost>}
+				title="Unsaved changes"
+			>
+				You have unsaved changes. Are you sure you want to leave?
+			</AlertDialog>
 		</>
 	);
 }

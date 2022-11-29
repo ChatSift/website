@@ -1,10 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
+import { useErrorHandler } from 'react-error-boundary';
+import useDialogController from '~/context/DialogControllerContext';
+import useCheckedRouter from '~/hooks/useCheckedRouter';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
-import type { UserFetchError } from '~/hooks/useUser';
-import { APIError, fetchApi } from '~/utils/fetch';
+import { APIError, fetchApi, handleError } from '~/utils/fetch';
 
 function useModmailSettings() {
 	const guildId = useConfigGuildId();
+	const errorHandler = useErrorHandler();
+	const router = useCheckedRouter();
+	const dialogController = useDialogController();
 
 	return useQuery(
 		['modmailSettings', guildId],
@@ -21,15 +26,10 @@ function useModmailSettings() {
 		{
 			enabled: guildId !== undefined,
 			refetchOnWindowFocus: false,
-			retry: (retries, error: UserFetchError) => {
-				console.log(error);
-
-				if (!(error instanceof APIError)) {
-					return retries < 5;
-				}
-
-				return retries <= 2 && error.payload.statusCode !== 401;
+			retry: (failureCount, error) => {
+				return !(error instanceof APIError) && failureCount < 5;
 			},
+			onError: (error: Error) => handleError(router, error, dialogController, errorHandler),
 		},
 	);
 }
