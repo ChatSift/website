@@ -11,4 +11,5 @@ export const NavMenu = styled.nav`
 	width: 300px;
 	border-right: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
 	padding: 24px;
+	flex-shrink: 0;
 `;
