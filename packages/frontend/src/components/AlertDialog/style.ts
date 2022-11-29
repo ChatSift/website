@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
+import { dialogOverlayColor } from '~/utils/constants';
 
 export const Overlay = styled(AlertDialog.Overlay)`
 	position: fixed;
 	inset: 0;
-	background-color: rgba(0, 0, 0, 0.75);
+	background-color: ${dialogOverlayColor};
 	z-index: 99999;
 `;
 

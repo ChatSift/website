@@ -8,3 +8,5 @@ export const dashboardMaxWidth = 912;
 export const guildCardWidthDesktop =
 	(dashboardMaxWidth - (guildCardsPerPage - 1) * guildCardGap - 2 * dashboardPadding) / guildCardsPerPage;
 export const smallestDashboardWidth = guildCardWidthDesktop * 2 + guildCardGap * (2 - 1) + dashboardPadding * 4;
+
+export const dialogOverlayColor = 'rgba(0, 0, 0, 0.75)';

@@ -41,6 +41,7 @@ const Base = styled(ButtonBase)`
 
 	&[disabled] {
 		opacity: 0.5;
+		cursor: not-allowed;
 	}
 
 	&[data-loading='true'] {

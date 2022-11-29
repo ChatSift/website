@@ -292,9 +292,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chatsift/modmail-api@npm:^0.2.2":
-  version: 0.2.2
-  resolution: "@chatsift/modmail-api@npm:0.2.2"
+"@chatsift/modmail-api@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "@chatsift/modmail-api@npm:0.2.3"
   dependencies:
     "@chatsift/pino-rotate-file": ^0.1.2
     "@chatsift/readdir": ^0.2.0
@@ -313,7 +313,7 @@ __metadata:
     reflect-metadata: ^0.1.13
     tslib: ^2.4.0
     tsyringe: ^4.7.0
-  checksum: 0a9bdc2a0ca486d39b786cf3464c82b0c5ee289479ab33a1c47b4af4435199c482cd39cc12cf52daea2dce8a4ac70da23d31c054515eace2e22ae9a9d7307eec
+  checksum: 42034cac28bb9d471ef56b74c3b2cab20811ed2e2faebce251620f0ca3a9928bbcfdf4b06bf82d8f380f1ee6849baa50be03275e87ea0a6e232b54c0d9b32ba3
   languageName: node
   linkType: hard
 
@@ -393,7 +393,7 @@ __metadata:
   resolution: "@chatsift/website-frontend@workspace:packages/frontend"
   dependencies:
     "@chatsift/ama-api": ^0.1.1
-    "@chatsift/modmail-api": ^0.2.2
+    "@chatsift/modmail-api": ^0.2.3
     "@chatsift/rest-utils": ^0.6.2
     "@chatsift/website-api": "workspace:^"
     "@emotion/babel-plugin": ^11.10.2
@@ -404,6 +404,7 @@ __metadata:
     "@hapi/boom": ^10.0.0
     "@radix-ui/react-alert-dialog": ^1.0.2
     "@radix-ui/react-avatar": ^1.0.0
+    "@radix-ui/react-dialog": ^1.0.2
     "@radix-ui/react-label": ^2.0.0
     "@radix-ui/react-navigation-menu": ^1.0.0
     "@radix-ui/react-primitive": ^1.0.1
@@ -1503,7 +1504,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-dialog@npm:1.0.2":
+"@radix-ui/react-dialog@npm:1.0.2, @radix-ui/react-dialog@npm:^1.0.2":
   version: 1.0.2
   resolution: "@radix-ui/react-dialog@npm:1.0.2"
   dependencies:
