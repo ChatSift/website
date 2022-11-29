@@ -15,6 +15,7 @@ import Header from '../components/Header';
 import dark from '../themes/dark';
 import ErrorBoundary from '~/components/ErrorBoundary';
 import ScrollArea from '~/components/ScrollArea';
+import { DialogControllerProvider } from '~/context/DialogControllerContext';
 import { RouterLinkControllerProvider } from '~/context/RouterLinkControllerContext';
 import { skeletonDuration } from '~/utils/constants';
 
@@ -69,14 +70,16 @@ function App({ Component, pageProps }: AppProps) {
 						<SSRProvider>
 							<RouterLinkControllerProvider>
 								<ErrorBoundary>
-									<AppScrollViewPort>
-										<Content id="content">
-											<Header />
-											<Container>
-												<Component {...pageProps} key={router.asPath} />
-											</Container>
-										</Content>
-									</AppScrollViewPort>
+									<DialogControllerProvider>
+										<AppScrollViewPort>
+											<Content id="content">
+												<Header />
+												<Container>
+													<Component {...pageProps} key={router.asPath} />
+												</Container>
+											</Content>
+										</AppScrollViewPort>
+									</DialogControllerProvider>
 								</ErrorBoundary>
 							</RouterLinkControllerProvider>
 						</SSRProvider>

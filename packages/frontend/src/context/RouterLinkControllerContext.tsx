@@ -1,16 +1,12 @@
-import type { ReactNode } from 'react';
 import { createContext, useContext, useState } from 'react';
+import type { ProviderProps } from '~/context/props';
 
 type RouterLinkController = {
-	onNavigate?(): boolean;
+	onNavigate?(toUrl: string): boolean;
 	setOnNavigate?(onNavigate: RouterLinkController['onNavigate']): void;
 };
 
 export const RouterLinkControllerContext = createContext<RouterLinkController>({});
-
-type ProviderProps = {
-	children: ReactNode;
-};
 
 export function RouterLinkControllerProvider({ children }: ProviderProps) {
 	const [onNavigate, setOnNavigate] = useState<RouterLinkController['onNavigate']>();

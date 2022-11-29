@@ -1,5 +1,6 @@
 import type { MutationFunction, UseQueryResult } from '@tanstack/react-query';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import type { ReactNode, ReactPortal } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -39,18 +40,21 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 	const { data, isLoading } = settingsApiHook();
 	const queryClient = useQueryClient();
 	const guildId = useConfigGuildId();
+	const router = useRouter();
 	const [saveError, setSaveError] = useState<APIError | Error | null>(null);
 	const [retryInProgress, setRetryInProgress] = useState(false);
+	const [dirtyNavigationUrl, setDirtyNavigationUrl] = useState<string | null>(null);
 
 	const isDirty = Object.keys(changes).length > 0;
 
 	const routerLinkController = useRouterLinkController();
 
 	useEffect(() => {
-		routerLinkController.setOnNavigate?.(() => {
+		routerLinkController.setOnNavigate?.((toUrl) => {
 			if (isDirty) {
-				// eslint-disable-next-line no-alert
-				return confirm('You have unsaved changes. Are you sure you want to leave this page?');
+				setDirtyNavigationUrl(toUrl);
+
+				return false;
 			}
 
 			return true;
@@ -176,6 +180,18 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 					contact support
 				</Styles.SupportLink>
 				.
+			</AlertDialog>
+			<AlertDialog
+				open={dirtyNavigationUrl !== null}
+				actionButton={
+					<Button.Cta data-type="danger" onPress={() => void router.push(dirtyNavigationUrl!)}>
+						Leave
+					</Button.Cta>
+				}
+				cancelButton={<Button.Ghost onPress={() => setDirtyNavigationUrl(null)}>Cancel</Button.Ghost>}
+				title="Unsaved changes"
+			>
+				You have unsaved changes. Are you sure you want to leave?
 			</AlertDialog>
 		</>
 	);

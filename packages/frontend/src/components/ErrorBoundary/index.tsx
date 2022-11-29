@@ -1,17 +1,17 @@
-import { ApiError } from 'next/dist/server/api-utils';
 import type { ReactNode } from 'react';
 import type { ErrorBoundaryPropsWithRender, FallbackProps } from 'react-error-boundary';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 import * as Button from '../Button';
 import * as Styles from './style';
+import { APIError } from '~/utils/fetch';
 
 const GhostLink = Button.Ghost.withComponent('a');
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
-	if (error instanceof ApiError) {
+	if (error instanceof APIError) {
 		return (
 			<Styles.Base>
-				<Styles.Title>API Error {error.statusCode}</Styles.Title>
+				<Styles.Title>API Error {error.payload.statusCode}</Styles.Title>
 				<Styles.Buttons>
 					<Button.Cta onPress={resetErrorBoundary}>Reload</Button.Cta>
 					<GhostLink href="/github/issues" target="_blank" hasBorder>

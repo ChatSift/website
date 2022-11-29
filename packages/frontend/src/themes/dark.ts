@@ -9,6 +9,7 @@ const dark: Theme = {
 			secondary: '#F4F4FD1A',
 			tertiary: '#F4F4FD0D',
 		},
+		danger: '#ff5052',
 		text: {
 			currentColor: 'currentColor',
 			primary: '#F6F6FB',

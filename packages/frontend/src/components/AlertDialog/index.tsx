@@ -2,7 +2,7 @@ import * as RadixAlertDialog from '@radix-ui/react-alert-dialog';
 import type { ReactNode } from 'react';
 import * as Styles from '~/components/AlertDialog/style';
 
-type DialogProps = {
+export type AlertDialogProps = {
 	actionButton: ReactNode;
 	cancelButton?: ReactNode;
 	children: ReactNode;
@@ -13,14 +13,14 @@ type DialogProps = {
 };
 
 function AlertDialog({
-	trigger,
 	actionButton,
 	cancelButton,
-	isLoading = false,
-	title,
-	open = false,
 	children,
-}: DialogProps) {
+	isLoading = false,
+	open = false,
+	title,
+	trigger,
+}: AlertDialogProps) {
 	return (
 		<RadixAlertDialog.Root open={open}>
 			{trigger && <RadixAlertDialog.Trigger>{trigger}</RadixAlertDialog.Trigger>}
