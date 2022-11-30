@@ -1,22 +1,19 @@
 import type { Snippet, ModmailRoutes } from '@chatsift/modmail-api';
 import type { InferRouteBody } from '@chatsift/rest-utils';
 import styled from '@emotion/styled';
-import * as Dialog from '@radix-ui/react-dialog';
-import { Label } from '@radix-ui/react-label';
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import AlertDialog from '~/components/AlertDialog';
-import * as AlertDialogStyles from '~/components/AlertDialog/style';
 import * as Button from '~/components/Button';
 import ConfigPageFrame from '~/components/Config/ConfigPageFrame';
 import ModmailSnippet from '~/components/Config/ModmailSnippets/ModmailSnippet';
-import { Input } from '~/components/Input';
+import SnippetDialog from '~/components/Config/ModmailSnippets/SnippetDialog';
 import PageMeta from '~/components/PageMeta';
 import * as Text from '~/components/Text';
-import { TextArea } from '~/components/TextArea';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
 import useLoggedInUser from '~/hooks/useLoggedInUser';
 import useModmailSnippets from '~/hooks/useModmailSnippets';
+import { snippetNameLength, snippetContentLength } from '~/utils/constants';
 import { APIError, fetchApi } from '~/utils/fetch';
 
 const SupportLink = styled.a`
@@ -26,37 +23,6 @@ const SupportLink = styled.a`
 
 const StatusText = styled(Text.Body.Bold)`
 	color: ${({ theme }) => theme.colors.text.secondary};
-`;
-
-const InputLabel = styled(Label)`
-	font-size: 16px;
-	font-weight: 550;
-	color: ${({ theme }) => theme.colors.text.secondary};
-	margin-bottom: 8px;
-
-	&:not(:first-of-type) {
-		margin-top: 16px;
-	}
-`;
-
-const DialogOverlay = AlertDialogStyles.Overlay.withComponent(Dialog.Overlay);
-const DialogContent = AlertDialogStyles.Content.withComponent(Dialog.Content);
-const DialogTitle = AlertDialogStyles.Title.withComponent(Dialog.Title);
-const DialogDescription = styled.div`
-	display: flex;
-	flex-direction: column;
-	background-color: ${({ theme }) => theme.colors.background.card};
-	color: ${({ theme }) => theme.colors.text.primary};
-	padding: 16px;
-	font-size: 18px;
-`;
-
-const DialogButtons = styled.div`
-	display: flex;
-	justify-content: flex-end;
-	border-top: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-	padding: 12px 16px;
-	gap: 8px;
 `;
 
 const AddButton = styled(Button.Cta)`
@@ -142,7 +108,7 @@ function Snippets() {
 			<PageMeta title="ModMail ― Snippets" />
 			<ConfigPageFrame>
 				<Text.Heading3>ModMail Snippets</Text.Heading3>
-				{isLoading || !modmailSnippets ? (
+				{isLoading || user === undefined || !modmailSnippets ? (
 					<StatusText>Loading...</StatusText>
 				) : (
 					<>
@@ -153,7 +119,10 @@ function Snippets() {
 								onDeleteRequested={() => setSnippetToDelete(snippet)}
 								onEditRequested={() => {
 									setSnippetToEdit(snippet);
-									setSnippetEditDraft({ snippetId: snippet.snippetId, updatedById: user!.id });
+									setSnippetEditDraft({
+										snippetId: snippet.snippetId,
+										updatedById: user!.id,
+									});
 								}}
 							/>
 						))}
@@ -199,99 +168,50 @@ function Snippets() {
 				</SupportLink>
 				.
 			</AlertDialog>
-			<Dialog.Root open={showAddSnippetDialog !== null}>
-				{showAddSnippetDialog && snippetAddDraft !== null && (
-					<Dialog.Portal>
-						<DialogOverlay />
-						<DialogContent data-loading={isAddInProgress}>
-							<DialogTitle>Add snippet</DialogTitle>
-							<DialogDescription>
-								<InputLabel htmlFor="name">Snippet command</InputLabel>
-								<Input
-									id="name"
-									autoComplete="off"
-									value={snippetAddDraft?.name ?? ''}
-									data-invalid={snippetAddDraft?.name.length === 0 || snippetAddDraft?.name.length > 32}
-									onChange={(event) => {
-										const name = event.target.value.replace(/\s+/g, '-');
-										setSnippetAddDraft((currentDraft) => ({ ...currentDraft!, name }));
-									}}
-								/>
-								<InputLabel htmlFor="text">Snippet text</InputLabel>
-								<TextArea
-									value={snippetAddDraft?.content ?? ''}
-									onChange={(event) =>
-										setSnippetAddDraft((currentDraft) => ({ ...currentDraft!, content: event.target.value }))
-									}
-								/>
-							</DialogDescription>
-							<DialogButtons>
-								<Button.Ghost
-									onPress={() => {
-										setShowAddSnippetDialog(false);
-										setSnippetAddDraft(null);
-									}}
-								>
-									Cancel
-								</Button.Ghost>
-								<Button.Cta onPress={() => addSnippet(snippetAddDraft)}>Save</Button.Cta>
-							</DialogButtons>
-						</DialogContent>
-					</Dialog.Portal>
-				)}
-			</Dialog.Root>
-			<Dialog.Root open={snippetToEdit !== null && snippetEditDraft !== null}>
-				{snippetToEdit !== null && snippetEditDraft !== null && (
-					<Dialog.Portal>
-						<DialogOverlay />
-						<DialogContent data-loading={isEditInProgress}>
-							<DialogTitle>Edit snippet</DialogTitle>
-							<DialogDescription>
-								<InputLabel htmlFor="name">Snippet command</InputLabel>
-								<Input
-									id="name"
-									autoComplete="off"
-									value={snippetEditDraft?.name ?? snippetToEdit.name}
-									data-invalid={
-										snippetEditDraft?.name !== undefined &&
-										(snippetEditDraft?.name.length === 0 || snippetEditDraft?.name.length > 32)
-									}
-									onChange={(event) => {
-										const name = event.target.value.replace(/\s+/g, '-');
-										setSnippetEditDraft((currentDraft) => ({ ...currentDraft!, name }));
-									}}
-								/>
-								<InputLabel htmlFor="text">Snippet text</InputLabel>
-								<TextArea
-									value={snippetEditDraft?.content ?? snippetToEdit.content}
-									onChange={(event) =>
-										setSnippetEditDraft((currentDraft) => ({ ...currentDraft!, content: event.target.value }))
-									}
-								/>
-							</DialogDescription>
-							<DialogButtons>
-								<Button.Ghost
-									onPress={() => {
-										setSnippetToEdit(null);
-										setSnippetEditDraft(null);
-									}}
-								>
-									Cancel
-								</Button.Ghost>
-								<Button.Cta
-									isDisabled={
-										(snippetEditDraft.content ?? snippetToEdit.content) === snippetToEdit.content &&
-										(snippetEditDraft.name ?? snippetToEdit.name) === snippetToEdit.name
-									}
-									onPress={() => editSnippet(snippetEditDraft)}
-								>
-									Save
-								</Button.Cta>
-							</DialogButtons>
-						</DialogContent>
-					</Dialog.Portal>
-				)}
-			</Dialog.Root>
+			{showAddSnippetDialog && user !== undefined && snippetAddDraft !== null && (
+				<SnippetDialog<SnippetAddBody, SnippetAddBody>
+					isLoading={isAddInProgress}
+					initialDraft={{
+						name: '',
+						content: '',
+						createdById: user.id,
+					}}
+					onCancel={() => {
+						setShowAddSnippetDialog(false);
+						setSnippetAddDraft(null);
+					}}
+					onSubmit={(draft) => addSnippet(draft)}
+					title="Add snippet"
+					validityCheck={(draft) =>
+						draft.name.length > 0 &&
+						draft.content.length > 0 &&
+						draft.name.length <= snippetNameLength &&
+						draft.content.length <= snippetContentLength
+					}
+					show
+				/>
+			)}
+			{snippetToEdit && snippetEditDraft && (
+				<SnippetDialog
+					fallbackValues={snippetToEdit}
+					initialDraft={snippetEditDraft}
+					isLoading={isEditInProgress}
+					onCancel={() => {
+						setSnippetToEdit(null);
+						setSnippetEditDraft(null);
+					}}
+					onSubmit={(draft) => editSnippet(draft)}
+					title="Edit snippet"
+					validityCheck={(draft) =>
+						draft !== null &&
+						(draft.name?.length ?? 1) > 0 &&
+						(draft.name?.length ?? 0) <= snippetNameLength &&
+						(draft.content?.length ?? 1) > 0 &&
+						(draft.content?.length ?? 0) <= snippetContentLength
+					}
+					show
+				/>
+			)}
 		</>
 	);
 }

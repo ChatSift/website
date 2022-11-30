@@ -10,3 +10,5 @@ export const guildCardWidthDesktop =
 export const smallestDashboardWidth = guildCardWidthDesktop * 2 + guildCardGap * (2 - 1) + dashboardPadding * 4;
 
 export const dialogOverlayColor = 'rgba(0, 0, 0, 0.75)';
+export const snippetNameLength = 32;
+export const snippetContentLength = 1_900;
