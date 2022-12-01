@@ -12,7 +12,7 @@
 	},
 	"devDependencies": {
 		"@chatsift/ama-api": "^0.1.1",
-		"@chatsift/modmail-api": "^0.2.2",
+		"@chatsift/modmail-api": "^0.2.3",
 		"@chatsift/rest-utils": "^0.6.2",
 		"@chatsift/website-api": "workspace:^",
 		"@emotion/babel-plugin": "^11.10.2",
@@ -31,6 +31,7 @@
 		"@emotion/styled": "^11.10.0",
 		"@radix-ui/react-alert-dialog": "^1.0.2",
 		"@radix-ui/react-avatar": "^1.0.0",
+		"@radix-ui/react-dialog": "^1.0.2",
 		"@radix-ui/react-label": "^2.0.0",
 		"@radix-ui/react-navigation-menu": "^1.0.0",
 		"@radix-ui/react-primitive": "^1.0.1",
