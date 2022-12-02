@@ -35,3 +35,8 @@ export const DirtyBarButtons = styled.div`
 	flex-direction: row;
 	gap: 8px;
 `;
+
+export const SupportLink = styled.a`
+	color: ${({ theme }) => theme.colors.accent};
+	text-decoration: underline;
+`;

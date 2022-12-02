@@ -41,6 +41,7 @@ const Base = styled(ButtonBase)`
 
 	&[disabled] {
 		opacity: 0.5;
+		cursor: not-allowed;
 	}
 
 	&[data-loading='true'] {
@@ -71,4 +72,8 @@ export const Cta = styled(Base)`
 	background-color: ${(props) => props.theme.colors.accent};
 	color: ${(props) => props.theme.colors.text.onAccent};
 	font-weight: 500;
+
+	&[data-type='danger'] {
+		background-color: ${(props) => props.theme.colors.danger};
+	}
 `;

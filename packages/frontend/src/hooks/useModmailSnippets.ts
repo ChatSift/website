@@ -5,21 +5,21 @@ import useCheckedRouter from '~/hooks/useCheckedRouter';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
 import { APIError, fetchApi, handleError } from '~/utils/fetch';
 
-function useModmailSettings() {
+function useModmailSnippets() {
 	const guildId = useConfigGuildId();
 	const errorHandler = useErrorHandler();
 	const router = useCheckedRouter();
 	const dialogController = useDialogController();
 
 	return useQuery(
-		['modmailSettings', guildId],
+		['modmailSnippets', guildId],
 		async () => {
 			if (!guildId) {
 				return null;
 			}
 
 			return fetchApi({
-				path: `/modmail/v1/guilds/${guildId}/settings/`,
+				path: `/modmail/v1/guilds/${guildId}/snippets/`,
 				method: 'get',
 			});
 		},
@@ -34,4 +34,4 @@ function useModmailSettings() {
 	);
 }
 
-export default useModmailSettings;
+export default useModmailSnippets;
