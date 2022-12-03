@@ -6,11 +6,12 @@ import Heading from '../components/Heading';
 import Link from '~/components/Link';
 import bots, { botIcons } from '~/data/bots';
 import mediaQueries from '~/styles/breakpoints';
+import SvgLinkExternal from '~/svg/SvgLinkExternal';
 import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
 import * as Urls from '~/utils/urls';
 
 const Container = styled.main`
-	padding-top: 16px;
+	padding-top: 32px;
 	flex: 1 0 auto;
 	display: flex;
 	flex-direction: column;
@@ -45,6 +46,7 @@ const CtaButtons = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
+	align-items: center;
 
 	${mediaQueries.smallMin} {
 		flex-direction: row;
@@ -156,7 +158,10 @@ function Home() {
 				<CtaSection>
 					<Slogan>Modern solutions for modern problems</Slogan>
 					<CtaButtons>
-						<CtaLink href="/support">Join our Discord server</CtaLink>
+						<CtaLink href="/support">
+							<SvgLinkExternal themeColor={(theme) => theme.colors.text.currentColor} />
+							Join our Discord server
+						</CtaLink>
 						<Button.Ghost hasBorder>Read our blog</Button.Ghost>
 					</CtaButtons>
 				</CtaSection>
@@ -205,7 +210,10 @@ function Home() {
 						subtitle="Support us on Kofi to help maintain these tools and live happily ever after"
 						gap={12}
 					/>
-					<CtaLink href="/kofi">Donate</CtaLink>
+					<CtaLink href="/kofi">
+						<SvgLinkExternal themeColor={(theme) => theme.colors.text.currentColor} />
+						Donate
+					</CtaLink>
 				</DonateHeading>
 			</Container>
 			<Footer />

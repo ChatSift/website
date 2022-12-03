@@ -16,7 +16,7 @@ function BotUpsellCard({ bot, pathName }: { bot: Bot; pathName: keyof typeof bot
 						<Icon width={24} height={24} />
 						{bot.name}
 					</BotTag>
-					<SvgLinkExternal />
+					<SvgLinkExternal themeColor={(theme) => theme.colors.text.secondary} />
 				</Styles.Header>
 				<Styles.UpsellDescription>{bot.description.otherBotUpsell}</Styles.UpsellDescription>
 			</Styles.Base>

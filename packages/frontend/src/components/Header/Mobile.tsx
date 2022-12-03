@@ -7,6 +7,7 @@ import { MobileNavAnimDuration } from './style';
 import * as HeaderStyles from './style';
 import { headerItems } from './index';
 import type { HeaderLink } from './index';
+import SvgClose from '~/svg/SvgClose';
 import SvgHamburger from '~/svg/SvgHamburger';
 
 type MobileLinkProps = {
@@ -54,14 +55,18 @@ function Mobile() {
 			<HeaderStyles.HeaderContent>
 				<Logo />
 				<Button.Ghost
-					style={{ padding: 0 }}
+					style={{ padding: 12 }}
 					onPress={() => setMobileNavOpen(!(mobileNavOpen ?? false))}
 					title="open menu"
 					aria-expanded={mobileNavOpen}
 					aria-controls="menu"
 					aria-haspopup="true"
 				>
-					<SvgHamburger />
+					{mobileNavOpen ? (
+						<SvgClose themeColor={(theme) => theme.colors.text.secondary} />
+					) : (
+						<SvgHamburger themeColor={(theme) => theme.colors.text.secondary} />
+					)}
 				</Button.Ghost>
 			</HeaderStyles.HeaderContent>
 			<HeaderStyles.VerticalList

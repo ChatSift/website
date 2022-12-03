@@ -23,4 +23,5 @@ export const Buttons = styled.div`
 	flex-direction: row;
 	gap: 16px;
 	margin-top: 16px;
+	align-items: center;
 `;

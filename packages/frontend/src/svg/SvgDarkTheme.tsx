@@ -1,15 +1,22 @@
-import { useContext } from 'react';
-import { ThemeContext } from '../pages/_app';
+import { useTheme } from '@emotion/react';
+import type { SvgProps } from '~/svg/svgProps';
 
-function SvgDarkTheme() {
-	const theme = useContext(ThemeContext);
-	const color = theme.current.name === 'dark' ? theme.current.colors.text.primary : theme.current.colors.text.disabled;
+function SvgDarkTheme({ themeColor }: SvgProps) {
+	const theme = useTheme();
 
 	return (
 		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
-				d="M4.125 12.25C4.125 7.92578 7.64062 4.375 11.9648 4.375C12.3867 4.375 13.0195 4.44531 13.4062 4.51562C13.7578 4.58594 13.8281 5.04297 13.5117 5.21875C11.6133 6.30859 10.418 8.34766 10.418 10.5625C10.418 14.4297 13.8984 17.3477 17.7305 16.6445C18.082 16.5742 18.293 16.9609 18.082 17.2422C16.6055 19.0352 14.3906 20.125 11.9648 20.125C7.64062 20.125 4.125 16.6094 4.125 12.25Z"
-				fill={color}
+				d="M15.22 6.03L17.75 4.09L14.56 4L13.5 1L12.44 4L9.25 4.09L11.78 6.03L10.87 9.09L13.5 7.28L16.13 9.09L15.22 6.03Z"
+				fill={themeColor(theme)}
+			/>
+			<path
+				d="M19.61 12.25L21.25 11L19.19 10.95L18.5 9L17.81 10.95L15.75 11L17.39 12.25L16.8 14.23L18.5 13.06L20.2 14.23L19.61 12.25Z"
+				fill={themeColor(theme)}
+			/>
+			<path
+				d="M6.47094 5.44867L6.5392 6.65167C6.6925 9.35355 7.80352 12.0462 9.88315 14.146C11.9638 16.1969 14.6471 17.3175 17.3582 17.4708L18.5616 17.5388L17.6634 18.3426C14.3261 21.3292 9.20497 21.2114 5.99703 18.0141L5.99586 18.013C2.79855 14.805 2.68083 9.68388 5.66741 6.34657L6.47094 5.44867Z"
+				fill={themeColor(theme)}
 			/>
 		</svg>
 	);

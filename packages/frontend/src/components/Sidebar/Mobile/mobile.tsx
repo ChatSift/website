@@ -87,14 +87,14 @@ function SidebarMobile(props: SidebarMobileProps) {
 				<HeaderStyles.HeaderContent>
 					<Logo />
 					<Button.Ghost
-						style={{ padding: 0 }}
+						style={{ padding: 12 }}
 						onPress={() => setIsOpen(!isOpen)}
 						title="open menu"
 						aria-expanded={isOpen}
 						aria-controls="menu"
 						aria-haspopup="true"
 					>
-						<SvgHamburger />
+						<SvgHamburger themeColor={(theme) => theme.colors.text.secondary} />
 					</Button.Ghost>
 				</HeaderStyles.HeaderContent>
 			</HeaderStyles.MobileNav>

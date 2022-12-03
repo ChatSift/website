@@ -9,9 +9,9 @@ import PageMeta from '~/components/PageMeta';
 import * as Text from '~/components/Text';
 import useConfigGuild from '~/hooks/useConfigGuild';
 import SvgAma from '~/svg/SvgAma';
-import SvgArrowRight from '~/svg/SvgArrowRight';
 import SvgAutoModerator from '~/svg/SvgAutoModerator';
 import SvgCog from '~/svg/SvgCog';
+import SvgLinkExternal from '~/svg/SvgLinkExternal';
 import SvgModmail from '~/svg/SvgModmail';
 import * as Urls from '~/utils/urls';
 
@@ -33,7 +33,7 @@ function BotButton({ isLoading, isInvited, guildId, botId, page }: ManageButtonP
 		return (
 			<Link href={Urls.botInvite(botId)}>
 				<GhostLink disabled={isLoading} href={Urls.botInvite(botId)} hasBorder>
-					<SvgArrowRight themeColor={(theme) => theme.colors.text.secondary} />
+					<SvgLinkExternal themeColor={(theme) => theme.colors.text.secondary} />
 					Invite
 				</GhostLink>
 			</Link>
