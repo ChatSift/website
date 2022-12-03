@@ -43,6 +43,7 @@ export const ButtonsAndLinks = styled(List)`
 
 export const SecondGroup = styled.div`
 	display: flex;
+	gap: 8px;
 	align-items: center;
 `;
 
