@@ -1,11 +1,15 @@
+import type { GetDiscordAuthMeResult } from '@chatsift/website-api';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Button from '~/components/Button';
+import DashBotUpsell from '~/components/DashBotUpsell';
 import Footer from '~/components/Footer';
 import GuildCard from '~/components/GuildCard';
 import Heading from '~/components/Heading';
 import PageMeta from '~/components/PageMeta';
 import SearchBar from '~/components/SearchBar';
+import * as Text from '~/components/Text';
+import bots from '~/data/bots';
 import useLoggedInUser from '~/hooks/useLoggedInUser';
 import mediaQueries from '~/styles/breakpoints';
 import SvgRefresh from '~/svg/SvgRefresh';
@@ -72,16 +76,72 @@ const Guilds = styled.ul`
 	}
 `;
 
+const NoServersFoundContainer = styled.div`
+	width: calc(100vw - ${dashboardPadding * 2}px);
+	max-width: ${dashboardMaxWidth - dashboardPadding * 2}px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+
+	${mediaQueries.dashboardMaxWidthMax} {
+		max-width: ${smallestDashboardWidth - dashboardPadding * 4}px;
+	}
+`;
+
+const NoServersHeader = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+`;
+
+const BotUpsells = styled.ul`
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+`;
+
 const numberOfSkeletonGuilds = 16;
 
+function saveDataCache(data: Record<string, unknown>[], expiresAt?: Date) {
+	localStorage.setItem('dashboardData', JSON.stringify({ data, expiresAt }));
+}
+
+function getDataCache() {
+	const cache = localStorage.getItem('dashboardData');
+	if (!cache) {
+		return null;
+	}
+
+	const { data, expiresAt } = JSON.parse(cache);
+	if (expiresAt && new Date(expiresAt) < new Date()) {
+		return null;
+	}
+
+	return data;
+}
+
 function Dashboard() {
-	const { data, refetch, isRefetching, isFetching } = useLoggedInUser();
+	const { data, refetch, isRefetching, isFetching, isLoading } = useLoggedInUser();
 	const [search, setSearch] = useState('');
+	const [dataCache, setDataCache] = useState<GetDiscordAuthMeResult['guilds'] | null>();
 
 	const dataToUse = isRefetching ? undefined : data;
+	const isColdBoot = dataCache === null;
 
-	const filtered = dataToUse?.guilds.filter((guild) => guild.name.toLowerCase().includes(search.toLowerCase()));
-	const items = filtered?.sort((g1, g2) =>
+	useEffect(() => {
+		setDataCache(getDataCache());
+	}, []);
+
+	useEffect(() => {
+		if (dataToUse?.guilds !== undefined) {
+			saveDataCache(dataToUse.guilds, new Date(Date.now() + 1_000 * 60 * 60 * 5 /* 1h */));
+		}
+	}, [dataToUse]);
+
+	const filtered = (dataToUse?.guilds ?? dataCache)?.filter((guild) =>
+		guild.name.toLowerCase().includes(search.toLowerCase()),
+	);
+	const guilds = filtered?.sort((g1, g2) =>
 		Number(g1.hasAma) + Number(g1.hasModmail) + Number(g1.hasAutomoderator) <
 		Number(g2.hasAma) + Number(g2.hasModmail) + Number(g2.hasAutomoderator)
 			? 1
@@ -105,19 +165,33 @@ function Dashboard() {
 						placeholder="Search for a server"
 						aria-label="Search for a server"
 					/>
-					<Guilds>
-						{items?.length
-							? items.map((guild) => (
-									<li key={guild.id}>
-										<GuildCard guild={guild} key={guild.id} />
-									</li>
-							  ))
-							: [...(Array.from({ length: numberOfSkeletonGuilds }) as unknown[])].map((_, index) => (
-									<li key={index}>
-										<GuildCard guild={undefined} />
-									</li>
-							  ))}
-					</Guilds>
+					{(isLoading && isColdBoot) || (guilds?.length ?? 0) > 0 ? (
+						<Guilds>
+							{isLoading && isColdBoot
+								? [...(Array.from({ length: numberOfSkeletonGuilds }) as unknown[])].map((_, index) => (
+										<li key={index}>
+											<GuildCard guild={undefined} />
+										</li>
+								  ))
+								: guilds?.map((guild) => (
+										<li key={guild.id}>
+											<GuildCard guild={guild} key={guild.id} />
+										</li>
+								  ))}
+						</Guilds>
+					) : (
+						<NoServersFoundContainer>
+							<NoServersHeader>
+								<Text.Heading3>No servers found</Text.Heading3>
+								<Text.Body.Regular>Invite a bot by clicking on the respective buttons</Text.Body.Regular>
+							</NoServersHeader>
+							<BotUpsells>
+								{Object.keys(bots).map((botId) => (
+									<DashBotUpsell key={botId} botId={botId as BotId} />
+								))}
+							</BotUpsells>
+						</NoServersFoundContainer>
+					)}
 				</SectionContainer>
 			</Container>
 			<Footer />

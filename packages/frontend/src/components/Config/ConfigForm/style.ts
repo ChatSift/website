@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Body } from '~/components/Text';
 
 export const DirtyBar = styled.div`
 	position: absolute;
@@ -24,10 +23,6 @@ export const DirtyBar = styled.div`
 		opacity: 0;
 		display: none;
 	}
-`;
-
-export const DirtyBarText = styled(Body.Regular)`
-	color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 export const DirtyBarButtons = styled.div`

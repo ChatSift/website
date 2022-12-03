@@ -50,6 +50,17 @@ export const GuildImage = styled.img<GuildImageProps>`
 	border: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
 `;
 
+export const GuildAcronym = styled(GuildImage.withComponent('div'))`
+	&::after {
+		color: ${({ theme }) => theme.colors.text.primary};
+		max-width: 70%;
+		content: attr(data-full);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+`;
+
 export const SkeletonGuildImage = GuildImage.withComponent(Skeleton);
 
 export const CardHeader = styled.div`

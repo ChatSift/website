@@ -1,3 +1,5 @@
+type BotId = 'ama' | 'automoderator' | 'modmail';
+
 type SlideshowImage = {
 	alt: string;
 	url: string;
@@ -19,6 +21,7 @@ type Review = {
 type Bot = {
 	description: {
 		card: string;
+		// This is the upsell that is placed on another bot's page
 		otherBotUpsell?: string;
 		page: string[];
 	};

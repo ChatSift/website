@@ -10,7 +10,7 @@ function Link(props: HTMLProps<Element>) {
 	return <a {...props} {...linkProps} ref={ref} />;
 }
 
-export function RouterLink(props: HTMLProps<Element> & { href: string }) {
+export function RouterLink({ hasBorder, ...props }: HTMLProps<Element> & { hasBorder?: boolean; href: string }) {
 	const ref = useRef<HTMLAnchorElement | null>(null);
 	const router = useCheckedRouter();
 

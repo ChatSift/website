@@ -80,6 +80,7 @@ const BotCard = styled.a`
 	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
 	border-radius: 8px;
 	cursor: pointer;
+	height: 100%;
 `;
 
 const BotCardHeader = styled.div`
@@ -168,7 +169,7 @@ function Home() {
 				<BotSection>
 					<SubTitle>Our bots</SubTitle>
 					<BotsList>
-						{Object.entries(bots).map(
+						{(Object.entries(bots) as Entries<typeof bots>).map(
 							([
 								pathName,
 								{

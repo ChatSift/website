@@ -1,13 +1,8 @@
 import { keyframes } from '@emotion/css';
 import styled from '@emotion/styled';
-import {
-	dashboardMaxWidth,
-	guildCardWidthDesktop,
-	skeletonDuration,
-	smallestDashboardWidth,
-} from '../../utils/constants';
 import { ButtonBase } from '../Button';
 import mediaQueries from '~/styles/breakpoints';
+import { dashboardMaxWidth, guildCardWidthDesktop, skeletonDuration, smallestDashboardWidth } from '~/utils/constants';
 
 export const PaginatorBase = styled.div``;
 

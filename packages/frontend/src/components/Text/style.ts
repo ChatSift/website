@@ -18,6 +18,7 @@ const BodyRegular = styled.span`
 	font-weight: 450;
 	font-size: 18px;
 	line-height: 24px;
+	color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 export const Body = {

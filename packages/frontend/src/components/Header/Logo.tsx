@@ -8,7 +8,7 @@ function Logo() {
 	return (
 		<RouterLink href="/" className={LogoBase}>
 			<SvgChatSift />
-			<HeaderStyles.LogoText tabIndex={0}>Chatsift</HeaderStyles.LogoText>
+			<HeaderStyles.LogoText tabIndex={0}>ChatSift</HeaderStyles.LogoText>
 		</RouterLink>
 	);
 }

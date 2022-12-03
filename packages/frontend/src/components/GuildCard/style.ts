@@ -1,11 +1,6 @@
 import styled from '@emotion/styled';
 import Skeleton from 'react-loading-skeleton';
-import {
-	guildCardGap,
-	guildCardWidthDesktop,
-	guildCardWidthMobile,
-	smallestDashboardWidth,
-} from '../../utils/constants';
+import { guildCardGap, guildCardWidthDesktop, guildCardWidthMobile, smallestDashboardWidth } from '~/utils/constants';
 
 const guildCardInnerGap = 12;
 

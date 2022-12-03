@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import Link from 'next/link';
 import * as Button from '~/components/Button';
 import ConfigGuildCard from '~/components/Config/ConfigGuildCard';
@@ -18,15 +19,24 @@ import * as Urls from '~/utils/urls';
 const CtaLink = Button.Cta.withComponent('a');
 const GhostLink = Button.Ghost.withComponent('a');
 
+const ComingSoonTag = styled.span`
+	padding: 2px 8px;
+	background-color: ${(props) => props.theme.colors.onBackground.tertiary};
+	border: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
+	border-radius: 400px;
+	color: ${(props) => props.theme.colors.text.secondary};
+`;
+
 type ManageButtonProps = {
-	botId: string;
+	botId: BotId;
 	guildId: string | undefined;
+	isComingSoon?: boolean;
 	isInvited: boolean;
 	isLoading: boolean;
 	page: string;
 };
 
-function BotButton({ isLoading, isInvited, guildId, botId, page }: ManageButtonProps) {
+function BotButton({ isLoading, isComingSoon, isInvited, guildId, botId, page }: ManageButtonProps) {
 	const url = guildId ? Urls.dashboard.botPage(guildId, botId, page) : 'loading';
 
 	if (!isInvited) {
@@ -38,6 +48,10 @@ function BotButton({ isLoading, isInvited, guildId, botId, page }: ManageButtonP
 				</GhostLink>
 			</Link>
 		);
+	}
+
+	if (isComingSoon) {
+		return <ComingSoonTag>Coming soon</ComingSoonTag>;
 	}
 
 	return (
@@ -72,6 +86,7 @@ function GuildDashboard() {
 									guildId={guild?.id}
 									botId="automoderator"
 									page="settings"
+									isComingSoon
 								/>
 							}
 						/>
@@ -87,6 +102,7 @@ function GuildDashboard() {
 									guildId={guild?.id}
 									botId="ama"
 									page="settings"
+									isComingSoon
 								/>
 							}
 						/>

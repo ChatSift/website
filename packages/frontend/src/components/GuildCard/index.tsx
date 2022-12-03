@@ -21,14 +21,8 @@ import useRand from '~/hooks/useRand';
 import SvgAma from '~/svg/SvgAma';
 import SvgAutoModerator from '~/svg/SvgAutoModerator';
 import SvgModmail from '~/svg/SvgModmail';
+import getGuildAcronym from '~/utils/getGuildAcronym';
 import * as Urls from '~/utils/urls';
-
-function getGuildAcronym(guildName: string) {
-	return guildName
-		.split(' ')
-		.map(([firstLetter]) => firstLetter)
-		.join('');
-}
 
 // ??? it is used????
 // eslint-disable-next-line react/no-unused-prop-types

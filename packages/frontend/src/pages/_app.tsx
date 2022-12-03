@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { createContext, useRef, useState } from 'react';
+import { createContext, useEffect, useRef, useState } from 'react';
 import '~/styles/global.scss';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { SSRProvider } from 'react-aria';
@@ -17,7 +17,9 @@ import ErrorBoundary from '~/components/ErrorBoundary';
 import ScrollArea from '~/components/ScrollArea';
 import { DialogControllerProvider } from '~/context/DialogControllerContext';
 import { RouterLinkControllerProvider } from '~/context/RouterLinkControllerContext';
+import themeMap from '~/themes/themeMap';
 import { skeletonDuration } from '~/utils/constants';
+import { loadSettings, saveSettings } from '~/utils/localUserSettings';
 
 const Container = styled.div`
 	display: flex;
@@ -47,8 +49,19 @@ function App({ Component, pageProps }: AppProps) {
 	const [theme, setTheme] = useState(dark);
 	const router = useRouter();
 
+	useEffect(() => {
+		setTheme(themeMap[loadSettings().theme ?? 'dark']);
+	}, []);
+
+	function updateTheme(newTheme: Theme) {
+		setTheme(newTheme);
+		saveSettings({
+			theme: newTheme.name,
+		});
+	}
+
 	return (
-		<ThemeContext.Provider value={{ current: theme, update: setTheme }}>
+		<ThemeContext.Provider value={{ current: theme, update: updateTheme }}>
 			<ThemeProvider theme={theme}>
 				<QueryClientProvider client={queryClient.current}>
 					<Global
@@ -66,6 +79,7 @@ function App({ Component, pageProps }: AppProps) {
 						<Head>
 							<meta name="viewport" content="width=device-width, initial-scale=1" />
 							<link rel="icon" href="/assets/favicon.ico" />
+							<title>ChatSift</title>
 						</Head>
 						<SSRProvider>
 							<RouterLinkControllerProvider>

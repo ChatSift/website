@@ -20,7 +20,7 @@ function Footer({ hasMargin = true }: FooterProps) {
 
 	return (
 		<Styles.Footer data-has-margin={hasMargin}>
-			<Styles.CopyrightNotice>© Chatsift, 2022 - Present</Styles.CopyrightNotice>
+			<Styles.CopyrightNotice>© ChatSift, 2022 - Present</Styles.CopyrightNotice>
 			<Styles.ButtonsAndLinks>
 				<Styles.List>
 					<Styles.IconLink href="/github">

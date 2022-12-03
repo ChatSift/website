@@ -159,7 +159,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 };
 
 export const getStaticProps: GetStaticProps = ({ params }) => {
-	const id = params?.name as string | undefined;
+	const id = params?.name as BotId | undefined;
 
 	if (id === undefined || !(id in bots)) {
 		return {
@@ -189,7 +189,7 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 		);
 	}
 
-	const otherBots = Object.entries(bots).filter(([, b]) => b.name !== bot.name);
+	const otherBots = Object.entries(bots).filter(([, b]) => b.name !== bot.name) as Entries<typeof bots>;
 
 	return (
 		<Fragment key={bot.name /* diff key for each bot forces reset of state, etc */}>
