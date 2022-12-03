@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import * as Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import { RouterLink } from '~/components/Link';
+import PageMeta from '~/components/PageMeta';
 
 const Container = styled.main`
 	flex: 1 0 auto;
@@ -26,11 +27,9 @@ const HomeButton = Button.Cta.withComponent(RouterLink);
 function NotFound404() {
 	return (
 		<>
+			<PageMeta title="404 Not Found" />
 			<Container>
-				<NotFoundTitle>
-					{/* <LookingGlass themeColor={(theme) => theme.colors.text.primary} /> */}
-					404
-				</NotFoundTitle>
+				<NotFoundTitle>404</NotFoundTitle>
 				<HomeButton href="/">Go home</HomeButton>
 			</Container>
 			<Footer />
