@@ -46,6 +46,7 @@ const CtaButtons = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
+	align-items: center;
 
 	${mediaQueries.smallMin} {
 		flex-direction: row;

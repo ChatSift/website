@@ -5,19 +5,10 @@ function SvgTextChannel({ className, themeColor }: SvgProps) {
 	const theme = useTheme();
 
 	return (
-		<svg
-			width="107"
-			height="120"
-			viewBox="0 0 107 120"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			className={className}
-		>
+		<svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" className={className}>
 			<path
-				fillRule="evenodd"
-				clipRule="evenodd"
-				d="M26.4381 32L30.9611 0H45.1278L40.6049 32H71.2995L75.8225 0H89.9892L85.4663 32H107V45.44H83.5666L79.4508 74.56H107V88H77.5511L73.0282 120H58.8615L63.3844 88L32.6897 88L28.1668 120H14.0001L18.523 88H2.44784e-06V74.56H20.4226L24.5385 45.44H2.44784e-06L0 32H26.4381ZM38.7052 45.44L34.5893 74.56H65.284L69.3999 45.44L38.7052 45.44Z"
 				fill={themeColor(theme)}
+				d="M5.41,21L6.12,17H2.12L2.47,15H6.47L7.53,9H3.53L3.88,7H7.88L8.59,3H10.59L9.88,7H15.88L16.59,3H18.59L17.88,7H21.88L21.53,9H17.53L16.47,15H20.47L20.12,17H16.12L15.41,21H13.41L14.12,17H8.12L7.41,21H5.41M9.53,9L8.47,15H14.47L15.53,9H9.53Z"
 			/>
 		</svg>
 	);

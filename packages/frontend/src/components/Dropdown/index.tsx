@@ -77,7 +77,7 @@ function Dropdown<THasIcons extends boolean>({
 							<Select.Value placeholder="No item selected.">{value?.label}</Select.Value>
 						</Styles.ValueAndIcon>
 						<Styles.DropdownArrowIcon>
-							<SvgDropdownArrow />
+							<SvgDropdownArrow themeColor={(theme) => theme.colors.text.disabled} />
 						</Styles.DropdownArrowIcon>
 					</Styles.Trigger>
 					<Styles.Content>
