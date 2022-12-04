@@ -24,6 +24,7 @@ const BodyRegular = styled.span`
 export const Body = {
 	Regular: BodyRegular,
 	Bold: styled(BodyRegular)`
+		color: ${({ theme }) => theme.colors.text.primary};
 		font-weight: 550;
 	`,
 };

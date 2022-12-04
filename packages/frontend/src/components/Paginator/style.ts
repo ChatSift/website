@@ -1,6 +1,6 @@
 import { keyframes } from '@emotion/css';
 import styled from '@emotion/styled';
-import { ButtonBase } from '../Button';
+import { ButtonBase } from '~/components/Button';
 import mediaQueries from '~/styles/breakpoints';
 import { dashboardMaxWidth, guildCardWidthDesktop, skeletonDuration, smallestDashboardWidth } from '~/utils/constants';
 

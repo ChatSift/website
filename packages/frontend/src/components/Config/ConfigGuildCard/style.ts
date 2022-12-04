@@ -72,7 +72,6 @@ export const CardHeader = styled.div`
 `;
 
 export const GuildName = styled(Body.Bold)`
-	color: ${({ theme }) => theme.colors.text.primary};
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
@@ -86,9 +85,5 @@ export const GuildNameWide = styled(Heading3)`
 `;
 
 export const GuildMemberCount = styled(Caption.Regular)`
-	color: ${({ theme }) => theme.colors.text.secondary};
-`;
-
-export const GuildMemberCountWide = styled(Body.Regular)`
 	color: ${({ theme }) => theme.colors.text.secondary};
 `;

@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import ConfigGuildCard from '../ConfigGuildCard';
 import * as Styles from './style';
-import { Links } from './style';
 import BackLink from '~/components/Config/ConfigSidebar/components/BackLink';
 import { RouterLink } from '~/components/Link';
+import * as Text from '~/components/Text';
 import configurableBots from '~/data/bots/config/configurableBots';
 import useCheckedRouter from '~/hooks/useCheckedRouter';
 import useConfigGuild from '~/hooks/useConfigGuild';
@@ -75,13 +75,13 @@ function ConfigSidebar() {
 					{/* 	setSelectedValue={changeBot} */}
 					{/* 	label="Select bot" */}
 					{/* /> */}
-					<Links>
+					<Styles.Links>
 						{configurableBots
 							.find(({ id }) => id === selectedBotId)
 							?.sidebarLinks.map((link) => {
 								const linkHref = link.linkUrlPattern(guild?.id ?? 'loading');
 								const active = router.asPath === linkHref;
-								const TextComponent = active ? Styles.LinkTextActive : Styles.LinkText;
+								const TextComponent = active ? Text.Body.Bold : Text.Body.Regular;
 
 								return (
 									<Styles.SidebarLink
@@ -94,7 +94,7 @@ function ConfigSidebar() {
 									</Styles.SidebarLink>
 								);
 							})}
-					</Links>
+					</Styles.Links>
 				</>
 			)}
 		</Styles.ConfigSidebar>

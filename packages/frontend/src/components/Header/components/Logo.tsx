@@ -1,6 +1,6 @@
 import React from 'react';
-import * as HeaderStyles from './style';
-import { LogoBase } from './style';
+import * as HeaderStyles from '../style';
+import { LogoBase } from '../style';
 import { RouterLink } from '~/components/Link';
 import SvgChatSift from '~/svg/SvgChatsift';
 

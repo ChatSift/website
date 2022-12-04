@@ -45,7 +45,3 @@ export const Title = styled(Text.Heading4)`
 	flex-direction: row;
 	gap: 6px;
 `;
-
-export const Description = styled(Text.Body.Regular)`
-	color: ${({ theme }) => theme.colors.text.secondary};
-`;

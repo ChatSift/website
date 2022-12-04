@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import type { ErrorBoundaryPropsWithRender, FallbackProps } from 'react-error-boundary';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
-import * as Button from '../Button';
 import * as Styles from './style';
+import * as Button from '~/components/Button';
 import { APIError } from '~/utils/fetch';
 
 const GhostLink = Button.Ghost.withComponent('a');

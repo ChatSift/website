@@ -5,7 +5,7 @@ import { RouterLink } from '~/components/Link';
 import mediaQueries from '~/styles/breakpoints';
 import type { ThemeProps } from '~/themes/theme';
 
-export const MobileNavAnimDuration = 0.3;
+export const mobileNavAnimDuration = 0.3;
 export const mobileThreshold = mediaQueries.mediumMin;
 
 export const Base = styled.header`
@@ -58,7 +58,7 @@ export const MobileUser = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	padding: 12px 16px;
-	transition: transform ${MobileNavAnimDuration}s ease-in-out;
+	transition: transform ${mobileNavAnimDuration}s ease-in-out;
 	transform: translateY(-100%) scale(0.95);
 	pointer-events: none;
 	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
@@ -220,7 +220,7 @@ export const MobileLink = styled(RouterLink)`
 	&[data-open='true'] {
 		transform: scale(0.95);
 		opacity: 0;
-		animation: ${MobileNavItemShow} ${MobileNavAnimDuration}s ease-out;
+		animation: ${MobileNavItemShow} ${mobileNavAnimDuration}s ease-out;
 	}
 
 	&:not([data-open]),
@@ -230,7 +230,7 @@ export const MobileLink = styled(RouterLink)`
 	}
 
 	&[data-open='false'] {
-		animation: ${MobileNavItemHide} ${MobileNavAnimDuration}s ease-out;
+		animation: ${MobileNavItemHide} ${mobileNavAnimDuration}s ease-out;
 	}
 
 	animation-fill-mode: forwards !important;

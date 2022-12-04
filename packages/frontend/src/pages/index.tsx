@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { default as NextLink } from 'next/link';
-import * as Button from '../components/Button';
-import Footer from '../components/Footer';
-import Heading from '../components/Heading';
+import * as Button from '~/components/Button';
+import Footer from '~/components/Footer';
+import Heading from '~/components/Heading';
 import Link from '~/components/Link';
 import bots, { botIcons } from '~/data/bots';
 import mediaQueries from '~/styles/breakpoints';
@@ -46,10 +46,10 @@ const CtaButtons = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
-	align-items: center;
 
 	${mediaQueries.smallMin} {
 		flex-direction: row;
+		align-items: center;
 	}
 `;
 

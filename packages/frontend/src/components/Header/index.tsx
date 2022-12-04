@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import Desktop from './Desktop';
-import Mobile from './Mobile';
+import Desktop from './components/Desktop';
+import Mobile from './components/Mobile';
 import * as HeaderStyles from './style';
 import { activeMobileOverride } from './style';
 

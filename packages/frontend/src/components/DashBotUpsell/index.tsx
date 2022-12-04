@@ -1,4 +1,5 @@
 import * as Styles from '~/components/DashBotUpsell/style';
+import * as Text from '~/components/Text';
 import bots, { botIcons } from '~/data/bots';
 import SvgLinkExternal from '~/svg/SvgLinkExternal';
 import * as Urls from '~/utils/urls';
@@ -18,7 +19,7 @@ function DashBotUpsell({ botId }: DashBotUpsellProps) {
 					<Icon width={24} height={24} />
 					{bot.name}
 				</Styles.Title>
-				<Styles.Description>{bot.description.card}</Styles.Description>
+				<Text.Body.Regular>{bot.description.card}</Text.Body.Regular>
 			</Styles.Main>
 			<Styles.Buttons>
 				<Styles.GhostLink href={Urls.botPage(botId)} hasBorder>

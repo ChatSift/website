@@ -1,5 +1,6 @@
 import Skeleton from 'react-loading-skeleton';
 import * as Styles from './style';
+import * as Text from '~/components/Text';
 import useCheckedRouter from '~/hooks/useCheckedRouter';
 import useConfigGuild from '~/hooks/useConfigGuild';
 import useRand from '~/hooks/useRand';
@@ -22,7 +23,7 @@ function ConfigGuildCard({ wide = false }: ConfigGuildCardProps) {
 	}
 
 	const GuildNameComponent = wide ? Styles.GuildNameWide : Styles.GuildName;
-	const GuildMemberCountComponent = wide ? Styles.GuildMemberCountWide : Styles.GuildMemberCount;
+	const GuildMemberCountComponent = wide ? Text.Body.Regular : Styles.GuildMemberCount;
 
 	return (
 		<Styles.Card wide={wide}>

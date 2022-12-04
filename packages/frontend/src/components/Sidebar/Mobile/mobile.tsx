@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from 'react';
 import { config, useSpring } from 'react-spring';
 import * as Styles from './style';
 import * as Button from '~/components/Button';
-import Logo from '~/components/Header/Logo';
+import Logo from '~/components/Header/components/Logo';
 import * as HeaderStyles from '~/components/Header/style';
 import * as LoggedInUser from '~/components/LoggedInUser';
 import SvgHamburger from '~/svg/SvgHamburger';

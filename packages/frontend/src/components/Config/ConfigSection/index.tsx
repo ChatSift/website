@@ -13,7 +13,7 @@ function ConfigSection({ title, description, children }: ConfigSectionProps) {
 		<Styles.ConfigSection>
 			<Styles.SectionHeader>
 				<Text.Heading3>{title}</Text.Heading3>
-				{description && <Styles.Description>{description}</Styles.Description>}
+				{description && <Text.Body.Regular>{description}</Text.Body.Regular>}
 			</Styles.SectionHeader>
 			{children}
 		</Styles.ConfigSection>
