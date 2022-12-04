@@ -46,7 +46,7 @@ export const ThemeContext = createContext<{ current: Theme; update(newTheme: The
 
 function App({ Component, pageProps }: AppProps) {
 	const queryClient = useRef(new QueryClient());
-	const [theme, setTheme] = useState<Theme | null>(null);
+	const [theme, setTheme] = useState(dark);
 	const router = useRouter();
 
 	useEffect(() => {
@@ -58,10 +58,6 @@ function App({ Component, pageProps }: AppProps) {
 		saveSettings({
 			theme: newTheme.name,
 		});
-	}
-
-	if (!theme) {
-		return null;
 	}
 
 	return (
