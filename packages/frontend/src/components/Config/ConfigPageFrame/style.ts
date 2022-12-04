@@ -9,6 +9,14 @@ export const Frame = styled.div`
 	min-height: 0;
 `;
 
+export const NoScript = styled.noscript`
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	align-items: center;
+	justify-content: center;
+`;
+
 export const Container = styled.div`
 	flex: 1 1 auto;
 	--container-padding: 16px;

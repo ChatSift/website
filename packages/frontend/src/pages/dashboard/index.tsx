@@ -88,6 +88,14 @@ const NoServersFoundContainer = styled.div`
 	}
 `;
 
+const NoScript = styled.noscript`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	flex: 1 0 auto;
+`;
+
 const NoServersHeader = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -151,7 +159,17 @@ function Dashboard() {
 	return (
 		<>
 			<PageMeta title="Dashboard" />
-			<Container>
+			<NoScript>
+				<style>
+					{`
+						#container {
+							display: none;
+						}
+					`}
+				</style>
+				<Text.Body.Bold>JavaScript is required for this page to work</Text.Body.Bold>
+			</NoScript>
+			<Container id="container">
 				<SectionContainer>
 					<MainHeadingContainer>
 						<Heading title="Configure bots" subtitle="Pick a server to configure bots in." />

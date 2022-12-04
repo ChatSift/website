@@ -20,6 +20,15 @@ function Footer({ hasMargin = true }: FooterProps) {
 
 	return (
 		<Styles.Footer data-has-margin={hasMargin}>
+			<noscript>
+				<style>
+					{`
+						#theme-settings {
+							display: none;
+						}
+					`}
+				</style>
+			</noscript>
 			<Styles.CopyrightNotice>© ChatSift, 2022 - Present</Styles.CopyrightNotice>
 			<Styles.ButtonsAndLinks>
 				<Styles.List>
@@ -30,7 +39,7 @@ function Footer({ hasMargin = true }: FooterProps) {
 						<SvgDiscord themeColor={(theme) => theme.colors.text.disabled} />
 					</Styles.IconLink>
 				</Styles.List>
-				<Styles.SecondGroup>
+				<Styles.SecondGroup id="theme-settings">
 					<Text.Body.Regular>Theme:</Text.Body.Regular>
 					<Button.Ghost
 						paddingOverride={{ x: buttonPadding, y: buttonPadding }}

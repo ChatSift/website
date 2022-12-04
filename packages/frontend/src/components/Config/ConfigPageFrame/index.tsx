@@ -6,6 +6,7 @@ import ConfigSidebar from '~/components/Config/ConfigSidebar';
 import ErrorBoundary from '~/components/ErrorBoundary';
 import Footer from '~/components/Footer';
 import ScrollArea from '~/components/ScrollArea';
+import * as Text from '~/components/Text';
 
 type ConfigPageFrameProps = {
 	children: ReactNode;
@@ -26,17 +27,29 @@ function ConfigPageFrame({ children }: ConfigPageFrameProps) {
 					}
 				`}
 			/>
+			<noscript>
+				<style>
+					{`
+						#frame {
+							display: none;
+						}
+					`}
+				</style>
+			</noscript>
 			<ErrorBoundary errorFallback={FrameErrorFallback}>
-				<Styles.Frame>
+				<Styles.Frame id="frame">
 					<ConfigSidebar />
 					<Styles.Container>
 						<ScrollArea rootClassName={Styles.Content}>
-							<Styles.ContentContainer>{children}</Styles.ContentContainer>
+							<Styles.ContentContainer id="content-container">{children}</Styles.ContentContainer>
 						</ScrollArea>
 						<Styles.DirtyBarSlot id="dirty-bar" />
 					</Styles.Container>
 				</Styles.Frame>
 			</ErrorBoundary>
+			<Styles.NoScript>
+				<Text.Body.Bold>JavaScript is required for this page to work</Text.Body.Bold>
+			</Styles.NoScript>
 			<Footer hasMargin={false} />
 		</>
 	);
