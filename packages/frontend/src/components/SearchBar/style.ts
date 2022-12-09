@@ -37,4 +37,9 @@ export const SearchField = styled.input`
 		background-image: ${(props) => backgroundImageGen(props.theme.colors.text.primary)};
 		border: 1px solid ${(props) => props.theme.colors.text.primary};
 	}
+
+	&[disabled] {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
 `;

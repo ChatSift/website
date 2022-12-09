@@ -24,4 +24,5 @@ export const Buttons = styled.div`
 	gap: 16px;
 	margin-top: 16px;
 	align-items: center;
+	flex-wrap: wrap;
 `;

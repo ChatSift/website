@@ -17,7 +17,7 @@ export const PaginatorList = styled.ul<PaginatorListProps>`
 	flex-wrap: wrap;
 	justify-content: start;
 
-	@media (max-width: ${smallestDashboardWidth}px) {
+	${mediaQueries.smallestDashboardWidthMax} {
 		display: flex;
 		width: 100%;
 

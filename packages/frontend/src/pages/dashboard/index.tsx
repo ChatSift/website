@@ -1,10 +1,11 @@
 import type { GetDiscordAuthMeResult } from '@chatsift/website-api';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import * as Button from '~/components/Button';
 import DashBotUpsell from '~/components/DashBotUpsell';
 import Footer from '~/components/Footer';
 import GuildCard from '~/components/GuildCard';
+import { guildCardSmallDashWidth } from '~/components/GuildCard/style';
 import Heading from '~/components/Heading';
 import PageMeta from '~/components/PageMeta';
 import SearchBar from '~/components/SearchBar';
@@ -53,7 +54,7 @@ const Container = styled.main`
 	margin: 0 auto;
 	padding: ${dashboardPadding}px;
 
-	@media (max-width: ${dashboardMaxWidth}px) {
+	${mediaQueries.dashboardMaxWidthMax} {
 		max-width: ${smallestDashboardWidth - dashboardPadding * 2}px;
 	}
 `;
@@ -66,25 +67,26 @@ const Guilds = styled.ul`
 	display: grid;
 	grid-template-columns: repeat(${guildCardsPerPage}, 1fr);
 	gap: 16px;
+	max-width: ${dashboardMaxWidth - dashboardPadding * 2}px;
 
-	@media (max-width: ${dashboardMaxWidth}px) {
+	${mediaQueries.dashboardMaxWidthMax} {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	@media (max-width: ${smallestDashboardWidth}px) {
+	${mediaQueries.smallestDashboardWidthMax} {
 		grid-template-columns: 1fr;
 	}
 `;
 
 const NoServersFoundContainer = styled.div`
-	width: calc(100vw - ${dashboardPadding * 2}px);
-	max-width: ${dashboardMaxWidth - dashboardPadding * 2}px;
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
+	width: min(${dashboardMaxWidth - dashboardPadding * 2}px, 80vw);
 
 	${mediaQueries.dashboardMaxWidthMax} {
 		max-width: ${smallestDashboardWidth - dashboardPadding * 4}px;
+		width: ${guildCardSmallDashWidth};
 	}
 `;
 
@@ -132,9 +134,16 @@ function Dashboard() {
 	const { data, refetch, isRefetching, isFetching, isLoading } = useLoggedInUser();
 	const [search, setSearch] = useState('');
 	const [dataCache, setDataCache] = useState<GetDiscordAuthMeResult['guilds'] | null>();
+	const [isPerformingUserInitiatedRefetch, setIsPerformingUserInitiatedRefetch] = useState(false);
 
 	const dataToUse = isRefetching ? undefined : data;
 	const isColdBoot = dataCache === null;
+
+	const refetchGuilds = useCallback(async () => {
+		setIsPerformingUserInitiatedRefetch(true);
+		await refetch();
+		setIsPerformingUserInitiatedRefetch(false);
+	}, [refetch]);
 
 	useEffect(() => {
 		setDataCache(getDataCache());
@@ -156,6 +165,8 @@ function Dashboard() {
 			: -1,
 	);
 
+	const isNotReady = (isLoading && isColdBoot) || isPerformingUserInitiatedRefetch;
+
 	return (
 		<>
 			<PageMeta title="Dashboard" />
@@ -173,7 +184,12 @@ function Dashboard() {
 				<SectionContainer>
 					<MainHeadingContainer>
 						<Heading title="Configure bots" subtitle="Pick a server to configure bots in." />
-						<Button.Ghost onPress={() => void refetch()} isDisabled={isFetching} data-loading={isFetching} hasBorder>
+						<Button.Ghost
+							onPress={() => void refetchGuilds()}
+							isDisabled={isFetching}
+							data-loading={isFetching}
+							hasBorder
+						>
 							<SvgRefresh themeColor={(theme) => theme.colors.text.secondary} />
 							Refresh
 						</Button.Ghost>
@@ -182,10 +198,11 @@ function Dashboard() {
 						state={[search, setSearch]}
 						placeholder="Search for a server"
 						aria-label="Search for a server"
+						isDisabled={isNotReady}
 					/>
-					{(isLoading && isColdBoot) || (guilds?.length ?? 0) > 0 ? (
+					{isNotReady || (guilds?.length ?? 0) > 0 ? (
 						<Guilds>
-							{isLoading && isColdBoot
+							{isNotReady
 								? [...(Array.from({ length: numberOfSkeletonGuilds }) as unknown[])].map((_, index) => (
 										<li key={index}>
 											<GuildCard guild={undefined} />
@@ -200,7 +217,9 @@ function Dashboard() {
 					) : (
 						<NoServersFoundContainer>
 							<NoServersHeader>
-								<Text.Heading3>No servers found</Text.Heading3>
+								<Text.Heading3>
+									{(dataToUse?.guilds?.length ?? 0) > 0 ? 'No results' : 'No servers found'}
+								</Text.Heading3>
 								<Text.Body.Regular>Invite a bot by clicking on the respective buttons</Text.Body.Regular>
 							</NoServersHeader>
 							<BotUpsells>

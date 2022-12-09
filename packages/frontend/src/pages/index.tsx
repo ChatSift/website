@@ -21,7 +21,7 @@ const Container = styled.main`
 	align-items: stretch;
 	color: ${({ theme }) => theme.colors.text.primary};
 
-	@media (max-width: ${dashboardMaxWidth}px) {
+	${mediaQueries.dashboardMaxWidthMax} {
 		max-width: ${smallestDashboardWidth - dashboardPadding * 2}px;
 	}
 `;

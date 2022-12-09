@@ -109,7 +109,7 @@ function SidebarMobile(props: SidebarMobileProps) {
 			<Styles.Menu
 				{...bind()}
 				style={{
-					transform: menuX.to((vStfu) => `translateX(${vStfu}px)`),
+					transform: menuX.to((value) => `translateX(${value}px)`),
 					display,
 				}}
 				className={props.className}

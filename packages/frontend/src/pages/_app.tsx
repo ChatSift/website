@@ -71,6 +71,13 @@ function App({ Component, pageProps }: AppProps) {
 							}
 						`}
 					/>
+					<noscript>
+						<style>{`
+							[data-radix-scroll-area-viewport] {
+								overflow: auto !important;
+							}
+						`}</style>
+					</noscript>
 					<SkeletonTheme
 						baseColor={theme.colors.onBackground.tertiary}
 						highlightColor={theme.colors.onBackground.secondary}
