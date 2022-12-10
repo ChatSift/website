@@ -1,12 +1,11 @@
 import styled from '@emotion/styled';
 import { default as NextLink } from 'next/link';
-import * as Button from '~/components/Button';
+import ButtonLink from '~/components/ButtonLink';
 import Footer from '~/components/Footer';
 import Heading from '~/components/Heading';
 import Link from '~/components/Link';
 import bots, { botIcons } from '~/data/bots';
 import mediaQueries from '~/styles/breakpoints';
-import SvgLinkExternal from '~/svg/SvgLinkExternal';
 import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
 import * as Urls from '~/utils/urls';
 
@@ -150,8 +149,6 @@ const DonateHeading = styled.div`
 	}
 `;
 
-const CtaLink = Button.Cta.withComponent('a');
-
 function Home() {
 	return (
 		<>
@@ -159,11 +156,10 @@ function Home() {
 				<CtaSection>
 					<Slogan>Modern solutions for modern problems</Slogan>
 					<CtaButtons>
-						<CtaLink href="/support">
-							<SvgLinkExternal themeColor={(theme) => theme.colors.text.currentColor} />
+						<ButtonLink.Cta href="/support" external>
 							Join our Discord server
-						</CtaLink>
-						<Button.Ghost hasBorder>Read our blog</Button.Ghost>
+						</ButtonLink.Cta>
+						{/* <Button.Ghost hasBorder>Read our blog</Button.Ghost> */}
 					</CtaButtons>
 				</CtaSection>
 				<BotSection>
@@ -211,10 +207,9 @@ function Home() {
 						subtitle="Support us on Kofi to help maintain these tools and live happily ever after"
 						gap={12}
 					/>
-					<CtaLink href="/kofi">
-						<SvgLinkExternal themeColor={(theme) => theme.colors.text.currentColor} />
+					<ButtonLink.Cta href="/kofi" external>
 						Donate
-					</CtaLink>
+					</ButtonLink.Cta>
 				</DonateHeading>
 			</Container>
 			<Footer />

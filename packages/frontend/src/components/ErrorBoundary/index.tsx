@@ -3,9 +3,8 @@ import type { ErrorBoundaryPropsWithRender, FallbackProps } from 'react-error-bo
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 import * as Styles from './style';
 import * as Button from '~/components/Button';
+import ButtonLink from '~/components/ButtonLink';
 import { APIError } from '~/utils/fetch';
-
-const GhostLink = Button.Ghost.withComponent('a');
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 	if (error instanceof APIError) {
@@ -14,12 +13,12 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 				<Styles.Title>API Error {error.payload.statusCode}</Styles.Title>
 				<Styles.Buttons>
 					<Button.Cta onPress={resetErrorBoundary}>Reload</Button.Cta>
-					<GhostLink href="/github/issues" target="_blank" hasBorder>
+					<ButtonLink.Ghost href="/github/issues" hasBorder external>
 						Open an Issue
-					</GhostLink>
-					<Button.Ghost href="/dashboard" hasBorder>
+					</ButtonLink.Ghost>
+					<ButtonLink.Ghost href="/dashboard" hasBorder>
 						Back to Dashboard
-					</Button.Ghost>
+					</ButtonLink.Ghost>
 				</Styles.Buttons>
 			</Styles.Base>
 		);
@@ -30,9 +29,9 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 			<Styles.Title>Something went wrong</Styles.Title>
 			<Styles.Buttons>
 				<Button.Cta onPress={resetErrorBoundary}>Reload</Button.Cta>
-				<GhostLink href="/github/issues" target="_blank" hasBorder>
+				<ButtonLink.Ghost href="/github/issues" hasBorder external>
 					Open an Issue
-				</GhostLink>
+				</ButtonLink.Ghost>
 			</Styles.Buttons>
 		</Styles.Base>
 	);

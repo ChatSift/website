@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import * as Button from '~/components/Button';
-import { RouterLink } from '~/components/Link';
 import * as Text from '~/components/Text';
 import mediaQueries from '~/styles/breakpoints';
 
@@ -36,9 +34,6 @@ export const Buttons = styled.div`
 		align-items: center;
 	}
 `;
-
-export const GhostLink = Button.Ghost.withComponent(RouterLink);
-export const CtaLink = Button.Cta.withComponent(RouterLink);
 
 export const Title = styled(Text.Heading4)`
 	display: flex;

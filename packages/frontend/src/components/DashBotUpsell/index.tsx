@@ -1,7 +1,7 @@
+import ButtonLink from '~/components/ButtonLink';
 import * as Styles from '~/components/DashBotUpsell/style';
 import * as Text from '~/components/Text';
 import bots, { botIcons } from '~/data/bots';
-import SvgLinkExternal from '~/svg/SvgLinkExternal';
 import * as Urls from '~/utils/urls';
 
 type DashBotUpsellProps = {
@@ -22,12 +22,12 @@ function DashBotUpsell({ botId }: DashBotUpsellProps) {
 				<Text.Body.Regular>{bot.description.card}</Text.Body.Regular>
 			</Styles.Main>
 			<Styles.Buttons>
-				<Styles.GhostLink href={Urls.botPage(botId)} hasBorder>
+				<ButtonLink.Ghost href={Urls.botPage(botId)} hasBorder external>
 					Learn more
-				</Styles.GhostLink>
-				<Styles.CtaLink href={Urls.botInvite(botId)}>
-					<SvgLinkExternal themeColor={(theme) => theme.colors.text.currentColor} /> Add to server
-				</Styles.CtaLink>
+				</ButtonLink.Ghost>
+				<ButtonLink.Cta href={Urls.botInvite(botId)} external>
+					Add to server
+				</ButtonLink.Cta>
 			</Styles.Buttons>
 		</Styles.Upsell>
 	);

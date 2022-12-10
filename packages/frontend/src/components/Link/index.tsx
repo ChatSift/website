@@ -10,13 +10,19 @@ function Link(props: HTMLProps<Element>) {
 	return <a {...props} {...linkProps} ref={ref} />;
 }
 
-export function RouterLink({ hasBorder, ...props }: HTMLProps<Element> & { hasBorder?: boolean; href: string }) {
+export type RouterLinkProps = HTMLProps<Element> & { hasBorder?: boolean; href: string };
+
+export function RouterLink({ hasBorder, ...props }: RouterLinkProps) {
 	const ref = useRef<HTMLAnchorElement | null>(null);
 	const router = useCheckedRouter();
 
 	function onClick(event: React.MouseEvent) {
-		event.preventDefault();
-		void router.push(props.href);
+		// treats it as a normal link if target is _blank
+		if (props.target !== '_blank') {
+			event.preventDefault();
+			void router.push(props.href);
+		}
+
 		return props.onClick?.(event);
 	}
 

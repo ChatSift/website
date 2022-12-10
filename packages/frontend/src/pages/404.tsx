@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
-import * as Button from '~/components/Button';
+import ButtonLink from '~/components/ButtonLink';
 import Footer from '~/components/Footer';
-import { RouterLink } from '~/components/Link';
 import PageMeta from '~/components/PageMeta';
 
 const Container = styled.main`
@@ -22,15 +21,13 @@ const NotFoundTitle = styled.h3`
 	align-items: center;
 `;
 
-const HomeButton = Button.Cta.withComponent(RouterLink);
-
 function NotFound404() {
 	return (
 		<>
 			<PageMeta title="404 Not Found" />
 			<Container>
 				<NotFoundTitle>404</NotFoundTitle>
-				<HomeButton href="/">Go home</HomeButton>
+				<ButtonLink.Cta href="/">Go home</ButtonLink.Cta>
 			</Container>
 			<Footer />
 		</>

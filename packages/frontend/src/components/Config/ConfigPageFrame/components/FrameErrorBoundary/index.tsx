@@ -2,11 +2,9 @@ import type { ReactNode } from 'react';
 import type { FallbackProps } from 'react-error-boundary';
 import * as Styles from './style';
 import * as Button from '~/components/Button';
-import SvgLinkExternal from '~/svg/SvgLinkExternal';
+import ButtonLink from '~/components/ButtonLink';
 import SvgRefresh from '~/svg/SvgRefresh';
 import { APIError } from '~/utils/fetch';
-
-const GhostLink = Button.Ghost.withComponent('a');
 
 type BaseFallbackProps = {
 	description: ReactNode;
@@ -23,10 +21,10 @@ function BaseFallback({ title, description, resetErrorBoundary }: BaseFallbackPr
 				<Button.Cta onPress={resetErrorBoundary}>
 					<SvgRefresh themeColor={(theme) => theme.colors.text.currentColor} /> Try again
 				</Button.Cta>
-				<GhostLink href="/support" hasBorder>
-					<SvgLinkExternal themeColor={(theme) => theme.colors.text.currentColor} /> Support
-				</GhostLink>
-				<GhostLink href="/dashboard">Dashboard</GhostLink>
+				<ButtonLink.Ghost href="/support" external hasBorder>
+					Support
+				</ButtonLink.Ghost>
+				<ButtonLink.Ghost href="/dashboard">Dashboard</ButtonLink.Ghost>
 			</Styles.Buttons>
 		</Styles.Base>
 	);
