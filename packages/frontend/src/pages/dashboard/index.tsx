@@ -131,14 +131,12 @@ function getDataCache() {
 }
 
 function Dashboard() {
-	const { data, refetch, isRefetching, isFetching, isLoading } = useLoggedInUser();
+	const { data, refetch, isRefetching, isFetching } = useLoggedInUser();
 	const [search, setSearch] = useState('');
 	const [dataCache, setDataCache] = useState<GetDiscordAuthMeResult['guilds'] | null>();
 	const [isPerformingUserInitiatedRefetch, setIsPerformingUserInitiatedRefetch] = useState(false);
 
 	const dataToUse = isRefetching ? undefined : data;
-	const isColdBoot = dataCache === null;
-
 	const refetchGuilds = useCallback(async () => {
 		setIsPerformingUserInitiatedRefetch(true);
 		await refetch();
@@ -165,7 +163,7 @@ function Dashboard() {
 			: -1,
 	);
 
-	const isNotReady = (isLoading && isColdBoot) || isPerformingUserInitiatedRefetch;
+	const isNotReady = guilds === undefined || isPerformingUserInitiatedRefetch;
 
 	return (
 		<>
