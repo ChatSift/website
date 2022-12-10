@@ -190,7 +190,7 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 
 	return (
 		<Fragment key={bot.name /* diff key for each bot forces reset of state, etc */}>
-			<PageMeta title={bot.name} />
+			<PageMeta title={bot.name} description={bot.description.card} />
 			<Container>
 				<section>
 					<ImageSlideshow images={bot.slideshowImages} />
