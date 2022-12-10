@@ -32,9 +32,9 @@ export const Container = styled.div`
 	${mediaQueries.smallMin} {
 		--container-padding: 24px;
 		padding-left: 24px;
-		padding-right: 0;
 	}
 	padding: var(--container-padding);
+	padding-right: 0;
 `;
 
 export const Content = css`
@@ -42,10 +42,7 @@ export const Content = css`
 	flex-direction: column;
 	height: 100%;
 	overflow-y: auto;
-
-	${mediaQueries.smallMin} {
-		padding-right: 24px;
-	}
+	padding-right: 24px;
 `;
 
 export const ContentContainer = styled.div`
