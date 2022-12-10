@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import AlertDialog from '~/components/AlertDialog';
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 import type { ProviderProps } from '~/context/props';
 
 type ControlledDialogOptions = {

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { FallbackProps } from 'react-error-boundary';
 import * as Styles from './style';
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 import ButtonLink from '~/components/ButtonLink';
 import SvgRefresh from '~/svg/SvgRefresh';
 import { APIError } from '~/utils/fetch';

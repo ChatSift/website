@@ -2,7 +2,7 @@ import type { GetDiscordAuthMeResult } from '@chatsift/website-api';
 import * as Avatar from '@radix-ui/react-avatar';
 import Skeleton from 'react-loading-skeleton';
 import * as Styles from './style';
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 import useCheckedRouter from '~/hooks/useCheckedRouter';
 import useUser from '~/hooks/useUser';
 import type { UserFetchError } from '~/hooks/useUser';

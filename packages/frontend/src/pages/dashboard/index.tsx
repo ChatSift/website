@@ -1,7 +1,7 @@
 import type { GetDiscordAuthMeResult } from '@chatsift/website-api';
 import styled from '@emotion/styled';
 import { useCallback, useEffect, useState } from 'react';
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 import DashBotUpsell from '~/components/DashBotUpsell';
 import Footer from '~/components/Footer';
 import GuildCard from '~/components/GuildCard';

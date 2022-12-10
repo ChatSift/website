@@ -1,4 +1,4 @@
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 import type { RouterLinkProps } from '~/components/Link';
 import { RouterLink } from '~/components/Link';
 import SvgLinkExternal from '~/svg/SvgLinkExternal';

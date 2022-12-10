@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { BotCardBase, Buttons, Description, Title } from './style';
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 
 export type Bot = {
 	description: string;

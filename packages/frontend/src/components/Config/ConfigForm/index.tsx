@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import * as Styles from './style';
 import AlertDialog from '~/components/AlertDialog';
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 import * as Text from '~/components/Text';
 import useRouterLinkController from '~/context/RouterLinkControllerContext';
 import useConfigGuildId from '~/hooks/useConfigGuildId';

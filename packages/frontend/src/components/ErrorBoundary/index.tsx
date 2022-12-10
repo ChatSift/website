@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import type { ErrorBoundaryPropsWithRender, FallbackProps } from 'react-error-boundary';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 import * as Styles from './style';
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 import ButtonLink from '~/components/ButtonLink';
 import { APIError } from '~/utils/fetch';
 

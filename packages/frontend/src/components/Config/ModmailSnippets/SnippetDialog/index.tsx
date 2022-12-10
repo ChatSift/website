@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import React, { useEffect, useState } from 'react';
 import * as Styles from './style';
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 import { Input } from '~/components/Input';
 import { TextArea } from '~/components/TextArea';
 import { snippetNameLength, snippetContentLength } from '~/utils/constants';

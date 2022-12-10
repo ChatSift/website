@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import AlertDialog from '~/components/AlertDialog';
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 import ConfigPageFrame from '~/components/Config/ConfigPageFrame';
 import ModmailSnippet from '~/components/Config/ModmailSnippets/ModmailSnippet';
 import SnippetDialog from '~/components/Config/ModmailSnippets/SnippetDialog';

@@ -4,7 +4,7 @@ import { headerItems } from '../index';
 import type { HeaderLink } from '../index';
 import * as Styles from '../style';
 import Logo from './Logo';
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 import * as LoggedInUser from '~/components/LoggedInUser';
 import SvgClose from '~/svg/SvgClose';
 import SvgHamburger from '~/svg/SvgHamburger';

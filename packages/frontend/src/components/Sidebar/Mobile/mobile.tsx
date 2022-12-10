@@ -2,7 +2,7 @@ import { useDrag } from '@use-gesture/react';
 import React, { useCallback, useEffect } from 'react';
 import { config, useSpring } from 'react-spring';
 import * as Styles from './style';
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 import Logo from '~/components/Header/components/Logo';
 import * as HeaderStyles from '~/components/Header/style';
 import * as LoggedInUser from '~/components/LoggedInUser';

@@ -53,7 +53,7 @@ type GhostProps = ButtonProps & {
 	hasBorder?: boolean;
 };
 
-export const Ghost = styled(Base)<GhostProps>`
+const Ghost = styled(Base)<GhostProps>`
 	color: ${(props) => props.theme.colors.text.secondary};
 	border: ${(props) => (props.hasBorder ? `1px solid ${props.theme.colors.onBackground.primary};` : 'none')};
 
@@ -68,7 +68,7 @@ export const Ghost = styled(Base)<GhostProps>`
 	}
 `;
 
-export const Cta = styled(Base)`
+const Cta = styled(Base)`
 	background-color: ${(props) => props.theme.colors.accent};
 	color: ${(props) => props.theme.colors.text.onAccent};
 	font-weight: 500;
@@ -77,3 +77,8 @@ export const Cta = styled(Base)`
 		background-color: ${(props) => props.theme.colors.danger};
 	}
 `;
+
+export default {
+	Ghost,
+	Cta,
+};
