@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import type { AriaLinkOptions } from 'react-aria';
-import * as Button from '../Button';
-import * as LoggedInUser from '../LoggedInUser';
+import { headerItems } from '../index';
+import type { HeaderLink } from '../index';
+import * as Styles from '../style';
 import Logo from './Logo';
-import { MobileNavAnimDuration } from './style';
-import * as HeaderStyles from './style';
-import { headerItems } from './index';
-import type { HeaderLink } from './index';
+import Button from '~/components/Button';
+import * as LoggedInUser from '~/components/LoggedInUser';
 import SvgClose from '~/svg/SvgClose';
 import SvgHamburger from '~/svg/SvgHamburger';
 
@@ -22,7 +21,7 @@ const linkDelay = 0.1;
 
 function MobileLink({ item, mobileNavOpen, index, onClick, href, ...props }: AriaLinkOptions & MobileLinkProps) {
 	return (
-		<HeaderStyles.MobileLink
+		<Styles.MobileLink
 			{...props}
 			href={href}
 			key={item.href}
@@ -31,12 +30,12 @@ function MobileLink({ item, mobileNavOpen, index, onClick, href, ...props }: Ari
 			onClick={onClick}
 		>
 			{item.name}
-		</HeaderStyles.MobileLink>
+		</Styles.MobileLink>
 	);
 }
 
 function Mobile() {
-	const animationDuration = headerItems.length * linkDelay + MobileNavAnimDuration;
+	const animationDuration = headerItems.length * linkDelay + Styles.mobileNavAnimDuration;
 	const [mobileNavOpen, setMobileNavOpen] = useState<boolean | undefined>(undefined);
 	const [hideList, setHideList] = useState(false);
 
@@ -51,8 +50,8 @@ function Mobile() {
 	}, [animationDuration, mobileNavOpen]);
 
 	return (
-		<HeaderStyles.MobileNav data-open={mobileNavOpen} orientation="vertical">
-			<HeaderStyles.HeaderContent>
+		<Styles.MobileNav data-open={mobileNavOpen} orientation="vertical">
+			<Styles.HeaderContent>
 				<Logo />
 				<Button.Ghost
 					style={{ padding: 12 }}
@@ -68,15 +67,15 @@ function Mobile() {
 						<SvgHamburger themeColor={(theme) => theme.colors.text.secondary} />
 					)}
 				</Button.Ghost>
-			</HeaderStyles.HeaderContent>
-			<HeaderStyles.VerticalList
-				className={mobileNavOpen ? HeaderStyles.MobileNavOpen : HeaderStyles.MobileNavClosed}
+			</Styles.HeaderContent>
+			<Styles.VerticalList
+				className={mobileNavOpen ? Styles.MobileNavOpen : Styles.MobileNavClosed}
 				style={{ animationDuration: `${animationDuration}s`, ...(hideList ? { display: 'none' } : {}) }}
 				data-open={mobileNavOpen}
 				id="menu"
 			>
 				{headerItems.map((item, index) => (
-					<HeaderStyles.MobileNavItem key={item.href}>
+					<Styles.MobileNavItem key={item.href}>
 						<MobileLink
 							item={item}
 							index={index}
@@ -85,13 +84,13 @@ function Mobile() {
 							href={item.href}
 							onClick={() => setMobileNavOpen(false)}
 						/>
-					</HeaderStyles.MobileNavItem>
+					</Styles.MobileNavItem>
 				))}
-			</HeaderStyles.VerticalList>
-			<HeaderStyles.MobileUser data-mobile-open={mobileNavOpen} style={hideList ? { display: 'none' } : {}}>
+			</Styles.VerticalList>
+			<Styles.MobileUser data-mobile-open={mobileNavOpen} style={hideList ? { display: 'none' } : {}}>
 				<LoggedInUser.Mobile />
-			</HeaderStyles.MobileUser>
-		</HeaderStyles.MobileNav>
+			</Styles.MobileUser>
+		</Styles.MobileNav>
 	);
 }
 

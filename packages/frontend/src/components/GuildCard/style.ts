@@ -1,13 +1,10 @@
 import styled from '@emotion/styled';
 import Skeleton from 'react-loading-skeleton';
-import {
-	guildCardGap,
-	guildCardWidthDesktop,
-	guildCardWidthMobile,
-	smallestDashboardWidth,
-} from '../../utils/constants';
+import mediaQueries from '~/styles/breakpoints';
+import { guildCardGap, guildCardWidthDesktop, guildCardWidthMobile } from '~/utils/constants';
 
 const guildCardInnerGap = 12;
+export const guildCardSmallDashWidth = '80vw';
 
 export const NotInvited = styled.span`
 	font-size: 16px;
@@ -132,8 +129,8 @@ export const GuildCardBase = styled.a`
 		display: none;
 	}
 
-	@media (max-width: ${smallestDashboardWidth}px) {
-		width: 80vw;
+	${mediaQueries.smallestDashboardWidthMax} {
+		width: ${guildCardSmallDashWidth};
 	}
 `;
 

@@ -50,6 +50,17 @@ export const GuildImage = styled.img<GuildImageProps>`
 	border: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
 `;
 
+export const GuildAcronym = styled(GuildImage.withComponent('div'))`
+	&::after {
+		color: ${({ theme }) => theme.colors.text.primary};
+		max-width: 70%;
+		content: attr(data-full);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+`;
+
 export const SkeletonGuildImage = GuildImage.withComponent(Skeleton);
 
 export const CardHeader = styled.div`
@@ -61,7 +72,6 @@ export const CardHeader = styled.div`
 `;
 
 export const GuildName = styled(Body.Bold)`
-	color: ${({ theme }) => theme.colors.text.primary};
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
@@ -75,9 +85,5 @@ export const GuildNameWide = styled(Heading3)`
 `;
 
 export const GuildMemberCount = styled(Caption.Regular)`
-	color: ${({ theme }) => theme.colors.text.secondary};
-`;
-
-export const GuildMemberCountWide = styled(Body.Regular)`
 	color: ${({ theme }) => theme.colors.text.secondary};
 `;

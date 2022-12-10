@@ -1,13 +1,8 @@
 import { keyframes } from '@emotion/css';
 import styled from '@emotion/styled';
-import {
-	dashboardMaxWidth,
-	guildCardWidthDesktop,
-	skeletonDuration,
-	smallestDashboardWidth,
-} from '../../utils/constants';
-import { ButtonBase } from '../Button';
+import { ButtonBase } from '~/components/Button';
 import mediaQueries from '~/styles/breakpoints';
+import { dashboardMaxWidth, guildCardWidthDesktop, skeletonDuration, smallestDashboardWidth } from '~/utils/constants';
 
 export const PaginatorBase = styled.div``;
 
@@ -22,7 +17,7 @@ export const PaginatorList = styled.ul<PaginatorListProps>`
 	flex-wrap: wrap;
 	justify-content: start;
 
-	@media (max-width: ${smallestDashboardWidth}px) {
+	${mediaQueries.smallestDashboardWidthMax} {
 		display: flex;
 		width: 100%;
 

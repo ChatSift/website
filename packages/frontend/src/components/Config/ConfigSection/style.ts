@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Body } from '~/components/Text';
 
 export const ConfigSection = styled.section`
 	display: flex;
@@ -14,8 +13,4 @@ export const ConfigSection = styled.section`
 export const SectionHeader = styled.div`
 	display: flex;
 	flex-direction: column;
-`;
-
-export const Description = styled(Body.Regular)`
-	color: ${({ theme }) => theme.colors.text.secondary};
 `;

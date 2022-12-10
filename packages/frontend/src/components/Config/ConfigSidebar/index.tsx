@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import ConfigGuildCard from '../ConfigGuildCard';
 import * as Styles from './style';
-import { Links } from './style';
 import BackLink from '~/components/Config/ConfigSidebar/components/BackLink';
-import Dropdown from '~/components/Dropdown';
 import { RouterLink } from '~/components/Link';
+import * as Text from '~/components/Text';
 import configurableBots from '~/data/bots/config/configurableBots';
 import useCheckedRouter from '~/hooks/useCheckedRouter';
 import useConfigGuild from '~/hooks/useConfigGuild';
@@ -13,15 +12,15 @@ import * as Urls from '~/utils/urls';
 const dashboardRoot = '/dashboard/[guildId]';
 
 function ConfigSidebar() {
-	const botDropdownOptions = useMemo(
-		() =>
-			configurableBots.map((bot) => ({
-				label: bot.name,
-				value: bot.id,
-				icon: bot.icon,
-			})),
-		[],
-	);
+	// const botDropdownOptions = useMemo(
+	// 	() =>
+	// 		configurableBots.map((bot) => ({
+	// 			label: bot.name,
+	// 			value: bot.id,
+	// 			icon: bot.icon,
+	// 		})),
+	// 	[],
+	// );
 
 	const router = useCheckedRouter();
 	const [selectedBotId, setSelectedBotId] = useState<string | undefined>(undefined);
@@ -43,21 +42,21 @@ function ConfigSidebar() {
 	const cardHref = Urls.dashboard.index(guild?.id ?? 'loading');
 	const isOnDashboardRoot = router.pathname === dashboardRoot;
 
-	function changeBot(newSelectedBot: string) {
-		if (!guild) {
-			return;
-		}
-
-		const bot = configurableBots.find(({ id }) => id === newSelectedBot)!;
-
-		if (!bot.sidebarLinks[0]) {
-			console.warn('No sidebar links for bot', bot);
-			return;
-		}
-
-		void router.push(bot.sidebarLinks[0].linkUrlPattern(guild.id));
-		setSelectedBotId(newSelectedBot);
-	}
+	// function changeBot(newSelectedBot: string) {
+	// 	if (!guild) {
+	// 		return;
+	// 	}
+	//
+	// 	const bot = configurableBots.find(({ id }) => id === newSelectedBot)!;
+	//
+	// 	if (!bot.sidebarLinks[0]) {
+	// 		console.warn('No sidebar links for bot', bot);
+	// 		return;
+	// 	}
+	//
+	// 	void router.push(bot.sidebarLinks[0].linkUrlPattern(guild.id));
+	// 	setSelectedBotId(newSelectedBot);
+	// }
 
 	return (
 		<Styles.ConfigSidebar>
@@ -69,20 +68,20 @@ function ConfigSidebar() {
 			</RouterLink>
 			{!isOnDashboardRoot && (
 				<>
-					<Dropdown
-						options={botDropdownOptions}
-						hasIcons={true}
-						selectedValue={selectedBotId}
-						setSelectedValue={changeBot}
-						label="Select bot"
-					/>
-					<Links>
+					{/* <Dropdown */}
+					{/* 	options={botDropdownOptions} */}
+					{/* 	hasIcons={true} */}
+					{/* 	selectedValue={selectedBotId} */}
+					{/* 	setSelectedValue={changeBot} */}
+					{/* 	label="Select bot" */}
+					{/* /> */}
+					<Styles.Links>
 						{configurableBots
 							.find(({ id }) => id === selectedBotId)
 							?.sidebarLinks.map((link) => {
 								const linkHref = link.linkUrlPattern(guild?.id ?? 'loading');
 								const active = router.asPath === linkHref;
-								const TextComponent = active ? Styles.LinkTextActive : Styles.LinkText;
+								const TextComponent = active ? Text.Body.Bold : Text.Body.Regular;
 
 								return (
 									<Styles.SidebarLink
@@ -95,7 +94,7 @@ function ConfigSidebar() {
 									</Styles.SidebarLink>
 								);
 							})}
-					</Links>
+					</Styles.Links>
 				</>
 			)}
 		</Styles.ConfigSidebar>

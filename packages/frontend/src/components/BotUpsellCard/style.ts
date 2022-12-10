@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
+import { RouterLink } from '~/components/Link';
 import mediaQueries from '~/styles/breakpoints';
 
-export const Base = styled.a`
+export const Base = styled(RouterLink)`
 	display: flex;
 	flex-direction: column;
 	border-radius: 8px;

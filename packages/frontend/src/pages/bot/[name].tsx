@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import { Fragment } from 'react';
 import BotUpsellCard from '~/components/BotUpsellCard';
-import * as Button from '~/components/Button';
+import ButtonLink from '~/components/ButtonLink';
 import Footer from '~/components/Footer';
 import Heading from '~/components/Heading';
 import ImageSlideshow from '~/components/ImageSlideshow';
@@ -159,7 +159,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 };
 
 export const getStaticProps: GetStaticProps = ({ params }) => {
-	const id = params?.name as string | undefined;
+	const id = params?.name as BotId | undefined;
 
 	if (id === undefined || !(id in bots)) {
 		return {
@@ -176,9 +176,6 @@ export const getStaticProps: GetStaticProps = ({ params }) => {
 	};
 };
 
-const CtaLink = Button.Cta.withComponent('a');
-const GhostLink = Button.Ghost.withComponent('a');
-
 function BotPage({ bot }: { bot: Bot | undefined }) {
 	if (bot === undefined) {
 		return (
@@ -189,11 +186,11 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 		);
 	}
 
-	const otherBots = Object.entries(bots).filter(([, b]) => b.name !== bot.name);
+	const otherBots = Object.entries(bots).filter(([, b]) => b.name !== bot.name) as Entries<typeof bots>;
 
 	return (
 		<Fragment key={bot.name /* diff key for each bot forces reset of state, etc */}>
-			<PageMeta title="Bot" />
+			<PageMeta title={bot.name} description={bot.description.card} />
 			<Container>
 				<section>
 					<ImageSlideshow images={bot.slideshowImages} />
@@ -205,10 +202,12 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 							))}
 						</CtaTextContainer>
 						<CtaButtons>
-							<CtaLink href={bot.inviteLink}>Add to server</CtaLink>
-							<GhostLink href="/support" hasBorder>
+							<ButtonLink.Cta href={bot.inviteLink} external>
+								Add to server
+							</ButtonLink.Cta>
+							<ButtonLink.Ghost href="/support" hasBorder external>
 								Get support
-							</GhostLink>
+							</ButtonLink.Ghost>
 						</CtaButtons>
 					</Cta>
 				</section>
@@ -276,7 +275,9 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 						subtitle="Support us on Kofi to help maintain these tools and live happily ever after"
 						gap={12}
 					/>
-					<CtaLink href="/kofi">Donate</CtaLink>
+					<ButtonLink.Cta href="/kofi" external>
+						Donate
+					</ButtonLink.Cta>
 				</DonationUpsellSection>
 			</Container>
 			<Footer />

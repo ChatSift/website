@@ -2,8 +2,8 @@ import { useDrag } from '@use-gesture/react';
 import React, { useCallback, useEffect } from 'react';
 import { config, useSpring } from 'react-spring';
 import * as Styles from './style';
-import * as Button from '~/components/Button';
-import Logo from '~/components/Header/Logo';
+import Button from '~/components/Button';
+import Logo from '~/components/Header/components/Logo';
 import * as HeaderStyles from '~/components/Header/style';
 import * as LoggedInUser from '~/components/LoggedInUser';
 import SvgHamburger from '~/svg/SvgHamburger';
@@ -109,7 +109,7 @@ function SidebarMobile(props: SidebarMobileProps) {
 			<Styles.Menu
 				{...bind()}
 				style={{
-					transform: menuX.to((vStfu) => `translateX(${vStfu}px)`),
+					transform: menuX.to((value) => `translateX(${value}px)`),
 					display,
 				}}
 				className={props.className}

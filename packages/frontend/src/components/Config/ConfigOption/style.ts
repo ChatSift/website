@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Body, Heading4 } from '~/components/Text';
 
 export const Option = styled.li`
 	display: flex;
@@ -32,14 +31,6 @@ export const Tag = styled.div`
 	justify-content: center;
 	flex: 1 1 auto;
 	min-width: 0;
-`;
-
-export const OptionTitle = styled(Heading4)`
-	color: ${({ theme }) => theme.colors.text.primary};
-`;
-
-export const OptionCaption = styled(Body.Regular)`
-	color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 export const Content = styled.div`

@@ -7,6 +7,20 @@ export const Frame = styled.div`
 	flex-direction: row;
 	flex: 1 1 auto;
 	min-height: 0;
+
+	${mediaQueries.dashboardMaxWidthMax} {
+		max-width: 90vw;
+		width: 100%;
+		align-self: center;
+	}
+`;
+
+export const NoScript = styled.noscript`
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	align-items: center;
+	justify-content: center;
 `;
 
 export const Container = styled.div`
@@ -17,9 +31,9 @@ export const Container = styled.div`
 
 	${mediaQueries.smallMin} {
 		--container-padding: 24px;
+		padding-left: 24px;
 	}
 	padding: var(--container-padding);
-	padding-left: 24px;
 	padding-right: 0;
 `;
 

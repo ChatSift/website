@@ -1,13 +1,13 @@
 import type { GetDiscordAuthMeResult } from '@chatsift/website-api';
 import * as Avatar from '@radix-ui/react-avatar';
 import Skeleton from 'react-loading-skeleton';
-import useUser from '../../hooks/useUser';
-import * as Urls from '../../utils/urls';
-import * as Button from '../Button';
 import * as Styles from './style';
+import Button from '~/components/Button';
 import useCheckedRouter from '~/hooks/useCheckedRouter';
+import useUser from '~/hooks/useUser';
 import type { UserFetchError } from '~/hooks/useUser';
 import { APIError } from '~/utils/fetch';
+import * as Urls from '~/utils/urls';
 
 function ErrorHandler({ error }: { error: UserFetchError }) {
 	const router = useCheckedRouter();

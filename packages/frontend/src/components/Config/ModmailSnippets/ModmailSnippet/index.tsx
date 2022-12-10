@@ -1,6 +1,6 @@
 import type { Snippet } from '@chatsift/modmail-api';
 import * as Styles from './style';
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 
 type ModmailSnippetProps = {
 	onDeleteRequested(): void;

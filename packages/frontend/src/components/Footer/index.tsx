@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import * as Button from '../Button';
 import * as Styles from './style';
 import { buttonPadding } from './style';
+import Button from '~/components/Button';
 import * as Text from '~/components/Text';
 import { ThemeContext } from '~/pages/_app';
 import SvgDarkTheme from '~/svg/SvgDarkTheme';
@@ -20,7 +20,16 @@ function Footer({ hasMargin = true }: FooterProps) {
 
 	return (
 		<Styles.Footer data-has-margin={hasMargin}>
-			<Styles.CopyrightNotice>© Chatsift, 2022 - Present</Styles.CopyrightNotice>
+			<noscript>
+				<style>
+					{`
+						#theme-settings {
+							display: none;
+						}
+					`}
+				</style>
+			</noscript>
+			<Styles.CopyrightNotice>© ChatSift, 2022 - Present</Styles.CopyrightNotice>
 			<Styles.ButtonsAndLinks>
 				<Styles.List>
 					<Styles.IconLink href="/github">
@@ -30,7 +39,7 @@ function Footer({ hasMargin = true }: FooterProps) {
 						<SvgDiscord themeColor={(theme) => theme.colors.text.disabled} />
 					</Styles.IconLink>
 				</Styles.List>
-				<Styles.SecondGroup>
+				<Styles.SecondGroup id="theme-settings">
 					<Text.Body.Regular>Theme:</Text.Body.Regular>
 					<Button.Ghost
 						paddingOverride={{ x: buttonPadding, y: buttonPadding }}

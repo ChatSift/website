@@ -1,12 +1,11 @@
 import styled from '@emotion/styled';
 import { default as NextLink } from 'next/link';
-import * as Button from '../components/Button';
-import Footer from '../components/Footer';
-import Heading from '../components/Heading';
+import ButtonLink from '~/components/ButtonLink';
+import Footer from '~/components/Footer';
+import Heading from '~/components/Heading';
 import Link from '~/components/Link';
 import bots, { botIcons } from '~/data/bots';
 import mediaQueries from '~/styles/breakpoints';
-import SvgLinkExternal from '~/svg/SvgLinkExternal';
 import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
 import * as Urls from '~/utils/urls';
 
@@ -21,7 +20,7 @@ const Container = styled.main`
 	align-items: stretch;
 	color: ${({ theme }) => theme.colors.text.primary};
 
-	@media (max-width: ${dashboardMaxWidth}px) {
+	${mediaQueries.dashboardMaxWidthMax} {
 		max-width: ${smallestDashboardWidth - dashboardPadding * 2}px;
 	}
 `;
@@ -46,10 +45,10 @@ const CtaButtons = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
-	align-items: center;
 
 	${mediaQueries.smallMin} {
 		flex-direction: row;
+		align-items: center;
 	}
 `;
 
@@ -80,6 +79,7 @@ const BotCard = styled.a`
 	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
 	border-radius: 8px;
 	cursor: pointer;
+	height: 100%;
 `;
 
 const BotCardHeader = styled.div`
@@ -149,8 +149,6 @@ const DonateHeading = styled.div`
 	}
 `;
 
-const CtaLink = Button.Cta.withComponent('a');
-
 function Home() {
 	return (
 		<>
@@ -158,17 +156,16 @@ function Home() {
 				<CtaSection>
 					<Slogan>Modern solutions for modern problems</Slogan>
 					<CtaButtons>
-						<CtaLink href="/support">
-							<SvgLinkExternal themeColor={(theme) => theme.colors.text.currentColor} />
+						<ButtonLink.Cta href="/support" external>
 							Join our Discord server
-						</CtaLink>
-						<Button.Ghost hasBorder>Read our blog</Button.Ghost>
+						</ButtonLink.Cta>
+						{/* <Button.Ghost hasBorder>Read our blog</Button.Ghost> */}
 					</CtaButtons>
 				</CtaSection>
 				<BotSection>
 					<SubTitle>Our bots</SubTitle>
 					<BotsList>
-						{Object.entries(bots).map(
+						{(Object.entries(bots) as Entries<typeof bots>).map(
 							([
 								pathName,
 								{
@@ -210,10 +207,9 @@ function Home() {
 						subtitle="Support us on Kofi to help maintain these tools and live happily ever after"
 						gap={12}
 					/>
-					<CtaLink href="/kofi">
-						<SvgLinkExternal themeColor={(theme) => theme.colors.text.currentColor} />
+					<ButtonLink.Cta href="/kofi" external>
 						Donate
-					</CtaLink>
+					</ButtonLink.Cta>
 				</DonateHeading>
 			</Container>
 			<Footer />

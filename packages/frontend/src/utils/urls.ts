@@ -7,11 +7,11 @@ export const logIn = `${process.env.NEXT_PUBLIC_API_URL!}/auth/v1/discord?redire
 
 export const logOut = `${process.env.NEXT_PUBLIC_API_URL!}/auth/v1/logout?redirect_uri=${host}` as const;
 
-export const botPage = (bot: string): string => `/bot/${bot}`;
+export const botPage = (bot: BotId): string => `/bot/${bot}`;
 export const dashboard = {
 	index: (guildId: string) => `/dashboard/${guildId}`,
 	bot: (guildId: string, bot: string) => `/dashboard/${guildId}/${bot}`,
 	botPage: (guildId: string, bot: string, page: string) => `/dashboard/${guildId}/${bot}/${page}`,
 };
 
-export const botInvite = (bot: string): string => `/invites/${bot}`;
+export const botInvite = (bot: BotId): string => `/invites/${bot}`;

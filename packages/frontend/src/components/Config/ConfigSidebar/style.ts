@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { RouterLink } from '~/components/Link';
 import Sidebar from '~/components/Sidebar';
-import * as Text from '~/components/Text';
 
 export const ConfigSidebar = styled(Sidebar)`
 	gap: 16px;
@@ -23,12 +22,4 @@ export const SidebarLink = styled(RouterLink)`
 	&[data-loading='true'] {
 		pointer-events: none;
 	}
-`;
-
-export const LinkTextActive = styled(Text.Body.Bold)`
-	color: ${({ theme }) => theme.colors.text.primary};
-`;
-
-export const LinkText = styled(Text.Body.Regular)`
-	color: ${({ theme }) => theme.colors.text.secondary};
 `;

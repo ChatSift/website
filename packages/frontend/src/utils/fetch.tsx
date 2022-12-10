@@ -6,6 +6,7 @@ import type { Payload } from '@hapi/boom';
 import type { NextRouter } from 'next/router';
 import type { useErrorHandler } from 'react-error-boundary';
 import type { DialogController } from '~/context/DialogControllerContext';
+import * as Urls from '~/utils/urls';
 
 type Routes = AMARoutes & AuthRoutes & ModmailRoutes;
 
@@ -26,7 +27,7 @@ export function handleError(
 	if (error instanceof APIError) {
 		switch (error.payload.statusCode) {
 			case 401:
-				void router.push('/login');
+				void router.push(Urls.logIn);
 				return;
 			case 403:
 				dialogController.openAlertDialog?.({

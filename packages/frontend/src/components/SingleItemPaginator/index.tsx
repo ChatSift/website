@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { Children, useState } from 'react';
-import * as Button from '~/components/Button';
+import Button from '~/components/Button';
 import * as Styles from '~/components/SingleItemPaginator/style';
 import { buttonPadding, Controls, CurrentPage } from '~/components/SingleItemPaginator/style';
 import SvgNext from '~/svg/SvgNext';

@@ -1,8 +1,10 @@
 import Skeleton from 'react-loading-skeleton';
 import * as Styles from './style';
+import * as Text from '~/components/Text';
 import useCheckedRouter from '~/hooks/useCheckedRouter';
 import useConfigGuild from '~/hooks/useConfigGuild';
 import useRand from '~/hooks/useRand';
+import getGuildAcronym from '~/utils/getGuildAcronym';
 
 type ConfigGuildCardProps = {
 	wide?: boolean;
@@ -21,14 +23,16 @@ function ConfigGuildCard({ wide = false }: ConfigGuildCardProps) {
 	}
 
 	const GuildNameComponent = wide ? Styles.GuildNameWide : Styles.GuildName;
-	const GuildMemberCountComponent = wide ? Styles.GuildMemberCountWide : Styles.GuildMemberCount;
+	const GuildMemberCountComponent = wide ? Text.Body.Regular : Styles.GuildMemberCount;
 
 	return (
 		<Styles.Card wide={wide}>
-			{guild?.icon ? (
-				<Styles.GuildImage large={wide} src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`} />
-			) : (
+			{isLoading || !guild ? (
 				<Styles.SkeletonGuildImage large={wide} />
+			) : guild.icon === null ? (
+				<Styles.GuildAcronym large={wide} data-first-letter={guild.name[0]} data-full={getGuildAcronym(guild.name)} />
+			) : (
+				<Styles.GuildImage large={wide} src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`} />
 			)}
 			<Styles.CardHeader>
 				<GuildNameComponent>{guild?.name ?? <Skeleton width={`min(100%, ${skeletonWidth}px)`} />}</GuildNameComponent>

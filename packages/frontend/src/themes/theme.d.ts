@@ -1,5 +1,7 @@
 import type { Theme } from '@emotion/react';
 
+export type ThemeName = 'dark' | 'light';
+
 declare module '@emotion/react' {
 	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 	export interface Theme {
@@ -23,7 +25,7 @@ declare module '@emotion/react' {
 				secondary: string;
 			};
 		};
-		name: string;
+		name: ThemeName;
 	}
 }
 
