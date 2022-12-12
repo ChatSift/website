@@ -40,6 +40,7 @@ type Bot = {
 		reviews: [Review, Review, ...Review[]];
 		title: string;
 	};
+	slideshowImageWidth: number;
 	// min two, otherwise why are you using a slideshow??
 	slideshowImages: Slideshow;
 };

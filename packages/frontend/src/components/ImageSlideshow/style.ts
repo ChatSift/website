@@ -1,9 +1,12 @@
+import { keyframes } from '@emotion/css';
 import styled from '@emotion/styled';
 import { animated } from 'react-spring';
 import mediaQueries from '~/styles/breakpoints';
 
-export const gap = 24;
+export const gap = '24px';
 export const slideshowInterval = 3_000;
+
+const maxContainerWidth = 'min(512px, 70vw)';
 
 export const SlideshowContainer = styled.div`
 	overflow: hidden;
@@ -13,14 +16,35 @@ export const SlideshowContainer = styled.div`
 	}
 `;
 
+const slide = keyframes`
+	0% {
+		margin-left: 0;
+	}
+	100% {
+		margin-left: calc((var(--width-one-item) * -1 - ${gap}) * var(--n-images));
+	}
+`;
+
+const grow = keyframes`
+	0% {
+		padding-left: 0;
+	}
+	90% {
+		padding-left: calc((((var(--width-one-item) + ${gap}) * var(--n-images)) / var(--n-images)) / 100 * 90);
+	}
+`;
+
 type SlideshowProps = {
 	nImages: number;
 };
 
 export const Slideshow = styled.ul<SlideshowProps>`
 	display: flex;
-	gap: ${gap}px;
+	gap: ${gap};
 	width: max-content;
+	animation: ${slide} ${({ nImages }) => slideshowInterval * nImages}ms linear infinite,
+		${grow} ${slideshowInterval}ms linear infinite;
+	margin-right: ${gap};
 `;
 
 export const Image = styled(animated.img)`
@@ -30,17 +54,10 @@ export const Image = styled(animated.img)`
 
 export const ImageContainer = styled(animated.div)`
 	position: relative;
-	max-width: min(512px, 70vw);
+	max-width: ${maxContainerWidth};
 	width: 100%;
 	border-radius: 8px;
 	border: 2px solid ${({ theme }) => theme.colors.onBackground.secondary};
 	overflow: hidden;
-`;
-
-export const ProgressBar = styled(animated.div)`
-	background-color: ${({ theme }) => theme.colors.accent};
-	height: 4px;
-	position: absolute;
-	left: 0;
-	bottom: 0;
+	object-fit: contain;
 `;
