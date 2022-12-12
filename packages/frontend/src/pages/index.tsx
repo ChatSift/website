@@ -3,7 +3,6 @@ import { default as NextLink } from 'next/link';
 import ButtonLink from '~/components/ButtonLink';
 import Footer from '~/components/Footer';
 import Heading from '~/components/Heading';
-import Link from '~/components/Link';
 import bots, { botIcons } from '~/data/bots';
 import mediaQueries from '~/styles/breakpoints';
 import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
@@ -106,29 +105,29 @@ const BotDescription = styled.div`
 	color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
-const CustomSolutionUpsell = styled.li`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	gap: 12px;
-	padding: 16px;
-	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-	border-radius: 8px;
-`;
-
-const UpsellTitle = styled.span`
-	font-size: 22px;
-	font-weight: 550;
-`;
-
-const UpsellLink = styled(Link)`
-	color: ${({ theme }) => theme.colors.accent};
-	font-weight: 440;
-
-	&:hover {
-		text-decoration: underline;
-	}
-`;
+// const CustomSolutionUpsell = styled.li`
+// 	display: flex;
+// 	flex-direction: column;
+// 	justify-content: center;
+// 	gap: 12px;
+// 	padding: 16px;
+// 	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
+// 	border-radius: 8px;
+// `;
+//
+// const UpsellTitle = styled.span`
+// 	font-size: 22px;
+// 	font-weight: 550;
+// `;
+//
+// const UpsellLink = styled(Link)`
+// 	color: ${({ theme }) => theme.colors.accent};
+// 	font-weight: 440;
+//
+// 	&:hover {
+// 		text-decoration: underline;
+// 	}
+// `;
 
 const BotSection = styled.div`
 	display: flex;
@@ -192,13 +191,13 @@ function Home() {
 								);
 							},
 						)}
-						<CustomSolutionUpsell>
-							<UpsellTitle>Need a custom solution?</UpsellTitle>
-							<span>
-								<UpsellLink href="https://www.youtube.com/watch?v=Sk217hyDmHo">Get in touch</UpsellLink> and we{"'"}ll
-								help you out
-							</span>
-						</CustomSolutionUpsell>
+						{/* <CustomSolutionUpsell> */}
+						{/* 	<UpsellTitle>Need a custom solution?</UpsellTitle> */}
+						{/* 	<span> */}
+						{/* 		<UpsellLink href="https://www.youtube.com/watch?v=Sk217hyDmHo">Get in touch</UpsellLink> and we{"'"}ll */}
+						{/* 		help you out */}
+						{/* 	</span> */}
+						{/* </CustomSolutionUpsell> */}
 					</BotsList>
 				</BotSection>
 				<DonateHeading>
