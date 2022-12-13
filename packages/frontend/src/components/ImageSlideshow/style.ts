@@ -1,12 +1,8 @@
-import { keyframes } from '@emotion/css';
 import styled from '@emotion/styled';
 import { animated } from 'react-spring';
 import mediaQueries from '~/styles/breakpoints';
 
-export const gap = '24px';
 export const slideshowInterval = 3_000;
-
-const maxContainerWidth = 'min(512px, 70vw)';
 
 export const SlideshowContainer = styled.div`
 	overflow: hidden;
@@ -16,35 +12,17 @@ export const SlideshowContainer = styled.div`
 	}
 `;
 
-const slide = keyframes`
-	0% {
-		margin-left: 0;
-	}
-	100% {
-		margin-left: calc((var(--width-one-item) * -1 - ${gap}) * var(--n-images));
-	}
-`;
-
-const grow = keyframes`
-	0% {
-		padding-left: 0;
-	}
-	90% {
-		padding-left: calc((((var(--width-one-item) + ${gap}) * var(--n-images)) / var(--n-images)) / 100 * 90);
-	}
-`;
-
 type SlideshowProps = {
 	nImages: number;
 };
 
 export const Slideshow = styled.ul<SlideshowProps>`
 	display: flex;
-	gap: ${gap};
+	gap: var(--slideshow-gap);
 	width: max-content;
-	animation: ${slide} ${({ nImages }) => slideshowInterval * nImages}ms linear infinite,
-		${grow} ${slideshowInterval}ms linear infinite;
-	margin-right: ${gap};
+	animation: slideshow-slide ${({ nImages }) => slideshowInterval * nImages}ms linear infinite,
+		slideshow-grow ${slideshowInterval}ms linear infinite;
+	margin-right: var(--slideshow-gap);
 `;
 
 export const Image = styled(animated.img)`
@@ -52,9 +30,9 @@ export const Image = styled(animated.img)`
 	border-radius: 8px;
 `;
 
-export const ImageContainer = styled(animated.div)`
+export const ImageContainer = styled(animated.li)`
 	position: relative;
-	max-width: ${maxContainerWidth};
+	max-width: var(--width-one-item);
 	width: 100%;
 	border-radius: 8px;
 	border: 2px solid ${({ theme }) => theme.colors.onBackground.secondary};

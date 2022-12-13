@@ -1,10 +1,11 @@
 import { Slideshow, SlideshowContainer, Image, ImageContainer } from './style';
+import mediaQueries from '~/styles/breakpoints';
 
 function ImageSlideshow({
 	images,
-	imageWidth,
+	imageWidths,
 }: {
-	imageWidth: Bot['slideshowImageWidth'];
+	imageWidths: Bot['slideshowImageWidths'];
 	images: Bot['slideshowImages'];
 }) {
 	return (
@@ -12,10 +13,22 @@ function ImageSlideshow({
 			<style>
 				{`
 					:root {
-						--width-one-item: ${imageWidth}px;
+						--width-one-item: ${imageWidths.small}px;
 						--n-images: ${images.length};
 					}
-				`}
+					
+					${mediaQueries.smallMin} {
+						:root {
+							--width-one-item: ${imageWidths.medium}px;
+						}
+					}
+					
+					${mediaQueries.dashboardMaxWidthMin} {
+						:root {
+							--width-one-item: ${imageWidths.large}px;
+						}
+					}
+				`.replace(/\s/g, '')}
 			</style>
 			<SlideshowContainer>
 				<Slideshow nImages={images.length}>

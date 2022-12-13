@@ -1,7 +1,11 @@
 import * as Urls from '~/utils/urls';
 
 const autoModerator: Bot = {
-	slideshowImageWidth: 508,
+	slideshowImageWidths: {
+		small: 200,
+		medium: 300,
+		large: 508,
+	},
 	slideshowImages: [
 		{
 			url: 'https://i.kym-cdn.com/entries/icons/original/000/026/152/gigachad.jpg',

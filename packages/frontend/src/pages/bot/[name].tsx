@@ -193,7 +193,7 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 			<PageMeta title={bot.name} description={bot.description.card} />
 			<Container>
 				<section>
-					<ImageSlideshow images={bot.slideshowImages} imageWidth={bot.slideshowImageWidth} />
+					<ImageSlideshow images={bot.slideshowImages} imageWidths={bot.slideshowImageWidths} />
 					<Cta>
 						<CtaTitle>{bot.pageTitle}</CtaTitle>
 						<CtaTextContainer>
