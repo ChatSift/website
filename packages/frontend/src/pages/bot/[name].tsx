@@ -229,7 +229,10 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 						<SingleItemPaginator>
 							{[...(Array.from({ length: Math.ceil(bot.featureList.features.length / 3) }) as unknown[])].map(
 								(_, index) => (
-									<Features key={`page-${index}`}>
+									<Features
+										style={{ gridTemplateRows: '1fr '.repeat(Math.ceil(bot.featureList.features.length / 3)) }}
+										key={`page-${index}`}
+									>
 										{bot.featureList.features.slice(index * 3, index * 3 + 3).map(({ name, description }, jIndex) => (
 											<Feature key={`feat-${name}-${index}-${jIndex}`}>
 												<FeatureName>{name}</FeatureName>
