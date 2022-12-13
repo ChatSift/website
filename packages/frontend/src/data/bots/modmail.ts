@@ -1,6 +1,11 @@
 import * as Urls from '~/utils/urls';
 
 const ama: Bot = {
+	slideshowImageWidths: {
+		small: 200,
+		medium: 300,
+		large: 508,
+	},
 	slideshowImages: [
 		{
 			url: '/assets/bot-slideshows/modmail/rattus-cattus-the-third.jpg',

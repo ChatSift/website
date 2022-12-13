@@ -1,0 +1,23 @@
+:root {
+	--slideshow-gap: 24px;
+}
+
+@keyframes slideshow-slide {
+	0% {
+		margin-left: 0;
+	}
+	100% {
+		margin-left: calc((var(--width-one-item) * -1 - var(--slideshow-gap)) * var(--n-images));
+	}
+}
+
+@keyframes slideshow-grow {
+	0% {
+		padding-left: 0;
+	}
+	90% {
+		padding-left: calc(
+			(((var(--width-one-item) + var(--slideshow-gap)) * var(--n-images)) / var(--n-images)) / 100 * 90
+		);
+	}
+}

@@ -1,6 +1,11 @@
 import * as Urls from '~/utils/urls';
 
 const ama: Bot = {
+	slideshowImageWidths: {
+		small: 240,
+		medium: 240,
+		large: 240,
+	},
 	slideshowImages: [
 		{
 			url: '/assets/reviewers/gort.jpg',

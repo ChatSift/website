@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { animated } from 'react-spring';
 import mediaQueries from '~/styles/breakpoints';
 
-export const gap = 24;
 export const slideshowInterval = 3_000;
 
 export const SlideshowContainer = styled.div`
@@ -19,8 +18,11 @@ type SlideshowProps = {
 
 export const Slideshow = styled.ul<SlideshowProps>`
 	display: flex;
-	gap: ${gap}px;
+	gap: var(--slideshow-gap);
 	width: max-content;
+	animation: slideshow-slide ${({ nImages }) => slideshowInterval * nImages}ms linear infinite,
+		slideshow-grow ${slideshowInterval}ms linear infinite;
+	margin-right: var(--slideshow-gap);
 `;
 
 export const Image = styled(animated.img)`
@@ -28,19 +30,12 @@ export const Image = styled(animated.img)`
 	border-radius: 8px;
 `;
 
-export const ImageContainer = styled(animated.div)`
+export const ImageContainer = styled(animated.li)`
 	position: relative;
-	max-width: min(512px, 70vw);
+	max-width: var(--width-one-item);
 	width: 100%;
 	border-radius: 8px;
 	border: 2px solid ${({ theme }) => theme.colors.onBackground.secondary};
 	overflow: hidden;
-`;
-
-export const ProgressBar = styled(animated.div)`
-	background-color: ${({ theme }) => theme.colors.accent};
-	height: 4px;
-	position: absolute;
-	left: 0;
-	bottom: 0;
+	object-fit: contain;
 `;
