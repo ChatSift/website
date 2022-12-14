@@ -41,13 +41,15 @@ const ama: Bot = {
 	inviteLink: Urls.botInvite('ama'),
 	description: {
 		card: 'Manage and coordinate your Ask-Me-Anything events with ease.',
-		page: ['Ok I pull up'],
+		page: [
+			'Sift through community questions with a simple question feed ahead of time instead of picking them out from a live chat on the fly.',
+		],
 		otherBotUpsell:
 			"Host and promote your community AMA's with organized workflows and promotional embeds for members.",
 	},
 	featureList: {
 		title: 'Core Features',
-		text: "Enhance your community AMA's with a robut workflow to handle question moderation and selection.",
+		text: "Enhance your community AMA's with a robust workflow to handle question moderation and selection.",
 		features: [
 			{
 				name: 'Maintain confidentialy',
