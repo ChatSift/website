@@ -21,44 +21,39 @@ const autoModerator: Bot = {
 		},
 	],
 	name: 'AutoModerator',
-	pageTitle: 'Automate your moderation needs',
+	pageTitle: 'AutoModerator',
 	inviteLink: Urls.botInvite('automoderator'),
 	description: {
 		card: 'A powerful solution for your day-to-day moderation bot needs.',
 		page: [
-			'Focus on what matters most and automate the rest.',
-			'Automoderator works 24x7 across multiple timezones to keep your community safe at all times.',
+			'Instead of watching chat 24/7 let AutoModerator surface, review and handle issues across all timezones for you.',
 		],
-		otherBotUpsell: 'insert here',
+		otherBotUpsell: 'A robust content reporting and filtering solution for your community.',
 	},
 	featureList: {
-		title: 'Unmatched moderation potential',
+		title: 'Core Features',
 		text: 'Enhance your moderation toolkit with powerful utilities and commands that make moderation a breeze.',
 		features: [
 			{
-				name: 'Full punishment history',
-				description: 'Record all moderation cases and actions with persistent punishment history logged.',
+				name: 'Essential tooling',
+				description: 'Empower your staff with must have slash commands to improve moderation time cross-platform.',
+			},
+			{
+				name: 'Robust content filtering',
+				description:
+					'Automatically detect and handle harmful and unwanted text, images, files and links with robust filter options.',
+			},
+			{
+				name: 'Organized record keeping',
+				description: 'Every action by staff on your members is recorded so you can swiftly case review at a glance',
+			},
+			{
+				name: 'Comprehensive logging',
+				description: 'Record essential information like message edits and user updates only where designated.',
 			},
 			{
 				name: 'Action and reason presets',
-				description: 'Define actions and punishment reasons in advance for quick handling of a case.',
-			},
-			{
-				name: 'AI-powered NSFW filtering',
-				description: 'Configure thresholds for determining how explicit an image needs to be to get filtered.',
-			},
-			{
-				name: 'Content-type whitelists',
-				description: 'Allow only particular file formats, domain links and invite links to be sent in chat.',
-			},
-			{
-				name: 'Automated raid and spam handling',
-				description:
-					'Check account age, profile pictures and character sequences in usernames and action them automatically.',
-			},
-			{
-				name: 'Customizable deep logging',
-				description: 'Watch and log events in individual channels while ignoring certain channels or roles.',
+				description: 'Define actions and punishment reasons in advance for quick handling of cases.',
 			},
 		],
 	},
@@ -67,7 +62,7 @@ const autoModerator: Bot = {
 		reviews: [
 			{
 				content:
-					'We love Automoderator! It’s made moderating our Discord server a total breeze. I can’t imagine going back to another bot again.',
+					"We love Automoderator! It's made moderating our Discord server a total breeze. I can't imagine going back to another bot again.",
 				author: {
 					name: 'Eviljt',
 					role: 'CEO, Getting things done on time LLC',
