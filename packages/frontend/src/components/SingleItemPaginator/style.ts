@@ -25,7 +25,7 @@ export const ControlsArrows = styled.div`
 	gap: ${12 - buttonPadding}px;
 `;
 
-export const ControlsNoJs = styled.ul`
+export const ControlsNoJs = styled.div`
 	display: none;
 	flex-direction: row;
 	justify-content: center;
