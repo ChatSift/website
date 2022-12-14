@@ -2,34 +2,22 @@ import * as Urls from '~/utils/urls';
 
 const ama: Bot = {
 	slideshowImageWidths: {
-		small: 200,
-		medium: 300,
-		large: 508,
+		small: 300,
+		medium: 400,
+		large: 500,
 	},
 	slideshowImages: [
 		{
-			url: '/assets/bot-slideshows/modmail/rattus-cattus-the-third.jpg',
-			alt: 'he has claimed his rightful place on the throne',
+			url: '/assets/bot-slideshows/modmail/ModMailCover1.png',
+			alt: '',
 		},
 		{
-			url: '/assets/bot-slideshows/modmail/rattus-cattus-the-third.jpg',
-			alt: 'he has claimed his rightful place on the throne',
+			url: '/assets/bot-slideshows/modmail/ModMailCover2.png',
+			alt: '',
 		},
 		{
-			url: '/assets/bot-slideshows/modmail/rattus-cattus-the-third.jpg',
-			alt: 'he has claimed his rightful place on the throne',
-		},
-		{
-			url: '/assets/bot-slideshows/modmail/rattus-cattus-the-third.jpg',
-			alt: 'he has claimed his rightful place on the throne',
-		},
-		{
-			url: '/assets/bot-slideshows/modmail/rattus-cattus-the-third.jpg',
-			alt: 'he has claimed his rightful place on the throne',
-		},
-		{
-			url: '/assets/bot-slideshows/modmail/rattus-cattus-the-third.jpg',
-			alt: 'he has claimed his rightful place on the throne',
+			url: '/assets/bot-slideshows/modmail/ModMailCover3.png',
+			alt: '',
 		},
 	],
 	name: 'ModMail',
