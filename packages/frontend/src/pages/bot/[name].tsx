@@ -272,7 +272,7 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 				<DonationUpsellSection>
 					<Heading
 						title="Help keep the project alive"
-						subtitle="Support us on Kofi to help maintain these tools and live happily ever after"
+						subtitle="Donate on Kofi to help support the apps we're developing."
 						gap={12}
 					/>
 					<ButtonLink.Cta href="/kofi" external>

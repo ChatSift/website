@@ -203,7 +203,7 @@ function Home() {
 				<DonateHeading>
 					<Heading
 						title="Support the project"
-						subtitle="Support us on Kofi to help maintain these tools and live happily ever after"
+						subtitle="Donate on Kofi to help support the apps we're developing."
 						gap={12}
 					/>
 					<ButtonLink.Cta href="/kofi" external>

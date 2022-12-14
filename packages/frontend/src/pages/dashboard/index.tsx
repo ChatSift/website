@@ -181,7 +181,7 @@ function Dashboard() {
 			<Container id="container">
 				<SectionContainer>
 					<MainHeadingContainer>
-						<Heading title="Configure bots" subtitle="Pick a server to configure bots in." />
+						<Heading title="Configure bots" subtitle="Select or add a community to manage." />
 						<Button.Ghost
 							onPress={() => void refetchGuilds()}
 							isDisabled={isFetching}

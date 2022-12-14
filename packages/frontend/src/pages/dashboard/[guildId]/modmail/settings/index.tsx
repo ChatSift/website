@@ -119,7 +119,7 @@ function ModMailSettings() {
 						<>
 							<Text.Heading3>ModMail Settings</Text.Heading3>
 							<ConfigOptionCollection>
-								<ConfigOption name="Greeting message" caption="The message new tickets are greeted with.">
+								<ConfigOption name="Greeting message" caption="Sent when a member creates a new ticket.">
 									<TextArea
 										style={{ width: '100%' }}
 										value={currentValue?.greetingMessage ?? ''}
@@ -131,7 +131,7 @@ function ModMailSettings() {
 										}
 									/>
 								</ConfigOption>
-								<ConfigOption name="Farewell message" caption="The message tickets are closed with.">
+								<ConfigOption name="Farewell message" caption="Sent when a ticket is closed.">
 									<TextArea
 										style={{ width: '100%' }}
 										value={currentValue?.farewellMessage ?? ''}
@@ -143,7 +143,7 @@ function ModMailSettings() {
 										}
 									/>
 								</ConfigOption>
-								<ConfigOption name="Modmail channel" caption="The channel new modmails go into? I think?">
+								<ConfigOption name="Modmail channel" caption="Where all tickets are kept.">
 									<Dropdown
 										hasIcons={true}
 										hasNoneOption={true}
@@ -155,7 +155,7 @@ function ModMailSettings() {
 								</ConfigOption>
 								<ConfigOption
 									name="Alert role"
-									caption="The role that gets alerted on new modmails, or something of the sort."
+									caption="Ping this role when a new ticket is received."
 								>
 									<Dropdown
 										hasIcons={false}
@@ -168,7 +168,7 @@ function ModMailSettings() {
 								</ConfigOption>
 								<ConfigOption
 									name="Simple mode"
-									caption="No embeds."
+									caption="Uses plaintext instead of embeds for Modmail."
 									input={
 										<ToggleSwitch
 											checked={currentValue?.simpleMode}
