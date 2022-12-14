@@ -1,6 +1,11 @@
 import * as Urls from '~/utils/urls';
 
 const ama: Bot = {
+	slideshowImageWidths: {
+		small: 240,
+		medium: 240,
+		large: 240,
+	},
 	slideshowImages: [
 		{
 			url: '/assets/reviewers/gort.jpg',
@@ -32,85 +37,35 @@ const ama: Bot = {
 		},
 	],
 	name: 'AMA',
-	pageTitle: 'Ok I pull up',
+	pageTitle: 'AMA (Ask Me Anything)',
 	inviteLink: Urls.botInvite('ama'),
 	description: {
 		card: 'Manage and coordinate your Ask-Me-Anything events with ease.',
-		page: ['Ok I pull up'],
-		otherBotUpsell: 'Ok I pull up',
+		page: [
+			'Sift through community questions with a simple question feed ahead of time instead of picking them out from a live chat on the fly.',
+		],
+		otherBotUpsell:
+			"Host and promote your community AMA's with organized workflows and promotional embeds for members.",
 	},
 	featureList: {
-		title: 'Ok I pull up',
-		text: 'Ok I pull up',
+		title: 'Core Features',
+		text: "Enhance your community AMA's with a robust workflow to handle question moderation and selection.",
 		features: [
 			{
-				name: 'Ok I pull up',
-				description: 'Ok I pull up',
+				name: 'Maintain confidentialy',
+				description: 'Review, moderate and select community questions in private.',
 			},
 			{
-				name: 'Ok I pull up',
-				description: 'Ok I pull up',
+				name: 'Event embed',
+				description: "New AMA's will post an embed that members can submit questions through.",
 			},
 			{
-				name: 'Ok I pull up',
-				description: 'Ok I pull up',
+				name: 'Moderation queue',
+				description: 'Remove unwanted, inappropriate and duplicate questions privately within the moderation queue.',
 			},
 			{
-				name: 'Ok I pull up',
-				description: 'Ok I pull up',
-			},
-			{
-				name: 'Ok I pull up',
-				description: 'Ok I pull up',
-			},
-			{
-				name: 'Ok I pull up',
-				description: 'Ok I pull up',
-			},
-			{
-				name: 'Ok I pull up',
-				description: 'Ok I pull up',
-			},
-			{
-				name: 'Ok I pull up',
-				description: 'Ok I pull up',
-			},
-		],
-	},
-	reviews: {
-		title: 'Ok I pull up',
-		reviews: [
-			{
-				content: 'Ok I pull up',
-				author: {
-					name: 'Gort',
-					role: 'Pulling up @ The After Party',
-					avatarUrl: '/assets/reviewers/gort.jpg',
-				},
-			},
-			{
-				content: 'Ok I pull up',
-				author: {
-					name: 'Gort',
-					role: 'Pulling up @ The After Party',
-					avatarUrl: '/assets/reviewers/gort.jpg',
-				},
-			},
-			{
-				content: 'Ok I pull up',
-				author: {
-					name: 'Gort',
-					role: 'Pulling up @ The After Party',
-					avatarUrl: '/assets/reviewers/gort.jpg',
-				},
-			},
-			{
-				content: 'Ok I pull up',
-				author: {
-					name: 'Gort',
-					role: 'Pulling up @ The After Party',
-					avatarUrl: '/assets/reviewers/gort.jpg',
-				},
+				name: 'Guest queue',
+				description: 'Privately decide which approved questions are answered next as a host or guest using buttons.',
 			},
 		],
 	},
