@@ -153,10 +153,7 @@ function ModMailSettings() {
 										disabled={isGuildDataLoading || isMutating}
 									/>
 								</ConfigOption>
-								<ConfigOption
-									name="Alert role"
-									caption="Ping this role when a new ticket is received."
-								>
+								<ConfigOption name="Alert role" caption="Ping this role when a new ticket is received.">
 									<Dropdown
 										hasIcons={false}
 										hasNoneOption={true}
