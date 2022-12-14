@@ -1,0 +1,3 @@
+[id^='paginator-btn-']:not(:checked) + [id^='paginator-content-'] {
+	display: none;
+}
