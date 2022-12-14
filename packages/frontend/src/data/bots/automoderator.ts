@@ -57,36 +57,6 @@ const autoModerator: Bot = {
 			},
 		],
 	},
-	reviews: {
-		title: 'Trusted by the community',
-		reviews: [
-			{
-				content:
-					"We love Automoderator! It's made moderating our Discord server a total breeze. I can't imagine going back to another bot again.",
-				author: {
-					name: 'Eviljt',
-					role: 'CEO, Getting things done on time LLC',
-					avatarUrl: '/assets/reviewers/rjt.png',
-				},
-			},
-			{
-				content: 'Ok I pull up',
-				author: {
-					name: 'Gort',
-					role: 'Part time serial killer, full-time capybara',
-					avatarUrl: '/assets/reviewers/gort.jpg',
-				},
-			},
-			{
-				content: 'Ooo ye boogie ye shk oh yeah boogie oh yeah',
-				author: {
-					name: 'Bert',
-					role: 'Dancer',
-					avatarUrl: 'https://media.discordapp.net/stickers/871832109482917929.png?size=240',
-				},
-			},
-		],
-	},
 };
 
 export default autoModerator;

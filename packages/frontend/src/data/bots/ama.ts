@@ -67,43 +67,6 @@ const ama: Bot = {
 			},
 		],
 	},
-	reviews: {
-		title: 'Ok I pull up',
-		reviews: [
-			{
-				content: 'Ok I pull up',
-				author: {
-					name: 'Gort',
-					role: 'Pulling up @ The After Party',
-					avatarUrl: '/assets/reviewers/gort.jpg',
-				},
-			},
-			{
-				content: 'Ok I pull up',
-				author: {
-					name: 'Gort',
-					role: 'Pulling up @ The After Party',
-					avatarUrl: '/assets/reviewers/gort.jpg',
-				},
-			},
-			{
-				content: 'Ok I pull up',
-				author: {
-					name: 'Gort',
-					role: 'Pulling up @ The After Party',
-					avatarUrl: '/assets/reviewers/gort.jpg',
-				},
-			},
-			{
-				content: 'Ok I pull up',
-				author: {
-					name: 'Gort',
-					role: 'Pulling up @ The After Party',
-					avatarUrl: '/assets/reviewers/gort.jpg',
-				},
-			},
-		],
-	},
 };
 
 export default ama;

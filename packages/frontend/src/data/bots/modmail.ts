@@ -75,47 +75,6 @@ const ama: Bot = {
 			},
 		],
 	},
-	reviews: {
-		title: 'Ok I pull up',
-		reviews: [
-			{
-				content:
-					'When I first laid eyes on Rattus Cattus the Third, I knew I was in the presence of greatness. He stood tall and proud, surveying his kingdom with the air of a true ruler. It was clear that he was no ordinary cat - he was a true feline conqueror.',
-				author: {
-					name: 'Whiskers',
-					role: 'Noble feline',
-					avatarUrl: '/assets/reviewers/whiskers.png',
-				},
-			},
-			{
-				content:
-					'Rattus Cattus the Third may be small in stature, but he is a giant among cats. He is a master strategist, always thinking several steps ahead of his foes. He may be soft and fluffy on the outside, but there is a fierce warrior within him.',
-				author: {
-					name: 'Socks',
-					role: 'Young kitten',
-					avatarUrl: '/assets/reviewers/socks.png',
-				},
-			},
-			{
-				content:
-					'I have never seen a cat as agile and graceful as Rattus Cattus the Third. He moves with the speed and precision of a ninja, always landing on his feet and never missing a beat. He is the embodiment of feline perfection.',
-				author: {
-					name: 'Paws',
-					role: 'Clever feline',
-					avatarUrl: '/assets/reviewers/paws.png',
-				},
-			},
-			{
-				content:
-					'Rattus Cattus the Third has a heart of gold. He may be tough and fierce in battle, but he is also kind and gentle with those he cares about. He is the perfect combination of strength and compassion, a true hero among cats.',
-				author: {
-					name: 'Mittens',
-					role: 'Gentle feline',
-					avatarUrl: '/assets/reviewers/mittens.png',
-				},
-			},
-		],
-	},
 };
 
 export default ama;
