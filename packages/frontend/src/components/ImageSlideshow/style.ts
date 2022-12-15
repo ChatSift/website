@@ -26,7 +26,6 @@ export const Slideshow = styled.ul<SlideshowProps>`
 
 export const Image = styled.img`
 	background-color: ${({ theme }) => theme.colors.onBackground.secondary};
-	border-radius: 8px;
 `;
 
 export const ImageContainer = styled.li`
