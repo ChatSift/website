@@ -2,38 +2,18 @@ import * as Urls from '~/utils/urls';
 
 const ama: Bot = {
 	slideshowImageWidths: {
-		small: 240,
-		medium: 240,
-		large: 240,
+		small: 300,
+		medium: 400,
+		large: 500,
 	},
 	slideshowImages: [
 		{
-			url: '/assets/reviewers/gort.jpg',
-			alt: 'he pulls up to the after party',
+			url: '/assets/bot-slideshows/ama/AMA1.png',
+			alt: '',
 		},
 		{
-			url: '/assets/reviewers/gort.jpg',
-			alt: 'he pulls up to the after party',
-		},
-		{
-			url: '/assets/reviewers/gort.jpg',
-			alt: 'he pulls up to the after party',
-		},
-		{
-			url: '/assets/reviewers/gort.jpg',
-			alt: 'he pulls up to the after party',
-		},
-		{
-			url: '/assets/reviewers/gort.jpg',
-			alt: 'he pulls up to the after party',
-		},
-		{
-			url: '/assets/reviewers/gort.jpg',
-			alt: 'he pulls up to the after party',
-		},
-		{
-			url: '/assets/reviewers/gort.jpg',
-			alt: 'he pulls up to the after party',
+			url: '/assets/bot-slideshows/ama/AMA2.png',
+			alt: '',
 		},
 	],
 	name: 'AMA',

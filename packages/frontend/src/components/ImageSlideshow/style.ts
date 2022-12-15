@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { animated } from 'react-spring';
 import mediaQueries from '~/styles/breakpoints';
 
 export const slideshowInterval = 3_000;
@@ -25,12 +24,12 @@ export const Slideshow = styled.ul<SlideshowProps>`
 	margin-right: var(--slideshow-gap);
 `;
 
-export const Image = styled(animated.img)`
+export const Image = styled.img`
 	background-color: ${({ theme }) => theme.colors.onBackground.secondary};
 	border-radius: 8px;
 `;
 
-export const ImageContainer = styled(animated.li)`
+export const ImageContainer = styled.li`
 	position: relative;
 	max-width: var(--width-one-item);
 	width: 100%;

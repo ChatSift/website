@@ -67,7 +67,7 @@ function GuildDashboard() {
 			<ConfigPageFrame>
 				<Text.Heading3>Server Settings</Text.Heading3>
 				<ConfigGuildCard wide />
-				<ConfigSection title="Bots" description="Choose a bot to manage, or something. Idk I'm not the copywriter.">
+				<ConfigSection title="Bots" description="Configure the settings of supported bots for this community.">
 					<ConfigOptionCollection>
 						<ConfigOption
 							isLoading={isLoading}
