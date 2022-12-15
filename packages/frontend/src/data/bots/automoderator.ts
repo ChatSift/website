@@ -8,16 +8,20 @@ const autoModerator: Bot = {
 	},
 	slideshowImages: [
 		{
-			url: 'https://i.kym-cdn.com/entries/icons/original/000/026/152/gigachad.jpg',
-			alt: 'schoobie doober',
+			url: '/assets/bot-slideshows/automoderator/AMCover1.png',
+			alt: '',
 		},
 		{
-			url: 'https://i.ytimg.com/vi/Ux5cQbO_ybw/maxresdefault.jpg',
-			alt: 'schoobie doober',
+			url: '/assets/bot-slideshows/automoderator/AMCover2.png',
+			alt: '',
 		},
 		{
-			url: 'https://i.ytimg.com/vi/lQezinb283E/maxresdefault.jpg',
-			alt: 'schoobie doober',
+			url: '/assets/bot-slideshows/automoderator/AMCover3.png',
+			alt: '',
+		},
+		{
+			url: '/assets/bot-slideshows/automoderator/AMCover4.png',
+			alt: '',
 		},
 	],
 	name: 'AutoModerator',
