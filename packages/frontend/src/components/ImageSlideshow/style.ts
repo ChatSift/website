@@ -25,6 +25,7 @@ export const Slideshow = styled.ul<SlideshowProps>`
 `;
 
 export const Image = styled.img`
+	width: 100%;
 	background-color: ${({ theme }) => theme.colors.onBackground.secondary};
 `;
 
