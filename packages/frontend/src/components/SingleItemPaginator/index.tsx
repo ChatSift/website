@@ -40,11 +40,11 @@ function SingleItemPaginator(props: SingleItemPaginatorProps) {
 				<style>
 					{`
 						.hide-no-js {
-							display: none;
+							display: none !important;
 						}
 						
 						.controls-no-js {
-							display: flex;
+							display: flex !important;
 						}
 					`.replace(/\s/g, '')}
 				</style>
