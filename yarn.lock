@@ -417,6 +417,7 @@ __metadata:
     "@types/node": ^16.11.47
     "@types/react-dom": ^18.0.6
     "@use-gesture/react": ^10.2.22
+    "@vercel/analytics": ^0.1.8
     discord-api-types: ^0.37.19
     facepaint: ^1.2.1
     next: 12.2.4
@@ -3917,6 +3918,15 @@ __metadata:
   peerDependencies:
     react: ">= 16.8.0"
   checksum: 1d05fd8630f3e2f74b931ebefb07d7f76494c133486c7828b6162cd8c0a020a69ef5ded014c7b51aa97bdc7368efc3283d208e3ff27952bbeff6f988ea0a3a98
+  languageName: node
+  linkType: hard
+
+"@vercel/analytics@npm:^0.1.8":
+  version: 0.1.8
+  resolution: "@vercel/analytics@npm:0.1.8"
+  peerDependencies:
+    react: ^16.8||^17||^18
+  checksum: e837f66494372d557e32383e7ab7192a40da242a16d4f650f61b6e0c5ea282b2a37120ec125d3c5d5e3228c3d1957f48c93d299b4b466169e9d7a853a8014c3a
   languageName: node
   linkType: hard
 
