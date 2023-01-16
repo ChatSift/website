@@ -3,6 +3,7 @@ import { Global, ThemeProvider, css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Analytics } from '@vercel/analytics/react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -83,6 +84,7 @@ function App({ Component, pageProps }: AppProps) {
 						highlightColor={theme.colors.onBackground.secondary}
 						duration={skeletonDuration}
 					>
+						<Analytics />
 						<Head>
 							<meta name="viewport" content="width=device-width, initial-scale=1" />
 							<link rel="icon" href="/assets/favicon.ico" />
