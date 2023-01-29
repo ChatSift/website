@@ -84,7 +84,14 @@ function App({ Component, pageProps }: AppProps) {
 						highlightColor={theme.colors.onBackground.secondary}
 						duration={skeletonDuration}
 					>
-						<Analytics />
+						<Analytics
+							beforeSend={(event) => {
+								return {
+									...event,
+									url: event.url.replaceAll(/(?<id>\d{17,20})/g, 'id'),
+								};
+							}}
+						/>
 						<Head>
 							<meta name="viewport" content="width=device-width, initial-scale=1" />
 							<link rel="icon" href="/assets/favicon.ico" />
