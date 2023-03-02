@@ -1,289 +1,325 @@
-import { keyframes, css } from '@emotion/css';
-import styled from '@emotion/styled';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { RouterLink } from '~/components/Link';
+import { keyframes, styled, css, theme } from '~/stitches/stitches.config';
 import mediaQueries from '~/styles/breakpoints';
-import type { ThemeProps } from '~/themes/theme';
 
 export const mobileNavAnimDuration = 0.3;
 export const mobileThreshold = mediaQueries.mediumMin;
 
-export const Base = styled.header`
-	position: sticky;
-	top: 0;
-	display: flex;
-	flex-direction: column;
-	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
-	width: 100%;
-	z-index: 10000;
-	height: 64px;
+export const Header = styled('header', {
+	position: 'sticky',
+	top: 0,
+	displayFlex: 'column',
+	backgroundColor: theme.colors.bgBase,
+	width: '100%',
+	zIndex: 10_000,
 
-	${mobileThreshold} {
-		border-bottom: 1px solid ${(props: ThemeProps) => props.theme.colors.onBackground.secondary};
-		padding: 16px 32px 16px 24px;
-		height: auto;
-	}
-`;
+	variants: {
+		desktop: {
+			true: {
+				borderBottomWidth: theme.borderWidths.thin,
+				borderBottomStyle: theme.borderStyles.normal,
+				borderBottomColor: theme.colors.onBgSecondary,
+				paddingY: theme.space.lg,
+				paddingRight: theme.space.xxl,
+				paddingLeft: theme.space.xl,
+				height: 'auto',
+			},
+			false: {
+				height: 64,
+			},
+		},
+	},
+});
 
-export const activeMobileOverride = css`
-	& > *:nth-child(1) {
-		display: none;
-	}
+export const activeMobileOverride = css({
+	'& > *:nth-child(1)': {
+		display: 'none',
+	},
 
-	${mobileThreshold} {
-		& > * {
-			display: none;
-		}
-	}
-`;
+	[mediaQueries.mediumMin]: {
+		'& > *': {
+			display: 'none',
+		},
+	},
+});
 
-export const DesktopNav = styled(NavigationMenu.Root)`
-	display: flex;
-	align-items: center;
-`;
+export const DesktopNav = styled(NavigationMenu.Root, {
+	display: 'flex',
+	alignItems: 'center',
+});
 
-export const HorizontalList = styled(NavigationMenu.List)`
-	list-style-type: none;
-	padding: 0;
-	display: flex;
-	margin: 0;
+export const HorizontalList = styled(NavigationMenu.List, {
+	padding: 0,
+	display: 'flex',
+	margin: 0,
 
-	& > * {
-		margin-right: 24px;
-	}
-`;
+	'& > *': {
+		marginRight: theme.space.xl,
+	},
+});
 
-export const MobileUser = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 12px 16px;
-	transition: transform ${mobileNavAnimDuration}s ease-in-out;
-	transform: translateY(-100%) scale(0.95);
-	pointer-events: none;
-	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
-	position: absolute;
-	width: 100%;
-	z-index: -1;
+export const MobileUser = styled('div', {
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'space-between',
+	paddingX: theme.space.lg,
+	paddingY: theme.space.md,
+	transition: `translate ${mobileNavAnimDuration}s ease-in-out, scale ${mobileNavAnimDuration}s ease-in-out`,
+	backgroundColor: theme.colors.bgBase,
+	position: 'absolute',
+	width: '100%',
+	zIndex: -1,
 
-	&[data-mobile-open='true'] {
-		transform: translateY(0);
-		pointer-events: all;
-	}
+	variants: {
+		open: {
+			true: {
+				pointerEvents: 'all',
+				translate: '0 0',
+				scale: 1,
+			},
+			false: {
+				pointerEvents: 'none',
+				translate: '0 -100%',
+				scale: 0.95,
+			},
+		},
 
-	${mobileThreshold} {
-		display: none;
-	}
-`;
+		visible: {
+			false: {
+				display: 'none',
+			},
+		},
 
-const mobileNavOpenAnimation = keyframes`
-  from {
-    max-height: 0;
-  }
+		mobile: {
+			false: {
+				display: 'none',
+			},
+		},
+	},
+});
 
-  to {
-    max-height: 100vh;
-  }
-`;
+export const MobileNav = styled(NavigationMenu.Root, {
+	position: 'relative',
+	backgroundColor: theme.colors.bgBase,
 
-const mobileNavCloseAnimation = keyframes`
-  from {
-    max-height: 220px;
-  }
+	variants: {
+		mobile: {
+			false: {
+				display: 'none',
+			},
+		},
+	},
+});
 
-  to {
-    max-height: 0;
-  }
-`;
+export const Logo = styled(RouterLink, {
+	display: 'flex',
+	alignItems: 'center',
+	marginRight: theme.space.xl,
+});
 
-const mobileNavRootCloseAnimation = keyframes`
-  from {
-    padding: 16px 0;
-  }
+const mobileNavRootCloseAnimation = keyframes({
+	from: {
+		paddingY: theme.space.lg,
+		maxHeight: 220,
+	},
 
-  to {
-    padding: 0;
-  }
-`;
+	to: {
+		paddingY: theme.space.none,
+		maxHeight: 0,
+	},
+});
 
-export const MobileNav = styled(NavigationMenu.Root)`
-	display: unset;
-	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
-	position: relative;
+const mobileNavOpenAnimation = keyframes({
+	from: {
+		maxHeight: 0,
+	},
 
-	${mobileThreshold} {
-		display: none;
-	}
-`;
+	to: {
+		maxHeight: '100vh',
+	},
+});
 
-export const LogoBase = css`
-	display: flex;
-	align-items: center;
-	margin-right: 24px;
-`;
+export const VerticalList = styled(NavigationMenu.List, {
+	overflow: 'hidden',
+	displayFlex: 'column',
+	marginX: theme.space.lg,
+	zIndex: 3,
+	backgroundColor: theme.colors.bgBase,
+	transition: 'padding 0.3s ease-in-out',
 
-export const VerticalList = styled(NavigationMenu.List)`
-	list-style-type: none;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-	padding: 16px 0 24px;
-	margin: 0 16px;
-	transition: padding 0.3s ease-in-out;
-	z-index: 3;
-	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
+	variants: {
+		open: {
+			true: {
+				borderBottomWidth: theme.borderWidths.thin,
+				borderBottomStyle: theme.borderStyles.normal,
+				borderBottomColor: theme.colors.onBgSecondary,
+				paddingTop: theme.space.lg,
+				paddingBottom: theme.space.xl,
+				animationName: mobileNavOpenAnimation.toString(),
+				animationTimingFunction: 'ease-out',
+			},
+			false: {
+				animationName: mobileNavRootCloseAnimation.toString(),
+				animationTimingFunction: 'ease-in-out',
+				maxHeight: 0,
+			},
+		},
+	},
+});
 
-	&:not([data-open]),
-	&[data-open='false'] {
-		padding: 0;
-	}
+export const List = styled('ul', {
+	listStyleType: 'none',
+	padding: 0,
+	margin: 0,
 
-	&[data-open='false'] {
-		animation: ${mobileNavRootCloseAnimation} 0.5s ease-in-out;
-	}
+	variants: {
+		visible: {
+			true: {
+				display: 'flex',
+			},
+			false: {
+				display: 'none',
+			},
+		},
+	},
+});
 
-	&[data-open='true'] {
-		border-bottom: 1px solid ${(props: ThemeProps) => props.theme.colors.onBackground.secondary};
-	}
-`;
+export const Item = styled('li', {
+	display: 'flex',
+	alignItems: 'center',
+	marginRight: theme.space.xl,
+});
 
-export const MobileNavOpen = css`
-	animation: ${mobileNavOpenAnimation} ease-out;
-`;
+// const MobileNavItemShow = keyframesOld`
+//   from {
+//     transform: scale(0.95) translateY(-100%);
+//     opacity: 0;
+//   }
+//
+//   to {
+//     transform: scale(1);
+//     opacity: 1;
+//   }
+// `;
 
-export const MobileNavClosed = css`
-	&:not([data-open]),
-	&[data-open='false'] {
-		max-height: 0;
-	}
+// MobileNavItemShow in stitches form
+const MobileNavItemShow = keyframes({
+	from: {
+		scale: 0.95,
+		translate: '0 -100%',
+		opacity: 0,
+	},
+	to: {
+		scale: 1,
+		translate: '0 0',
+		opacity: 1,
+	},
+});
 
-	&[data-open='false'] {
-		animation: ${mobileNavCloseAnimation} ease-out;
-	}
-`;
+const MobileNavItemHide = keyframes({
+	from: {
+		scale: 1,
+		opacity: 1,
+	},
 
-export const List = styled.ul`
-	list-style-type: none;
-	padding: 0;
-	display: none;
-	margin: 0;
+	to: {
+		scale: 0.95,
+		translate: '0 -100%',
+		opacity: 0,
+	},
+});
 
-	${mobileThreshold} {
-		display: flex;
-	}
-`;
+export const MobileNavItem = styled(NavigationMenu.Item, {
+	'&:not(:last-child)': {
+		marginBottom: theme.space.md,
+	},
+});
 
-export const Item = styled.li`
-	display: flex;
-	align-items: center;
-	margin-right: 24px;
-`;
+// convert to new styled
+export const MobileLink = styled(RouterLink, {
+	paddingX: theme.space.lg,
+	paddingY: theme.space.md,
+	color: theme.colors.textPrimary,
+	backgroundColor: theme.colors.onBgTertiary,
+	borderRadius: theme.radii.sm,
+	cursor: 'pointer',
+	display: 'block',
+	animationTimingFunction: 'ease-out',
+	animationDuration: `${mobileNavAnimDuration}s`,
+	animationFillMode: 'forwards',
 
-const MobileNavItemShow = keyframes`
-  from {
-    transform: scale(0.95) translateY(-100%);
-    opacity: 0;
-  }
+	variants: {
+		open: {
+			true: {
+				scale: 0.95,
+				opacity: 0,
+				animationName: MobileNavItemShow.toString(),
+			},
+			false: {
+				scale: 1,
+				opacity: 1,
+				animationName: MobileNavItemHide.toString(),
+			},
+		},
+	},
+});
 
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-`;
+export const ItemNoMobile = styled(NavigationMenu.Item, {
+	alignItems: 'center',
 
-const MobileNavItemHide = keyframes`
-  from {
-    transform: scale(1);
-    opacity: 1;
-  }
+	variants: {
+		mobile: {
+			true: {
+				display: 'none',
+			},
+			false: {
+				display: 'flex',
+			},
+		},
+	},
+});
 
-  to {
-    transform: scale(0.95) translateY(-100%);
-    opacity: 0;
-  }
-`;
+export const HeaderContent = styled('div', {
+	alignItems: 'center',
+	justifyContent: 'space-between',
+	marginLeft: 'auto',
+	padding: theme.space.sm,
+	backgroundColor: theme.colors.bgBase,
 
-export const MobileNavItem = styled(NavigationMenu.Item)`
-	&:not(:last-child) {
-		margin-bottom: 12px;
-	}
-`;
+	variants: {
+		visible: {
+			true: {
+				display: 'flex',
+			},
+			false: {
+				display: 'none',
+			},
+		},
+	},
+});
 
-export const MobileLink = styled(RouterLink)`
-	padding: 12px 16px;
-	color: ${(props) => props.theme.colors.text.primary};
-	background-color: ${(props) => props.theme.colors.onBackground.tertiary};
-	border-radius: 4px;
-	cursor: pointer;
-	display: block;
+export const AuthDesktop = styled(ItemNoMobile, {
+	marginLeft: 'auto',
+	gap: theme.space.xl,
+});
 
-	&[data-open='true'] {
-		transform: scale(0.95);
-		opacity: 0;
-		animation: ${MobileNavItemShow} ${mobileNavAnimDuration}s ease-out;
-	}
+export const LogoText = styled('h1', {
+	fontWeight: theme.fontWeights.bold,
+	fontSize: theme.fontSizes.three,
+	margin: 0,
+	marginLeft: theme.space.sm,
+	color: theme.colors.textPrimary,
+});
 
-	&:not([data-open]),
-	&[data-open='false'] {
-		transform: scale(1);
-		opacity: 1;
-	}
+export const Link = styled(RouterLink, {
+	color: theme.colors.textSecondary,
+	textDecoration: 'none',
+	fontWeight: theme.fontWeights.thin,
+	fontSize: theme.fontSizes.two,
+	cursor: 'pointer',
 
-	&[data-open='false'] {
-		animation: ${MobileNavItemHide} ${mobileNavAnimDuration}s ease-out;
-	}
-
-	animation-fill-mode: forwards !important;
-	@media (prefers-reduced-motion) {
-		& {
-			transform: none !important;
-			opacity: 1 !important;
-		}
-	}
-`;
-
-export const ItemNoMobile = styled(NavigationMenu.Item)`
-	align-items: center;
-	display: none;
-
-	${mobileThreshold} {
-		display: flex;
-	}
-`;
-
-export const HeaderContent = styled.div`
-	align-items: center;
-	display: flex;
-	justify-content: space-between;
-	margin-left: auto;
-	padding: 8px;
-	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
-
-	${mobileThreshold} {
-		display: none;
-	}
-`;
-
-export const AuthDesktop = styled(ItemNoMobile)`
-	margin-left: auto;
-	gap: 24px;
-`;
-
-export const LogoText = styled.h1`
-	font-weight: 550;
-	font-size: 22px;
-	margin: 0 0 0 8px;
-	color: ${(props) => props.theme.colors.text.primary};
-`;
-
-export const Link = styled(RouterLink)`
-	color: ${(props: ThemeProps) => props.theme.colors.text.secondary};
-	text-decoration: none;
-	font-weight: 450;
-	font-size: 18px;
-	cursor: pointer;
-
-	&:hover {
-		color: ${(props: ThemeProps) => props.theme.colors.text.primary};
-	}
-`;
+	'&:hover': {
+		color: theme.colors.textPrimary,
+	},
+});

@@ -3,6 +3,7 @@ import React, { useCallback, useEffect } from 'react';
 import { config, useSpring } from 'react-spring';
 import * as Styles from './style';
 import Button from '~/components/Button';
+import { isMobile } from '~/components/Header';
 import Logo from '~/components/Header/components/Logo';
 import * as HeaderStyles from '~/components/Header/style';
 import * as LoggedInUser from '~/components/LoggedInUser';
@@ -83,8 +84,8 @@ function SidebarMobile(props: SidebarMobileProps) {
 
 	return (
 		<>
-			<HeaderStyles.MobileNav>
-				<HeaderStyles.HeaderContent>
+			<HeaderStyles.MobileNav mobile={isMobile}>
+				<HeaderStyles.HeaderContent visible={isMobile}>
 					<Logo />
 					<Button.Ghost
 						style={{ padding: 12 }}

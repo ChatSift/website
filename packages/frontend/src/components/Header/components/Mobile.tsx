@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import type { AriaLinkOptions } from 'react-aria';
-import { headerItems } from '../index';
+import { headerItems, isMobile } from '../index';
 import type { HeaderLink } from '../index';
 import * as Styles from '../style';
 import Logo from './Logo';
@@ -25,7 +25,7 @@ function MobileLink({ item, mobileNavOpen, index, onClick, href, ...props }: Ari
 			{...props}
 			href={href}
 			key={item.href}
-			data-open={mobileNavOpen}
+			open={mobileNavOpen}
 			style={{ animationDelay: `${(headerItems.length - index) * linkDelay}s` }}
 			onClick={onClick}
 		>
@@ -36,7 +36,7 @@ function MobileLink({ item, mobileNavOpen, index, onClick, href, ...props }: Ari
 
 function Mobile() {
 	const animationDuration = headerItems.length * linkDelay + Styles.mobileNavAnimDuration;
-	const [mobileNavOpen, setMobileNavOpen] = useState<boolean | undefined>(undefined);
+	const [mobileNavOpen, setMobileNavOpen] = useState<boolean | undefined>(true);
 	const [hideList, setHideList] = useState(false);
 
 	useEffect(() => {
@@ -50,8 +50,14 @@ function Mobile() {
 	}, [animationDuration, mobileNavOpen]);
 
 	return (
-		<Styles.MobileNav data-open={mobileNavOpen} orientation="vertical">
-			<Styles.HeaderContent>
+		<Styles.MobileNav
+			mobile={{
+				'@initial': true,
+				'@medium': false,
+			}}
+			orientation="vertical"
+		>
+			<Styles.HeaderContent visible={isMobile}>
 				<Logo />
 				<Button.Ghost
 					style={{ padding: 12 }}
@@ -69,9 +75,9 @@ function Mobile() {
 				</Button.Ghost>
 			</Styles.HeaderContent>
 			<Styles.VerticalList
-				className={mobileNavOpen ? Styles.MobileNavOpen : Styles.MobileNavClosed}
+				// className={mobileNavOpen ? Styles.MobileNavOpen : Styles.MobileNavClosed}
 				style={{ animationDuration: `${animationDuration}s`, ...(hideList ? { display: 'none' } : {}) }}
-				data-open={mobileNavOpen}
+				open={mobileNavOpen}
 				id="menu"
 			>
 				{headerItems.map((item, index) => (
@@ -87,7 +93,14 @@ function Mobile() {
 					</Styles.MobileNavItem>
 				))}
 			</Styles.VerticalList>
-			<Styles.MobileUser data-mobile-open={mobileNavOpen} style={hideList ? { display: 'none' } : {}}>
+			<Styles.MobileUser
+				open={mobileNavOpen}
+				mobile={{
+					'@initial': true,
+					'@medium': false,
+				}}
+				visible={!hideList}
+			>
 				<LoggedInUser.Mobile />
 			</Styles.MobileUser>
 		</Styles.MobileNav>

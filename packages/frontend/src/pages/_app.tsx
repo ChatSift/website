@@ -1,6 +1,5 @@
 import type { Theme } from '@emotion/react';
-import { Global, ThemeProvider, css } from '@emotion/react';
-import styled from '@emotion/styled';
+import { ThemeProvider } from '@emotion/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Analytics } from '@vercel/analytics/react';
@@ -17,27 +16,27 @@ import Header from '~/components/Header';
 import ScrollArea from '~/components/ScrollArea';
 import { DialogControllerProvider } from '~/context/DialogControllerContext';
 import { RouterLinkControllerProvider } from '~/context/RouterLinkControllerContext';
+import { globalStyles, styled, theme } from '~/stitches/stitches.config';
+import { lightTheme } from '~/stitches/themes/light';
 import dark from '~/themes/dark';
 import themeMap from '~/themes/themeMap';
 import { skeletonDuration } from '~/utils/constants';
 import { loadSettings, saveSettings } from '~/utils/localUserSettings';
 
-const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	flex: 1 1 auto;
-	min-height: 0;
-`;
+const Container = styled('div', {
+	displayFlex: 'column',
+	flex: '1 1 auto',
+	minHeight: 0,
+});
 
-const Content = styled.div`
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-`;
+const Content = styled('div', {
+	displayFlex: 'column',
+	minHeight: '100vh',
+});
 
-const AppScrollViewPort = styled(ScrollArea)`
-	max-height: 100vh;
-`;
+const AppScrollViewPort = styled(ScrollArea, {
+	maxHeight: '100vh',
+});
 
 export const ThemeContext = createContext<{ current: Theme; update(newTheme: Theme): void }>({
 	current: dark,
@@ -47,31 +46,37 @@ export const ThemeContext = createContext<{ current: Theme; update(newTheme: The
 
 function App({ Component, pageProps }: AppProps) {
 	const queryClient = useRef(new QueryClient());
-	const [theme, setTheme] = useState(dark);
+	const [emotionTheme, setEmotionTheme] = useState(dark);
 	const router = useRouter();
 
+	function setThemeWrapper(theme: Theme) {
+		setEmotionTheme(theme);
+
+		if (theme.name === 'light') {
+			document.body.classList.add(lightTheme);
+		} else {
+			document.body.classList.remove(lightTheme);
+		}
+	}
+
 	useEffect(() => {
-		setTheme(themeMap[loadSettings().theme ?? 'dark']);
+		setThemeWrapper(themeMap[loadSettings().theme ?? 'dark']);
 	}, []);
 
 	function updateTheme(newTheme: Theme) {
-		setTheme(newTheme);
+		setThemeWrapper(newTheme);
+
 		saveSettings({
 			theme: newTheme.name,
 		});
 	}
 
+	globalStyles();
+
 	return (
-		<ThemeContext.Provider value={{ current: theme, update: updateTheme }}>
-			<ThemeProvider theme={theme}>
+		<ThemeContext.Provider value={{ current: emotionTheme, update: updateTheme }}>
+			<ThemeProvider theme={emotionTheme}>
 				<QueryClientProvider client={queryClient.current}>
-					<Global
-						styles={css`
-							body {
-								background-color: ${theme.colors.background.default};
-							}
-						`}
-					/>
 					<noscript>
 						<style>{`
 							[data-radix-scroll-area-viewport] {
@@ -80,8 +85,8 @@ function App({ Component, pageProps }: AppProps) {
 						`}</style>
 					</noscript>
 					<SkeletonTheme
-						baseColor={theme.colors.onBackground.tertiary}
-						highlightColor={theme.colors.onBackground.secondary}
+						baseColor={theme.colors.onBgTertiary.toString()}
+						highlightColor={theme.colors.onBgSecondary.toString()}
 						duration={skeletonDuration}
 					>
 						<Analytics

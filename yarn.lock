@@ -411,6 +411,7 @@ __metadata:
     "@radix-ui/react-scroll-area": ^1.0.2
     "@radix-ui/react-select": ^1.1.1
     "@radix-ui/react-switch": ^1.0.1
+    "@stitches/react": ^1.2.8
     "@tanstack/react-query": ^4.0.10
     "@tanstack/react-query-devtools": ^4.0.10
     "@types/facepaint": ^1.2.2
@@ -3365,6 +3366,15 @@ __metadata:
   version: 3.2.2
   resolution: "@sapphire/snowflake@npm:3.2.2"
   checksum: 315fecef4738092c2a2f3509b132b811fcbfa6c98d5d45d951adaf3ca21608be69043bcc137cc6933a7c3e55cbdc066daa5bb484603e6575422b335445b59315
+  languageName: node
+  linkType: hard
+
+"@stitches/react@npm:^1.2.8":
+  version: 1.2.8
+  resolution: "@stitches/react@npm:1.2.8"
+  peerDependencies:
+    react: ">= 16.3.0"
+  checksum: 029795323cdedb5599ec0636526fc233b2cf41fa9c1f4a704b1f7f457c6170053384a7430afed45e25f73e348d7c391cf1379bc079943cd9cad44302234a5244
   languageName: node
   linkType: hard
 
