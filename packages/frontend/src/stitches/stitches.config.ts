@@ -44,6 +44,11 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 			five: '32px',
 			huge: '100px',
 		},
+		lineHeights: {
+			one: '18px',
+			two: '24px',
+			three: '32px',
+		},
 		fonts: {
 			normal: "Author-Variable, 'Inter', sans-serif",
 		},

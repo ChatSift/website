@@ -9,7 +9,7 @@ import { guildCardSmallDashWidth } from '~/components/GuildCard/style';
 import Heading from '~/components/Heading';
 import PageMeta from '~/components/PageMeta';
 import SearchBar from '~/components/SearchBar';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 import bots from '~/data/bots';
 import useLoggedInUser from '~/hooks/useLoggedInUser';
 import mediaQueries from '~/styles/breakpoints';
@@ -176,7 +176,9 @@ function Dashboard() {
 						}
 					`}
 				</style>
-				<Text.Body.Bold>JavaScript is required for this page to work</Text.Body.Bold>
+				<Text kind="body" color="primary" weight="bold">
+					JavaScript is required for this page to work
+				</Text>
 			</NoScript>
 			<Container id="container">
 				<SectionContainer>
@@ -215,10 +217,10 @@ function Dashboard() {
 					) : (
 						<NoServersFoundContainer>
 							<NoServersHeader>
-								<Text.Heading3>
+								<Text kind="heading3" color="primary" weight="bold">
 									{(dataToUse?.guilds?.length ?? 0) > 0 ? 'No results' : 'No servers found'}
-								</Text.Heading3>
-								<Text.Body.Regular>Invite a bot by clicking on the respective buttons</Text.Body.Regular>
+								</Text>
+								<Text>Invite a bot by clicking on the respective buttons</Text>
 							</NoServersHeader>
 							<BotUpsells>
 								{Object.keys(bots).map((botId) => (

@@ -1,13 +1,14 @@
-import styled from '@emotion/styled';
+import styledOld from '@emotion/styled';
 import Skeleton from 'react-loading-skeleton';
-import { Body, Caption, Heading3 } from '~/components/Text';
+import { Text } from '~/components/Text';
+import { styled } from '~/stitches/stitches.config';
 import mediaQueries from '~/styles/breakpoints';
 
 type CardProps = {
 	wide: boolean;
 };
 
-export const Card = styled.article<CardProps>`
+export const Card = styledOld.article<CardProps>`
 	display: flex;
 	border-radius: 8px;
 	background-color: ${({ theme }) => theme.colors.background.card};
@@ -40,7 +41,7 @@ type GuildImageProps = {
 	large: boolean;
 };
 
-export const GuildImage = styled.img<GuildImageProps>`
+export const GuildImage = styledOld.img<GuildImageProps>`
 	display: flex !important;
 	justify-content: center;
 	align-items: center;
@@ -50,7 +51,7 @@ export const GuildImage = styled.img<GuildImageProps>`
 	border: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
 `;
 
-export const GuildAcronym = styled(GuildImage.withComponent('div'))`
+export const GuildAcronym = styledOld(GuildImage.withComponent('div'))`
 	&::after {
 		color: ${({ theme }) => theme.colors.text.primary};
 		max-width: 70%;
@@ -63,7 +64,7 @@ export const GuildAcronym = styled(GuildImage.withComponent('div'))`
 
 export const SkeletonGuildImage = GuildImage.withComponent(Skeleton);
 
-export const CardHeader = styled.div`
+export const CardHeader = styledOld.div`
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
@@ -71,19 +72,15 @@ export const CardHeader = styled.div`
 	min-width: 0;
 `;
 
-export const GuildName = styled(Body.Bold)`
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
-`;
+// export const GuildNameWide = styledOld(Heading3)`
+// 	color: ${({ theme }) => theme.colors.text.primary};
+// 	text-overflow: ellipsis;
+// 	overflow: hidden;
+// 	white-space: nowrap;
+// `;
 
-export const GuildNameWide = styled(Heading3)`
-	color: ${({ theme }) => theme.colors.text.primary};
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
-`;
-
-export const GuildMemberCount = styled(Caption.Regular)`
-	color: ${({ theme }) => theme.colors.text.secondary};
-`;
+export const GuildName = styled(Text, {
+	textOverflow: 'ellipsis',
+	overflow: 'hidden',
+	whiteSpace: 'nowrap',
+});

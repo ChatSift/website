@@ -7,7 +7,7 @@ import { ConfigOptionCollection } from '~/components/Config/ConfigOptionCollecti
 import ConfigPageFrame from '~/components/Config/ConfigPageFrame';
 import ConfigSection from '~/components/Config/ConfigSection';
 import PageMeta from '~/components/PageMeta';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 import useConfigGuild from '~/hooks/useConfigGuild';
 import SvgAma from '~/svg/SvgAma';
 import SvgAutoModerator from '~/svg/SvgAutoModerator';
@@ -65,7 +65,9 @@ function GuildDashboard() {
 		<>
 			<PageMeta title="Server Settings" />
 			<ConfigPageFrame>
-				<Text.Heading3>Server Settings</Text.Heading3>
+				<Text kind="heading3" color="primary" weight="bold">
+					Server Settings
+				</Text>
 				<ConfigGuildCard wide />
 				<ConfigSection title="Bots" description="Configure the settings of supported bots for this community.">
 					<ConfigOptionCollection>

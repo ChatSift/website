@@ -9,6 +9,7 @@ import ImageSlideshow from '~/components/ImageSlideshow';
 import PageMeta from '~/components/PageMeta';
 import Review from '~/components/Review';
 import SingleItemPaginator from '~/components/SingleItemPaginator';
+import { Text } from '~/components/Text';
 import bots from '~/data/bots';
 import mediaQueries from '~/styles/breakpoints';
 import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
@@ -49,15 +50,6 @@ const Cta = styled.div`
 	margin-top: 32px;
 `;
 
-const CtaTitle = styled.h2`
-	font-size: 34px;
-	font-weight: 550;
-`;
-
-const CtaText = styled.span`
-	line-height: 24px;
-`;
-
 const CtaButtons = styled.span`
 	display: flex;
 	flex-direction: row;
@@ -89,19 +81,10 @@ const SectionHeader = styled.div`
 	margin-bottom: 16px;
 `;
 
-const Title = styled.h2`
-	font-size: 26px;
-	font-weight: 550;
-
+const SectionTitle = styled(Text)`
 	&:not(:last-child) {
 		margin-bottom: 8px;
 	}
-`;
-
-const Text = styled.span`
-	font-size: 18px;
-
-	color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 const Feature = styled.li`
@@ -115,11 +98,7 @@ const Feature = styled.li`
 	border-radius: 8px;
 `;
 
-const FeatureName = styled.h3`
-	font-size: 18px;
-	font-weight: 450;
-	color: ${({ theme }) => theme.colors.text.primary};
-
+const FeatureName = styled(Text)`
 	&::before {
 		color: ${({ theme }) => theme.colors.accent};
 		margin-right: 8px;
@@ -195,10 +174,12 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 				<section>
 					<ImageSlideshow images={bot.slideshowImages} imageWidths={bot.slideshowImageWidths} />
 					<Cta>
-						<CtaTitle>{bot.pageTitle}</CtaTitle>
+						<Text kind="title" color="primary" weight="bold">
+							{bot.pageTitle}
+						</Text>
 						<CtaTextContainer>
 							{bot.description.page.map((line, index) => (
-								<CtaText key={index}>{line}</CtaText>
+								<Text key={index}>{line}</Text>
 							))}
 						</CtaTextContainer>
 						<CtaButtons>
@@ -213,13 +194,17 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 				</section>
 				<section>
 					<SectionHeader>
-						<Title>{bot.featureList.title}</Title>
+						<SectionTitle kind="subtitle" color="primary" weight="bold">
+							{bot.featureList.title}
+						</SectionTitle>
 						<Text>{bot.featureList.text}</Text>
 					</SectionHeader>
 					<Features data-hide-on-mobile>
 						{bot.featureList.features.map(({ name, description }, index) => (
 							<Feature key={`${name}-${index}`}>
-								<FeatureName>{name}</FeatureName>
+								<FeatureName kind="body" color="primary">
+									{name}
+								</FeatureName>
 								<span>{description}</span>
 							</Feature>
 						))}
@@ -248,7 +233,9 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 				{bot.reviews && (
 					<section>
 						<SectionHeader>
-							<Title>{bot.reviews.title}</Title>
+							<SectionTitle kind="subtitle" color="primary" weight="bold">
+								{bot.reviews.title}
+							</SectionTitle>
 						</SectionHeader>
 						{/* @ts-expect-error TS2745 */}
 						<SingleItemPaginator>
@@ -261,7 +248,9 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 				{otherBots.length > 0 && (
 					<section>
 						<SectionHeader>
-							<Title>Check out our other bots</Title>
+							<SectionTitle kind="subtitle" color="primary" weight="bold">
+								Check out our other bots
+							</SectionTitle>
 						</SectionHeader>
 						<BotList>
 							{otherBots.map(([pathName, bot]) => (

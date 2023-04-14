@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import * as Styles from './style';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 
 type ConfigSectionProps = {
 	children: ReactNode;
@@ -12,8 +12,14 @@ function ConfigSection({ title, description, children }: ConfigSectionProps) {
 	return (
 		<Styles.ConfigSection>
 			<Styles.SectionHeader>
-				<Text.Heading3>{title}</Text.Heading3>
-				{description && <Text.Body.Regular>{description}</Text.Body.Regular>}
+				<Text kind="heading3" color="primary" weight="bold">
+					{title}
+				</Text>
+				{description && (
+					<Text kind="body" weight="thin" color="secondary">
+						{description}
+					</Text>
+				)}
 			</Styles.SectionHeader>
 			{children}
 		</Styles.ConfigSection>

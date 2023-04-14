@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Label } from '@radix-ui/react-label';
 import * as AlertDialogStyles from '~/components/AlertDialog/style';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 
 export const InputLabel = styled(Label)`
 	font-size: 16px;
@@ -35,7 +35,7 @@ export const DialogButtons = styled.div`
 	gap: 8px;
 `;
 
-export const CharacterLimit = styled(Text.Caption.Regular)`
+export const CharacterLimit = styled(Text)`
 	color: ${({ theme }) => theme.colors.text.secondary};
 	margin-top: 4px;
 	transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;

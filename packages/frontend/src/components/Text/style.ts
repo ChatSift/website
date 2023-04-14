@@ -1,40 +1,57 @@
-import styled from '@emotion/styled';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const Heading3 = styled.h3`
-	font-weight: 550;
-	font-size: 26px;
-	line-height: 32px;
-	color: ${({ theme }) => theme.colors.text.primary};
-`;
+export const Text = styled('p', {
+	variants: {
+		kind: {
+			title: {
+				fontSize: theme.fontSizes.five,
+			},
+			subtitle: {
+				fontSize: theme.fontSizes.four,
+			},
+			heading3: {
+				fontSize: theme.fontSizes.four,
+				lineHeight: theme.lineHeights.three,
+			},
+			heading4: {
+				fontSize: theme.fontSizes.three,
+				lineHeight: theme.lineHeights.two,
+			},
+			body: {
+				fontSize: theme.fontSizes.two,
+				lineHeight: theme.lineHeights.two,
+			},
+			caption: {
+				fontSize: theme.fontSizes.one,
+				lineHeight: theme.lineHeights.one,
+			},
+		},
 
-export const Heading4 = styled.h4`
-	font-weight: 550;
-	font-size: 22px;
-	line-height: 24px;
-	color: ${({ theme }) => theme.colors.text.primary};
-`;
+		color: {
+			primary: {
+				color: theme.colors.textPrimary,
+			},
+			secondary: {
+				color: theme.colors.textSecondary,
+			},
+		},
 
-const BodyRegular = styled.span`
-	font-weight: 450;
-	font-size: 18px;
-	line-height: 24px;
-	color: ${({ theme }) => theme.colors.text.secondary};
-`;
+		weight: {
+			thin: {
+				fontWeight: theme.fontWeights.thin,
+			},
+			medium: {
+				fontWeight: theme.fontWeights.medium,
+			},
+			bold: {
+				fontWeight: theme.fontWeights.bold,
+			},
+		},
+	},
 
-export const Body = {
-	Regular: BodyRegular,
-	Bold: styled(BodyRegular)`
-		color: ${({ theme }) => theme.colors.text.primary};
-		font-weight: 550;
-	`,
-};
-
-const CaptionRegular = styled.span`
-	font-weight: 450;
-	font-size: 15px;
-	line-height: 18px;
-`;
-
-export const Caption = {
-	Regular: CaptionRegular,
-};
+	defaultVariants: {
+		kind: 'body',
+		color: 'secondary',
+		weight: 'thin',
+	},
+});

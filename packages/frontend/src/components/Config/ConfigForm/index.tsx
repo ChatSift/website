@@ -7,7 +7,7 @@ import { createPortal } from 'react-dom';
 import * as Styles from './style';
 import AlertDialog from '~/components/AlertDialog';
 import { Button } from '~/components/Button';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 import useRouterLinkController from '~/context/RouterLinkControllerContext';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
 import { APIError } from '~/utils/fetch';
@@ -140,7 +140,7 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 
 		const portal = createPortal(
 			<Styles.DirtyBar data-hidden={!isDirty}>
-				<Text.Body.Regular>Unsaved changes</Text.Body.Regular>
+				<Text>Unsaved changes</Text>
 				<Styles.DirtyBarButtons>
 					<Button buttonType="ghost" form="small" disabled={true} onPress={resetConfig}>
 						Reset

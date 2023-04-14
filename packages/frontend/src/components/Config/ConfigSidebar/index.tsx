@@ -3,7 +3,7 @@ import ConfigGuildCard from '../ConfigGuildCard';
 import * as Styles from './style';
 import BackLink from '~/components/Config/ConfigSidebar/components/BackLink';
 import { RouterLink } from '~/components/Link';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 import configurableBots from '~/data/bots/config/configurableBots';
 import useCheckedRouter from '~/hooks/useCheckedRouter';
 import useConfigGuild from '~/hooks/useConfigGuild';
@@ -81,7 +81,6 @@ function ConfigSidebar() {
 							?.sidebarLinks.map((link) => {
 								const linkHref = link.linkUrlPattern(guild?.id ?? 'loading');
 								const active = router.asPath === linkHref;
-								const TextComponent = active ? Text.Body.Bold : Text.Body.Regular;
 
 								return (
 									<Styles.SidebarLink
@@ -90,7 +89,9 @@ function ConfigSidebar() {
 										data-active={active}
 										data-loading={guild?.id === undefined}
 									>
-										<TextComponent>{link.linkText}</TextComponent>
+										<Text kind="body" color={active ? 'primary' : 'secondary'} weight={active ? 'bold' : 'thin'}>
+											{link.linkText}
+										</Text>
 									</Styles.SidebarLink>
 								);
 							})}

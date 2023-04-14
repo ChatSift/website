@@ -5,7 +5,7 @@ import ConfigSidebar from '~/components/Config/ConfigSidebar';
 import ErrorBoundary from '~/components/ErrorBoundary';
 import Footer from '~/components/Footer';
 import ScrollArea from '~/components/ScrollArea';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 
 type ConfigPageFrameProps = {
 	children: ReactNode;
@@ -52,7 +52,9 @@ function ConfigPageFrame({ children }: ConfigPageFrameProps) {
 				</Styles.Frame>
 			</ErrorBoundary>
 			<Styles.NoScript>
-				<Text.Body.Bold>JavaScript is required for this page to work</Text.Body.Bold>
+				<Text kind="body" color="primary" weight="bold">
+					JavaScript is required for this page to work
+				</Text>
 			</Styles.NoScript>
 			<Footer hasMargin={false} />
 		</>

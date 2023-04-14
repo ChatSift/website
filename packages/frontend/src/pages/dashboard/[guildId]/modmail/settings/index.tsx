@@ -11,7 +11,7 @@ import type { DropdownGroupedOptions } from '~/components/Dropdown';
 import Dropdown from '~/components/Dropdown';
 import { itemIcon } from '~/components/Dropdown/style';
 import PageMeta from '~/components/PageMeta';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 import { TextArea } from '~/components/TextArea';
 import ToggleSwitch from '~/components/ToggleSwitch';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
@@ -117,7 +117,9 @@ function ModMailSettings() {
 				>
 					{({ currentValue, setFields }) => (
 						<>
-							<Text.Heading3>ModMail Settings</Text.Heading3>
+							<Text kind="heading3" color="primary" weight="bold">
+								ModMail Settings
+							</Text>
 							<ConfigOptionCollection>
 								<ConfigOption name="Greeting message" caption="Sent when a member creates a new ticket.">
 									<TextArea

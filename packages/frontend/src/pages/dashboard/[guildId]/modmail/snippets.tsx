@@ -9,7 +9,7 @@ import ConfigPageFrame from '~/components/Config/ConfigPageFrame';
 import ModmailSnippet from '~/components/Config/ModmailSnippets/ModmailSnippet';
 import SnippetDialog from '~/components/Config/ModmailSnippets/SnippetDialog';
 import PageMeta from '~/components/PageMeta';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
 import useLoggedInUser from '~/hooks/useLoggedInUser';
 import useModmailSnippets from '~/hooks/useModmailSnippets';
@@ -19,10 +19,6 @@ import { APIError, fetchApi } from '~/utils/fetch';
 const SupportLink = styled.a`
 	color: ${({ theme }) => theme.colors.accent};
 	text-decoration: underline;
-`;
-
-const StatusText = styled(Text.Body.Bold)`
-	color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 const AddButton = styled(Button.Cta)`
@@ -107,9 +103,13 @@ function Snippets() {
 		<>
 			<PageMeta title="ModMail ― Snippets" />
 			<ConfigPageFrame>
-				<Text.Heading3>ModMail Snippets</Text.Heading3>
+				<Text kind="heading3" color="primary" weight="bold">
+					ModMail Snippets
+				</Text>
 				{isLoading || user === undefined || !modmailSnippets ? (
-					<StatusText>Loading...</StatusText>
+					<Text kind="body" color="secondary" weight="bold">
+						Loading...
+					</Text>
 				) : (
 					<>
 						{modmailSnippets.map((snippet) => (
@@ -126,7 +126,11 @@ function Snippets() {
 								}}
 							/>
 						))}
-						{modmailSnippets.length === 0 && <StatusText>You don't have any snippets yet.</StatusText>}
+						{modmailSnippets.length === 0 && (
+							<Text kind="body" color="secondary" weight="bold">
+								You don't have any snippets yet.
+							</Text>
+						)}
 					</>
 				)}
 				<AddButton
@@ -154,8 +158,11 @@ function Snippets() {
 				cancelButton={<Button.Ghost onPress={() => setSnippetToDelete(null)}>Cancel</Button.Ghost>}
 				title="Are you sure you want to delete this?"
 			>
-				You are about to delete the snippet <Text.Body.Bold>{snippetToDelete?.name}</Text.Body.Bold>. This action cannot
-				be undone.
+				You are about to delete the snippet{' '}
+				<Text kind="body" color="primary" weight="bold">
+					{snippetToDelete?.name}
+				</Text>
+				. This action cannot be undone.
 			</AlertDialog>
 			<AlertDialog
 				open={error instanceof APIError}

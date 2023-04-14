@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 import mediaQueries from '~/styles/breakpoints';
 
 export const Upsell = styled.div`
@@ -35,7 +35,7 @@ export const Buttons = styled.div`
 	}
 `;
 
-export const Title = styled(Text.Heading4)`
+export const Title = styled(Text)`
 	display: flex;
 	flex-direction: row;
 	gap: 6px;

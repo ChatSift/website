@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import * as Styles from './style';
 import { buttonPadding } from './style';
 import { Button } from '~/components/Button';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 import { ThemeContext } from '~/pages/_app';
 import SvgDarkTheme from '~/svg/SvgDarkTheme';
 import SvgDiscord from '~/svg/SvgDiscord';
@@ -46,7 +46,7 @@ function Footer({ hasMargin = true }: FooterProps) {
 					</Styles.IconLink>
 				</Styles.List>
 				<Styles.SecondGroup id="theme-settings">
-					<Text.Body.Regular>Theme:</Text.Body.Regular>
+					<Text>Theme:</Text>
 					<Button
 						buttonType="ghost"
 						form="extraSmall"

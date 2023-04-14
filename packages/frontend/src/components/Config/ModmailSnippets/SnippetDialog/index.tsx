@@ -57,7 +57,7 @@ function SnippetDialog<TFallback extends Partial<BasicSnippetInfo>, TDraft exten
 								setDraft((currentDraft) => ({ ...currentDraft, name }));
 							}}
 						/>
-						<Styles.CharacterLimit data-exceeded={snippetName.length > snippetNameLength}>
+						<Styles.CharacterLimit kind="caption" weight="thin" data-exceeded={snippetName.length > snippetNameLength}>
 							{snippetName.length} / {snippetNameLength}
 						</Styles.CharacterLimit>
 						<Styles.InputLabel htmlFor="text">Snippet text</Styles.InputLabel>
@@ -65,7 +65,11 @@ function SnippetDialog<TFallback extends Partial<BasicSnippetInfo>, TDraft exten
 							value={snippetText}
 							onChange={(event) => setDraft((currentDraft) => ({ ...currentDraft, content: event.target.value }))}
 						/>
-						<Styles.CharacterLimit data-exceeded={snippetText.length > snippetContentLength}>
+						<Styles.CharacterLimit
+							kind="caption"
+							weight="thin"
+							data-exceeded={snippetText.length > snippetContentLength}
+						>
 							{snippetText.length} / {snippetContentLength}
 						</Styles.CharacterLimit>
 					</Styles.DialogDescription>
