@@ -1,43 +1,39 @@
-import styled from '@emotion/styled';
 import { RouterLink } from '~/components/Link';
-import mediaQueries from '~/styles/breakpoints';
+import { Text } from '~/components/Text';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const Base = styled(RouterLink)`
-	display: flex;
-	flex-direction: column;
-	border-radius: 8px;
-	padding: 16px;
-	width: 100%;
-	height: 100%;
-	gap: 12px;
-	background-color: ${({ theme }) => theme.colors.background.card};
-	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
+export const Card = styled(RouterLink, {
+	displayFlex: 'column',
+	borderRadius: theme.radii.lg,
+	padding: theme.space.lg,
+	width: '100%',
+	height: '100%',
+	gap: theme.space.md,
+	backgroundColor: theme.colors.bgCard,
+	borderWidth: theme.borderWidths.thin,
+	borderStyle: theme.borderStyles.normal,
+	borderColor: theme.colors.onBgSecondary,
 
-	${mediaQueries.dashboardMaxWidthMin} {
-		width: 293px;
-	}
-`;
+	variants: {
+		cardWidth: {
+			fixed: {
+				width: '293px',
+			},
+			full: {
+				width: '100%',
+			},
+		},
+	},
+});
 
-export const Header = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	gap: 12px;
-`;
+export const Header = styled('div', {
+	displayFlex: 'row',
+	justifyContent: 'space-between',
+	gap: theme.space.md,
+});
 
-export const BotTag = styled.div`
-	display: flex;
-	align-items: center;
-	gap: 6px;
-	font-size: 22px;
-	font-weight: 550;
-	color: ${({ theme }) => theme.colors.text.primary};
-	line-height: 24px;
-`;
-
-export const UpsellDescription = styled.div`
-	font-size: 18px;
-	font-weight: 450;
-	line-height: 24px;
-	color: ${({ theme }) => theme.colors.text.secondary};
-`;
+export const BotTag = styled(Text, {
+	displayFlex: 'row',
+	alignItems: 'center',
+	gap: theme.space.xs,
+});

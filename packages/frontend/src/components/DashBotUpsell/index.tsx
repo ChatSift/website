@@ -23,7 +23,7 @@ function DashBotUpsell({ botId }: DashBotUpsellProps) {
 				<Text>{bot.description.card}</Text>
 			</Styles.Main>
 			<Styles.Buttons>
-				<Button as={ButtonLink} buttonType="ghost" href={Urls.botPage(botId)} hasBorder external>
+				<Button as={ButtonLink} buttonType="ghost" href={Urls.botPage(botId)} ghostHasBorder external>
 					Learn more
 				</Button>
 				<Button as={ButtonLink} buttonType="callToAction" href={Urls.botInvite(botId)} external>

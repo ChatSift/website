@@ -15,10 +15,10 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 					<Button buttonType="callToAction" onPress={resetErrorBoundary}>
 						Reload
 					</Button>
-					<Button as={ButtonLink} buttonType="ghost" href="/github/issues" external hasBorder>
+					<Button as={ButtonLink} buttonType="ghost" href="/github/issues" external ghostHasBorder>
 						Open an Issue
 					</Button>
-					<Button as={ButtonLink} buttonType="ghost" href="/dashboard" hasBorder>
+					<Button as={ButtonLink} buttonType="ghost" href="/dashboard" ghostHasBorder>
 						Back to Dashboard
 					</Button>
 				</Styles.Buttons>
@@ -33,7 +33,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 				<Button buttonType="callToAction" onPress={resetErrorBoundary}>
 					Reload
 				</Button>
-				<Button as={ButtonLink} buttonType="ghost" href="/github/issues" external hasBorder>
+				<Button as={ButtonLink} buttonType="ghost" href="/github/issues" external ghostHasBorder>
 					Open an Issue
 				</Button>
 			</Styles.Buttons>

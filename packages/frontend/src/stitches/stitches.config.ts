@@ -9,6 +9,7 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 			textPrimary: '#F6F6FB',
 			textSecondary: '#F6F6FBB2',
 			textOnAccent: '#ffffff',
+			textDisabled: '#1E284F80',
 
 			bgBase: '#151519',
 			bgCard: '#1C1C21',
@@ -66,6 +67,7 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 			lg: '16px',
 			xl: '24px',
 			xxl: '32px',
+			huge: '48px',
 			dashboardPadding: `${dashboardPadding}px`,
 		},
 	},
