@@ -36,7 +36,7 @@ function MobileLink({ item, mobileNavOpen, index, onClick, href, ...props }: Ari
 
 function Mobile() {
 	const animationDuration = headerItems.length * linkDelay + Styles.mobileNavAnimDuration;
-	const [mobileNavOpen, setMobileNavOpen] = useState<boolean | undefined>(true);
+	const [mobileNavOpen, setMobileNavOpen] = useState<boolean | undefined>(false);
 	const [hideList, setHideList] = useState(false);
 
 	useEffect(() => {

@@ -70,12 +70,7 @@ export function MobileHeaderOverride({ children }: { children: ReactNode }) {
 
 function Header() {
 	return (
-		<HeaderStyles.Header
-			desktop={{
-				'@initial': false,
-				'@medium': true,
-			}}
-		>
+		<HeaderStyles.Header desktop={isNotMobile}>
 			<Desktop />
 			<div id="mobile-override-container">
 				<Mobile />

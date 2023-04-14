@@ -1,4 +1,3 @@
-import { css, Global } from '@emotion/react';
 import type { ReactNode } from 'react';
 import FrameErrorFallback from './components/FrameErrorBoundary';
 import * as Styles from './style';
@@ -15,8 +14,8 @@ type ConfigPageFrameProps = {
 function ConfigPageFrame({ children }: ConfigPageFrameProps) {
 	return (
 		<>
-			<Global
-				styles={css`
+			<style>
+				{`
 					#__next {
 						height: 100vh;
 						overflow-y: hidden;
@@ -26,7 +25,7 @@ function ConfigPageFrame({ children }: ConfigPageFrameProps) {
 						height: 100vh;
 					}
 				`}
-			/>
+			</style>
 			<noscript>
 				<style>
 					{`
@@ -39,8 +38,13 @@ function ConfigPageFrame({ children }: ConfigPageFrameProps) {
 			<ErrorBoundary errorFallback={FrameErrorFallback}>
 				<Styles.Frame id="frame">
 					<ConfigSidebar />
-					<Styles.Container>
-						<ScrollArea rootClassName={Styles.Content}>
+					<Styles.Container
+						padding={{
+							'@initial': 'small',
+							'@small': 'large',
+						}}
+					>
+						<ScrollArea rootClassName={Styles.Content()}>
 							<Styles.ContentContainer id="content-container">{children}</Styles.ContentContainer>
 						</ScrollArea>
 						<Styles.DirtyBarSlot id="dirty-bar" />

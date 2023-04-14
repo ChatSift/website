@@ -8,6 +8,7 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 		colors: {
 			textPrimary: '#F6F6FB',
 			textSecondary: '#F6F6FBB2',
+			textOnAccent: '#ffffff',
 
 			bgBase: '#151519',
 			bgCard: '#1C1C21',
@@ -15,6 +16,9 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 			onBgPrimary: '#F4F4FD33',
 			onBgSecondary: '#F4F4FD1A',
 			onBgTertiary: '#F4F4FD0D',
+
+			miscAccent: '#2f8fee',
+			miscDanger: '#ff5052',
 		},
 		radii: {
 			sm: '4px',
@@ -39,6 +43,9 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 			four: '24px',
 			five: '32px',
 			huge: '100px',
+		},
+		fonts: {
+			normal: "Author-Variable, 'Inter', sans-serif",
 		},
 		fontWeights: {
 			thin: 450,
@@ -88,5 +95,10 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 export const globalStyles = globalCss({
 	body: {
 		backgroundColor: theme.colors.bgBase,
+	},
+
+	// snitches get Stitches
+	"[class*='css-']": {
+		outline: '2px solid red',
 	},
 });

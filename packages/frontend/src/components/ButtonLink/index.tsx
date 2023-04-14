@@ -7,7 +7,7 @@ type ButtonLinkProps = RouterLinkProps & {
 	external?: boolean;
 };
 
-function ButtonLink({ children, external, ...props }: ButtonLinkProps) {
+export function ButtonLink({ children, external, ...props }: ButtonLinkProps) {
 	return (
 		<RouterLink {...props} target={external ? '_blank' : ''}>
 			{external && <SvgLinkExternal themeColor={(theme) => theme.colors.text.currentColor} />}

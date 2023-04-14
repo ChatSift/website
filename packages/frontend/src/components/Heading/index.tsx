@@ -1,17 +1,16 @@
-import { HeadingBase, Subtitle, Title } from './HeadingBase';
+import * as Styles from './style';
 
 type HeadingProps = {
-	gap?: number;
 	subtitle?: string | undefined;
 	title: string;
 };
 
-function Heading({ title, subtitle, gap }: HeadingProps) {
+function Heading({ title, subtitle }: HeadingProps) {
 	return (
-		<HeadingBase gap={gap}>
-			<Title>{title}</Title>
-			{subtitle && <Subtitle>{subtitle}</Subtitle>}
-		</HeadingBase>
+		<Styles.Heading>
+			<Styles.Title>{title}</Styles.Title>
+			{subtitle && <Styles.Subtitle>{subtitle}</Styles.Subtitle>}
+		</Styles.Heading>
 	);
 }
 

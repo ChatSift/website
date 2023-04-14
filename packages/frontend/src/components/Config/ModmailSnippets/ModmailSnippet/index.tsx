@@ -1,6 +1,6 @@
 import type { Snippet } from '@chatsift/modmail-api';
 import * as Styles from './style';
-import Button from '~/components/Button';
+import { Button } from '~/components/Button';
 
 type ModmailSnippetProps = {
 	onDeleteRequested(): void;
@@ -14,10 +14,12 @@ function ModmailSnippet({ snippet, onEditRequested, onDeleteRequested }: Modmail
 			<Styles.SnippetHeader>/{snippet.name}</Styles.SnippetHeader>
 			<Styles.SnippetBody>{snippet.content}</Styles.SnippetBody>
 			<Styles.Buttons>
-				<Button.Cta onPress={onEditRequested}>Edit</Button.Cta>
-				<Button.Cta onPress={onDeleteRequested} data-type="danger">
+				<Button buttonType="callToAction" onPress={onEditRequested}>
+					Edit
+				</Button>
+				<Button buttonType="danger" onPress={onDeleteRequested}>
 					Delete
-				</Button.Cta>
+				</Button>
 			</Styles.Buttons>
 		</Styles.Snippet>
 	);

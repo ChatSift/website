@@ -1,5 +1,6 @@
 import { default as NextLink } from 'next/link';
-import ButtonLink from '~/components/ButtonLink';
+import { Button } from '~/components/Button';
+import { ButtonLink } from '~/components/ButtonLink';
 import Footer from '~/components/Footer';
 import Heading from '~/components/Heading';
 import bots, { botIcons } from '~/data/bots';
@@ -191,9 +192,9 @@ function Home() {
 							[config.media.small]: 'desktop',
 						}}
 					>
-						<ButtonLink.Cta href="/support" external>
+						<Button as={ButtonLink} buttonType="callToAction" href="/support" external>
 							Join our Discord server
-						</ButtonLink.Cta>
+						</Button>
 						{/* <Button.Ghost hasBorder>Read our blog</Button.Ghost> */}
 					</CtaButtons>
 				</CtaSection>
@@ -247,14 +248,10 @@ function Home() {
 						'@small': 'horizontal',
 					}}
 				>
-					<Heading
-						title="Support the project"
-						subtitle="Donate on Kofi to help support the apps we're developing."
-						gap={12}
-					/>
-					<ButtonLink.Cta href="/kofi" external>
+					<Heading title="Support the project" subtitle="Donate on Kofi to help support the apps we're developing." />
+					<Button as={ButtonLink} buttonType="callToAction" href="/kofi" external>
 						Donate
-					</ButtonLink.Cta>
+					</Button>
 				</DonateHeading>
 			</Container>
 			<Footer />
