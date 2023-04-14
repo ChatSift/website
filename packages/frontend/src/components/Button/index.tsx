@@ -62,6 +62,9 @@ const ButtonStyle = styled(ButtonBase, {
 		},
 
 		form: {
+			extraSmall: {
+				padding: theme.space.xs,
+			},
 			small: {
 				paddingX: theme.space.md,
 				paddingY: theme.space.sm,

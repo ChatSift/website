@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import * as Styles from './style';
 import { buttonPadding } from './style';
-import Button from '~/components/Button';
+import { Button } from '~/components/Button';
 import * as Text from '~/components/Text';
 import { ThemeContext } from '~/pages/_app';
 import SvgDarkTheme from '~/svg/SvgDarkTheme';
@@ -19,7 +19,13 @@ function Footer({ hasMargin = true }: FooterProps) {
 	const theme = useContext(ThemeContext);
 
 	return (
-		<Styles.Footer data-has-margin={hasMargin}>
+		<Styles.Footer
+			hasMargin={hasMargin}
+			mobile={{
+				'@initial': false,
+				'@small': true,
+			}}
+		>
 			<noscript>
 				<style>
 					{`
@@ -41,7 +47,9 @@ function Footer({ hasMargin = true }: FooterProps) {
 				</Styles.List>
 				<Styles.SecondGroup id="theme-settings">
 					<Text.Body.Regular>Theme:</Text.Body.Regular>
-					<Button.Ghost
+					<Button
+						buttonType="ghost"
+						form="extraSmall"
 						paddingOverride={{ x: buttonPadding, y: buttonPadding }}
 						onPress={() => theme.update(theme.current.name === dark.name ? light : dark)}
 					>
@@ -50,7 +58,7 @@ function Footer({ hasMargin = true }: FooterProps) {
 						) : (
 							<SvgLightTheme themeColor={(theme) => theme.colors.text.primary} />
 						)}
-					</Button.Ghost>
+					</Button>
 				</Styles.SecondGroup>
 			</Styles.ButtonsAndLinks>
 		</Styles.Footer>
