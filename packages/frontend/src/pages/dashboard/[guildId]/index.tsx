@@ -9,6 +9,7 @@ import ConfigSection from '~/components/Config/ConfigSection';
 import PageMeta from '~/components/PageMeta';
 import { Text } from '~/components/Text';
 import useConfigGuild from '~/hooks/useConfigGuild';
+import { theme } from '~/stitches/stitches.config';
 import SvgAma from '~/svg/SvgAma';
 import SvgAutoModerator from '~/svg/SvgAutoModerator';
 import SvgCog from '~/svg/SvgCog';
@@ -52,7 +53,7 @@ function BotButton({ isLoading, isComingSoon, isInvited, guildId, botId, page }:
 	return (
 		<Link href={url}>
 			<ButtonLink.Cta disabled={isLoading} href={url}>
-				<SvgCog themeColor={(theme) => theme.colors.text.onAccent} /> Manage
+				<SvgCog themeColor={theme.colors.textOnAccent.toString()} /> Manage
 			</ButtonLink.Cta>
 		</Link>
 	);

@@ -9,7 +9,7 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 			textPrimary: '#F6F6FB',
 			textSecondary: '#F6F6FBB2',
 			textOnAccent: '#ffffff',
-			textDisabled: '#1E284F80',
+			textDisabled: '#F5F5FC66',
 
 			bgBase: '#151519',
 			bgCard: '#1C1C21',

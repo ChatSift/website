@@ -24,12 +24,8 @@ import { fetchApi } from '~/utils/fetch';
 const allowedChannelTypes = [ChannelType.GuildText, ChannelType.GuildForum] as const;
 
 const channelIcons: Record<typeof allowedChannelTypes[number], EmotionJSX.Element> = {
-	[ChannelType.GuildText]: (
-		<SvgTextChannel themeColor={(theme) => theme.colors.text.currentColor} className={itemIcon} />
-	),
-	[ChannelType.GuildForum]: (
-		<SvgForumChannel themeColor={(theme) => theme.colors.text.currentColor} className={itemIcon} />
-	),
+	[ChannelType.GuildText]: <SvgTextChannel className={itemIcon} />,
+	[ChannelType.GuildForum]: <SvgForumChannel className={itemIcon} />,
 };
 
 const withIcons = true;

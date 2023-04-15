@@ -12,6 +12,7 @@ import SearchBar from '~/components/SearchBar';
 import { Text } from '~/components/Text';
 import bots from '~/data/bots';
 import useLoggedInUser from '~/hooks/useLoggedInUser';
+import { theme } from '~/stitches/stitches.config';
 import mediaQueries from '~/styles/breakpoints';
 import SvgRefresh from '~/svg/SvgRefresh';
 import { dashboardMaxWidth, dashboardPadding, guildCardsPerPage, smallestDashboardWidth } from '~/utils/constants';
@@ -190,7 +191,7 @@ function Dashboard() {
 							data-loading={isFetching}
 							hasBorder
 						>
-							<SvgRefresh themeColor={(theme) => theme.colors.text.secondary} />
+							<SvgRefresh themeColor={theme.colors.textSecondary.toString()} />
 							Refresh
 						</Button.Ghost>
 					</MainHeadingContainer>

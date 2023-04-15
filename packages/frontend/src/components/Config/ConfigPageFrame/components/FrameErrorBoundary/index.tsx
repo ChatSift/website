@@ -19,7 +19,7 @@ function BaseFallback({ title, description, resetErrorBoundary }: BaseFallbackPr
 			<Styles.Description>{description}</Styles.Description>
 			<Styles.Buttons>
 				<Button buttonType="callToAction" onPress={resetErrorBoundary}>
-					<SvgRefresh themeColor={(theme) => theme.colors.text.currentColor} /> Try again
+					<SvgRefresh /> Try again
 				</Button>
 				<Button as={ButtonLink} buttonType="ghost" href="/support" external ghostHasBorder>
 					Support

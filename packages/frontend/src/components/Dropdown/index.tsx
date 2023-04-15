@@ -3,13 +3,14 @@ import type { ReactNode } from 'react';
 import { useMemo } from 'react';
 import * as Styles from './style';
 import { DropdownLabel, itemIcon } from './style';
+import { theme } from '~/stitches/stitches.config';
 import SvgDropdownArrow from '~/svg/SvgDropdownArrow';
 import SvgTrashBin from '~/svg/SvgTrashBin';
 
 const noneOption = {
 	label: 'None',
 	value: 'none',
-	icon: <SvgTrashBin className={itemIcon} themeColor={(theme) => theme.colors.text.primary} />,
+	icon: <SvgTrashBin className={itemIcon} themeColor={theme.colors.textPrimary.toString()} />,
 };
 
 type DropdownOption<THasIcon extends boolean> = (THasIcon extends true ? { icon: ReactNode } : {}) & {
@@ -77,14 +78,14 @@ function Dropdown<THasIcons extends boolean>({
 							<Select.Value placeholder="No item selected.">{value?.label}</Select.Value>
 						</Styles.ValueAndIcon>
 						<Styles.DropdownArrowIcon>
-							<SvgDropdownArrow themeColor={(theme) => theme.colors.text.disabled} />
+							<SvgDropdownArrow themeColor={theme.colors.textDisabled.toString()} />
 						</Styles.DropdownArrowIcon>
 					</Styles.Trigger>
 					<Styles.Content>
 						<Styles.Viewport>
 							{hasNoneOption && (
 								<Styles.Item value={noneOption.value}>
-									<SvgTrashBin className={itemIcon} themeColor={(theme) => theme.colors.text.primary} />{' '}
+									<SvgTrashBin className={itemIcon} themeColor={theme.colors.textPrimary.toString()} />{' '}
 									<Select.ItemText>{noneOption.label}</Select.ItemText>
 								</Styles.Item>
 							)}

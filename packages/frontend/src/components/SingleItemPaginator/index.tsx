@@ -4,6 +4,7 @@ import { Button } from '~/components/Button';
 import * as Styles from '~/components/SingleItemPaginator/style';
 import { noJsControlsGap, noJsControlSize } from '~/components/SingleItemPaginator/style';
 import { Text } from '~/components/Text';
+import { theme } from '~/stitches/stitches.config';
 import SvgNext from '~/svg/SvgNext';
 import SvgPrev from '~/svg/SvgPrev';
 
@@ -72,13 +73,13 @@ function SingleItemPaginator({ children }: SingleItemPaginatorProps) {
 			</Styles.ControlsNoJs>
 			<Styles.ControlsArrows className="hide-no-js">
 				<Button buttonType="ghost" form="extraSmall" onPress={prev}>
-					<SvgPrev themeColor={(theme) => theme.colors.text.disabled} />
+					<SvgPrev themeColor={theme.colors.textDisabled.toString()} />
 				</Button>
 				<Text color="primary">
 					{page + 1} of {maxPage + 1}
 				</Text>
 				<Button buttonType="ghost" form="extraSmall" onPress={next}>
-					<SvgNext themeColor={(theme) => theme.colors.text.disabled} />
+					<SvgNext themeColor={theme.colors.textDisabled.toString()} />
 				</Button>
 			</Styles.ControlsArrows>
 		</Styles.Base>

@@ -4,6 +4,7 @@ import { buttonPadding } from './style';
 import { Button } from '~/components/Button';
 import { Text } from '~/components/Text';
 import { ThemeContext } from '~/pages/_app';
+import { theme } from '~/stitches/stitches.config';
 import SvgDarkTheme from '~/svg/SvgDarkTheme';
 import SvgDiscord from '~/svg/SvgDiscord';
 import SvgGitHub from '~/svg/SvgGitHub';
@@ -16,7 +17,7 @@ type FooterProps = {
 };
 
 function Footer({ hasMargin = true }: FooterProps) {
-	const theme = useContext(ThemeContext);
+	const emotionTheme = useContext(ThemeContext);
 
 	return (
 		<Styles.Footer
@@ -39,10 +40,10 @@ function Footer({ hasMargin = true }: FooterProps) {
 			<Styles.ButtonsAndLinks>
 				<Styles.List>
 					<Styles.IconLink href="/github">
-						<SvgGitHub themeColor={(theme) => theme.colors.text.disabled} />
+						<SvgGitHub themeColor={theme.colors.textDisabled.toString()} />
 					</Styles.IconLink>
 					<Styles.IconLink href="/support">
-						<SvgDiscord themeColor={(theme) => theme.colors.text.disabled} />
+						<SvgDiscord themeColor={theme.colors.textDisabled.toString()} />
 					</Styles.IconLink>
 				</Styles.List>
 				<Styles.SecondGroup id="theme-settings">
@@ -51,12 +52,12 @@ function Footer({ hasMargin = true }: FooterProps) {
 						buttonType="ghost"
 						form="extraSmall"
 						paddingOverride={{ x: buttonPadding, y: buttonPadding }}
-						onPress={() => theme.update(theme.current.name === dark.name ? light : dark)}
+						onPress={() => emotionTheme.update(emotionTheme.current.name === dark.name ? light : dark)}
 					>
-						{theme.current.name === dark.name ? (
-							<SvgDarkTheme themeColor={(theme) => theme.colors.text.primary} />
+						{emotionTheme.current.name === dark.name ? (
+							<SvgDarkTheme themeColor={theme.colors.textPrimary.toString()} />
 						) : (
-							<SvgLightTheme themeColor={(theme) => theme.colors.text.primary} />
+							<SvgLightTheme themeColor={theme.colors.textPrimary.toString()} />
 						)}
 					</Button>
 				</Styles.SecondGroup>

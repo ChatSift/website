@@ -1,4 +1,4 @@
-import { Slideshow, SlideshowContainer, Image, ImageContainer } from './style';
+import * as Styles from './style';
 import mediaQueries from '~/styles/breakpoints';
 
 function ImageSlideshow({
@@ -30,20 +30,20 @@ function ImageSlideshow({
 					}
 				`.replace(/\s/g, '')}
 			</style>
-			<SlideshowContainer>
-				<Slideshow nImages={images.length}>
+			<Styles.SlideshowContainer>
+				<Styles.Slideshow nImages={images.length}>
 					{images.map((image, index) => (
-						<ImageContainer key={index}>
-							<Image src={image.url} alt={image.alt} />
-						</ImageContainer>
+						<Styles.ImageContainer key={index}>
+							<Styles.Image src={image.url} alt={image.alt} />
+						</Styles.ImageContainer>
 					))}
 					{images.map((image, index) => (
-						<ImageContainer key={index}>
-							<Image src={image.url} alt={image.alt} />
-						</ImageContainer>
+						<Styles.ImageContainer key={index}>
+							<Styles.Image src={image.url} alt={image.alt} />
+						</Styles.ImageContainer>
 					))}
-				</Slideshow>
-			</SlideshowContainer>
+				</Styles.Slideshow>
+			</Styles.SlideshowContainer>
 		</>
 	);
 }

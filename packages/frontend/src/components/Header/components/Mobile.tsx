@@ -6,6 +6,7 @@ import * as Styles from '../style';
 import Logo from './Logo';
 import Button from '~/components/Button';
 import * as LoggedInUser from '~/components/LoggedInUser';
+import { theme } from '~/stitches/stitches.config';
 import SvgClose from '~/svg/SvgClose';
 import SvgHamburger from '~/svg/SvgHamburger';
 
@@ -68,9 +69,9 @@ function Mobile() {
 					aria-haspopup="true"
 				>
 					{mobileNavOpen ? (
-						<SvgClose themeColor={(theme) => theme.colors.text.secondary} />
+						<SvgClose themeColor={theme.colors.textSecondary.toString()} />
 					) : (
-						<SvgHamburger themeColor={(theme) => theme.colors.text.secondary} />
+						<SvgHamburger themeColor={theme.colors.textSecondary.toString()} />
 					)}
 				</Button.Ghost>
 			</Styles.HeaderContent>

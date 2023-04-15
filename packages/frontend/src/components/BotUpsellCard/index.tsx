@@ -2,6 +2,7 @@ import * as Styles from '~/components/BotUpsellCard/style';
 import { BotTag } from '~/components/BotUpsellCard/style';
 import { Text } from '~/components/Text';
 import { botIcons } from '~/data/bots';
+import { theme } from '~/stitches/stitches.config';
 import SvgLinkExternal from '~/svg/SvgLinkExternal';
 import { botPage } from '~/utils/urls';
 
@@ -21,7 +22,7 @@ function BotUpsellCard({ bot, pathName }: { bot: Bot; pathName: BotId }) {
 					<Icon width={24} height={24} />
 					{bot.name}
 				</BotTag>
-				<SvgLinkExternal themeColor={(theme) => theme.colors.text.secondary} />
+				<SvgLinkExternal themeColor={theme.colors.textSecondary.toString()} />
 			</Styles.Header>
 			<Text>{bot.description.otherBotUpsell}</Text>
 		</Styles.Card>
