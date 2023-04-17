@@ -1,6 +1,6 @@
 import oldStyled from '@emotion/styled';
 import type * as Stitches from '@stitches/react';
-import type { ComponentPropsWithRef, ComponentType, CSSProperties } from 'react';
+import type { ComponentType, CSSProperties } from 'react';
 import { useRef } from 'react';
 import type { AriaButtonProps } from 'react-aria';
 import { useButton } from 'react-aria';
@@ -131,7 +131,7 @@ const ButtonStyle = styled(ButtonBase, {
 	],
 });
 
-export function Button<As extends ComponentType<any> | keyof JSX.IntrinsicElements>({
+export function Button({
 	style,
 	title,
 	className,
@@ -140,14 +140,16 @@ export function Button<As extends ComponentType<any> | keyof JSX.IntrinsicElemen
 	...props
 }: AriaButtonProps &
 	ButtonProps &
-	ComponentPropsWithRef<As> &
-	Stitches.VariantProps<typeof ButtonStyle> & { as?: As }) {
+	Stitches.VariantProps<typeof ButtonStyle> & {
+		[_: string]: unknown;
+		as?: ComponentType<any> | keyof JSX.IntrinsicElements;
+	}) {
 	const ref = useRef<HTMLButtonElement | null>(null);
 	const { buttonProps } = useButton(props, ref);
 	const { children, ...propsNoChildren } = props;
 
 	return (
-		// @ts-expect-error TS2769: todo: fix this properly
+		// @ts-expect-error TS2769 todo: properly fix
 		<ButtonStyle
 			buttonType={buttonType}
 			as={as}
