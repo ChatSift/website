@@ -2,7 +2,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import { useRef } from 'react';
 import type { AriaSearchFieldProps } from 'react-aria';
 import { useSearchField } from 'react-aria';
-import { SearchField } from './style';
+import * as Styles from './style';
 
 function SearchBar({
 	className,
@@ -13,7 +13,12 @@ function SearchBar({
 	const [value, setValue] = state;
 	const { inputProps } = useSearchField(props, { value, setValue }, ref);
 
-	return <SearchField className={className} {...inputProps} ref={ref} />;
+	return (
+		<Styles.SearchContainer className={className}>
+			<Styles.SearchField {...inputProps} ref={ref} />
+			<Styles.Icon />
+		</Styles.SearchContainer>
+	);
 }
 
 export default SearchBar;
