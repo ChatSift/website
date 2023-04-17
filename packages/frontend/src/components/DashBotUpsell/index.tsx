@@ -14,15 +14,25 @@ function DashBotUpsell({ botId }: DashBotUpsellProps) {
 	const bot = bots[botId];
 
 	return (
-		<Styles.Upsell>
+		<Styles.Upsell
+			direction={{
+				'@initial': 'column',
+				'@dashboardMaxWidth': 'row',
+			}}
+		>
 			<Styles.Main>
-				<Styles.Title>
+				<Styles.Title kind="heading4" color="primary" weight="bold">
 					<Icon width={24} height={24} />
 					{bot.name}
 				</Styles.Title>
 				<Text>{bot.description.card}</Text>
 			</Styles.Main>
-			<Styles.Buttons>
+			<Styles.Buttons
+				direction={{
+					'@initial': 'column',
+					'@small': 'row',
+				}}
+			>
 				<Button as={ButtonLink} buttonType="ghost" href={Urls.botPage(botId)} ghostHasBorder external>
 					Learn more
 				</Button>

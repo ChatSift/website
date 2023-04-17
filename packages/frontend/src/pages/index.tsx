@@ -5,6 +5,7 @@ import Footer from '~/components/Footer';
 import Heading from '~/components/Heading';
 import bots, { botIcons } from '~/data/bots';
 import { config, styled, theme } from '~/stitches/stitches.config';
+import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
 import * as Urls from '~/utils/urls';
 
 const Container = styled('main', {
@@ -19,10 +20,10 @@ const Container = styled('main', {
 	variants: {
 		view: {
 			desktop: {
-				maxWidth: theme.sizes.dashboardMaxWidth,
+				maxWidth: dashboardMaxWidth,
 			},
 			mobile: {
-				maxWidth: `calc(${theme.sizes.smallestDashboardWidth} - ${theme.space.dashboardPadding} * 2)`,
+				maxWidth: `calc(${smallestDashboardWidth} - ${dashboardPadding} * 2)`,
 			},
 		},
 	},

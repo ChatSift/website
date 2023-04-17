@@ -3,20 +3,8 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { Fragment } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import {
-	Bot,
-	BotList,
-	BotListNotInvited,
-	CardHeader,
-	GuildAcronym,
-	GuildCardBase,
-	GuildImage,
-	GuildTitle,
-	NameAndBots,
-	NotInvited,
-	NotInvitedHover,
-	SkeletonImage,
-} from './style';
+import * as Styles from './style';
+import { Text } from '~/components/Text';
 import useRand from '~/hooks/useRand';
 import SvgAma from '~/svg/SvgAma';
 import SvgAutoModerator from '~/svg/SvgAutoModerator';
@@ -38,31 +26,46 @@ function GuildCard({ guild }: { guild: GetDiscordAuthMeResult['guilds'][number] 
 
 	const skeletonWidth = useRand(40, 100);
 
-	const BaseComponent = isInvited ? GuildCardBase.withComponent('a') : GuildCardBase.withComponent('div');
 	const Container = isInvited ? ({ children }: ContainerProps) => <Link href={href}>{children}</Link> : Fragment;
 
 	return (
 		<Container>
-			<BaseComponent data-is-invited={isInvited || showInvitedBotsSkeleton} data-skeleton={!guild} href={href}>
+			<Styles.GuildCardBase
+				as={isInvited ? 'a' : 'div'}
+				isInvited={isInvited || showInvitedBotsSkeleton}
+				isSkeleton={!guild}
+				href={href}
+				mobile={{
+					'@initial': true,
+					'@smallestDashboardWidth': false,
+				}}
+			>
 				<>
 					{guild === undefined ? (
-						<SkeletonImage />
+						<Styles.GuildImage as={Skeleton} />
 					) : (
-						<CardHeader data-is-invited={isInvited}>
+						<Styles.CardHeader data-is-invited={isInvited}>
 							{icon ? (
-								<GuildImage src={icon} />
+								<Styles.GuildImage src={icon} />
 							) : (
-								<GuildAcronym data-first-letter={guild.name[0]} data-full={getGuildAcronym(guild.name)} />
+								<Styles.GuildAcronym
+									as={Text}
+									kind="caption"
+									data-first-letter={guild.name[0]}
+									data-full={getGuildAcronym(guild.name)}
+								/>
 							)}
-							<GuildTitle id="header-title">{guild.name}</GuildTitle>
-						</CardHeader>
+							<Styles.GuildTitle id="header-title" color="primary" weight="bold">
+								{guild.name}
+							</Styles.GuildTitle>
+						</Styles.CardHeader>
 					)}
-					<NameAndBots>
-						<GuildTitle id="not-invited-hover-title">
+					<Styles.NameAndBots>
+						<Styles.GuildTitle id="not-invited-hover-title" color="primary" weight="bold">
 							{guild === undefined ? <Skeleton width={`${skeletonWidth}%`} /> : guild.name}
-						</GuildTitle>
+						</Styles.GuildTitle>
 						{isInvited || showInvitedBotsSkeleton ? (
-							<BotList>
+							<Styles.BotList>
 								{guild === undefined ? (
 									[...(Array.from({ length: Math.ceil(randomBotListCount) }) as unknown[])].map((_, index) => (
 										<Skeleton key={index} width={24} height={24} />
@@ -86,35 +89,37 @@ function GuildCard({ guild }: { guild: GetDiscordAuthMeResult['guilds'][number] 
 										)}
 									</>
 								)}
-							</BotList>
+							</Styles.BotList>
 						) : (
 							<>
-								<NotInvited>{guild === undefined ? <Skeleton width="50%" /> : 'Not invited'}</NotInvited>
-								<NotInvitedHover>
-									<span>Invite a bot:</span>
-									<BotListNotInvited>
+								<Text kind="caption" className="not-invited">
+									{guild === undefined ? <Skeleton width="50%" /> : 'Not invited'}
+								</Text>
+								<Styles.NotInvitedHover>
+									<Text kind="caption">Invite a bot:</Text>
+									<Styles.BotListNotInvited>
 										<li>
-											<Bot href={Urls.botInvite('automoderator')}>
+											<Styles.Bot href={Urls.botInvite('automoderator')}>
 												<SvgAutoModerator width={32} height={32} />
-											</Bot>
+											</Styles.Bot>
 										</li>
 										<li>
-											<Bot href={Urls.botInvite('ama')}>
+											<Styles.Bot href={Urls.botInvite('ama')}>
 												<SvgAma width={32} height={32} />
-											</Bot>
+											</Styles.Bot>
 										</li>
 										<li>
-											<Bot href={Urls.botInvite('modmail')}>
+											<Styles.Bot href={Urls.botInvite('modmail')}>
 												<SvgModmail width={32} height={32} />
-											</Bot>
+											</Styles.Bot>
 										</li>
-									</BotListNotInvited>
-								</NotInvitedHover>
+									</Styles.BotListNotInvited>
+								</Styles.NotInvitedHover>
 							</>
 						)}
-					</NameAndBots>
+					</Styles.NameAndBots>
 				</>
-			</BaseComponent>
+			</Styles.GuildCardBase>
 		</Container>
 	);
 }

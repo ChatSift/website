@@ -13,7 +13,7 @@ import { Text } from '~/components/Text';
 import bots from '~/data/bots';
 import { styled, theme, globalCss } from '~/stitches/stitches.config';
 import { mediaQueriesRaw } from '~/styles/breakpoints';
-import { dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
+import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
 
 const hideOnDevices = globalCss({
 	[`@media (max-width: ${mediaQueriesRaw.dashboardMaxWidth}px)`]: {
@@ -42,7 +42,7 @@ const Container = styled('main', {
 				maxWidth: smallestDashboardWidth - dashboardPadding * 2,
 			},
 			false: {
-				maxWidth: theme.sizes.dashboardMaxWidth,
+				maxWidth: dashboardMaxWidth,
 			},
 		},
 	},

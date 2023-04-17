@@ -1,7 +1,7 @@
 import { createStitches } from '@stitches/react';
 import type * as Stitches from '@stitches/react';
 import { stitchesMediaQueries } from '~/styles/breakpoints';
-import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
+import { dashboardPadding } from '~/utils/constants';
 
 export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme, config } = createStitches({
 	theme: {
@@ -21,21 +21,22 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 			miscAccent: '#2f8fee',
 			miscDanger: '#ff5052',
 		},
+		sizes: {
+			smallImage: '24px',
+			image: '48px',
+		},
 		radii: {
 			sm: '4px',
 			md: '6px',
 			lg: '8px',
 			full: '1337px',
+			rounded: '100%',
 		},
 		borderWidths: {
 			thin: '1px',
 		},
 		borderStyles: {
 			normal: 'solid',
-		},
-		sizes: {
-			dashboardMaxWidth: `${dashboardMaxWidth}px`,
-			smallestDashboardWidth: `${smallestDashboardWidth}px`,
 		},
 		fontSizes: {
 			one: '16px',

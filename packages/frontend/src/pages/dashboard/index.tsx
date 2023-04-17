@@ -1,7 +1,6 @@
 import type { GetDiscordAuthMeResult } from '@chatsift/website-api';
-import styled from '@emotion/styled';
 import { useCallback, useEffect, useState } from 'react';
-import Button from '~/components/Button';
+import { Button } from '~/components/Button';
 import DashBotUpsell from '~/components/DashBotUpsell';
 import Footer from '~/components/Footer';
 import GuildCard from '~/components/GuildCard';
@@ -12,104 +11,123 @@ import SearchBar from '~/components/SearchBar';
 import { Text } from '~/components/Text';
 import bots from '~/data/bots';
 import useLoggedInUser from '~/hooks/useLoggedInUser';
-import { theme } from '~/stitches/stitches.config';
-import mediaQueries from '~/styles/breakpoints';
+import { styled, theme } from '~/stitches/stitches.config';
 import SvgRefresh from '~/svg/SvgRefresh';
 import { dashboardMaxWidth, dashboardPadding, guildCardsPerPage, smallestDashboardWidth } from '~/utils/constants';
 
-const MainHeadingContainer = styled.div`
-	display: flex;
-	justify-content: space-between;
-	gap: 16px;
-	align-items: flex-start;
-	flex-direction: column;
+const MainHeadingContainer = styled('div', {
+	display: 'flex',
+	justifyContent: 'space-between',
+	gap: theme.space.lg,
 
-	${mediaQueries.smallMin} {
-		flex-direction: row;
-		align-items: center;
-	}
-`;
+	variants: {
+		direction: {
+			column: {
+				flexDirection: 'column',
+				alignItems: 'flex-start',
+			},
+			row: {
+				flexDirection: 'row',
+				alignItems: 'center',
+			},
+		},
+	},
+});
 
-const SectionContainer = styled.div`
-	display: flex;
-	flex-direction: column;
+const SectionContainer = styled('div', {
+	displayFlex: 'column',
 
-	& > *:first-of-type {
-		margin-bottom: 24px;
-	}
+	'& > *:first-of-type': {
+		marginBottom: theme.space.xl,
+	},
 
-	&:not(:first-of-type) {
-		margin-top: 32px;
-	}
-`;
+	'&:not(:first-of-type)': {
+		marginTop: theme.space.xxl,
+	},
+});
 
-const Container = styled.main`
-	flex: 1 0 auto;
-	display: flex;
-	flex-direction: column;
-	max-width: ${dashboardMaxWidth}px;
-	align-items: stretch;
-	justify-content: space-between;
-	width: fit-content;
-	height: 100%;
-	margin: 0 auto;
-	padding: ${dashboardPadding}px;
+const Container = styled('main', {
+	displayFlex: 'column',
+	flex: '1 0 auto',
+	alignItems: 'stretch',
+	justifyContent: 'space-between',
+	width: 'fit-content',
+	height: '100%',
+	margin: '0 auto',
+	padding: dashboardPadding,
 
-	${mediaQueries.dashboardMaxWidthMax} {
-		max-width: ${smallestDashboardWidth - dashboardPadding * 2}px;
-	}
-`;
+	variants: {
+		mobile: {
+			true: {
+				maxWidth: smallestDashboardWidth - dashboardPadding * 2,
+			},
+			false: {
+				maxWidth: dashboardMaxWidth,
+			},
+		},
+	},
+});
 
-const SearchBarModified = styled(SearchBar)`
-	margin-bottom: 16px;
-`;
+const SearchBarModified = styled(SearchBar, {
+	marginBottom: theme.space.lg,
+});
 
-const Guilds = styled.ul`
-	display: grid;
-	grid-template-columns: repeat(${guildCardsPerPage}, 1fr);
-	gap: 16px;
-	max-width: ${dashboardMaxWidth - dashboardPadding * 2}px;
+const Guilds = styled('ul', {
+	display: 'grid',
+	gridTemplateColumns: `repeat(${guildCardsPerPage}, 1fr)`,
+	gap: theme.space.lg,
+	maxWidth: dashboardMaxWidth - dashboardPadding * 2,
 
-	${mediaQueries.dashboardMaxWidthMax} {
-		grid-template-columns: repeat(2, 1fr);
-	}
+	variants: {
+		columns: {
+			nGuilds: {
+				gridTemplateColumns: `repeat(${guildCardsPerPage}, 1fr)`,
+			},
+			2: {
+				gridTemplateColumns: `1fr 1fr`,
+			},
+			1: {
+				gridTemplateColumns: `1fr`,
+			},
+		},
+	},
+});
 
-	${mediaQueries.smallestDashboardWidthMax} {
-		grid-template-columns: 1fr;
-	}
-`;
+const NoServersFoundContainer = styled('div', {
+	displayFlex: 'column',
+	gap: theme.space.xl,
 
-const NoServersFoundContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
-	width: min(${dashboardMaxWidth - dashboardPadding * 2}px, 80vw);
+	variants: {
+		mobile: {
+			true: {
+				maxWidth: smallestDashboardWidth - dashboardPadding * 4,
+				width: guildCardSmallDashWidth,
+			},
+			false: {
+				maxWidth: 'unset',
+				width: `min(${dashboardMaxWidth - dashboardPadding * 2}px, 80vw)`,
+			},
+		},
+	},
+});
 
-	${mediaQueries.dashboardMaxWidthMax} {
-		max-width: ${smallestDashboardWidth - dashboardPadding * 4}px;
-		width: ${guildCardSmallDashWidth};
-	}
-`;
+const NoScript = styled('noscript', {
+	displayFlex: 'column',
+	alignItems: 'center',
+	justifyContent: 'center',
+	flex: '1 0 auto',
+});
 
-const NoScript = styled.noscript`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	flex: 1 0 auto;
-`;
+const NoServersHeader = styled('div', {
+	displayFlex: 'column',
+	gap: theme.space.xxs,
+});
 
-const NoServersHeader = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 4px;
-`;
-
-const BotUpsells = styled.ul`
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-`;
+const BotUpsells = styled('ul', {
+	display: 'flex',
+	flexDirection: 'column',
+	gap: theme.space.xl,
+});
 
 const numberOfSkeletonGuilds = 16;
 
@@ -181,19 +199,31 @@ function Dashboard() {
 					JavaScript is required for this page to work
 				</Text>
 			</NoScript>
-			<Container id="container">
+			<Container
+				id="container"
+				mobile={{
+					'@initial': true,
+					'@dashboardMaxWidth': false,
+				}}
+			>
 				<SectionContainer>
-					<MainHeadingContainer>
+					<MainHeadingContainer
+						direction={{
+							'@initial': 'column',
+							'@small': 'row',
+						}}
+					>
 						<Heading title="Configure bots" subtitle="Select or add a community to manage." />
-						<Button.Ghost
+						<Button
+							buttonType="ghost"
 							onPress={() => void refetchGuilds()}
 							isDisabled={isFetching}
 							data-loading={isFetching}
-							hasBorder
+							ghostHasBorder
 						>
 							<SvgRefresh themeColor={theme.colors.textSecondary.toString()} />
 							Refresh
-						</Button.Ghost>
+						</Button>
 					</MainHeadingContainer>
 					<SearchBarModified
 						state={[search, setSearch]}
@@ -202,7 +232,13 @@ function Dashboard() {
 						isDisabled={isNotReady}
 					/>
 					{isNotReady || (guilds?.length ?? 0) > 0 ? (
-						<Guilds>
+						<Guilds
+							columns={{
+								'@initial': 1,
+								'@smallestDashboardWidth': 2,
+								'@dashboardMaxWidth': 'nGuilds',
+							}}
+						>
 							{isNotReady
 								? [...(Array.from({ length: numberOfSkeletonGuilds }) as unknown[])].map((_, index) => (
 										<li key={index}>
@@ -216,7 +252,12 @@ function Dashboard() {
 								  ))}
 						</Guilds>
 					) : (
-						<NoServersFoundContainer>
+						<NoServersFoundContainer
+							mobile={{
+								'@initial': true,
+								'@dashboardMaxWidth': false,
+							}}
+						>
 							<NoServersHeader>
 								<Text kind="heading3" color="primary" weight="bold">
 									{(dataToUse?.guilds?.length ?? 0) > 0 ? 'No results' : 'No servers found'}
