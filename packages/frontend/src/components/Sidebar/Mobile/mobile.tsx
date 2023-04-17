@@ -7,6 +7,7 @@ import { isMobile } from '~/components/Header';
 import Logo from '~/components/Header/components/Logo';
 import * as HeaderStyles from '~/components/Header/style';
 import * as LoggedInUser from '~/components/LoggedInUser';
+import { theme } from '~/stitches/stitches.config';
 import SvgHamburger from '~/svg/SvgHamburger';
 
 type SidebarMobileProps = {
@@ -95,7 +96,7 @@ function SidebarMobile(props: SidebarMobileProps) {
 						aria-controls="menu"
 						aria-haspopup="true"
 					>
-						<SvgHamburger themeColor={(theme) => theme.colors.text.secondary} />
+						<SvgHamburger themeColor={theme.colors.textSecondary.toString()} />
 					</Button.Ghost>
 				</HeaderStyles.HeaderContent>
 			</HeaderStyles.MobileNav>
