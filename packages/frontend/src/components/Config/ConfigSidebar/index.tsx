@@ -86,8 +86,8 @@ function ConfigSidebar() {
 									<Styles.SidebarLink
 										key={linkHref}
 										href={linkHref}
-										data-active={active}
-										data-loading={guild?.id === undefined}
+										isActive={active}
+										isLoading={guild?.id === undefined}
 									>
 										<Text kind="body" color={active ? 'primary' : 'secondary'} weight={active ? 'bold' : 'thin'}>
 											{link.linkText}

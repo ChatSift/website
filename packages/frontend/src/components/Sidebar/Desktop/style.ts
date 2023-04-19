@@ -1,15 +1,21 @@
-import styled from '@emotion/styled';
-import { desktopThreshold } from '~/components/Sidebar/style';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const NavMenu = styled.nav`
-	${desktopThreshold} {
-		display: flex;
-	}
+export const NavMenu = styled('nav', {
+	width: 300,
+	borderRightWidth: theme.borderWidths.thin,
+	borderRightStyle: theme.borderStyles.normal,
+	borderRightColor: theme.colors.onBgSecondary,
+	padding: theme.space.xl,
+	flexShrink: 0,
 
-	display: none;
-	flex-direction: column;
-	width: 300px;
-	border-right: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
-	padding: 24px;
-	flex-shrink: 0;
-`;
+	variants: {
+		visible: {
+			true: {
+				displayFlex: 'column',
+			},
+			false: {
+				display: 'none',
+			},
+		},
+	},
+});

@@ -101,6 +101,10 @@ function SidebarMobile(props: SidebarMobileProps) {
 				</HeaderStyles.HeaderContent>
 			</HeaderStyles.MobileNav>
 			<Styles.Backdrop
+				isMobile={{
+					'@initial': true,
+					'@medium': false,
+				}}
 				onClick={isOpen ? onClick : () => {}}
 				style={{
 					opacity: menuX.to([0, restPosition], [0.5, 0]),
@@ -115,6 +119,10 @@ function SidebarMobile(props: SidebarMobileProps) {
 					display,
 				}}
 				className={props.className}
+				isMobile={{
+					'@initial': true,
+					'@medium': false,
+				}}
 			>
 				<Styles.MainContent>{props.children}</Styles.MainContent>
 				<Styles.MobileUser data-mobile-open={isOpen}>

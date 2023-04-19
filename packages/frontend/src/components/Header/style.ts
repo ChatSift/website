@@ -1,10 +1,8 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { RouterLink } from '~/components/Link';
 import { keyframes, styled, css, theme } from '~/stitches/stitches.config';
-import mediaQueries from '~/styles/breakpoints';
 
 export const mobileNavAnimDuration = 0.3;
-export const mobileThreshold = mediaQueries.mediumMin;
 
 export const Header = styled('header', {
 	position: 'sticky',
@@ -37,9 +35,13 @@ export const activeMobileOverride = css({
 		display: 'none',
 	},
 
-	[mediaQueries.mediumMin]: {
-		'& > *': {
-			display: 'none',
+	variants: {
+		hideChildren: {
+			true: {
+				'& > *': {
+					display: 'none',
+				},
+			},
 		},
 	},
 });

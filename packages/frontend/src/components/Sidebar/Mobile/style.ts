@@ -1,57 +1,59 @@
-import styled from '@emotion/styled';
 import { animated } from 'react-spring';
-import { desktopThreshold } from '~/components/Sidebar/style';
-import type { ThemeProps } from '~/themes/theme';
+import { styled, theme } from '~/stitches/stitches.config';
 
-const SidebarAnimatedDiv = styled(animated.div)`
-	${desktopThreshold} {
-		display: none !important;
-	}
-`;
+const SidebarAnimatedDiv = styled(animated.div, {
+	variants: {
+		isMobile: {
+			false: {
+				display: 'none !important',
+			},
+		},
+	},
+});
 
-export const Backdrop = styled(SidebarAnimatedDiv)`
-	z-index: 15000;
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100vw;
-	height: 100vh;
-	background-color: #000;
-`;
+export const Backdrop = styled(SidebarAnimatedDiv, {
+	zIndex: 15_000,
+	position: 'fixed',
+	left: 0,
+	top: 0,
+	width: '100vw',
+	height: '100vh',
+	backgroundColor: '#000',
+});
 
-export const MainContent = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-	padding: 24px;
-`;
+export const MainContent = styled('div', {
+	displayFlex: 'column',
+	gap: theme.space.lg,
+	padding: theme.space.xl,
+});
 
-export const MobileUser = styled.div`
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 16px;
-	justify-content: space-between;
-	background-color: ${(props: ThemeProps) => props.theme.colors.background.default};
-	width: 100%;
-	z-index: -1;
-	border-top: 1px solid ${(props: ThemeProps) => props.theme.colors.onBackground.secondary};
-	padding: 14px;
-`;
+export const MobileUser = styled('div', {
+	displayFlex: 'row',
+	alignItems: 'center',
+	gap: theme.space.lg,
+	justifyContent: 'space-between',
+	backgroundColor: theme.colors.bgBase,
+	width: '100%',
+	zIndex: -1,
+	borderTopWidth: theme.borderWidths.thin,
+	borderTopStyle: theme.borderStyles.normal,
+	borderTopColor: theme.colors.onBgSecondary,
+	padding: theme.space.lg,
+});
 
-export const Menu = styled(SidebarAnimatedDiv)`
-	touch-action: none;
-	position: fixed;
-	left: 0;
-	top: 0;
-	height: 100vh;
-	z-index: 16000;
-	background-color: ${(props) => props.theme.colors.background.default};
-	border-right: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
-	box-sizing: border-box;
-	width: 300px;
-	display: flex;
-	justify-content: space-between;
-	flex-direction: column;
-	max-width: 80vw;
-`;
+export const Menu = styled(SidebarAnimatedDiv, {
+	touchAction: 'none',
+	position: 'fixed',
+	left: 0,
+	top: 0,
+	maxWidth: '80vw',
+	width: 300,
+	height: '100vh',
+	zIndex: 16_000,
+	displayFlex: 'column',
+	justifyContent: 'space-between',
+	backgroundColor: theme.colors.bgBase,
+	borderRightWidth: theme.borderWidths.thin,
+	borderRightStyle: theme.borderStyles.normal,
+	borderRightColor: theme.colors.onBgSecondary,
+});

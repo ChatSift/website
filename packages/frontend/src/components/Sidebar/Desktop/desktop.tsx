@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { NavMenu } from '~/components/Sidebar/Desktop/style';
+import { mobileThreshold } from '~/components/Sidebar';
+import * as Styles from '~/components/Sidebar/Desktop/style';
 
 type SidebarDesktopProps = {
 	children: ReactNode;
@@ -7,7 +8,17 @@ type SidebarDesktopProps = {
 };
 
 function SidebarDesktop({ children, className }: SidebarDesktopProps) {
-	return <NavMenu className={className}>{children}</NavMenu>;
+	return (
+		<Styles.NavMenu
+			className={className}
+			visible={{
+				'@initial': false,
+				[mobileThreshold]: true,
+			}}
+		>
+			{children}
+		</Styles.NavMenu>
+	);
 }
 
 export default SidebarDesktop;

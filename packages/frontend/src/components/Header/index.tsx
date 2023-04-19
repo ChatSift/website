@@ -56,9 +56,24 @@ export function MobileHeaderOverride({ children }: { children: ReactNode }) {
 			return;
 		}
 
-		container.classList.add(activeMobileOverride.toString());
+		const classes = activeMobileOverride({
+			hideChildren: {
+				'@initial': false,
+				'@medium': true,
+			},
+		}).className.split(' ');
 
-		return () => container.classList.remove(activeMobileOverride.toString());
+		console.log(classes);
+
+		for (const className of classes) {
+			container.classList.add(className);
+		}
+
+		return () => {
+			for (const className of classes) {
+				container.classList.remove(className);
+			}
+		};
 	}, [container]);
 
 	if (!container) {
