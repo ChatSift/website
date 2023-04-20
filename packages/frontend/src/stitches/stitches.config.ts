@@ -24,6 +24,7 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 		sizes: {
 			smallImage: '24px',
 			image: '48px',
+			largeImage: '64px',
 		},
 		radii: {
 			sm: '4px',
@@ -75,6 +76,14 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 	media: stitchesMediaQueries,
 
 	utils: {
+		borderThin: (borderColor: Stitches.ScaleValue<'colors'>) => ({
+			// eslint-disable-next-line @typescript-eslint/no-base-to-string
+			border: `$borderWidths$thin $borderStyles$normal ${borderColor}`,
+		}),
+		borderBottomThin: (borderColor: Stitches.ScaleValue<'colors'>) => ({
+			// eslint-disable-next-line @typescript-eslint/no-base-to-string
+			borderBottom: `$borderWidths$thin $borderStyles$normal ${borderColor}`,
+		}),
 		displayFlex: (value: 'column' | 'row') => ({
 			display: 'flex',
 			flexDirection: value,

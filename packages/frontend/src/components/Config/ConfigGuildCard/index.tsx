@@ -23,11 +23,22 @@ function ConfigGuildCard({ wide = false }: ConfigGuildCardProps) {
 	}
 
 	return (
-		<Styles.Card wide={wide}>
+		<Styles.Card
+			wide={wide}
+			padding={{
+				'@initial': 'small',
+				'@medium': 'large',
+			}}
+		>
 			{isLoading || !guild ? (
-				<Styles.SkeletonGuildImage large={wide} />
+				<Styles.GuildImage as={Skeleton} large={wide} />
 			) : guild.icon === null ? (
-				<Styles.GuildAcronym large={wide} data-first-letter={guild.name[0]} data-full={getGuildAcronym(guild.name)} />
+				<Styles.GuildAcronym
+					as="div"
+					large={wide}
+					data-first-letter={guild.name[0]}
+					data-full={getGuildAcronym(guild.name)}
+				/>
 			) : (
 				<Styles.GuildImage large={wide} src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`} />
 			)}
@@ -35,7 +46,7 @@ function ConfigGuildCard({ wide = false }: ConfigGuildCardProps) {
 				<Styles.GuildName kind={wide ? 'heading3' : 'body'} weight="bold" color="primary">
 					{guild?.name ?? <Skeleton width={`min(100%, ${skeletonWidth}px)`} />}
 				</Styles.GuildName>
-				<Text kind={wide ? 'body' : 'caption'} color="primary">
+				<Text kind={wide ? 'body' : 'caption'} color="secondary">
 					{/* TODO: when we fix the types, this ts-expect-error can be removed */}
 					{/* @ts-expect-error TS2339 */}
 					{guild?.approximate_member_count?.toLocaleString()?.concat(' members') ?? <Skeleton width={100} />}

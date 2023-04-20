@@ -46,9 +46,7 @@ export const GuildImage = styled('img', {
 	width: `${theme.sizes.image} !important`,
 	height: theme.sizes.image,
 	borderRadius: `${theme.radii.rounded} !important`,
-	borderWidth: theme.borderWidths.thin,
-	borderStyle: theme.borderStyles.normal,
-	borderColor: theme.colors.onBgSecondary,
+	borderThin: theme.colors.onBgSecondary,
 });
 
 export const GuildAcronym = styled(GuildImage, {
@@ -66,9 +64,7 @@ export const GuildCardBase = styled('a', {
 	gap: guildCardInnerGap,
 	padding: guildCardGap,
 	borderRadius: theme.radii.lg,
-	borderWidth: theme.borderWidths.thin,
-	borderStyle: theme.borderStyles.normal,
-	borderColor: theme.colors.onBgSecondary,
+	borderThin: theme.colors.onBgSecondary,
 	minWidth: guildCardWidthMobile,
 	height: 144,
 

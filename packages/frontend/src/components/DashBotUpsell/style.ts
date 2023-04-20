@@ -3,9 +3,7 @@ import { styled, theme } from '~/stitches/stitches.config';
 
 export const Upsell = styled('div', {
 	backgroundColor: theme.colors.bgCard,
-	borderWidth: theme.borderWidths.thin,
-	borderStyle: theme.borderStyles.normal,
-	borderColor: theme.colors.onBgTertiary,
+	borderThin: theme.colors.onBgTertiary,
 	borderRadius: theme.radii.lg,
 	padding: theme.space.lg,
 	display: 'flex',

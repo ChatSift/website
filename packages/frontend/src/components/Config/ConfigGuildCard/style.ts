@@ -1,83 +1,78 @@
-import styledOld from '@emotion/styled';
-import Skeleton from 'react-loading-skeleton';
 import { Text } from '~/components/Text';
-import { styled } from '~/stitches/stitches.config';
-import mediaQueries from '~/styles/breakpoints';
+import { styled, theme } from '~/stitches/stitches.config';
 
-type CardProps = {
-	wide: boolean;
-};
-
-export const Card = styledOld.article<CardProps>`
-	display: flex;
-	border-radius: 8px;
-	background-color: ${({ theme }) => theme.colors.background.card};
-	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-	padding: 8px;
-
-	${mediaQueries.smallMin} {
-		padding: 16px;
-	}
-
-	${({ wide }) =>
-		wide
-			? `
-					flex-direction: row;
-					align-items: center;
-					gap: 16px;
-				`
-			: `
-					flex-direction: column;
-					gap: 8px;
-				`}
+export const Card = styled('article', {
+	display: 'flex',
+	borderRadius: theme.radii.lg,
+	backgroundColor: theme.colors.bgCard,
+	borderThin: theme.colors.onBgSecondary,
 
 	// hack to make the skeleton not take up too much height
-	> span {
-		display: flex;
-	}
-`;
+	'> span': {
+		display: 'flex',
+	},
 
-type GuildImageProps = {
-	large: boolean;
-};
+	variants: {
+		padding: {
+			small: {
+				padding: theme.space.sm,
+			},
+			large: {
+				padding: theme.space.lg,
+			},
+		},
 
-export const GuildImage = styledOld.img<GuildImageProps>`
-	display: flex !important;
-	justify-content: center;
-	align-items: center;
-	width: ${({ large }) => (large ? 64 : 48)}px;
-	height: ${({ large }) => (large ? 64 : 48)}px;
-	border-radius: 100%;
-	border: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
-`;
+		wide: {
+			true: {
+				flexDirection: 'row',
+				alignItems: 'center',
+				gap: theme.space.lg,
+			},
+			false: {
+				flexDirection: 'column',
+				gap: theme.space.sm,
+			},
+		},
+	},
+});
 
-export const GuildAcronym = styledOld(GuildImage.withComponent('div'))`
-	&::after {
-		color: ${({ theme }) => theme.colors.text.primary};
-		max-width: 70%;
-		content: attr(data-full);
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-`;
+export const GuildImage = styled('img', {
+	display: 'flex !important',
+	justifyContent: 'center',
+	alignItems: 'center',
+	borderRadius: '100% !important',
+	borderThin: theme.colors.onBgSecondary,
 
-export const SkeletonGuildImage = GuildImage.withComponent(Skeleton);
+	variants: {
+		large: {
+			true: {
+				width: `${theme.sizes.largeImage} !important`,
+				height: `${theme.sizes.largeImage} !important`,
+			},
+			false: {
+				width: `${theme.sizes.image} !important`,
+				height: `${theme.sizes.image} !important`,
+			},
+		},
+	},
+});
 
-export const CardHeader = styledOld.div`
-	display: flex;
-	flex-direction: column;
-	gap: 4px;
-	flex: 1 1 auto;
-	min-width: 0;
-`;
+export const GuildAcronym = styled(GuildImage, {
+	'&::after': {
+		color: theme.colors.textPrimary,
+		maxWidth: '70%',
+		content: 'attr(data-full)',
+		whiteSpace: 'nowrap',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+	},
+});
 
-// export const GuildNameWide = styledOld(Heading3)`
-// 	color: ${({ theme }) => theme.colors.text.primary};
-// 	text-overflow: ellipsis;
-// 	overflow: hidden;
-// 	white-space: nowrap;
-// `;
+export const CardHeader = styled('div', {
+	displayFlex: 'column',
+	gap: theme.space.xxs,
+	flex: '1 1 auto',
+});
 
 export const GuildName = styled(Text, {
 	textOverflow: 'ellipsis',

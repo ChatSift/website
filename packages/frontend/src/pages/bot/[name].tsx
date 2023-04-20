@@ -85,9 +85,7 @@ const Feature = styled('li', {
 	displayFlex: 'column',
 	gap: theme.space.sm,
 	backgroundColor: theme.colors.bgCard,
-	borderWidth: theme.borderWidths.thin,
-	borderStyle: theme.borderStyles.normal,
-	borderColor: theme.colors.onBgSecondary,
+	borderThin: theme.colors.onBgSecondary,
 	borderRadius: theme.radii.lg,
 });
 

@@ -15,9 +15,7 @@ export const Header = styled('header', {
 	variants: {
 		desktop: {
 			true: {
-				borderBottomWidth: theme.borderWidths.thin,
-				borderBottomStyle: theme.borderStyles.normal,
-				borderBottomColor: theme.colors.onBgSecondary,
+				borderBottomThin: theme.colors.onBgSecondary,
 				paddingY: theme.space.lg,
 				paddingRight: theme.space.xxl,
 				paddingLeft: theme.space.xl,
@@ -153,9 +151,7 @@ export const VerticalList = styled(NavigationMenu.List, {
 	variants: {
 		open: {
 			true: {
-				borderBottomWidth: theme.borderWidths.thin,
-				borderBottomStyle: theme.borderStyles.normal,
-				borderBottomColor: theme.colors.onBgSecondary,
+				borderBottomThin: theme.colors.onBgSecondary,
 				paddingTop: theme.space.lg,
 				paddingBottom: theme.space.xl,
 				animationName: mobileNavOpenAnimation.toString(),

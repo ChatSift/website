@@ -16,9 +16,7 @@ export const SearchField = styled('input', {
 	flex: '1 1 auto',
 	color: theme.colors.textPrimary,
 	backgroundColor: theme.colors.onBgTertiary,
-	borderWidth: theme.borderWidths.thin,
-	borderStyle: theme.borderStyles.normal,
-	borderColor: theme.colors.onBgSecondary,
+	borderThin: theme.colors.onBgSecondary,
 	borderRadius: theme.radii.lg,
 	padding: `${theme.space.md} ${theme.space.huge} ${theme.space.md} ${theme.space.lg}`,
 
