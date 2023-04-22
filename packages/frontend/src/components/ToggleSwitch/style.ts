@@ -1,36 +1,38 @@
-import styled from '@emotion/styled';
 import * as Switch from '@radix-ui/react-switch';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const Root = styled(Switch.Root)`
-	width: 40px;
-	height: 24px;
-	background-color: ${(props) => props.theme.colors.onBackground.primary};
-	border-radius: 222px;
-	position: relative;
-	cursor: pointer;
+export const Root = styled(Switch.Root, {
+	width: 40,
+	height: 24,
+	backgroundColor: theme.colors.onBgPrimary,
+	borderRadius: theme.radii.full,
+	position: 'relative',
+	cursor: 'pointer',
 
-	&[data-state='checked'] {
-		background-color: ${(props) => props.theme.colors.accent};
-	}
+	'&[data-state="checked"]': {
+		backgroundColor: theme.colors.miscAccent,
+	},
 
-	&[disabled] {
-		cursor: not-allowed;
-		opacity: 0.5;
-	}
-`;
+	'&[disabled]': {
+		cursor: 'not-allowed',
+		opacity: 0.5,
+	},
+});
 
-export const Thumb = styled(Switch.Thumb)`
-	position: absolute;
-	top: 0;
-	display: block;
-	width: 24px;
-	height: 24px;
-	background-color: ${(props) => props.theme.colors.text.onAccent};
-	background-clip: padding-box;
-	border: 4px solid transparent;
-	border-radius: 100%;
+export const Thumb = styled(Switch.Thumb, {
+	position: 'absolute',
+	top: 0,
+	display: 'block',
+	width: 24,
+	height: 24,
+	backgroundColor: theme.colors.textOnAccent,
+	backgroundClip: 'padding-box',
+	borderWidth: 4,
+	borderStyle: theme.borderStyles.normal,
+	borderColor: 'transparent',
+	borderRadius: '100%',
 
-	&[data-state='checked'] {
-		right: 0;
-	}
-`;
+	'&[data-state="checked"]': {
+		right: 0,
+	},
+});

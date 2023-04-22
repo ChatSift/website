@@ -1,40 +1,36 @@
-import styled from '@emotion/styled';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const Option = styled.li`
-	display: flex;
-	flex-direction: column;
-	padding: 12px 16px;
-	gap: 16px;
-`;
+export const Option = styled('li', {
+	displayFlex: 'column',
+	paddingX: theme.space.lg,
+	paddingY: theme.space.md,
+	gap: theme.space.lg,
+});
 
-export const OptionHeader = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-	gap: 16px;
-	justify-content: space-between;
-	align-items: center;
-`;
+export const OptionHeader = styled('div', {
+	displayFlex: 'row',
+	flexWrap: 'wrap',
+	gap: theme.space.lg,
+	justifyContent: 'space-between',
+	alignItems: 'center',
+});
 
-export const IconAndTag = styled.div`
-	display: flex;
-	flex-direction: row;
-	gap: 16px;
-	align-items: center;
-	flex: 1 1 auto;
-	min-width: 0;
-`;
+export const IconAndTag = styled('div', {
+	displayFlex: 'row',
+	gap: theme.space.lg,
+	alignItems: 'center',
+	flex: '1 1 auto',
+	minWidth: 0,
+});
 
-export const Tag = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	flex: 1 1 auto;
-	min-width: 0;
-`;
+export const Tag = styled('div', {
+	displayFlex: 'column',
+	justifyContent: 'center',
+	flex: '1 1 auto',
+	minWidth: 0,
+});
 
-export const Content = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-`;
+export const Content = styled('div', {
+	displayFlex: 'column',
+	alignItems: 'flex-start',
+});

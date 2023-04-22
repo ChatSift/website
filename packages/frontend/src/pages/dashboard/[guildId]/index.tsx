@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import ButtonLink from '~/components/ButtonLink';
+import { Button } from '~/components/Button';
+import { ButtonLink } from '~/components/ButtonLink';
 import ConfigGuildCard from '~/components/Config/ConfigGuildCard';
 import ConfigOption from '~/components/Config/ConfigOption';
 import { ConfigOptionCollection } from '~/components/Config/ConfigOptionCollection';
@@ -39,9 +40,16 @@ function BotButton({ isLoading, isComingSoon, isInvited, guildId, botId, page }:
 	if (!isInvited) {
 		return (
 			<Link href={Urls.botInvite(botId)}>
-				<ButtonLink.Ghost disabled={isLoading} href={Urls.botInvite(botId)} hasBorder external>
+				<Button
+					as={ButtonLink}
+					buttonType="ghost"
+					isDisabled={isLoading}
+					href={Urls.botInvite(botId)}
+					ghostHasBorder
+					external
+				>
 					Invite
-				</ButtonLink.Ghost>
+				</Button>
 			</Link>
 		);
 	}
@@ -52,9 +60,10 @@ function BotButton({ isLoading, isComingSoon, isInvited, guildId, botId, page }:
 
 	return (
 		<Link href={url}>
-			<ButtonLink.Cta disabled={isLoading} href={url}>
-				<SvgCog themeColor={theme.colors.textOnAccent.toString()} /> Manage
-			</ButtonLink.Cta>
+			<Button as={ButtonLink} buttonType="callToAction" isDisabled={isLoading} href={url}>
+				<SvgCog themeColor={theme.colors.textOnAccent.toString()} />
+				Manage
+			</Button>
 		</Link>
 	);
 }

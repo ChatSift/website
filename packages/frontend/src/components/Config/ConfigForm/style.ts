@@ -1,37 +1,47 @@
-import styled from '@emotion/styled';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const DirtyBar = styled.div`
-	position: absolute;
-	bottom: var(--container-padding);
-	left: var(--container-padding);
-	right: var(--container-padding);
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-	border-radius: 8px;
-	background-color: ${({ theme }) => theme.colors.background.card};
-	padding: 8px 16px;
-	transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-	transform: translateY(0);
-	opacity: 1;
-	margin-top: auto;
+export const DirtyBar = styled('div', {
+	position: 'absolute',
+	justifyContent: 'space-between',
+	alignItems: 'center',
+	borderThin: theme.colors.onBgSecondary,
+	borderRadius: theme.radii.lg,
+	backgroundColor: theme.colors.bgCard,
+	paddingX: theme.space.lg,
+	paddingY: theme.space.sm,
+	marginTop: 'auto',
 
-	&[data-hidden='true'] {
-		transform: translateY(10px);
-		opacity: 0;
-		display: none;
-	}
-`;
+	variants: {
+		margin: {
+			small: {
+				bottom: theme.space.lg,
+				left: theme.space.lg,
+				right: theme.space.lg,
+			},
+			large: {
+				bottom: theme.space.xl,
+				left: theme.space.xl,
+				right: theme.space.xl,
+			},
+		},
 
-export const DirtyBarButtons = styled.div`
-	display: flex;
-	flex-direction: row;
-	gap: 8px;
-`;
+		isVisible: {
+			true: {
+				displayFlex: 'row',
+			},
+			false: {
+				display: 'none',
+			},
+		},
+	},
+});
 
-export const SupportLink = styled.a`
-	color: ${({ theme }) => theme.colors.accent};
-	text-decoration: underline;
-`;
+export const DirtyBarButtons = styled('div', {
+	displayFlex: 'row',
+	gap: theme.space.sm,
+});
+
+export const SupportLink = styled('a', {
+	color: theme.colors.miscAccent,
+	textDecoration: 'underline',
+});

@@ -9,7 +9,7 @@ import { ConfigOptionCollection } from '~/components/Config/ConfigOptionCollecti
 import ConfigPageFrame from '~/components/Config/ConfigPageFrame';
 import type { DropdownGroupedOptions } from '~/components/Dropdown';
 import Dropdown from '~/components/Dropdown';
-import { itemIcon } from '~/components/Dropdown/style';
+import * as Styles from '~/components/Dropdown/style';
 import PageMeta from '~/components/PageMeta';
 import { Text } from '~/components/Text';
 import { TextArea } from '~/components/TextArea';
@@ -24,8 +24,8 @@ import { fetchApi } from '~/utils/fetch';
 const allowedChannelTypes = [ChannelType.GuildText, ChannelType.GuildForum] as const;
 
 const channelIcons: Record<typeof allowedChannelTypes[number], EmotionJSX.Element> = {
-	[ChannelType.GuildText]: <SvgTextChannel className={itemIcon} />,
-	[ChannelType.GuildForum]: <SvgForumChannel className={itemIcon} />,
+	[ChannelType.GuildText]: <SvgTextChannel className={Styles.itemIcon()} />,
+	[ChannelType.GuildForum]: <SvgForumChannel className={Styles.itemIcon()} />,
 };
 
 const withIcons = true;

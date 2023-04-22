@@ -1,10 +1,10 @@
-import styled from '@emotion/styled';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const TextArea = styled.textarea`
-	border: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
-	background-color: ${(props) => props.theme.colors.onBackground.tertiary};
-	color: ${(props) => props.theme.colors.text.primary};
-	border-radius: 4px;
-	padding: 8px;
-	resize: vertical;
-`;
+export const TextArea = styled('textarea', {
+	borderThin: theme.colors.onBgSecondary,
+	backgroundColor: theme.colors.onBgTertiary,
+	color: theme.colors.textPrimary,
+	borderRadius: theme.radii.sm,
+	padding: theme.space.sm,
+	resize: 'vertical',
+});

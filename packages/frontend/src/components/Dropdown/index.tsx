@@ -2,7 +2,7 @@ import * as Select from '@radix-ui/react-select';
 import type { ReactNode } from 'react';
 import { useMemo } from 'react';
 import * as Styles from './style';
-import { DropdownLabel, itemIcon } from './style';
+import { Text } from '~/components/Text';
 import { theme } from '~/stitches/stitches.config';
 import SvgDropdownArrow from '~/svg/SvgDropdownArrow';
 import SvgTrashBin from '~/svg/SvgTrashBin';
@@ -10,7 +10,7 @@ import SvgTrashBin from '~/svg/SvgTrashBin';
 const noneOption = {
 	label: 'None',
 	value: 'none',
-	icon: <SvgTrashBin className={itemIcon} themeColor={theme.colors.textPrimary.toString()} />,
+	icon: <SvgTrashBin className={Styles.itemIcon()} themeColor={theme.colors.textPrimary.toString()} />,
 };
 
 type DropdownOption<THasIcon extends boolean> = (THasIcon extends true ? { icon: ReactNode } : {}) & {
@@ -67,12 +67,16 @@ function Dropdown<THasIcons extends boolean>({
 	// const valueWithIcon = value as DropdownOption<true> | undefined;
 
 	return (
-		<Styles.Container data-disabled={disabled}>
-			{props.label && <DropdownLabel htmlFor={props.label}>{props.label}</DropdownLabel>}
+		<Styles.Container isDisabled={disabled}>
+			{props.label && (
+				<Text as="label" kind="caption" htmlFor={props.label}>
+					{props.label}
+				</Text>
+			)}
 			<Styles.DropdownMenuContainer>
 				<Select.Root value={value?.value} onValueChange={handleValueChange}>
 					<Styles.Trigger id={props.label}>
-						<Styles.ValueAndIcon>
+						<Styles.ValueAndIcon color="primary">
 							{(props.hasIcons || value?.value === noneOption.value) &&
 								(value as DropdownOption<true> | undefined)?.icon}
 							<Select.Value placeholder="No item selected.">{value?.label}</Select.Value>
@@ -85,7 +89,7 @@ function Dropdown<THasIcons extends boolean>({
 						<Styles.Viewport>
 							{hasNoneOption && (
 								<Styles.Item value={noneOption.value}>
-									<SvgTrashBin className={itemIcon} themeColor={theme.colors.textPrimary.toString()} />{' '}
+									<SvgTrashBin className={Styles.itemIcon()} themeColor={theme.colors.textPrimary.toString()} />{' '}
 									<Select.ItemText>{noneOption.label}</Select.ItemText>
 								</Styles.Item>
 							)}

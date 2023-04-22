@@ -139,7 +139,13 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 		}
 
 		const portal = createPortal(
-			<Styles.DirtyBar data-hidden={!isDirty}>
+			<Styles.DirtyBar
+				isVisible={isDirty}
+				margin={{
+					'@initial': 'small',
+					'@small': 'large',
+				}}
+			>
 				<Text>Unsaved changes</Text>
 				<Styles.DirtyBarButtons>
 					<Button buttonType="ghost" form="small" disabled={true} onPress={resetConfig}>

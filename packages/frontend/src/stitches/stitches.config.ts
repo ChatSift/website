@@ -22,6 +22,7 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 			miscDanger: '#ff5052',
 		},
 		sizes: {
+			dropdownIcon: '18px',
 			smallImage: '24px',
 			image: '48px',
 			largeImage: '64px',
@@ -40,6 +41,7 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 			normal: 'solid',
 		},
 		fontSizes: {
+			zero: '14px',
 			one: '16px',
 			two: '18px',
 			three: '22px',
