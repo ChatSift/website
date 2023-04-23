@@ -1,4 +1,3 @@
-import Button from '~/components/Button';
 import type { RouterLinkProps } from '~/components/Link';
 import { RouterLink } from '~/components/Link';
 import SvgLinkExternal from '~/svg/SvgLinkExternal';
@@ -15,8 +14,3 @@ export function ButtonLink({ children, external, ...props }: ButtonLinkProps) {
 		</RouterLink>
 	);
 }
-
-export default {
-	Cta: Button.Cta.withComponent(ButtonLink),
-	Ghost: Button.Ghost.withComponent(ButtonLink),
-};

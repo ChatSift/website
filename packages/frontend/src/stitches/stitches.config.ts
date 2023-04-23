@@ -78,11 +78,15 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 	media: stitchesMediaQueries,
 
 	utils: {
-		borderThin: (borderColor: Stitches.ScaleValue<'colors'>) => ({
+		borderThin: (borderColor: Stitches.ScaleValue<'colors'> | 'transparent') => ({
 			// eslint-disable-next-line @typescript-eslint/no-base-to-string
 			border: `$borderWidths$thin $borderStyles$normal ${borderColor}`,
 		}),
-		borderBottomThin: (borderColor: Stitches.ScaleValue<'colors'>) => ({
+		borderTopThin: (borderColor: Stitches.ScaleValue<'colors'> | 'transparent') => ({
+			// eslint-disable-next-line @typescript-eslint/no-base-to-string
+			borderTop: `$borderWidths$thin $borderStyles$normal ${borderColor}`,
+		}),
+		borderBottomThin: (borderColor: Stitches.ScaleValue<'colors'> | 'transparent') => ({
 			// eslint-disable-next-line @typescript-eslint/no-base-to-string
 			borderBottom: `$borderWidths$thin $borderStyles$normal ${borderColor}`,
 		}),

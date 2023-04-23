@@ -1,7 +1,9 @@
 import * as Dialog from '@radix-ui/react-dialog';
+import { Label } from '@radix-ui/react-label';
 import React, { useEffect, useState } from 'react';
 import * as Styles from './style';
-import Button from '~/components/Button';
+import * as AlertDialogStyles from '~/components/AlertDialog/style';
+import { Button } from '~/components/Button';
 import { Input } from '~/components/Input';
 import { TextArea } from '~/components/TextArea';
 import { snippetNameLength, snippetContentLength } from '~/utils/constants';
@@ -43,11 +45,13 @@ function SnippetDialog<TFallback extends Partial<BasicSnippetInfo>, TDraft exten
 	return (
 		<Dialog.Root open={show}>
 			<Dialog.Portal>
-				<Styles.DialogOverlay />
-				<Styles.DialogContent data-loading={isLoading}>
-					<Styles.DialogTitle>{title}</Styles.DialogTitle>
+				<AlertDialogStyles.Overlay as={Dialog.Overlay} />
+				<AlertDialogStyles.Content as={Dialog.Content} isLoading={isLoading}>
+					<AlertDialogStyles.Title as={Dialog.Title}>{title}</AlertDialogStyles.Title>
 					<Styles.DialogDescription>
-						<Styles.InputLabel htmlFor="name">Snippet command</Styles.InputLabel>
+						<Styles.InputLabel as={Label} kind="caption" htmlFor="name">
+							Snippet command
+						</Styles.InputLabel>
 						<Input
 							id="name"
 							autoComplete="off"
@@ -57,10 +61,16 @@ function SnippetDialog<TFallback extends Partial<BasicSnippetInfo>, TDraft exten
 								setDraft((currentDraft) => ({ ...currentDraft, name }));
 							}}
 						/>
-						<Styles.CharacterLimit kind="caption" weight="thin" data-exceeded={snippetName.length > snippetNameLength}>
+						<Styles.CharacterLimit
+							kind="caption"
+							weight="thin"
+							isLimitExceeded={snippetName.length > snippetNameLength}
+						>
 							{snippetName.length} / {snippetNameLength}
 						</Styles.CharacterLimit>
-						<Styles.InputLabel htmlFor="text">Snippet text</Styles.InputLabel>
+						<Styles.InputLabel as={Label} kind="caption" htmlFor="text">
+							Snippet text
+						</Styles.InputLabel>
 						<TextArea
 							value={snippetText}
 							onChange={(event) => setDraft((currentDraft) => ({ ...currentDraft, content: event.target.value }))}
@@ -68,18 +78,20 @@ function SnippetDialog<TFallback extends Partial<BasicSnippetInfo>, TDraft exten
 						<Styles.CharacterLimit
 							kind="caption"
 							weight="thin"
-							data-exceeded={snippetText.length > snippetContentLength}
+							isLimitExceeded={snippetText.length > snippetContentLength}
 						>
 							{snippetText.length} / {snippetContentLength}
 						</Styles.CharacterLimit>
 					</Styles.DialogDescription>
-					<Styles.DialogButtons>
-						<Button.Ghost onPress={onCancel}>Cancel</Button.Ghost>
-						<Button.Cta onPress={() => onSubmit(draft)} isDisabled={invalid}>
+					<AlertDialogStyles.Buttons>
+						<Button buttonType="ghost" onPress={onCancel}>
+							Cancel
+						</Button>
+						<Button buttonType="callToAction" onPress={() => onSubmit(draft)} isDisabled={invalid}>
 							Save
-						</Button.Cta>
-					</Styles.DialogButtons>
-				</Styles.DialogContent>
+						</Button>
+					</AlertDialogStyles.Buttons>
+				</AlertDialogStyles.Content>
 			</Dialog.Portal>
 		</Dialog.Root>
 	);

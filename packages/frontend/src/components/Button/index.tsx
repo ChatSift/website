@@ -1,4 +1,3 @@
-import oldStyled from '@emotion/styled';
 import type * as Stitches from '@stitches/react';
 import type { ComponentType, CSSProperties } from 'react';
 import { useRef } from 'react';
@@ -164,61 +163,3 @@ export function Button({
 		</ButtonStyle>
 	);
 }
-
-const Base = oldStyled(ButtonBase)`
-	white-space: nowrap;
-	background-color: transparent;
-	cursor: pointer;
-	font-size: 18px;
-	font-family: 'Author-Variable', sans-serif;
-	${({ paddingOverride }) => `padding: ${paddingOverride?.y ?? 12}px ${paddingOverride?.x ?? 16}px;`}
-	border-radius: 6px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 8px;
-	height: fit-content;
-
-	&[disabled] {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	&[data-loading='true'] {
-		cursor: wait;
-	}
-`;
-
-type GhostProps = ButtonProps & {
-	hasBorder?: boolean;
-};
-
-const Ghost = oldStyled(Base)<GhostProps>`
-	color: ${(props) => props.theme.colors.text.secondary};
-	border: ${(props) => (props.hasBorder ? `1px solid ${props.theme.colors.onBackground.primary};` : 'none')};
-
-	&:not([disabled]):hover {
-		&:hover {
-			background-color: ${(props) => props.theme.colors.onBackground.tertiary};
-		}
-
-		&:active {
-			background-color: ${(props) => props.theme.colors.onBackground.secondary};
-		}
-	}
-`;
-
-const Cta = oldStyled(Base)`
-	background-color: ${(props) => props.theme.colors.accent};
-	color: ${(props) => props.theme.colors.text.onAccent};
-	font-weight: 500;
-
-	&[data-type='danger'] {
-		background-color: ${(props) => props.theme.colors.danger};
-	}
-`;
-
-export default {
-	Ghost,
-	Cta,
-};

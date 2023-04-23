@@ -1,7 +1,7 @@
 import type { GuildSettings } from '@chatsift/modmail-api';
-import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import type { APIGuildTextChannel } from 'discord-api-types/v10';
 import { ChannelType } from 'discord-api-types/v10';
+import type { ReactElement } from 'react';
 import { useMemo, useState } from 'react';
 import ConfigForm from '~/components/Config/ConfigForm';
 import ConfigOption from '~/components/Config/ConfigOption';
@@ -23,7 +23,7 @@ import { fetchApi } from '~/utils/fetch';
 
 const allowedChannelTypes = [ChannelType.GuildText, ChannelType.GuildForum] as const;
 
-const channelIcons: Record<typeof allowedChannelTypes[number], EmotionJSX.Element> = {
+const channelIcons: Record<typeof allowedChannelTypes[number], ReactElement> = {
 	[ChannelType.GuildText]: <SvgTextChannel className={Styles.itemIcon()} />,
 	[ChannelType.GuildForum]: <SvgForumChannel className={Styles.itemIcon()} />,
 };

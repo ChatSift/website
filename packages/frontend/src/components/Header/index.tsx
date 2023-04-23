@@ -63,8 +63,6 @@ export function MobileHeaderOverride({ children }: { children: ReactNode }) {
 			},
 		}).className.split(' ');
 
-		console.log(classes);
-
 		for (const className of classes) {
 			container.classList.add(className);
 		}

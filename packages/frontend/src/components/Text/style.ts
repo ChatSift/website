@@ -3,6 +3,9 @@ import { styled, theme } from '~/stitches/stitches.config';
 export const Text = styled('p', {
 	variants: {
 		kind: {
+			big: {
+				fontSize: theme.fontSizes.huge,
+			},
 			title: {
 				fontSize: theme.fontSizes.five,
 			},

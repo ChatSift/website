@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import AlertDialog from '~/components/AlertDialog';
-import Button from '~/components/Button';
+import { Button } from '~/components/Button';
 import type { ProviderProps } from '~/context/props';
 
 type ControlledDialogOptions = {
@@ -41,29 +41,30 @@ export function DialogControllerProvider({ children }: ProviderProps) {
 					actionButton={
 						<div>
 							{/* div is here bc of ref issues */}
-							<Button.Cta
+							<Button
+								buttonType={alertDialogProps.actionButton.danger ? 'danger' : 'callToAction'}
 								onPress={() => {
 									alertDialogProps.actionButton.onClick?.();
 									setAlertDialogProps(null);
 								}}
-								data-type={alertDialogProps.actionButton.danger ? 'danger' : 'primary'}
 							>
 								{alertDialogProps.actionButton.text}
-							</Button.Cta>
+							</Button>
 						</div>
 					}
 					cancelButton={
 						<div>
 							{/* div is here bc of ref issues */}
 							{alertDialogProps.cancelButton && (
-								<Button.Ghost
+								<Button
+									buttonType="ghost"
 									onPress={() => {
 										alertDialogProps.cancelButton?.onClick?.();
 										setAlertDialogProps(null);
 									}}
 								>
 									{alertDialogProps.cancelButton.text}
-								</Button.Ghost>
+								</Button>
 							)}
 						</div>
 					}

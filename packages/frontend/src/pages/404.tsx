@@ -1,33 +1,28 @@
-import styled from '@emotion/styled';
-import ButtonLink from '~/components/ButtonLink';
+import { Button } from '~/components/Button';
+import { ButtonLink } from '~/components/ButtonLink';
 import Footer from '~/components/Footer';
 import PageMeta from '~/components/PageMeta';
+import { Text } from '~/components/Text';
+import { styled, theme } from '~/stitches/stitches.config';
 
-const Container = styled.main`
-	flex: 1 0 auto;
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-	justify-content: center;
-`;
-
-const NotFoundTitle = styled.h3`
-	font-size: 100px;
-	font-weight: 550;
-	color: ${({ theme }) => theme.colors.text.primary};
-	display: flex;
-	flex-direction: row;
-	gap: 16px;
-	align-items: center;
-`;
+const Container = styled('main', {
+	displayFlex: 'column',
+	flex: '1 0 auto',
+	gap: theme.space.lg,
+	justifyContent: 'center',
+});
 
 function NotFound404() {
 	return (
 		<>
 			<PageMeta title="404 Not Found" />
 			<Container>
-				<NotFoundTitle>404</NotFoundTitle>
-				<ButtonLink.Cta href="/">Go home</ButtonLink.Cta>
+				<Text kind="big" weight="bold" color="primary">
+					404
+				</Text>
+				<Button as={ButtonLink} buttonType="callToAction" href="/">
+					Go home
+				</Button>
 			</Container>
 			<Footer />
 		</>

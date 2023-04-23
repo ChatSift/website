@@ -4,7 +4,7 @@ import { headerItems, isMobile } from '../index';
 import type { HeaderLink } from '../index';
 import * as Styles from '../style';
 import Logo from './Logo';
-import Button from '~/components/Button';
+import { Button } from '~/components/Button';
 import * as LoggedInUser from '~/components/LoggedInUser';
 import { theme } from '~/stitches/stitches.config';
 import SvgClose from '~/svg/SvgClose';
@@ -60,7 +60,8 @@ function Mobile() {
 		>
 			<Styles.HeaderContent visible={isMobile}>
 				<Logo />
-				<Button.Ghost
+				<Button
+					buttonType="ghost"
 					style={{ padding: 12 }}
 					onPress={() => setMobileNavOpen(!(mobileNavOpen ?? false))}
 					title="open menu"
@@ -73,7 +74,7 @@ function Mobile() {
 					) : (
 						<SvgHamburger themeColor={theme.colors.textSecondary.toString()} />
 					)}
-				</Button.Ghost>
+				</Button>
 			</Styles.HeaderContent>
 			<Styles.VerticalList
 				// className={mobileNavOpen ? Styles.MobileNavOpen : Styles.MobileNavClosed}

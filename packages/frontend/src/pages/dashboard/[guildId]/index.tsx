@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import Link from 'next/link';
 import { Button } from '~/components/Button';
 import { ButtonLink } from '~/components/ButtonLink';
@@ -10,20 +9,21 @@ import ConfigSection from '~/components/Config/ConfigSection';
 import PageMeta from '~/components/PageMeta';
 import { Text } from '~/components/Text';
 import useConfigGuild from '~/hooks/useConfigGuild';
-import { theme } from '~/stitches/stitches.config';
+import { styled, theme } from '~/stitches/stitches.config';
 import SvgAma from '~/svg/SvgAma';
 import SvgAutoModerator from '~/svg/SvgAutoModerator';
 import SvgCog from '~/svg/SvgCog';
 import SvgModmail from '~/svg/SvgModmail';
 import * as Urls from '~/utils/urls';
 
-const ComingSoonTag = styled.span`
-	padding: 2px 8px;
-	background-color: ${(props) => props.theme.colors.onBackground.tertiary};
-	border: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
-	border-radius: 400px;
-	color: ${(props) => props.theme.colors.text.secondary};
-`;
+const ComingSoonTag = styled('span', {
+	paddingX: theme.space.sm,
+	paddingY: theme.space.xxs,
+	backgroundColor: theme.colors.onBgTertiary,
+	borderThin: theme.colors.onBgSecondary,
+	borderRadius: theme.radii.full,
+	color: theme.colors.textSecondary,
+});
 
 type ManageButtonProps = {
 	botId: BotId;

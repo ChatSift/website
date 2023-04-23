@@ -2,7 +2,7 @@ import { useDrag } from '@use-gesture/react';
 import React, { useCallback, useEffect } from 'react';
 import { config, useSpring } from 'react-spring';
 import * as Styles from './style';
-import Button from '~/components/Button';
+import { Button } from '~/components/Button';
 import { isMobile } from '~/components/Header';
 import Logo from '~/components/Header/components/Logo';
 import * as HeaderStyles from '~/components/Header/style';
@@ -88,7 +88,8 @@ function SidebarMobile(props: SidebarMobileProps) {
 			<HeaderStyles.MobileNav mobile={isMobile}>
 				<HeaderStyles.HeaderContent visible={isMobile}>
 					<Logo />
-					<Button.Ghost
+					<Button
+						buttonType="ghost"
 						style={{ padding: 12 }}
 						onPress={() => setIsOpen(!isOpen)}
 						title="open menu"
@@ -97,7 +98,7 @@ function SidebarMobile(props: SidebarMobileProps) {
 						aria-haspopup="true"
 					>
 						<SvgHamburger themeColor={theme.colors.textSecondary.toString()} />
-					</Button.Ghost>
+					</Button>
 				</HeaderStyles.HeaderContent>
 			</HeaderStyles.MobileNav>
 			<Styles.Backdrop

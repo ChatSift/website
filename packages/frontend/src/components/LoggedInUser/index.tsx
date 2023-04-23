@@ -2,7 +2,7 @@ import type { GetDiscordAuthMeResult } from '@chatsift/website-api';
 import * as Avatar from '@radix-ui/react-avatar';
 import Skeleton from 'react-loading-skeleton';
 import * as Styles from './style';
-import Button from '~/components/Button';
+import { Button } from '~/components/Button';
 import useCheckedRouter from '~/hooks/useCheckedRouter';
 import useUser from '~/hooks/useUser';
 import type { UserFetchError } from '~/hooks/useUser';
@@ -13,7 +13,11 @@ function ErrorHandler({ error }: { error: UserFetchError }) {
 	const router = useCheckedRouter();
 
 	if (error instanceof APIError && error.payload.statusCode === 401) {
-		return <Button.Ghost onPress={() => void router.replace(Urls.logIn)}>Log in</Button.Ghost>;
+		return (
+			<Button buttonType="ghost" onPress={() => void router.replace(Urls.logIn)}>
+				Log in
+			</Button>
+		);
 	}
 
 	return <>Error</>;
@@ -51,7 +55,9 @@ export function Desktop() {
 
 	return (
 		<>
-			<Button.Ghost onPress={() => void router.replace(Urls.logOut)}>Log out</Button.Ghost>
+			<Button buttonType="ghost" onPress={() => void router.replace(Urls.logOut)}>
+				Log out
+			</Button>
 			<UserAvatar user={user} isLoading={isLoading} className={Styles.AvatarStyleDesktop} />
 		</>
 	);
@@ -82,7 +88,9 @@ export function Mobile({ hasDiscriminator = true }: MobileProps) {
 					)}
 				</Styles.TextOverflowEllipsis>
 			</Styles.MobileUser>
-			<Button.Ghost onPress={() => void router.replace(Urls.logOut)}>Log out</Button.Ghost>
+			<Button buttonType="ghost" onPress={() => void router.replace(Urls.logOut)}>
+				Log out
+			</Button>
 		</>
 	);
 }
