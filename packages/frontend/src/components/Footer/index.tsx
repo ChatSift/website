@@ -1,23 +1,26 @@
-import { useContext } from 'react';
+import { useEffect, useState } from 'react';
 import * as Styles from './style';
 import { buttonPadding } from './style';
 import { Button } from '~/components/Button';
 import { Text } from '~/components/Text';
-import { ThemeContext } from '~/pages/_app';
 import { theme } from '~/stitches/stitches.config';
+import { setThemeWrapper } from '~/stitches/switchTheme';
 import SvgDarkTheme from '~/svg/SvgDarkTheme';
 import SvgDiscord from '~/svg/SvgDiscord';
 import SvgGitHub from '~/svg/SvgGitHub';
 import SvgLightTheme from '~/svg/SvgLightTheme';
-import dark from '~/themes/dark';
-import light from '~/themes/light';
+import { loadSettings } from '~/utils/localUserSettings';
 
 type FooterProps = {
 	hasMargin?: boolean;
 };
 
 function Footer({ hasMargin = true }: FooterProps) {
-	const emotionTheme = useContext(ThemeContext);
+	const [currentThemeName, setCurrentThemeName] = useState('dark');
+
+	useEffect(() => {
+		setCurrentThemeName(loadSettings().theme);
+	}, []);
 
 	return (
 		<Styles.Footer
@@ -52,9 +55,12 @@ function Footer({ hasMargin = true }: FooterProps) {
 						buttonType="ghost"
 						form="extraSmall"
 						paddingOverride={{ x: buttonPadding, y: buttonPadding }}
-						onPress={() => emotionTheme.update(emotionTheme.current.name === dark.name ? light : dark)}
+						onPress={() => {
+							setThemeWrapper(currentThemeName === 'dark' ? 'light' : 'dark');
+							setCurrentThemeName(currentThemeName === 'dark' ? 'light' : 'dark');
+						}}
 					>
-						{emotionTheme.current.name === dark.name ? (
+						{currentThemeName === 'dark' ? (
 							<SvgDarkTheme themeColor={theme.colors.textPrimary.toString()} />
 						) : (
 							<SvgLightTheme themeColor={theme.colors.textPrimary.toString()} />
