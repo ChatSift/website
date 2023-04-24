@@ -37,6 +37,9 @@ export const Text = styled('p', {
 			secondary: {
 				color: theme.colors.textSecondary,
 			},
+			disabled: {
+				color: theme.colors.textDisabled,
+			},
 		},
 
 		weight: {

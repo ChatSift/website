@@ -24,6 +24,7 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
 		sizes: {
 			dropdownIcon: '18px',
 			smallImage: '24px',
+			mediumImage: '32px',
 			image: '48px',
 			largeImage: '64px',
 		},

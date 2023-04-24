@@ -30,8 +30,19 @@ function ImageSlideshow({
 					}
 				`.replace(/\s/g, '')}
 			</style>
-			<Styles.SlideshowContainer>
-				<Styles.Slideshow nImages={images.length}>
+			<Styles.SlideshowContainer
+				hasGradient={{
+					'@initial': false,
+					'@dashboardMaxWidth': true,
+				}}
+			>
+				<Styles.Slideshow
+					style={{
+						animation: `slideshow-slide ${Styles.slideshowInterval * images.length}ms linear infinite, slideshow-grow ${
+							Styles.slideshowInterval
+						}ms linear infinite`,
+					}}
+				>
 					{images.map((image, index) => (
 						<Styles.ImageContainer key={index}>
 							<Styles.Image src={image.url} alt={image.alt} />

@@ -1,3 +1,4 @@
+import * as ScrollAreaBase from '@radix-ui/react-scroll-area';
 import type { ReactNode } from 'react';
 import * as Styles from '~/components/ScrollArea/style';
 
@@ -17,7 +18,7 @@ function ScrollArea({ children, className, rootClassName }: ScrollAreaProps) {
 			<Styles.Scrollbar orientation="horizontal">
 				<Styles.Thumb />
 			</Styles.Scrollbar>
-			<Styles.Corner />
+			<ScrollAreaBase.Corner />
 		</Styles.Root>
 	);
 }

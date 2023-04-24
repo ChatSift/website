@@ -1,16 +1,24 @@
 import * as Styles from '~/components/Review/style';
-import { AuthorAvatar, AuthorInfo } from '~/components/Review/style';
+import { Text } from '~/components/Text';
 
 function Review(review: Review) {
 	return (
-		<Styles.Base>
-			<Styles.Quote>{review.content}</Styles.Quote>
+		<Styles.Base
+			height={{
+				'@initial': 'large',
+				'@small': 'medium',
+				'@dashboardMaxWidth': 'small',
+			}}
+		>
+			<Text color="primary">{review.content}</Text>
 			<Styles.Author>
-				<AuthorAvatar src={review.author.avatarUrl} />
-				<AuthorInfo>
-					<Styles.AuthorName>{review.author.name}</Styles.AuthorName>
-					<Styles.AuthorRole>{review.author.role}</Styles.AuthorRole>
-				</AuthorInfo>
+				<Styles.AuthorAvatar src={review.author.avatarUrl} />
+				<div>
+					<Text weight="bold" color="primary">
+						{review.author.name}
+					</Text>
+					<Text>{review.author.role}</Text>
+				</div>
 			</Styles.Author>
 		</Styles.Base>
 	);
