@@ -1,34 +1,33 @@
-import styled from '@emotion/styled';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const Snippet = styled.article`
-	display: flex;
-	flex-direction: column;
-	background-color: ${({ theme }) => theme.colors.background.card};
-	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-	border-radius: 4px;
-`;
+export const Snippet = styled('article', {
+	displayFlex: 'column',
+	backgroundColor: theme.colors.bgCard,
+	borderThin: theme.colors.onBgSecondary,
+	borderRadius: theme.radii.sm,
+});
 
-export const SnippetHeader = styled.div`
-	display: flex;
-	background-color: ${({ theme }) => theme.colors.onBackground.tertiary};
-	border-bottom: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-	padding: 12px;
-	color: ${({ theme }) => theme.colors.text.primary};
-	font-weight: 500;
-	font-size: 20px;
-`;
+export const SnippetHeader = styled('div', {
+	displayFlex: 'row',
+	backgroundColor: theme.colors.onBgTertiary,
+	borderBottomThin: theme.colors.onBgSecondary,
+	padding: theme.space.md,
+	color: theme.colors.textPrimary,
+	fontWeight: theme.fontWeights.medium,
+	fontSize: theme.fontSizes.three,
+});
 
-export const SnippetBody = styled.div`
-	color: ${({ theme }) => theme.colors.text.secondary};
-	padding: 24px 12px;
-	font-size: 16px;
-`;
+export const SnippetBody = styled('div', {
+	color: theme.colors.textSecondary,
+	paddingX: theme.space.sm,
+	paddingY: theme.space.xl,
+	fontSize: theme.fontSizes.one,
+});
 
-export const Buttons = styled.div`
-	display: flex;
-	flex-direction: row;
-	gap: 8px;
-	background-color: ${({ theme }) => theme.colors.onBackground.tertiary};
-	border-top: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-	padding: 12px;
-`;
+export const Buttons = styled('div', {
+	displayFlex: 'row',
+	gap: theme.space.sm,
+	backgroundColor: theme.colors.onBgTertiary,
+	borderTopThin: theme.colors.onBgSecondary,
+	padding: theme.space.sm,
+});

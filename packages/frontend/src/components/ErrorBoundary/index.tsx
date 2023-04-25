@@ -2,38 +2,42 @@ import type { ReactNode } from 'react';
 import type { ErrorBoundaryPropsWithRender, FallbackProps } from 'react-error-boundary';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 import * as Styles from './style';
-import Button from '~/components/Button';
-import ButtonLink from '~/components/ButtonLink';
+import { Button } from '~/components/Button';
+import { ButtonLink } from '~/components/ButtonLink';
 import { APIError } from '~/utils/fetch';
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 	if (error instanceof APIError) {
 		return (
-			<Styles.Base>
+			<Styles.ErrorBoundary>
 				<Styles.Title>API Error {error.payload.statusCode}</Styles.Title>
 				<Styles.Buttons>
-					<Button.Cta onPress={resetErrorBoundary}>Reload</Button.Cta>
-					<ButtonLink.Ghost href="/github/issues" hasBorder external>
+					<Button buttonType="callToAction" onPress={resetErrorBoundary}>
+						Reload
+					</Button>
+					<Button as={ButtonLink} buttonType="ghost" href="/github/issues" external ghostHasBorder>
 						Open an Issue
-					</ButtonLink.Ghost>
-					<ButtonLink.Ghost href="/dashboard" hasBorder>
+					</Button>
+					<Button as={ButtonLink} buttonType="ghost" href="/dashboard" ghostHasBorder>
 						Back to Dashboard
-					</ButtonLink.Ghost>
+					</Button>
 				</Styles.Buttons>
-			</Styles.Base>
+			</Styles.ErrorBoundary>
 		);
 	}
 
 	return (
-		<Styles.Base>
+		<Styles.ErrorBoundary>
 			<Styles.Title>Something went wrong</Styles.Title>
 			<Styles.Buttons>
-				<Button.Cta onPress={resetErrorBoundary}>Reload</Button.Cta>
-				<ButtonLink.Ghost href="/github/issues" hasBorder external>
+				<Button buttonType="callToAction" onPress={resetErrorBoundary}>
+					Reload
+				</Button>
+				<Button as={ButtonLink} buttonType="ghost" href="/github/issues" external ghostHasBorder>
 					Open an Issue
-				</ButtonLink.Ghost>
+				</Button>
 			</Styles.Buttons>
-		</Styles.Base>
+		</Styles.ErrorBoundary>
 	);
 }
 

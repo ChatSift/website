@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import type { FallbackProps } from 'react-error-boundary';
 import * as Styles from './style';
-import Button from '~/components/Button';
-import ButtonLink from '~/components/ButtonLink';
+import { Button } from '~/components/Button';
+import { ButtonLink } from '~/components/ButtonLink';
 import SvgRefresh from '~/svg/SvgRefresh';
 import { APIError } from '~/utils/fetch';
 
@@ -18,13 +18,15 @@ function BaseFallback({ title, description, resetErrorBoundary }: BaseFallbackPr
 			<Styles.Title>{title}</Styles.Title>
 			<Styles.Description>{description}</Styles.Description>
 			<Styles.Buttons>
-				<Button.Cta onPress={resetErrorBoundary}>
-					<SvgRefresh themeColor={(theme) => theme.colors.text.currentColor} /> Try again
-				</Button.Cta>
-				<ButtonLink.Ghost href="/support" external hasBorder>
+				<Button buttonType="callToAction" onPress={resetErrorBoundary}>
+					<SvgRefresh /> Try again
+				</Button>
+				<Button as={ButtonLink} buttonType="ghost" href="/support" external ghostHasBorder>
 					Support
-				</ButtonLink.Ghost>
-				<ButtonLink.Ghost href="/dashboard">Dashboard</ButtonLink.Ghost>
+				</Button>
+				<Button as={ButtonLink} buttonType="ghost" href="/dashboard">
+					Dashboard
+				</Button>
 			</Styles.Buttons>
 		</Styles.Base>
 	);

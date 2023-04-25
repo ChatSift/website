@@ -1,6 +1,7 @@
-import ButtonLink from '~/components/ButtonLink';
+import { Button } from '~/components/Button';
+import { ButtonLink } from '~/components/ButtonLink';
 import * as Styles from '~/components/DashBotUpsell/style';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 import bots, { botIcons } from '~/data/bots';
 import * as Urls from '~/utils/urls';
 
@@ -13,21 +14,31 @@ function DashBotUpsell({ botId }: DashBotUpsellProps) {
 	const bot = bots[botId];
 
 	return (
-		<Styles.Upsell>
+		<Styles.Upsell
+			direction={{
+				'@initial': 'column',
+				'@dashboardMaxWidth': 'row',
+			}}
+		>
 			<Styles.Main>
-				<Styles.Title>
+				<Styles.Title kind="heading4" color="primary" weight="bold">
 					<Icon width={24} height={24} />
 					{bot.name}
 				</Styles.Title>
-				<Text.Body.Regular>{bot.description.card}</Text.Body.Regular>
+				<Text>{bot.description.card}</Text>
 			</Styles.Main>
-			<Styles.Buttons>
-				<ButtonLink.Ghost href={Urls.botPage(botId)} hasBorder external>
+			<Styles.Buttons
+				direction={{
+					'@initial': 'column',
+					'@small': 'row',
+				}}
+			>
+				<Button as={ButtonLink} buttonType="ghost" href={Urls.botPage(botId)} ghostHasBorder external>
 					Learn more
-				</ButtonLink.Ghost>
-				<ButtonLink.Cta href={Urls.botInvite(botId)} external>
+				</Button>
+				<Button as={ButtonLink} buttonType="callToAction" href={Urls.botInvite(botId)} external>
 					Add to server
-				</ButtonLink.Cta>
+				</Button>
 			</Styles.Buttons>
 		</Styles.Upsell>
 	);

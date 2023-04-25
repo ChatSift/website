@@ -1,35 +1,31 @@
 import type { Snippet, ModmailRoutes } from '@chatsift/modmail-api';
 import type { InferRouteBody } from '@chatsift/rest-utils';
-import styled from '@emotion/styled';
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import AlertDialog from '~/components/AlertDialog';
-import Button from '~/components/Button';
+import { Button } from '~/components/Button';
 import ConfigPageFrame from '~/components/Config/ConfigPageFrame';
 import ModmailSnippet from '~/components/Config/ModmailSnippets/ModmailSnippet';
 import SnippetDialog from '~/components/Config/ModmailSnippets/SnippetDialog';
 import PageMeta from '~/components/PageMeta';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
 import useLoggedInUser from '~/hooks/useLoggedInUser';
 import useModmailSnippets from '~/hooks/useModmailSnippets';
+import { styled, theme } from '~/stitches/stitches.config';
 import { snippetNameLength, snippetContentLength } from '~/utils/constants';
 import { APIError, fetchApi } from '~/utils/fetch';
 
-const SupportLink = styled.a`
-	color: ${({ theme }) => theme.colors.accent};
-	text-decoration: underline;
-`;
+const SupportLink = styled('a', {
+	color: theme.colors.miscAccent,
+	textDecoration: 'underline',
+});
 
-const StatusText = styled(Text.Body.Bold)`
-	color: ${({ theme }) => theme.colors.text.secondary};
-`;
-
-const AddButton = styled(Button.Cta)`
-	position: sticky;
-	bottom: 16px;
-	align-self: flex-start;
-`;
+const AddButton = styled(Button, {
+	position: 'sticky',
+	bottom: theme.space.lg,
+	alignSelf: 'flex-start',
+});
 
 type SnippetAddBody = InferRouteBody<ModmailRoutes[`/modmail/v1/guilds/${string}/snippets/`]['put']>;
 type SnippetEditBody = InferRouteBody<ModmailRoutes[`/modmail/v1/guilds/${string}/snippets/${string}`]['patch']> &
@@ -107,9 +103,13 @@ function Snippets() {
 		<>
 			<PageMeta title="ModMail ― Snippets" />
 			<ConfigPageFrame>
-				<Text.Heading3>ModMail Snippets</Text.Heading3>
+				<Text kind="heading3" color="primary" weight="bold">
+					ModMail Snippets
+				</Text>
 				{isLoading || user === undefined || !modmailSnippets ? (
-					<StatusText>Loading...</StatusText>
+					<Text kind="body" color="secondary" weight="bold">
+						Loading...
+					</Text>
 				) : (
 					<>
 						{modmailSnippets.map((snippet) => (
@@ -126,10 +126,15 @@ function Snippets() {
 								}}
 							/>
 						))}
-						{modmailSnippets.length === 0 && <StatusText>You don't have any snippets yet.</StatusText>}
+						{modmailSnippets.length === 0 && (
+							<Text kind="body" color="secondary" weight="bold">
+								You don't have any snippets yet.
+							</Text>
+						)}
 					</>
 				)}
 				<AddButton
+					buttonType="callToAction"
 					isDisabled={user === null || user === undefined}
 					onPress={() => {
 						setShowAddSnippetDialog(true);
@@ -147,19 +152,30 @@ function Snippets() {
 				open={snippetToDelete !== null}
 				isLoading={isDeleteLoading}
 				actionButton={
-					<Button.Cta data-type="danger" onPress={() => deleteSnippet(snippetToDelete!.snippetId)}>
+					<Button buttonType="danger" onPress={() => deleteSnippet(snippetToDelete!.snippetId)}>
 						Delete
-					</Button.Cta>
+					</Button>
 				}
-				cancelButton={<Button.Ghost onPress={() => setSnippetToDelete(null)}>Cancel</Button.Ghost>}
+				cancelButton={
+					<Button buttonType="ghost" onPress={() => setSnippetToDelete(null)}>
+						Cancel
+					</Button>
+				}
 				title="Are you sure you want to delete this?"
 			>
-				You are about to delete the snippet <Text.Body.Bold>{snippetToDelete?.name}</Text.Body.Bold>. This action cannot
-				be undone.
+				You are about to delete the snippet{' '}
+				<Text kind="body" color="primary" weight="bold">
+					{snippetToDelete?.name}
+				</Text>
+				. This action cannot be undone.
 			</AlertDialog>
 			<AlertDialog
 				open={error instanceof APIError}
-				actionButton={<Button.Cta onPress={() => setError(null)}>Okay</Button.Cta>}
+				actionButton={
+					<Button buttonType="callToAction" onPress={() => setError(null)}>
+						Okay
+					</Button>
+				}
 				title={`HTTP Error ${error instanceof APIError ? error.payload.statusCode : ''}`}
 			>
 				We experienced an error; if this persists, please{' '}

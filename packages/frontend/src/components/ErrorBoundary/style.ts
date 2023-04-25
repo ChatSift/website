@@ -1,21 +1,20 @@
-import styled from '@emotion/styled';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const Base = styled.div`
-	display: flex;
-	flex-direction: column;
-	flex: 1 1 auto;
-	align-items: center;
-	justify-content: center;
-	gap: 16px;
-`;
+export const ErrorBoundary = styled('div', {
+	displayFlex: 'column',
+	flex: '1 1 auto',
+	alignItems: 'center',
+	justifyContent: 'center',
+	gap: theme.space.lg,
+});
 
-export const Title = styled.h1`
-	color: ${(props) => props.theme.colors.text.primary};
-	font-size: 32px;
-`;
+export const Title = styled('h1', {
+	color: theme.colors.textPrimary,
+	fontSize: theme.fontSizes.five,
+});
 
-export const Buttons = styled.div`
-	display: flex;
-	flex-direction: row;
-	gap: 16px;
-`;
+export const Buttons = styled('div', {
+	displayFlex: 'row',
+	gap: theme.space.lg,
+	alignItems: 'center',
+});

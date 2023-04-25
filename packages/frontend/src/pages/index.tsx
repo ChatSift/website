@@ -1,111 +1,130 @@
-import styled from '@emotion/styled';
 import { default as NextLink } from 'next/link';
-import ButtonLink from '~/components/ButtonLink';
+import { Button } from '~/components/Button';
+import { ButtonLink } from '~/components/ButtonLink';
 import Footer from '~/components/Footer';
 import Heading from '~/components/Heading';
 import bots, { botIcons } from '~/data/bots';
-import mediaQueries from '~/styles/breakpoints';
+import { config, styled, theme } from '~/stitches/stitches.config';
 import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
 import * as Urls from '~/utils/urls';
 
-const Container = styled.main`
-	padding-top: 32px;
-	flex: 1 0 auto;
-	display: flex;
-	flex-direction: column;
-	max-width: ${dashboardMaxWidth}px;
-	width: 80vw;
-	gap: 32px;
-	align-items: stretch;
-	color: ${({ theme }) => theme.colors.text.primary};
+const Container = styled('main', {
+	paddingTop: theme.space.xxl,
+	flex: '1 0 auto',
+	displayFlex: 'column',
+	width: '80vw',
+	gap: theme.space.xxl,
+	alignItems: 'stretch',
+	color: theme.colors.textPrimary,
 
-	${mediaQueries.dashboardMaxWidthMax} {
-		max-width: ${smallestDashboardWidth - dashboardPadding * 2}px;
-	}
-`;
+	variants: {
+		view: {
+			desktop: {
+				maxWidth: dashboardMaxWidth,
+			},
+			mobile: {
+				maxWidth: `calc(${smallestDashboardWidth} - ${dashboardPadding} * 2)`,
+			},
+		},
+	},
+});
 
-const CtaSection = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-	padding: 16px 0;
+const CtaSection = styled('div', {
+	displayFlex: 'column',
+	gap: theme.space.xl,
 
-	${mediaQueries.smallMin} {
-		padding: 0;
-	}
-`;
+	variants: {
+		padding: {
+			present: {
+				paddingY: theme.space.lg,
+			},
+			none: {
+				padding: 0,
+			},
+		},
+	},
+});
 
-const Slogan = styled.h2`
-	font-size: 34px;
-	font-weight: 550;
-`;
+const Slogan = styled('h2', {
+	fontSize: theme.fontSizes.five,
+	fontWeight: theme.fontWeights.bold,
+});
 
-const CtaButtons = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
+const CtaButtons = styled('div', {
+	display: 'flex',
+	gap: theme.space.lg,
 
-	${mediaQueries.smallMin} {
-		flex-direction: row;
-		align-items: center;
-	}
-`;
+	variants: {
+		view: {
+			mobile: {
+				flexDirection: 'column',
+			},
+			desktop: {
+				flexDirection: 'row',
+				alignItems: 'center',
+			},
+		},
+	},
+});
 
-const SubTitle = styled.h3`
-	font-size: 26px;
-	font-weight: 550;
-`;
+const SubTitle = styled('h3', {
+	fontSize: theme.fontSizes.four,
+	fontWeight: theme.fontWeights.bold,
+});
 
-const BotsList = styled.ul`
-	display: grid;
-	gap: 24px;
-	grid-template-columns: 1fr;
-	grid-template-rows: repeat(${Object.entries(bots).length + 1}, 1fr);
+const BotsList = styled('ul', {
+	display: 'grid',
+	gap: theme.space.xl,
 
-	${mediaQueries.smallMin} {
-		grid-template-columns: repeat(2, 1fr);
-		// we do + 1 to the length because we have a custom solution upsell
-		grid-template-rows: repeat(${Math.ceil((Object.entries(bots).length + 1) / 2)}, 1fr);
-	}
-`;
+	variants: {
+		columns: {
+			single: {
+				gridTemplateColumns: '1fr',
+				gridTemplateRows: `repeat(${Object.entries(bots).length}, 1fr)`,
+			},
+			double: {
+				gridTemplateColumns: '1fr 1fr',
+				gridTemplateRows: `repeat(${Math.ceil(Object.entries(bots).length / 2)}, 1fr)`,
+			},
+		},
+	},
+});
 
-const BotCard = styled.a`
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-	padding: 16px;
-	background-color: ${({ theme }) => theme.colors.background.card};
-	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-	border-radius: 8px;
-	cursor: pointer;
-	height: 100%;
-`;
+const BotCard = styled('a', {
+	displayFlex: 'column',
+	gap: theme.space.md,
+	padding: theme.space.lg,
+	backgroundColor: theme.colors.bgCard,
+	border: `1px solid ${theme.colors.onBgSecondary}`,
+	borderRadius: theme.radii.lg,
+	cursor: 'pointer',
+	height: '100%',
+});
 
-const BotCardHeader = styled.div`
-	display: flex;
-	flex-direction: row;
-	gap: 6px;
-	align-items: center;
-	font-size: 22px;
-	font-weight: 550;
-`;
+const BotCardHeader = styled('div', {
+	displayFlex: 'row',
+	gap: theme.space.xs,
+	alignItems: 'center',
+	fontSize: theme.fontSizes.three,
+	fontWeight: theme.fontWeights.bold,
+});
 
-const BotLogo = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 44px;
-	height: 44px;
-`;
+const BotLogo = styled('div', {
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	width: 44,
+	height: 44,
+});
 
-const BotDescription = styled.div`
-	font-size: 18px;
-	font-weight: 440;
-	max-width: 75%;
-	color: ${({ theme }) => theme.colors.text.secondary};
-`;
+const BotDescription = styled('div', {
+	fontSize: theme.fontSizes.two,
+	fontWeight: theme.fontWeights.thin,
+	maxWidth: '75%',
+	color: theme.colors.textSecondary,
+});
 
-// const CustomSolutionUpsell = styled.li`
+// const CustomSolutionUpsell = oldStyled.li`
 // 	display: flex;
 // 	flex-direction: column;
 // 	justify-content: center;
@@ -115,12 +134,12 @@ const BotDescription = styled.div`
 // 	border-radius: 8px;
 // `;
 //
-// const UpsellTitle = styled.span`
+// const UpsellTitle = oldStyled.span`
 // 	font-size: 22px;
 // 	font-weight: 550;
 // `;
 //
-// const UpsellLink = styled(Link)`
+// const UpsellLink = oldStyled(Link)`
 // 	color: ${({ theme }) => theme.colors.accent};
 // 	font-weight: 440;
 //
@@ -129,41 +148,65 @@ const BotDescription = styled.div`
 // 	}
 // `;
 
-const BotSection = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-`;
+const BotSection = styled('div', {
+	displayFlex: 'column',
+	gap: theme.space.lg,
+});
 
-const DonateHeading = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 32px;
-	justify-content: space-between;
-	align-items: flex-start;
+const DonateHeading = styled('div', {
+	gap: theme.space.xxl,
+	justifyContent: 'space-between',
 
-	${mediaQueries.smallMin} {
-		flex-direction: row;
-		align-items: center;
-	}
-`;
+	variants: {
+		direction: {
+			horizontal: {
+				displayFlex: 'row',
+				alignItems: 'center',
+			},
+			vertical: {
+				displayFlex: 'column',
+				alignItems: 'flex-start',
+			},
+		},
+	},
+});
 
 function Home() {
 	return (
 		<>
-			<Container>
-				<CtaSection>
+			<Container
+				view={{
+					'@initial': 'mobile',
+					[config.media.dashboardMaxWidth]: 'desktop',
+				}}
+			>
+				<CtaSection
+					padding={{
+						'@initial': 'present',
+						'@small': 'none',
+					}}
+				>
 					<Slogan>Modern solutions for modern problems</Slogan>
-					<CtaButtons>
-						<ButtonLink.Cta href="/support" external>
+					<CtaButtons
+						view={{
+							'@initial': 'mobile',
+							[config.media.small]: 'desktop',
+						}}
+					>
+						<Button as={ButtonLink} buttonType="callToAction" href="/support" external>
 							Join our Discord server
-						</ButtonLink.Cta>
+						</Button>
 						{/* <Button.Ghost hasBorder>Read our blog</Button.Ghost> */}
 					</CtaButtons>
 				</CtaSection>
 				<BotSection>
 					<SubTitle>Our bots</SubTitle>
-					<BotsList>
+					<BotsList
+						columns={{
+							'@initial': 'single',
+							[config.media.small]: 'double',
+						}}
+					>
 						{(Object.entries(bots) as Entries<typeof bots>).map(
 							([
 								pathName,
@@ -200,15 +243,16 @@ function Home() {
 						{/* </CustomSolutionUpsell> */}
 					</BotsList>
 				</BotSection>
-				<DonateHeading>
-					<Heading
-						title="Support the project"
-						subtitle="Donate on Kofi to help support the apps we're developing."
-						gap={12}
-					/>
-					<ButtonLink.Cta href="/kofi" external>
+				<DonateHeading
+					direction={{
+						'@initial': 'vertical',
+						'@small': 'horizontal',
+					}}
+				>
+					<Heading title="Support the project" subtitle="Donate on Kofi to help support the apps we're developing." />
+					<Button as={ButtonLink} buttonType="callToAction" href="/kofi" external>
 						Donate
-					</ButtonLink.Cta>
+					</Button>
 				</DonateHeading>
 			</Container>
 			<Footer />

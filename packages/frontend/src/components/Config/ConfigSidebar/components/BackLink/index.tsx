@@ -8,7 +8,7 @@ function BackLink({ href, children }: BackLinkProps) {
 	return (
 		<Styles.BackLink>
 			<Styles.Anchor href={href}>
-				<SvgArrowLeft themeColor={(theme) => theme.colors.text.currentColor} />
+				<SvgArrowLeft />
 				<span>{children}</span>
 			</Styles.Anchor>
 		</Styles.BackLink>

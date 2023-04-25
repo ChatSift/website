@@ -1,60 +1,50 @@
-import { css } from '@emotion/css';
-import styled from '@emotion/styled';
-import mediaQueries from '~/styles/breakpoints';
+import { styled, theme, css } from '~/stitches/stitches.config';
 
-export const Frame = styled.div`
-	display: flex;
-	flex-direction: row;
-	flex: 1 1 auto;
-	min-height: 0;
+export const Frame = styled('div', {
+	displayFlex: 'row',
+	flex: '1 1 auto',
+	minHeight: 0,
+});
 
-	${mediaQueries.dashboardMaxWidthMax} {
-		max-width: 90vw;
-		width: 100%;
-		align-self: center;
-	}
-`;
+export const NoScript = styled('noscript', {
+	displayFlex: 'column',
+	flex: '1 1 auto',
+	alignItems: 'center',
+	justifyContent: 'center',
+});
 
-export const NoScript = styled.noscript`
-	display: flex;
-	flex-direction: column;
-	flex: 1 1 auto;
-	align-items: center;
-	justify-content: center;
-`;
+export const Container = styled('div', {
+	flex: '1 1 auto',
+	maxWidth: '100vw',
+	position: 'relative',
 
-export const Container = styled.div`
-	flex: 1 1 auto;
-	--container-padding: 16px;
-	max-width: 100vw;
-	position: relative;
+	variants: {
+		padding: {
+			small: {
+				padding: theme.space.lg,
+			},
+			large: {
+				padding: theme.space.xl,
+			},
+		},
+	},
+});
 
-	${mediaQueries.smallMin} {
-		--container-padding: 24px;
-		padding-left: 24px;
-	}
-	padding: var(--container-padding);
-	padding-right: 0;
-`;
+export const Content = css({
+	displayFlex: 'column',
+	height: '100%',
+	overflowY: 'auto',
+});
 
-export const Content = css`
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	overflow-y: auto;
-	padding-right: 24px;
-`;
+export const ContentContainer = styled('div', {
+	paddingBottom: 64,
+	displayFlex: 'column',
+	gap: theme.space.xl,
+});
 
-export const ContentContainer = styled.div`
-	padding-bottom: 64px;
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
-`;
-
-export const DirtyBarSlot = styled.div`
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-`;
+export const DirtyBarSlot = styled('div', {
+	position: 'absolute',
+	bottom: 0,
+	left: 0,
+	right: 0,
+});

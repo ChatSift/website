@@ -1,8 +1,9 @@
-import styled from '@emotion/styled';
-import type { CSSProperties } from 'react';
+import type * as Stitches from '@stitches/react';
+import type { ComponentType, CSSProperties } from 'react';
 import { useRef } from 'react';
 import type { AriaButtonProps } from 'react-aria';
 import { useButton } from 'react-aria';
+import { styled, theme } from '~/stitches/stitches.config';
 
 type ButtonProps = {
 	className?: string;
@@ -25,60 +26,140 @@ export function ButtonBase({ style, title, disabled, className, ...props }: Aria
 	);
 }
 
-const Base = styled(ButtonBase)`
-	white-space: nowrap;
-	background-color: transparent;
-	cursor: pointer;
-	font-size: 18px;
-	font-family: 'Author-Variable', sans-serif;
-	${({ paddingOverride }) => `padding: ${paddingOverride?.y ?? 12}px ${paddingOverride?.x ?? 16}px;`}
-	border-radius: 6px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 8px;
-	height: fit-content;
+const ButtonStyle = styled(ButtonBase, {
+	whiteSpace: 'nowrap',
+	backgroundColor: 'transparent',
+	fontSize: theme.fontSizes.two,
+	fontFamily: theme.fonts.normal,
+	borderRadius: theme.radii.md,
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	gap: theme.space.sm,
+	height: 'fit-content',
+	paddingY: theme.space.md,
+	paddingX: theme.space.lg,
 
-	&[disabled] {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
+	variants: {
+		isDisabled: {
+			true: {
+				opacity: 0.5,
+				cursor: 'not-allowed',
+			},
+			false: {
+				cursor: 'pointer',
+			},
+			undefined: {
+				cursor: 'pointer',
+			},
+		},
 
-	&[data-loading='true'] {
-		cursor: wait;
-	}
-`;
+		loading: {
+			true: {
+				cursor: 'wait',
+			},
+		},
 
-type GhostProps = ButtonProps & {
-	hasBorder?: boolean;
-};
+		form: {
+			extraSmall: {
+				padding: theme.space.xs,
+			},
+			small: {
+				paddingX: theme.space.md,
+				paddingY: theme.space.sm,
+			},
+		},
 
-const Ghost = styled(Base)<GhostProps>`
-	color: ${(props) => props.theme.colors.text.secondary};
-	border: ${(props) => (props.hasBorder ? `1px solid ${props.theme.colors.onBackground.primary};` : 'none')};
+		buttonType: {
+			callToAction: {
+				backgroundColor: theme.colors.miscAccent,
+				color: theme.colors.textOnAccent,
+				fontWeight: theme.fontWeights.medium,
+			},
+			danger: {
+				backgroundColor: theme.colors.miscDanger,
+				color: theme.colors.textOnAccent,
+				fontWeight: theme.fontWeights.medium,
+			},
+			ghost: {
+				color: theme.colors.textSecondary,
+			},
+		},
 
-	&:not([disabled]):hover {
-		&:hover {
-			background-color: ${(props) => props.theme.colors.onBackground.tertiary};
-		}
+		ghostHasBorder: {
+			true: {},
+		},
+	},
 
-		&:active {
-			background-color: ${(props) => props.theme.colors.onBackground.secondary};
-		}
-	}
-`;
+	compoundVariants: [
+		{
+			buttonType: 'ghost',
+			isDisabled: false,
+			css: {
+				'&:hover': {
+					backgroundColor: theme.colors.onBgTertiary,
+				},
 
-const Cta = styled(Base)`
-	background-color: ${(props) => props.theme.colors.accent};
-	color: ${(props) => props.theme.colors.text.onAccent};
-	font-weight: 500;
+				'&:active': {
+					backgroundColor: theme.colors.onBgSecondary,
+				},
+			},
+		},
+		{
+			buttonType: 'ghost',
+			isDisabled: undefined,
+			css: {
+				'&:hover': {
+					backgroundColor: theme.colors.onBgTertiary,
+				},
 
-	&[data-type='danger'] {
-		background-color: ${(props) => props.theme.colors.danger};
-	}
-`;
+				'&:active': {
+					backgroundColor: theme.colors.onBgSecondary,
+				},
+			},
+		},
+		{
+			buttonType: 'ghost',
+			ghostHasBorder: true,
+			css: {
+				borderWidth: 1,
+				borderStyle: 'solid',
+				borderColor: theme.colors.onBgPrimary,
+			},
+		},
+	],
+});
 
-export default {
-	Ghost,
-	Cta,
-};
+export function Button({
+	style,
+	title,
+	className,
+	buttonType,
+	as,
+	...props
+}: AriaButtonProps &
+	ButtonProps &
+	Stitches.VariantProps<typeof ButtonStyle> & {
+		[_: string]: unknown;
+		as?: ComponentType<any> | keyof JSX.IntrinsicElements;
+	}) {
+	const ref = useRef<HTMLButtonElement | null>(null);
+	const { buttonProps } = useButton(props, ref);
+	const { children, ...propsNoChildren } = props;
+
+	return (
+		// @ts-expect-error TS2769 todo: properly fix
+		<ButtonStyle
+			buttonType={buttonType}
+			as={as}
+			{...propsNoChildren}
+			{...buttonProps}
+			style={style}
+			title={title}
+			className={className}
+			ref={ref}
+		>
+			{children}
+		</ButtonStyle>
+	);
+}

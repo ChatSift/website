@@ -1,27 +1,43 @@
-import styled from '@emotion/styled';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const Input = styled.input`
-	background-color: ${(props) => props.theme.colors.onBackground.tertiary};
-	font-weight: 450;
-	font-size: 18px;
-	color: ${(props) => props.theme.colors.text.primary};
-	border-radius: 8px;
-	padding: 12px ${16 * 3}px 12px 16px;
-	border: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
+export const Input = styled('input', {
+	backgroundColor: theme.colors.onBgTertiary,
+	fontWeight: theme.fontWeights.thin,
+	fontSize: theme.fontSizes.two,
+	color: theme.colors.textPrimary,
+	borderRadius: theme.radii.lg,
+	paddingY: theme.space.md,
+	paddingRight: theme.space.huge,
+	paddingLeft: theme.space.lg,
+	borderThin: 'transparent',
 
-	&::placeholder {
-		color: ${(props) => props.theme.colors.text.secondary};
-	}
+	'&::placeholder': {
+		color: theme.colors.textSecondary,
+	},
 
-	&:focus {
-		&::placeholder {
-			color: ${(props) => props.theme.colors.text.primary};
-		}
+	'&:focus::placeholder': {
+		color: theme.colors.textPrimary,
+	},
 
-		border: 1px solid ${(props) => props.theme.colors.text.primary};
-	}
+	variants: {
+		isInvalid: {
+			true: {
+				borderColor: theme.colors.miscDanger,
+			},
+			undefined: {
+				borderColor: 'transparent',
 
-	&[data-invalid='true'] {
-		border: 1px solid ${({ theme }) => theme.colors.danger};
-	}
-`;
+				'&:focus': {
+					borderColor: theme.colors.textPrimary,
+				},
+			},
+			false: {
+				borderColor: 'transparent',
+
+				'&:focus': {
+					borderColor: theme.colors.textPrimary,
+				},
+			},
+		},
+	},
+});

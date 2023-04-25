@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Children } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import * as Styles from '~/components/Config/ConfigOption/style';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 import useRand from '~/hooks/useRand';
 
 type ConfigOptionProps = {
@@ -23,10 +23,10 @@ function ConfigOption({ input, icon, name, caption, children, isLoading = false 
 				<Styles.IconAndTag>
 					{icon && (isLoading ? <Skeleton width={48} height={48} /> : icon)}
 					<Styles.Tag>
-						<Text.Heading4>{isLoading ? <Skeleton width={`min(20vw, 200px)`} /> : name}</Text.Heading4>
-						<Text.Body.Regular>
-							{isLoading ? <Skeleton width={`min(10vw, ${randCaptionWidth}px)`} /> : caption}
-						</Text.Body.Regular>
+						<Text kind="heading4" color="primary" weight="bold">
+							{isLoading ? <Skeleton width={`min(20vw, 200px)`} /> : name}
+						</Text>
+						<Text>{isLoading ? <Skeleton width={`min(10vw, ${randCaptionWidth}px)`} /> : caption}</Text>
 					</Styles.Tag>
 				</Styles.IconAndTag>
 				{input}

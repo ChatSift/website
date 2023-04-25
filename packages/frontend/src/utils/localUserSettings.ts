@@ -1,7 +1,5 @@
-import type { ThemeName } from '~/themes/theme';
-
 type LocalUserSettings = {
-	theme: ThemeName;
+	theme: 'dark' | 'light';
 };
 
 export function loadSettings(): LocalUserSettings {

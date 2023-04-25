@@ -1,55 +1,62 @@
-import styled from '@emotion/styled';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
+import { styled, theme } from '~/stitches/stitches.config';
 import { dialogOverlayColor } from '~/utils/constants';
 
-export const Overlay = styled(AlertDialog.Overlay)`
-	position: fixed;
-	inset: 0;
-	background-color: ${dialogOverlayColor};
-	z-index: 99999;
-`;
+export const Overlay = styled(AlertDialog.Overlay, {
+	position: 'fixed',
+	top: 0,
+	inset: 0,
+	backgroundColor: dialogOverlayColor,
+	zIndex: 11_000,
+});
 
-export const Content = styled(AlertDialog.Content)`
-	background-color: ${({ theme }) => theme.colors.background.default};
-	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-	border-radius: 4px;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 90vw;
-	max-width: 500px;
-	z-index: 100000;
+export const Content = styled(AlertDialog.Content, {
+	backgroundColor: theme.colors.bgBase,
+	borderThin: theme.colors.onBgSecondary,
+	borderRadius: theme.radii.sm,
+	position: 'fixed',
+	top: '50%',
+	left: '50%',
+	translate: '-50% -50%',
+	width: '90vw',
+	maxWidth: 500,
+	zIndex: 100_000,
 
-	&[data-loading='true']::after {
-		content: '';
-		position: fixed;
-		inset: 0;
-		background-color: rgba(0, 0, 0, 0.3);
-		cursor: not-allowed;
-	}
-`;
+	variants: {
+		isLoading: {
+			true: {
+				'&::after': {
+					content: '',
+					position: 'fixed',
+					inset: 0,
+					backgroundColor: 'rgba(0, 0, 0, 0.3)',
+					cursor: 'not-allowed',
+				},
+			},
+		},
+	},
+});
 
-export const Title = styled(AlertDialog.Title)`
-	color: ${({ theme }) => theme.colors.text.primary};
-	font-size: 24px;
-	font-weight: 550;
-	padding: 12px 16px;
-	border-bottom: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-`;
+export const Title = styled(AlertDialog.Title, {
+	color: theme.colors.textPrimary,
+	fontSize: theme.fontSizes.four,
+	paddingX: theme.space.lg,
+	paddingY: theme.space.md,
+	borderBottomThin: theme.colors.onBgSecondary,
+});
 
-export const Description = styled(AlertDialog.Description)`
-	background-color: ${({ theme }) => theme.colors.background.card};
-	color: ${({ theme }) => theme.colors.text.primary};
-	padding: 24px 16px;
-	font-size: 18px;
-`;
+export const Description = styled(AlertDialog.Description, {
+	backgroundColor: theme.colors.bgCard,
+	color: theme.colors.textPrimary,
+	paddingY: theme.space.xl,
+	paddingX: theme.space.lg,
+});
 
-export const Buttons = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	gap: 16px;
-	padding: 12px 16px;
-	border-top: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-`;
+export const Buttons = styled('div', {
+	displayFlex: 'row',
+	justifyContent: 'flex-end',
+	gap: theme.space.lg,
+	paddingX: theme.space.lg,
+	paddingY: theme.space.md,
+	borderTopThin: theme.colors.onBgSecondary,
+});

@@ -1,27 +1,29 @@
-import styled from '@emotion/styled';
 import Link from 'next/link';
-import ButtonLink from '~/components/ButtonLink';
+import { Button } from '~/components/Button';
+import { ButtonLink } from '~/components/ButtonLink';
 import ConfigGuildCard from '~/components/Config/ConfigGuildCard';
 import ConfigOption from '~/components/Config/ConfigOption';
 import { ConfigOptionCollection } from '~/components/Config/ConfigOptionCollection';
 import ConfigPageFrame from '~/components/Config/ConfigPageFrame';
 import ConfigSection from '~/components/Config/ConfigSection';
 import PageMeta from '~/components/PageMeta';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 import useConfigGuild from '~/hooks/useConfigGuild';
+import { styled, theme } from '~/stitches/stitches.config';
 import SvgAma from '~/svg/SvgAma';
 import SvgAutoModerator from '~/svg/SvgAutoModerator';
 import SvgCog from '~/svg/SvgCog';
 import SvgModmail from '~/svg/SvgModmail';
 import * as Urls from '~/utils/urls';
 
-const ComingSoonTag = styled.span`
-	padding: 2px 8px;
-	background-color: ${(props) => props.theme.colors.onBackground.tertiary};
-	border: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
-	border-radius: 400px;
-	color: ${(props) => props.theme.colors.text.secondary};
-`;
+const ComingSoonTag = styled('span', {
+	paddingX: theme.space.sm,
+	paddingY: theme.space.xxs,
+	backgroundColor: theme.colors.onBgTertiary,
+	borderThin: theme.colors.onBgSecondary,
+	borderRadius: theme.radii.full,
+	color: theme.colors.textSecondary,
+});
 
 type ManageButtonProps = {
 	botId: BotId;
@@ -38,9 +40,16 @@ function BotButton({ isLoading, isComingSoon, isInvited, guildId, botId, page }:
 	if (!isInvited) {
 		return (
 			<Link href={Urls.botInvite(botId)}>
-				<ButtonLink.Ghost disabled={isLoading} href={Urls.botInvite(botId)} hasBorder external>
+				<Button
+					as={ButtonLink}
+					buttonType="ghost"
+					isDisabled={isLoading}
+					href={Urls.botInvite(botId)}
+					ghostHasBorder
+					external
+				>
 					Invite
-				</ButtonLink.Ghost>
+				</Button>
 			</Link>
 		);
 	}
@@ -51,9 +60,10 @@ function BotButton({ isLoading, isComingSoon, isInvited, guildId, botId, page }:
 
 	return (
 		<Link href={url}>
-			<ButtonLink.Cta disabled={isLoading} href={url}>
-				<SvgCog themeColor={(theme) => theme.colors.text.onAccent} /> Manage
-			</ButtonLink.Cta>
+			<Button as={ButtonLink} buttonType="callToAction" isDisabled={isLoading} href={url}>
+				<SvgCog themeColor={theme.colors.textOnAccent.toString()} />
+				Manage
+			</Button>
 		</Link>
 	);
 }
@@ -65,7 +75,9 @@ function GuildDashboard() {
 		<>
 			<PageMeta title="Server Settings" />
 			<ConfigPageFrame>
-				<Text.Heading3>Server Settings</Text.Heading3>
+				<Text kind="heading3" color="primary" weight="bold">
+					Server Settings
+				</Text>
 				<ConfigGuildCard wide />
 				<ConfigSection title="Bots" description="Configure the settings of supported bots for this community.">
 					<ConfigOptionCollection>

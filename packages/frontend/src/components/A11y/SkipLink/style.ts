@@ -1,14 +1,14 @@
-import styled from '@emotion/styled';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const BaseSkipLink = styled.a`
-	position: fixed;
-	top: -200px;
-	z-index: 1000;
-	background-color: ${({ theme }) => theme.colors.accent};
-	color: white;
-	padding: 1rem;
+export const BaseSkipLink = styled('a', {
+	position: 'fixed',
+	top: -200,
+	zIndex: 1_000,
+	backgroundColor: theme.colors.miscAccent,
+	color: theme.colors.textOnAccent,
+	padding: '1rem',
 
-	&:focus {
-		top: 0;
-	}
-`;
+	'&:focus': {
+		top: 0,
+	},
+});

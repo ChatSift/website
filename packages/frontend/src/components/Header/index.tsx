@@ -12,6 +12,16 @@ export type HeaderLink = {
 	name: string;
 };
 
+export const isMobile = {
+	'@initial': true,
+	'@medium': false,
+};
+
+export const isNotMobile = {
+	'@initial': false,
+	'@medium': true,
+};
+
 // NOTE: ADJUST mobileNavCloseAnimation's max-height GUESSTIMATE IF YOU ADD OR REMOVE LINKS
 // Also, if possible, the above is scuffed, fix it if possible..
 export const headerItems: HeaderLink[] = [
@@ -46,9 +56,22 @@ export function MobileHeaderOverride({ children }: { children: ReactNode }) {
 			return;
 		}
 
-		container.classList.add(activeMobileOverride);
+		const classes = activeMobileOverride({
+			hideChildren: {
+				'@initial': false,
+				'@medium': true,
+			},
+		}).className.split(' ');
 
-		return () => container.classList.remove(activeMobileOverride);
+		for (const className of classes) {
+			container.classList.add(className);
+		}
+
+		return () => {
+			for (const className of classes) {
+				container.classList.remove(className);
+			}
+		};
 	}, [container]);
 
 	if (!container) {
@@ -60,12 +83,12 @@ export function MobileHeaderOverride({ children }: { children: ReactNode }) {
 
 function Header() {
 	return (
-		<HeaderStyles.Base>
+		<HeaderStyles.Header desktop={isNotMobile}>
 			<Desktop />
 			<div id="mobile-override-container">
 				<Mobile />
 			</div>
-		</HeaderStyles.Base>
+		</HeaderStyles.Header>
 	);
 }
 

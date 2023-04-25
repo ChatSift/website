@@ -2,10 +2,12 @@ import { useDrag } from '@use-gesture/react';
 import React, { useCallback, useEffect } from 'react';
 import { config, useSpring } from 'react-spring';
 import * as Styles from './style';
-import Button from '~/components/Button';
+import { Button } from '~/components/Button';
+import { isMobile } from '~/components/Header';
 import Logo from '~/components/Header/components/Logo';
 import * as HeaderStyles from '~/components/Header/style';
 import * as LoggedInUser from '~/components/LoggedInUser';
+import { theme } from '~/stitches/stitches.config';
 import SvgHamburger from '~/svg/SvgHamburger';
 
 type SidebarMobileProps = {
@@ -83,10 +85,11 @@ function SidebarMobile(props: SidebarMobileProps) {
 
 	return (
 		<>
-			<HeaderStyles.MobileNav>
-				<HeaderStyles.HeaderContent>
+			<HeaderStyles.MobileNav mobile={isMobile}>
+				<HeaderStyles.HeaderContent visible={isMobile}>
 					<Logo />
-					<Button.Ghost
+					<Button
+						buttonType="ghost"
 						style={{ padding: 12 }}
 						onPress={() => setIsOpen(!isOpen)}
 						title="open menu"
@@ -94,11 +97,15 @@ function SidebarMobile(props: SidebarMobileProps) {
 						aria-controls="menu"
 						aria-haspopup="true"
 					>
-						<SvgHamburger themeColor={(theme) => theme.colors.text.secondary} />
-					</Button.Ghost>
+						<SvgHamburger themeColor={theme.colors.textSecondary.toString()} />
+					</Button>
 				</HeaderStyles.HeaderContent>
 			</HeaderStyles.MobileNav>
 			<Styles.Backdrop
+				isMobile={{
+					'@initial': true,
+					'@medium': false,
+				}}
 				onClick={isOpen ? onClick : () => {}}
 				style={{
 					opacity: menuX.to([0, restPosition], [0.5, 0]),
@@ -113,6 +120,10 @@ function SidebarMobile(props: SidebarMobileProps) {
 					display,
 				}}
 				className={props.className}
+				isMobile={{
+					'@initial': true,
+					'@medium': false,
+				}}
 			>
 				<Styles.MainContent>{props.children}</Styles.MainContent>
 				<Styles.MobileUser data-mobile-open={isOpen}>

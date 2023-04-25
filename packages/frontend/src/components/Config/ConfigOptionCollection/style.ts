@@ -1,13 +1,12 @@
-import styled from '@emotion/styled';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const ConfigOptionCollection = styled.ul`
-	display: flex;
-	flex-direction: column;
-	border-radius: 8px;
-	background-color: ${({ theme }) => theme.colors.onBackground.tertiary};
-	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
+export const ConfigOptionCollection = styled('ul', {
+	displayFlex: 'column',
+	borderRadius: theme.radii.lg,
+	backgroundColor: theme.colors.onBgTertiary,
+	borderThin: theme.colors.onBgSecondary,
 
-	> *:not(:last-child) { {
-		border-bottom: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-	}
-`;
+	'> *:not(:last-child)': {
+		borderBottomThin: theme.colors.onBgSecondary,
+	},
+});

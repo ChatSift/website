@@ -1,25 +1,35 @@
-import { useContext } from 'react';
+import { useEffect, useState } from 'react';
 import * as Styles from './style';
 import { buttonPadding } from './style';
-import Button from '~/components/Button';
-import * as Text from '~/components/Text';
-import { ThemeContext } from '~/pages/_app';
+import { Button } from '~/components/Button';
+import { Text } from '~/components/Text';
+import { theme } from '~/stitches/stitches.config';
+import { setThemeWrapper } from '~/stitches/switchTheme';
 import SvgDarkTheme from '~/svg/SvgDarkTheme';
 import SvgDiscord from '~/svg/SvgDiscord';
 import SvgGitHub from '~/svg/SvgGitHub';
 import SvgLightTheme from '~/svg/SvgLightTheme';
-import dark from '~/themes/dark';
-import light from '~/themes/light';
+import { loadSettings } from '~/utils/localUserSettings';
 
 type FooterProps = {
 	hasMargin?: boolean;
 };
 
 function Footer({ hasMargin = true }: FooterProps) {
-	const theme = useContext(ThemeContext);
+	const [currentThemeName, setCurrentThemeName] = useState('dark');
+
+	useEffect(() => {
+		setCurrentThemeName(loadSettings().theme);
+	}, []);
 
 	return (
-		<Styles.Footer data-has-margin={hasMargin}>
+		<Styles.Footer
+			hasMargin={hasMargin}
+			mobile={{
+				'@initial': false,
+				'@small': true,
+			}}
+		>
 			<noscript>
 				<style>
 					{`
@@ -33,24 +43,29 @@ function Footer({ hasMargin = true }: FooterProps) {
 			<Styles.ButtonsAndLinks>
 				<Styles.List>
 					<Styles.IconLink href="/github">
-						<SvgGitHub themeColor={(theme) => theme.colors.text.disabled} />
+						<SvgGitHub themeColor={theme.colors.textDisabled.toString()} />
 					</Styles.IconLink>
 					<Styles.IconLink href="/support">
-						<SvgDiscord themeColor={(theme) => theme.colors.text.disabled} />
+						<SvgDiscord themeColor={theme.colors.textDisabled.toString()} />
 					</Styles.IconLink>
 				</Styles.List>
 				<Styles.SecondGroup id="theme-settings">
-					<Text.Body.Regular>Theme:</Text.Body.Regular>
-					<Button.Ghost
+					<Text>Theme:</Text>
+					<Button
+						buttonType="ghost"
+						form="extraSmall"
 						paddingOverride={{ x: buttonPadding, y: buttonPadding }}
-						onPress={() => theme.update(theme.current.name === dark.name ? light : dark)}
+						onPress={() => {
+							setThemeWrapper(currentThemeName === 'dark' ? 'light' : 'dark');
+							setCurrentThemeName(currentThemeName === 'dark' ? 'light' : 'dark');
+						}}
 					>
-						{theme.current.name === dark.name ? (
-							<SvgDarkTheme themeColor={(theme) => theme.colors.text.primary} />
+						{currentThemeName === 'dark' ? (
+							<SvgDarkTheme themeColor={theme.colors.textPrimary.toString()} />
 						) : (
-							<SvgLightTheme themeColor={(theme) => theme.colors.text.primary} />
+							<SvgLightTheme themeColor={theme.colors.textPrimary.toString()} />
 						)}
-					</Button.Ghost>
+					</Button>
 				</Styles.SecondGroup>
 			</Styles.ButtonsAndLinks>
 		</Styles.Footer>

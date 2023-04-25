@@ -1,4 +1,4 @@
-import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
+import type { ReactElement } from 'react';
 import ama from '~/data/bots/ama';
 import autoModerator from '~/data/bots/automoderator';
 import modmail from '~/data/bots/modmail';
@@ -14,7 +14,7 @@ const bots: Record<BotId, Bot> = {
 	modmail,
 } as const;
 
-export const botIcons: Record<BotId, (props: { height: number; width?: number }) => EmotionJSX.Element> = {
+export const botIcons: Record<BotId, (props: { height: number; width?: number }) => ReactElement> = {
 	automoderator: SvgAutoModerator,
 	ama: SvgAma,
 	modmail: SvgModmail,

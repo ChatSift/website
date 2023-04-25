@@ -1,64 +1,55 @@
-import styled from '@emotion/styled';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const buttonPadding = 4;
-const radioButtonBottom = '32px';
 export const noJsControlsGap = '8px';
 export const noJsControlSize = '16px';
 
-export const Base = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 15px;
-`;
+export const Base = styled('div', {
+	displayFlex: 'column',
+	gap: theme.space.lg,
+});
 
-export const Content = styled.div`
-	display: grid;
-	flex-direction: row;
-	min-width: 100%;
-`;
+export const Content = styled('div', {
+	display: 'grid',
+	flexDirection: 'row',
+	minWidth: '100%',
+});
 
-export const ControlsArrows = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	gap: ${12 - buttonPadding}px;
-`;
+export const ControlsArrows = styled('div', {
+	displayFlex: 'row',
+	justifyContent: 'center',
+	alignItems: 'center',
+	gap: theme.space.xs,
+});
 
-export const ControlsNoJs = styled.div`
-	display: none;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	margin-bottom: ${radioButtonBottom};
-`;
+export const ControlsNoJs = styled('div', {
+	display: 'none',
+	flexDirection: 'row',
+	justifyContent: 'center',
+	alignItems: 'center',
+	position: 'relative',
+	marginBottom: theme.space.xxl,
+});
 
-export const NoJsPageRadioButton = styled.input`
-	position: absolute;
-	bottom: -${radioButtonBottom};
-	width: ${noJsControlSize};
-	height: ${noJsControlSize};
-	appearance: none;
-	background-color: ${({ theme }) => theme.colors.text.disabled};
-	border-radius: 100%;
-	scale: 0.9;
-	opacity: 0.7;
-	transition: background-color 0.2s ease-in-out, scale 0.2s ease-in-out;
-	cursor: pointer;
+export const NoJsPageRadioButton = styled('input', {
+	position: 'absolute',
+	bottom: `calc(${theme.space.xxl} * -1)`,
+	width: noJsControlSize,
+	height: noJsControlSize,
+	appearance: 'none',
+	backgroundColor: theme.colors.textDisabled,
+	borderRadius: '100%',
+	scale: 0.9,
+	opacity: 0.7,
+	transition: 'background-color 0.2s ease-in-out, scale 0.2s ease-in-out',
+	cursor: 'pointer',
 
-	&:hover {
-		scale: 1;
-		background-color: ${({ theme }) => theme.colors.text.secondary};
-	}
+	'&:hover': {
+		scale: 1,
+		backgroundColor: theme.colors.textSecondary,
+	},
 
-	&:checked {
-		scale: 1.1;
-		background-color: ${({ theme }) => theme.colors.text.primary};
-	}
-`;
-
-export const CurrentPage = styled.div`
-	font-weight: 450;
-	font-size: 18px;
-`;
+	'&:checked': {
+		scale: 1.1,
+		backgroundColor: theme.colors.textPrimary,
+	},
+});

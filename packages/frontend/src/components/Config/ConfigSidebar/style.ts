@@ -1,25 +1,29 @@
-import styled from '@emotion/styled';
 import { RouterLink } from '~/components/Link';
 import Sidebar from '~/components/Sidebar';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const ConfigSidebar = styled(Sidebar)`
-	gap: 16px;
-`;
+export const ConfigSidebar = styled(Sidebar, {
+	gap: theme.space.lg,
+});
 
-export const Links = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
+export const Links = styled('div', {
+	displayFlex: 'column',
+});
 
-export const SidebarLink = styled(RouterLink)`
-	padding: 8px 12px;
-	border-radius: 4px;
+export const SidebarLink = styled(RouterLink, {
+	padding: `${theme.space.sm} ${theme.space.md}`,
+	borderRadius: theme.radii.sm,
 
-	&[data-active='true'] {
-		background-color: ${({ theme }) => theme.colors.onBackground.tertiary};
-	}
-
-	&[data-loading='true'] {
-		pointer-events: none;
-	}
-`;
+	variants: {
+		isActive: {
+			true: {
+				backgroundColor: theme.colors.onBgTertiary,
+			},
+		},
+		isLoading: {
+			true: {
+				pointerEvents: 'none',
+			},
+		},
+	},
+});

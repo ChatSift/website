@@ -6,8 +6,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import * as Styles from './style';
 import AlertDialog from '~/components/AlertDialog';
-import Button from '~/components/Button';
-import * as Text from '~/components/Text';
+import { Button } from '~/components/Button';
+import { Text } from '~/components/Text';
 import useRouterLinkController from '~/context/RouterLinkControllerContext';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
 import { APIError } from '~/utils/fetch';
@@ -139,15 +139,21 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 		}
 
 		const portal = createPortal(
-			<Styles.DirtyBar data-hidden={!isDirty}>
-				<Text.Body.Regular>Unsaved changes</Text.Body.Regular>
+			<Styles.DirtyBar
+				isVisible={isDirty}
+				margin={{
+					'@initial': 'small',
+					'@small': 'large',
+				}}
+			>
+				<Text>Unsaved changes</Text>
 				<Styles.DirtyBarButtons>
-					<Button.Ghost paddingOverride={{ x: 12, y: 8 }} onPress={resetConfig} isDisabled={mutationIsLoading}>
+					<Button buttonType="ghost" form="small" disabled={true} onPress={resetConfig}>
 						Reset
-					</Button.Ghost>
-					<Button.Cta paddingOverride={{ x: 12, y: 8 }} onPress={saveConfig} isDisabled={mutationIsLoading}>
+					</Button>
+					<Button buttonType="callToAction" form="small" disabled={mutationIsLoading} onPress={saveConfig}>
 						Save
-					</Button.Cta>
+					</Button>
 				</Styles.DirtyBarButtons>
 			</Styles.DirtyBar>,
 			domNode,
@@ -165,14 +171,14 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 				open={saveError instanceof APIError}
 				isLoading={retryInProgress}
 				actionButton={
-					<Button.Cta isDisabled={retryInProgress} onPress={attemptRetry}>
+					<Button buttonType="callToAction" disabled={retryInProgress} onPress={attemptRetry}>
 						Retry
-					</Button.Cta>
+					</Button>
 				}
 				cancelButton={
-					<Button.Ghost isDisabled={retryInProgress} onPress={() => setSaveError(null)}>
+					<Button buttonType="ghost" disabled={retryInProgress} onPress={() => setSaveError(null)}>
 						Cancel
-					</Button.Ghost>
+					</Button>
 				}
 				title={`HTTP Error ${saveError instanceof APIError ? saveError.payload.statusCode : ''}`}
 			>
@@ -185,11 +191,15 @@ function ConfigForm<TConfig extends Record<string, unknown>, TParams extends Rec
 			<AlertDialog
 				open={dirtyNavigationUrl !== null}
 				actionButton={
-					<Button.Cta data-type="danger" onPress={() => void router.push(dirtyNavigationUrl!)}>
+					<Button buttonType="danger" onPress={() => void router.push(dirtyNavigationUrl!)}>
 						Leave
-					</Button.Cta>
+					</Button>
 				}
-				cancelButton={<Button.Ghost onPress={() => setDirtyNavigationUrl(null)}>Cancel</Button.Ghost>}
+				cancelButton={
+					<Button buttonType="ghost" onPress={() => setDirtyNavigationUrl(null)}>
+						Cancel
+					</Button>
+				}
 				title="Unsaved changes"
 			>
 				You have unsaved changes. Are you sure you want to leave?

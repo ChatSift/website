@@ -1,7 +1,7 @@
 import type { GuildSettings } from '@chatsift/modmail-api';
-import type { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import type { APIGuildTextChannel } from 'discord-api-types/v10';
 import { ChannelType } from 'discord-api-types/v10';
+import type { ReactElement } from 'react';
 import { useMemo, useState } from 'react';
 import ConfigForm from '~/components/Config/ConfigForm';
 import ConfigOption from '~/components/Config/ConfigOption';
@@ -9,9 +9,9 @@ import { ConfigOptionCollection } from '~/components/Config/ConfigOptionCollecti
 import ConfigPageFrame from '~/components/Config/ConfigPageFrame';
 import type { DropdownGroupedOptions } from '~/components/Dropdown';
 import Dropdown from '~/components/Dropdown';
-import { itemIcon } from '~/components/Dropdown/style';
+import * as Styles from '~/components/Dropdown/style';
 import PageMeta from '~/components/PageMeta';
-import * as Text from '~/components/Text';
+import { Text } from '~/components/Text';
 import { TextArea } from '~/components/TextArea';
 import ToggleSwitch from '~/components/ToggleSwitch';
 import useConfigGuildId from '~/hooks/useConfigGuildId';
@@ -23,13 +23,9 @@ import { fetchApi } from '~/utils/fetch';
 
 const allowedChannelTypes = [ChannelType.GuildText, ChannelType.GuildForum] as const;
 
-const channelIcons: Record<typeof allowedChannelTypes[number], EmotionJSX.Element> = {
-	[ChannelType.GuildText]: (
-		<SvgTextChannel themeColor={(theme) => theme.colors.text.currentColor} className={itemIcon} />
-	),
-	[ChannelType.GuildForum]: (
-		<SvgForumChannel themeColor={(theme) => theme.colors.text.currentColor} className={itemIcon} />
-	),
+const channelIcons: Record<typeof allowedChannelTypes[number], ReactElement> = {
+	[ChannelType.GuildText]: <SvgTextChannel className={Styles.itemIcon()} />,
+	[ChannelType.GuildForum]: <SvgForumChannel className={Styles.itemIcon()} />,
 };
 
 const withIcons = true;
@@ -117,7 +113,9 @@ function ModMailSettings() {
 				>
 					{({ currentValue, setFields }) => (
 						<>
-							<Text.Heading3>ModMail Settings</Text.Heading3>
+							<Text kind="heading3" color="primary" weight="bold">
+								ModMail Settings
+							</Text>
 							<ConfigOptionCollection>
 								<ConfigOption name="Greeting message" caption="Sent when a member creates a new ticket.">
 									<TextArea

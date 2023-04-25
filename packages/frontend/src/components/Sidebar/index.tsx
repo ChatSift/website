@@ -8,6 +8,8 @@ type SidebarProps = {
 	className?: string;
 };
 
+export const mobileThreshold = '@medium';
+
 function Sidebar({ children, className }: SidebarProps) {
 	return (
 		<>

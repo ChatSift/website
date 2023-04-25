@@ -1,28 +1,27 @@
-import styled from '@emotion/styled';
 import { Frame } from '~/components/Config/ConfigPageFrame/style';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const Base = styled(Frame)`
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	gap: 16px;
-`;
+export const Base = styled(Frame, {
+	justifyContent: 'center',
+	alignItems: 'center',
+	flexDirection: 'column',
+	gap: theme.space.lg,
+});
 
-export const Title = styled.span`
-	color: ${(props) => props.theme.colors.text.primary};
-	font-size: 32px;
-`;
+export const Title = styled('span', {
+	color: theme.colors.textPrimary,
+	fontSize: theme.fontSizes.five,
+});
 
-export const Description = styled.span`
-	color: ${(props) => props.theme.colors.text.secondary};
-	font-size: 24px;
-`;
+export const Description = styled('span', {
+	color: theme.colors.textSecondary,
+	fontSize: theme.fontSizes.four,
+});
 
-export const Buttons = styled.div`
-	display: flex;
-	flex-direction: row;
-	gap: 16px;
-	margin-top: 16px;
-	align-items: center;
-	flex-wrap: wrap;
-`;
+export const Buttons = styled('div', {
+	displayFlex: 'row',
+	gap: theme.space.lg,
+	marginTop: theme.space.lg,
+	alignItems: 'center',
+	flexWrap: 'wrap',
+});

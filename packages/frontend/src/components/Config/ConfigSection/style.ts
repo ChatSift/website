@@ -1,16 +1,14 @@
-import styled from '@emotion/styled';
+import { styled, theme } from '~/stitches/stitches.config';
 
-export const ConfigSection = styled.section`
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-	padding: 16px;
-	border-radius: 8px;
-	background-color: ${({ theme }) => theme.colors.background.card};
-	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-`;
+export const ConfigSection = styled('section', {
+	displayFlex: 'column',
+	gap: theme.space.lg,
+	padding: theme.space.lg,
+	borderRadius: theme.radii.lg,
+	backgroundColor: theme.colors.bgCard,
+	borderThin: theme.colors.onBgSecondary,
+});
 
-export const SectionHeader = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
+export const SectionHeader = styled('div', {
+	displayFlex: 'column',
+});

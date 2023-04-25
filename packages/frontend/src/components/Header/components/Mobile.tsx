@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import type { AriaLinkOptions } from 'react-aria';
-import { headerItems } from '../index';
+import { headerItems, isMobile } from '../index';
 import type { HeaderLink } from '../index';
 import * as Styles from '../style';
 import Logo from './Logo';
-import Button from '~/components/Button';
+import { Button } from '~/components/Button';
 import * as LoggedInUser from '~/components/LoggedInUser';
+import { theme } from '~/stitches/stitches.config';
 import SvgClose from '~/svg/SvgClose';
 import SvgHamburger from '~/svg/SvgHamburger';
 
@@ -25,7 +26,7 @@ function MobileLink({ item, mobileNavOpen, index, onClick, href, ...props }: Ari
 			{...props}
 			href={href}
 			key={item.href}
-			data-open={mobileNavOpen}
+			open={mobileNavOpen}
 			style={{ animationDelay: `${(headerItems.length - index) * linkDelay}s` }}
 			onClick={onClick}
 		>
@@ -36,7 +37,7 @@ function MobileLink({ item, mobileNavOpen, index, onClick, href, ...props }: Ari
 
 function Mobile() {
 	const animationDuration = headerItems.length * linkDelay + Styles.mobileNavAnimDuration;
-	const [mobileNavOpen, setMobileNavOpen] = useState<boolean | undefined>(undefined);
+	const [mobileNavOpen, setMobileNavOpen] = useState<boolean | undefined>(false);
 	const [hideList, setHideList] = useState(false);
 
 	useEffect(() => {
@@ -50,10 +51,17 @@ function Mobile() {
 	}, [animationDuration, mobileNavOpen]);
 
 	return (
-		<Styles.MobileNav data-open={mobileNavOpen} orientation="vertical">
-			<Styles.HeaderContent>
+		<Styles.MobileNav
+			mobile={{
+				'@initial': true,
+				'@medium': false,
+			}}
+			orientation="vertical"
+		>
+			<Styles.HeaderContent visible={isMobile}>
 				<Logo />
-				<Button.Ghost
+				<Button
+					buttonType="ghost"
 					style={{ padding: 12 }}
 					onPress={() => setMobileNavOpen(!(mobileNavOpen ?? false))}
 					title="open menu"
@@ -62,16 +70,16 @@ function Mobile() {
 					aria-haspopup="true"
 				>
 					{mobileNavOpen ? (
-						<SvgClose themeColor={(theme) => theme.colors.text.secondary} />
+						<SvgClose themeColor={theme.colors.textSecondary.toString()} />
 					) : (
-						<SvgHamburger themeColor={(theme) => theme.colors.text.secondary} />
+						<SvgHamburger themeColor={theme.colors.textSecondary.toString()} />
 					)}
-				</Button.Ghost>
+				</Button>
 			</Styles.HeaderContent>
 			<Styles.VerticalList
-				className={mobileNavOpen ? Styles.MobileNavOpen : Styles.MobileNavClosed}
+				// className={mobileNavOpen ? Styles.MobileNavOpen : Styles.MobileNavClosed}
 				style={{ animationDuration: `${animationDuration}s`, ...(hideList ? { display: 'none' } : {}) }}
-				data-open={mobileNavOpen}
+				open={mobileNavOpen}
 				id="menu"
 			>
 				{headerItems.map((item, index) => (
@@ -87,7 +95,14 @@ function Mobile() {
 					</Styles.MobileNavItem>
 				))}
 			</Styles.VerticalList>
-			<Styles.MobileUser data-mobile-open={mobileNavOpen} style={hideList ? { display: 'none' } : {}}>
+			<Styles.MobileUser
+				open={mobileNavOpen}
+				mobile={{
+					'@initial': true,
+					'@medium': false,
+				}}
+				visible={!hideList}
+			>
 				<LoggedInUser.Mobile />
 			</Styles.MobileUser>
 		</Styles.MobileNav>

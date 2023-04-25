@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
-import { BotCardBase, Buttons, Description, Title } from './style';
-import Button from '~/components/Button';
+import * as Styles from './style';
+import { Button } from '~/components/Button';
+import { Text } from '~/components/Text';
 
 export type Bot = {
 	description: string;
@@ -14,18 +15,18 @@ type BotCardProps = {
 
 function BotCard({ bot }: BotCardProps) {
 	return (
-		<BotCardBase>
-			<Title>
+		<Styles.BotCard>
+			<Styles.Title kind="heading3" weight="bold" color="primary">
 				{bot.icon} {bot.name}
-			</Title>
-			<Description>{bot.description}</Description>
-			<Buttons>
-				<Button.Cta paddingOverride={{ x: 14 }}>Add to server</Button.Cta>
-				<Button.Ghost paddingOverride={{ x: 14 }} hasBorder>
+			</Styles.Title>
+			<Text>{bot.description}</Text>
+			<Styles.Buttons>
+				<Button buttonType="callToAction">Add to server</Button>
+				<Button buttonType="ghost" ghostHasBorder>
 					Learn more
-				</Button.Ghost>
-			</Buttons>
-		</BotCardBase>
+				</Button>
+			</Styles.Buttons>
+		</Styles.BotCard>
 	);
 }
 

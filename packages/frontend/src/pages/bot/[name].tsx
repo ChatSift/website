@@ -1,149 +1,146 @@
-import styled from '@emotion/styled';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import { Fragment } from 'react';
 import BotUpsellCard from '~/components/BotUpsellCard';
-import ButtonLink from '~/components/ButtonLink';
+import { Button } from '~/components/Button';
+import { ButtonLink } from '~/components/ButtonLink';
 import Footer from '~/components/Footer';
 import Heading from '~/components/Heading';
 import ImageSlideshow from '~/components/ImageSlideshow';
 import PageMeta from '~/components/PageMeta';
 import Review from '~/components/Review';
 import SingleItemPaginator from '~/components/SingleItemPaginator';
+import { Text } from '~/components/Text';
 import bots from '~/data/bots';
-import mediaQueries from '~/styles/breakpoints';
+import { styled, theme, globalCss } from '~/stitches/stitches.config';
+import { mediaQueriesRaw } from '~/styles/breakpoints';
 import { dashboardMaxWidth, dashboardPadding, smallestDashboardWidth } from '~/utils/constants';
 
-const Container = styled.main`
-	padding-top: 16px;
-	flex: 1 0 auto;
-	display: flex;
-	flex-direction: column;
-	max-width: ${dashboardMaxWidth}px;
-	width: 80vw;
-	gap: 48px;
-	align-items: stretch;
-	color: ${({ theme }) => theme.colors.text.primary};
+const hideOnDevices = globalCss({
+	[`@media (max-width: ${mediaQueriesRaw.dashboardMaxWidth}px)`]: {
+		'[data-hide-on-mobile]': {
+			display: 'none !important',
+		},
+	},
+	[`@media (min-width: ${mediaQueriesRaw.dashboardMaxWidth}px)`]: {
+		'[data-hide-on-desktop]': {
+			display: 'none !important',
+		},
+	},
+});
 
-	${mediaQueries.dashboardMaxWidthMax} {
-		max-width: ${smallestDashboardWidth - dashboardPadding * 2}px;
+const Container = styled('main', {
+	displayFlex: 'column',
+	paddingTop: theme.space.lg,
+	flex: '1 0 auto',
+	width: '80vw',
+	gap: theme.space.huge,
+	alignItems: 'stretch',
 
-		& *[data-hide-on-mobile] {
-			display: none;
-		}
-	}
-	& *[data-hide-on-desktop] {
-		display: initial;
-	}
+	variants: {
+		mobile: {
+			true: {
+				maxWidth: smallestDashboardWidth - dashboardPadding * 2,
+			},
+			false: {
+				maxWidth: dashboardMaxWidth,
+			},
+		},
+	},
+});
 
-	${mediaQueries.dashboardMaxWidthMin} {
-		& *[data-hide-on-desktop] {
-			display: none;
-		}
-	}
-`;
+const Cta = styled('div', {
+	displayFlex: 'column',
+	gap: theme.space.md,
+	marginTop: theme.space.xxl,
+});
 
-const Cta = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-	margin-top: 32px;
-`;
+const CtaButtons = styled('div', {
+	displayFlex: 'row',
+	gap: theme.space.lg,
+});
 
-const CtaTitle = styled.h2`
-	font-size: 34px;
-	font-weight: 550;
-`;
+const CtaTextContainer = styled('div', {
+	displayFlex: 'column',
+});
 
-const CtaText = styled.span`
-	line-height: 24px;
-`;
+const Features = styled('ul', {
+	display: 'grid',
+	gap: theme.space.xl,
+	marginTop: theme.space.lg,
 
-const CtaButtons = styled.span`
-	display: flex;
-	flex-direction: row;
-	gap: 16px;
-`;
+	variants: {
+		columns: {
+			one: {
+				gridTemplateColumns: '1fr',
+			},
+			two: {
+				gridTemplateColumns: '1fr 1fr',
+			},
+		},
+	},
+});
 
-const Features = styled.ul`
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: 24px;
-	margin-top: 16px;
+const Feature = styled('li', {
+	padding: theme.space.lg,
+	displayFlex: 'column',
+	gap: theme.space.sm,
+	backgroundColor: theme.colors.bgCard,
+	borderThin: theme.colors.onBgSecondary,
+	borderRadius: theme.radii.lg,
+});
 
-	${mediaQueries.dashboardMaxWidthMin} {
-		grid-template-columns: 1fr 1fr;
-	}
-`;
+const FeatureName = styled(Text, {
+	'&::before': {
+		color: theme.colors.miscAccent,
+		marginRight: theme.space.sm,
+		content: '•',
+	},
+});
 
-const BotList = styled.ul`
-	display: flex;
-	gap: 16px;
-	flex-direction: column;
+const BotList = styled('ul', {
+	display: 'flex',
+	gap: theme.space.lg,
 
-	${mediaQueries.dashboardMaxWidthMin} {
-		flex-direction: row;
-	}
-`;
+	variants: {
+		direction: {
+			column: {
+				flexDirection: 'column',
+			},
+			row: {
+				flexDirection: 'row',
+			},
+		},
+	},
+});
 
-const SectionHeader = styled.div`
-	margin-bottom: 16px;
-`;
+const SectionHeader = styled('div', {
+	marginBottom: theme.space.lg,
+});
 
-const Title = styled.h2`
-	font-size: 26px;
-	font-weight: 550;
+const SectionTitle = styled(Text, {
+	'&:not(:last-child)': {
+		marginBottom: theme.space.sm,
+	},
+});
 
-	&:not(:last-child) {
-		margin-bottom: 8px;
-	}
-`;
+const DonationUpsellSection = styled('section', {
+	display: 'flex',
+	gap: theme.space.xl,
 
-const Text = styled.span`
-	font-size: 18px;
-
-	color: ${({ theme }) => theme.colors.text.secondary};
-`;
-
-const Feature = styled.li`
-	padding: 16px;
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	background-color: ${({ theme }) => theme.colors.background.card};
-	color: ${({ theme }) => theme.colors.text.secondary};
-	border: 1px solid ${({ theme }) => theme.colors.onBackground.secondary};
-	border-radius: 8px;
-`;
-
-const FeatureName = styled.h3`
-	font-size: 18px;
-	font-weight: 450;
-	color: ${({ theme }) => theme.colors.text.primary};
-
-	&::before {
-		color: ${({ theme }) => theme.colors.accent};
-		margin-right: 8px;
-		content: '•';
-	}
-`;
-
-const CtaTextContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
-
-const DonationUpsellSection = styled.section`
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	gap: 24px;
-	align-items: flex-start;
-
-	${mediaQueries.dashboardMaxWidthMin} {
-		flex-direction: row;
-		align-items: center;
-	}
-`;
+	variants: {
+		direction: {
+			column: {
+				flexDirection: 'column',
+				justifyContent: 'space-between',
+				alignItems: 'flex-start',
+			},
+			row: {
+				flexDirection: 'row',
+				alignItems: 'center',
+			},
+		},
+	},
+});
 
 export const getStaticPaths: GetStaticPaths = () => {
 	const paths = Object.keys(bots).map((bot) => ({
@@ -177,11 +174,20 @@ export const getStaticProps: GetStaticProps = ({ params }) => {
 };
 
 function BotPage({ bot }: { bot: Bot | undefined }) {
+	hideOnDevices();
+
 	if (bot === undefined) {
 		return (
 			<>
 				<PageMeta title="Bot not found" />
-				<Container>Unknown bot</Container>
+				<Container
+					mobile={{
+						'@initial': true,
+						'@dashboardMaxWidth': false,
+					}}
+				>
+					Unknown bot
+				</Container>
 			</>
 		);
 	}
@@ -191,36 +197,47 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 	return (
 		<Fragment key={bot.name /* diff key for each bot forces reset of state, etc */}>
 			<PageMeta title={bot.name} description={bot.description.card} />
-			<Container>
+			<Container
+				mobile={{
+					'@initial': true,
+					'@dashboardMaxWidth': false,
+				}}
+			>
 				<section>
 					<ImageSlideshow images={bot.slideshowImages} imageWidths={bot.slideshowImageWidths} />
 					<Cta>
-						<CtaTitle>{bot.pageTitle}</CtaTitle>
+						<Text kind="title" color="primary" weight="bold">
+							{bot.pageTitle}
+						</Text>
 						<CtaTextContainer>
 							{bot.description.page.map((line, index) => (
-								<CtaText key={index}>{line}</CtaText>
+								<Text key={index}>{line}</Text>
 							))}
 						</CtaTextContainer>
 						<CtaButtons>
-							<ButtonLink.Cta href={bot.inviteLink} external>
+							<Button as={ButtonLink} href={bot.inviteLink} buttonType="callToAction" external>
 								Add to server
-							</ButtonLink.Cta>
-							<ButtonLink.Ghost href="/support" hasBorder external>
+							</Button>
+							<Button as={ButtonLink} href="/support" buttonType="ghost" ghostHasBorder external>
 								Get support
-							</ButtonLink.Ghost>
+							</Button>
 						</CtaButtons>
 					</Cta>
 				</section>
 				<section>
 					<SectionHeader>
-						<Title>{bot.featureList.title}</Title>
+						<SectionTitle kind="subtitle" color="primary" weight="bold">
+							{bot.featureList.title}
+						</SectionTitle>
 						<Text>{bot.featureList.text}</Text>
 					</SectionHeader>
-					<Features data-hide-on-mobile>
+					<Features data-hide-on-mobile columns="two">
 						{bot.featureList.features.map(({ name, description }, index) => (
 							<Feature key={`${name}-${index}`}>
-								<FeatureName>{name}</FeatureName>
-								<span>{description}</span>
+								<FeatureName kind="body" color="primary">
+									{name}
+								</FeatureName>
+								<Text kind="caption">{description}</Text>
 							</Feature>
 						))}
 					</Features>
@@ -229,14 +246,13 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 						<SingleItemPaginator>
 							{[...(Array.from({ length: Math.ceil(bot.featureList.features.length / 3) }) as unknown[])].map(
 								(_, index) => (
-									<Features
-										style={{ gridTemplateRows: '1fr '.repeat(Math.ceil(bot.featureList.features.length / 3)) }}
-										key={`page-${index}`}
-									>
+									<Features style={{ gridTemplateRows: '1fr 1fr 1fr' }} key={`page-${index}`} columns="one">
 										{bot.featureList.features.slice(index * 3, index * 3 + 3).map(({ name, description }, jIndex) => (
 											<Feature key={`feat-${name}-${index}-${jIndex}`}>
-												<FeatureName>{name}</FeatureName>
-												<span>{description}</span>
+												<FeatureName kind="body" color="primary">
+													{name}
+												</FeatureName>
+												<Text kind="caption">{description}</Text>
 											</Feature>
 										))}
 									</Features>
@@ -248,7 +264,9 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 				{bot.reviews && (
 					<section>
 						<SectionHeader>
-							<Title>{bot.reviews.title}</Title>
+							<SectionTitle kind="subtitle" color="primary" weight="bold">
+								{bot.reviews.title}
+							</SectionTitle>
 						</SectionHeader>
 						{/* @ts-expect-error TS2745 */}
 						<SingleItemPaginator>
@@ -261,9 +279,16 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 				{otherBots.length > 0 && (
 					<section>
 						<SectionHeader>
-							<Title>Check out our other bots</Title>
+							<SectionTitle kind="subtitle" color="primary" weight="bold">
+								Check out our other bots
+							</SectionTitle>
 						</SectionHeader>
-						<BotList>
+						<BotList
+							direction={{
+								'@initial': 'column',
+								'@dashboardMaxWidth': 'row',
+							}}
+						>
 							{otherBots.map(([pathName, bot]) => (
 								<li key={pathName}>
 									<BotUpsellCard bot={bot} pathName={pathName} />
@@ -272,15 +297,19 @@ function BotPage({ bot }: { bot: Bot | undefined }) {
 						</BotList>
 					</section>
 				)}
-				<DonationUpsellSection>
+				<DonationUpsellSection
+					direction={{
+						'@initial': 'column',
+						'@dashboardMaxWidth': 'row',
+					}}
+				>
 					<Heading
 						title="Help keep the project alive"
 						subtitle="Donate on Kofi to help support the apps we're developing."
-						gap={12}
 					/>
-					<ButtonLink.Cta href="/kofi" external>
+					<Button as={ButtonLink} href="/kofi" buttonType="callToAction" external>
 						Donate
-					</ButtonLink.Cta>
+					</Button>
 				</DonationUpsellSection>
 			</Container>
 			<Footer />

@@ -1,147 +1,152 @@
-import styled from '@emotion/styled';
-import Skeleton from 'react-loading-skeleton';
-import mediaQueries from '~/styles/breakpoints';
+import { Text } from '~/components/Text';
+import { styled, theme } from '~/stitches/stitches.config';
 import { guildCardGap, guildCardWidthDesktop, guildCardWidthMobile } from '~/utils/constants';
 
-const guildCardInnerGap = 12;
+const guildCardInnerGap = theme.space.md;
 export const guildCardSmallDashWidth = '80vw';
 
-export const NotInvited = styled.span`
-	font-size: 16px;
-`;
+export const GuildTitle = styled(Text, {
+	whiteSpace: 'nowrap',
+	width: '100%',
+	textOverflow: 'ellipsis',
+	overflow: 'hidden',
+});
 
-export const GuildTitle = styled.h3`
-	font-size: 18px;
-	color: ${(props) => props.theme.colors.text.primary};
-	font-weight: 550;
-	margin: 0;
-	white-space: nowrap;
-	width: 100%;
-	text-overflow: ellipsis;
-	overflow: hidden;
-`;
+export const CardHeader = styled('div', {
+	displayFlex: 'row',
+	alignItems: 'center',
+	gap: theme.space.md,
+});
 
-export const CardHeader = styled.div`
-	display: flex;
-	align-items: center;
-	flex-direction: row;
-	gap: 12px;
-`;
+export const NotInvitedHover = styled('div', {
+	displayFlex: 'column',
+	gap: guildCardInnerGap,
+});
 
-export const NotInvitedHover = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: ${guildCardInnerGap}px;
-`;
+export const BotListNotInvited = styled('ul', {
+	displayFlex: 'row',
+	gap: theme.space.md,
+});
 
-export const BotListNotInvited = styled.ul`
-	display: flex;
-	gap: 12px;
-`;
+export const Bot = styled('a', {
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	backgroundColor: theme.colors.onBgTertiary,
+	borderRadius: theme.radii.sm,
+	width: theme.sizes.image,
+	height: theme.sizes.image,
+});
 
-export const Bot = styled.a`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: ${({ theme }) => theme.colors.onBackground.tertiary};
-	border-radius: 4px;
-	width: 48px;
-	height: 48px;
-`;
+export const GuildImage = styled('img', {
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	backgroundColor: theme.colors.onBgTertiary,
+	width: `${theme.sizes.image} !important`,
+	height: theme.sizes.image,
+	borderRadius: `${theme.radii.rounded} !important`,
+	borderThin: theme.colors.onBgSecondary,
+});
 
-export const GuildImage = styled.img`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 48px;
-	height: 48px;
-	border-radius: 100%;
-	border: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
-`;
+export const GuildAcronym = styled(GuildImage, {
+	'&::after': {
+		maxWidth: '70%',
+		content: 'attr(data-full)',
+		whiteSpace: 'nowrap',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+	},
+});
 
-export const GuildAcronym = styled(GuildImage.withComponent('div'))`
-	&::after {
-		max-width: 70%;
-		content: attr(data-full);
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-`;
-export const SkeletonImage = GuildImage.withComponent(Skeleton);
+export const GuildCardBase = styled('a', {
+	displayFlex: 'column',
+	gap: guildCardInnerGap,
+	padding: guildCardGap,
+	borderRadius: theme.radii.lg,
+	borderThin: theme.colors.onBgSecondary,
+	minWidth: guildCardWidthMobile,
+	height: 144,
 
-export const GuildCardBase = styled.a`
-	display: flex;
-	gap: ${guildCardInnerGap}px;
-	flex-direction: column;
-	padding: ${guildCardGap}px;
-	border-radius: 8px;
-	border: 1px solid ${(props) => props.theme.colors.onBackground.secondary};
-	min-width: ${guildCardWidthMobile}px;
-	width: ${guildCardWidthDesktop}px;
-	height: 144px;
-	color: ${(props) => props.theme.colors.text.secondary};
+	[`&:not(:hover) ${NotInvitedHover}`]: {
+		display: 'none',
+	},
 
-	& > span {
-		display: flex;
-	}
+	variants: {
+		mobile: {
+			true: {
+				width: guildCardSmallDashWidth,
+			},
+			false: {
+				width: guildCardWidthDesktop,
+			},
+		},
 
-	&[data-is-invited='true'] {
-		background-color: ${(props) => props.theme.colors.background.card};
+		isInvited: {
+			true: {
+				backgroundColor: theme.colors.bgCard,
 
-		#header-title {
-			display: none;
-		}
-	}
+				'#header-title': {
+					display: 'none',
+				},
+			},
+		},
 
-	&[data-is-invited='false'][data-skeleton='false'] {
-		&:not(:hover) #header-title {
-			display: none;
-		}
+		isSkeleton: {
+			true: {
+				[`${NotInvitedHover}`]: {
+					display: 'none',
+				},
+			},
+		},
+	},
 
-		&:hover {
-			#not-invited-hover-title {
-				display: none;
-			}
+	compoundVariants: [
+		{
+			isInvited: false,
+			isSkeleton: false,
+			css: {
+				'&:not(:hover) #header-title': {
+					display: 'none',
+				},
 
-			${GuildAcronym},
-			${GuildImage} {
-				width: 24px;
-				height: 24px;
-				aspect-ratio: 1;
-			}
+				'&:hover': {
+					'#not-invited-hover-title': {
+						display: 'none',
+					},
 
-			${GuildAcronym}::after {
-				content: attr(data-first-letter);
-			}
+					[`${GuildAcronym}, ${GuildImage}`]: {
+						width: theme.sizes.smallImage,
+						height: theme.sizes.smallImage,
+						aspectRatio: '1',
+					},
 
-			${NotInvited} {
-				display: none;
-			}
-		}
-	}
+					[`${GuildAcronym}::after`]: {
+						content: 'attr(data-first-letter)',
+					},
 
-	&:not([data-skeleton='true'])[data-is-invited='true'] {
-		cursor: pointer;
-	}
+					'.not-invited': {
+						display: 'none',
+					},
+				},
+			},
+		},
+		{
+			isInvited: true,
+			isSkeleton: false,
+			css: {
+				cursor: 'pointer',
+			},
+		},
+	],
+});
 
-	&:not(:hover) ${NotInvitedHover}, &[data-skeleton='true'] ${NotInvitedHover} {
-		display: none;
-	}
+export const NameAndBots = styled('div', {
+	displayFlex: 'column',
+	gap: theme.space.xxs,
+});
 
-	${mediaQueries.smallestDashboardWidthMax} {
-		width: ${guildCardSmallDashWidth};
-	}
-`;
-
-export const NameAndBots = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 4px;
-`;
-
-export const BotList = styled.ul`
-	display: flex;
-	flex-direction: row;
-	gap: 4px;
-`;
+export const BotList = styled('ul', {
+	displayFlex: 'row',
+	gap: theme.space.xxs,
+});
