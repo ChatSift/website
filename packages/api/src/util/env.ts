@@ -27,11 +27,15 @@ export class Env {
 
 	public readonly modmailAPIURL = process.env.MODMAIL_API_URL!;
 
+	public readonly socialAPIURL = process.env.SOCIAL_API_URL!;
+
 	public readonly automoderatorToken = process.env.AUTOMODERATOR_TOKEN!;
 
 	public readonly amaToken = process.env.AMA_TOKEN!;
 
 	public readonly modmailToken = process.env.MODMAIL_TOKEN!;
+
+	public readonly socialToken = process.env.SOCIAL_TOKEN!;
 
 	public get scopesString(): string {
 		return [...this.discordScopes].join(' ');
@@ -46,9 +50,11 @@ export class Env {
 		'AUTOMODERATOR_API_URL',
 		'AMA_API_URL',
 		'MODMAIL_API_URL',
+		'SOCIAL_API_URL',
 		'AUTOMODERATOR_TOKEN',
 		'AMA_TOKEN',
 		'MODMAIL_TOKEN',
+		'SOCIAL_TOKEN',
 	] as const;
 
 	public constructor() {

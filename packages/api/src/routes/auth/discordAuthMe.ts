@@ -13,6 +13,7 @@ export type GetDiscordAuthMeResult = {
 		hasAma: boolean;
 		hasAutomoderator: boolean;
 		hasModmail: boolean;
+		hasSocial: boolean;
 		icon: string | null;
 		id: string;
 		name: string;
@@ -34,6 +35,7 @@ export default class extends Route<GetDiscordAuthMeResult, never> {
 		@inject(SYMBOLS.automoderatorRest) private readonly automoderatorRest: REST,
 		@inject(SYMBOLS.amaRest) private readonly amaRest: REST,
 		@inject(SYMBOLS.modmailRest) private readonly modmailRest: REST,
+		@inject(SYMBOLS.socialRest) private readonly socialRest: REST,
 	) {
 		super();
 	}
@@ -60,10 +62,11 @@ export default class extends Route<GetDiscordAuthMeResult, never> {
 				// @ts-expect-error - Missing discord-api-types
 				// TODO: Remove once upstream has the types
 				guilds.map(async ({ id, name, icon, approximate_member_count, approximate_presence_count }) => {
-					const [hasAutomoderator, hasAma, hasModmail] = await Promise.all([
+					const [hasAutomoderator, hasAma, hasModmail, hasSocial] = await Promise.all([
 						this.has(id, this.automoderatorRest),
 						this.has(id, this.amaRest),
 						this.has(id, this.modmailRest),
+						this.has(id, this.socialRest),
 					]);
 
 					return {
@@ -75,6 +78,7 @@ export default class extends Route<GetDiscordAuthMeResult, never> {
 						hasAutomoderator,
 						hasAma,
 						hasModmail,
+						hasSocial,
 					};
 				}),
 			),

@@ -1,6 +1,7 @@
 import type { AMARoutes } from '@chatsift/ama-api';
 import type { ModmailRoutes } from '@chatsift/modmail-api';
 import type { Route, InferRouteResult, InferRouteBody } from '@chatsift/rest-utils';
+import type { SocialRoutes } from '@chatsift/social-api';
 import type { AuthRoutes } from '@chatsift/website-api';
 import type { Payload } from '@hapi/boom';
 import type { NextRouter } from 'next/router';
@@ -8,7 +9,7 @@ import type { useErrorHandler } from 'react-error-boundary';
 import type { DialogController } from '~/context/DialogControllerContext';
 import * as Urls from '~/utils/urls';
 
-type Routes = AMARoutes & AuthRoutes & ModmailRoutes;
+type Routes = AMARoutes & AuthRoutes & ModmailRoutes & SocialRoutes;
 
 export class APIError extends Error {
 	public constructor(public readonly payload: Payload, public readonly method: string) {

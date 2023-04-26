@@ -25,6 +25,7 @@ container.register(SYMBOLS.oauthRest, { useValue: new REST({ authPrefix: 'Bearer
 container.register(SYMBOLS.automoderatorRest, { useValue: new REST().setToken(env.automoderatorToken) });
 container.register(SYMBOLS.amaRest, { useValue: new REST().setToken(env.amaToken) });
 container.register(SYMBOLS.modmailRest, { useValue: new REST().setToken(env.modmailToken) });
+container.register(SYMBOLS.socialRest, { useValue: new REST().setToken(env.socialToken) });
 
 const app = polka({
 	onError(error, _, res) {
@@ -66,7 +67,8 @@ for await (const file of files) {
 app
 	.use('/automoderator/:version/*', discordAuth(), proxyRequests(env.automoderatorAPIURL))
 	.use('/ama/:version/*', discordAuth(), proxyRequests(env.amaAPIURL))
-	.use('/modmail/:version/*', discordAuth(), proxyRequests(env.modmailAPIURL));
+	.use('/modmail/:version/*', discordAuth(), proxyRequests(env.modmailAPIURL))
+	.use('/social/:version/*', discordAuth(), proxyRequests(env.socialAPIURL));
 
 app.listen(env.port, () => logger.info(`Listening to requests on port ${env.port}`));
 

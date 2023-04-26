@@ -14,6 +14,7 @@
 		"@chatsift/ama-api": "^0.1.1",
 		"@chatsift/modmail-api": "^0.2.3",
 		"@chatsift/rest-utils": "^0.6.2",
+		"@chatsift/social-api": "^0.1.0",
 		"@chatsift/website-api": "workspace:^",
 		"@emotion/babel-plugin": "^11.10.2",
 		"@hapi/boom": "^10.0.0",
