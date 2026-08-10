@@ -1,7 +1,9 @@
 # website
 
-## Contributing -- Site Requirements
+## About
 
-- Site must work on mobile with a width down to 300px
-- The marketing portion of the site must work without JavaScript
-- Dashboard must have a noscript notice for users who have JavaScript disabled
+This repository has been archived. The new version of the website resides in [ChatSift/chatsift](https://github.com/ChatSift/chatsift).
+
+## Licensing
+
+This project is lincensed under the GNU AGPLv3 license. View the full file [here](./LICENSE).
